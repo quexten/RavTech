@@ -18,3 +18,6 @@ It's still quite a way to the first stable version.
 - Android
 - iOS
 - HTML5
+
+##License
+The Engine and Development Kit are Licensed under the Apache 2 License
