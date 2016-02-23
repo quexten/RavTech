@@ -1,14 +1,24 @@
-
+/*******************************************************************************
+ * Copyright 2014-2016 Bernd Schoolmann
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
 package com.ravelsoftware.ravtech.client;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.ravelsoftware.ravtech.HookApi;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.scripts.Script;
-import com.ravelsoftware.ravtech.scripts.luajs.MoonshineJSScriptLoader;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NodeList;
@@ -16,100 +26,96 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.ravelsoftware.ravtech.HookApi;
+import com.ravelsoftware.ravtech.RavTech;
+import com.ravelsoftware.ravtech.scripts.Script;
+import com.ravelsoftware.ravtech.scripts.luajs.MoonshineJSScriptLoader;
 
 public class HtmlLauncher extends GwtApplication {
-    
+
     static final int WIDTH = 1600;
     static final int HEIGHT = 900;
-    static HtmlLauncher instance;    
-    
+    static HtmlLauncher instance;
+
     @Override
-    public GwtApplicationConfiguration getConfig() {
+    public GwtApplicationConfiguration getConfig () {
         GwtApplicationConfiguration config = new GwtApplicationConfiguration(1600, 900);
-        
         Element element = Document.get().getElementById("embed-html");
         VerticalPanel panel = new VerticalPanel();
-       // panel.setWidth("100%");
-       // panel.setHeight("100%");
+        // panel.setWidth("100%");
+        // panel.setHeight("100%");
         panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
         panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
         element.appendChild(panel.getElement());
         config.rootPanel = panel;
-        
         return config;
     }
 
     @Override
-    public ApplicationListener getApplicationListener() {
-        
+    public ApplicationListener getApplicationListener () {
         instance = this;
         setLoadingListener(new LoadingListener() {
-            @Override
-            public void beforeSetup() {
 
+            @Override
+            public void beforeSetup () {
             }
 
             @Override
-            public void afterSetup() {
-               // scaleCanvas();
-               // setupResizeHook();
+            public void afterSetup () {
+                // scaleCanvas();
+                // setupResizeHook();
             }
         });
-        
         RavTech ravtech = new RavTech(new InternalFileHandleResolver());
         RavTech.files.getAssetManager().setLoader(Script.class, new MoonshineJSScriptLoader(RavTech.files.getResolver()));
-        
         HookApi.onRenderHooks.add(new Runnable() {
+
             @Override
-            public void run() {
+            public void run () {
             }
         });
         return ravtech;
     }
-    
-    void scaleCanvas() {
+
+    void scaleCanvas () {
         Element element = Document.get().getElementById("embed-html");
         int innerWidth = getWindowInnerWidth();
         int innerHeight = getWindowInnerHeight();
         int newWidth = innerWidth;
         int newHeight = innerHeight;
-        float ratio = innerWidth / (float) innerHeight;
-        float viewRatio = WIDTH / (float) HEIGHT;
-
-        if (ratio > viewRatio) {
-            newWidth = (int) (innerHeight * viewRatio);
-        } else {
-            newHeight = (int) (innerWidth / viewRatio);
-        }
-
+        float ratio = innerWidth / (float)innerHeight;
+        float viewRatio = WIDTH / (float)HEIGHT;
+        if (ratio > viewRatio)
+            newWidth = (int)(innerHeight * viewRatio);
+        else
+            newHeight = (int)(innerWidth / viewRatio);
         NodeList<Element> nl = element.getElementsByTagName("canvas");
-
         if (nl != null && nl.getLength() > 0) {
             Element canvas = nl.getItem(0);
             canvas.setAttribute("width", "" + newWidth + "px");
             canvas.setAttribute("height", "" + newHeight + "px");
             canvas.getStyle().setWidth(newWidth, Style.Unit.PX);
             canvas.getStyle().setHeight(newHeight, Style.Unit.PX);
-            canvas.getStyle().setTop((int) ((innerHeight - newHeight) * 0.5f), Style.Unit.PX);
-            canvas.getStyle().setLeft((int) ((innerWidth - newWidth) * 0.5f), Style.Unit.PX);
+            canvas.getStyle().setTop((int)((innerHeight - newHeight) * 0.5f), Style.Unit.PX);
+            canvas.getStyle().setLeft((int)((innerWidth - newWidth) * 0.5f), Style.Unit.PX);
             canvas.getStyle().setPosition(Style.Position.ABSOLUTE);
         }
     }
 
-    native int getWindowInnerWidth() /*-{
-        return $wnd.innerWidth;
-    }-*/;
+    native int getWindowInnerWidth () /*-{
+                                      return $wnd.innerWidth;
+                                      }-*/;
 
-    native int getWindowInnerHeight() /*-{
-        return $wnd.innerHeight;
-    }-*/;
+    native int getWindowInnerHeight () /*-{
+                                       return $wnd.innerHeight;
+                                       }-*/;
 
-    native void setupResizeHook() /*-{
-        var htmlLauncher_onWindowResize = $entry(@com.ravelsoftware.ravtech.client.HtmlLauncher::handleResize());
-        $wnd.addEventListener('resize', htmlLauncher_onWindowResize, false);
-    }-*/;
+    native void setupResizeHook () /*-{
+                                   var htmlLauncher_onWindowResize = $entry(@com.ravelsoftware.ravtech.client.HtmlLauncher::handleResize());
+                                   $wnd.addEventListener('resize', htmlLauncher_onWindowResize, false);
+                                   }-*/;
 
-    public static void handleResize() {
+    public static void handleResize () {
         instance.scaleCanvas();
     }
 
@@ -117,5 +123,4 @@ public class HtmlLauncher extends GwtApplication {
     public ApplicationListener createApplicationListener () {
         return this.getApplicationListener();
     }
-    
 }
