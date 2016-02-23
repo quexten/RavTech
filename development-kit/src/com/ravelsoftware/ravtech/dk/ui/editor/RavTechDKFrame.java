@@ -78,6 +78,8 @@ import com.ravelsoftware.ravtech.dk.ui.editor.Inspector.InspectableType;
 import com.ravelsoftware.ravtech.dk.ui.options.OpenOptionsDialogAction;
 import com.ravelsoftware.ravtech.dk.ui.utils.IconUtil;
 import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
+import com.ravelsoftware.ravtech.history.ChangeManager;
+import com.ravelsoftware.ravtech.history.CreateChangeable;
 import com.ravelsoftware.ravtech.settings.RavSettings;
 import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.GameObjectTraverseUtil;
@@ -97,9 +99,6 @@ public class RavTechDKFrame extends JFrame {
     public AnimationView animationView;
     public FileView view;
 
-    /** Constructor.
-     *
-     * @param title */
     public RavTechDKFrame(RavTech ravtech) {
         super();
         this.setTitle(getFullTitle());
@@ -448,6 +447,26 @@ public class RavTechDKFrame extends JFrame {
             });
             menuNetwork.add(itemConnect);
             bar.add(menuNetwork);
+        }
+        { // Components Menu
+            menu = new JMenu("Components");
+            { // Components
+                entry = new JMenuItem("Add GameObject");
+                entry.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed (ActionEvent arg0) {
+                        CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
+                            "{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
+                                + RavTech.sceneHandler.worldCamera.position.x + ",\"y\":" + RavTech.sceneHandler.worldCamera.position.y
+                                + ",\"rotation\":0,\"scale\":1}]}");
+                        ChangeManager.addChangeable(changeable);
+                        RavTechDKUtil.setSelectedObject(RavTech.currentScene.gameObjects.peek());
+                    }
+                });
+                menu.add(entry);
+            }
+            bar.add(menu);
         }
         { // Window Menu
             menu = new JMenu("Project");

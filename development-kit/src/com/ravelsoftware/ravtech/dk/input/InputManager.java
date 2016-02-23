@@ -37,8 +37,6 @@ import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.PasteAction;
-import com.ravelsoftware.ravtech.history.ChangeManager;
-import com.ravelsoftware.ravtech.history.CreateChangeable;
 import com.ravelsoftware.ravtech.util.EventType;
 
 import net.java.games.input.Component;
@@ -71,13 +69,6 @@ public class InputManager implements InputProcessor {
         if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C) new CopyAction().run();
         if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V) new PasteAction().run();
         if (keycode == Keys.F2) GamepadObserver.pollControllers();
-        if (keycode == Keys.TAB) {
-            CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
-                "{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
-                    + RavTech.input.getWorldPosition().x + ",\"y\":" + RavTech.input.getWorldPosition().y
-                    + ",\"rotation\":0,\"scale\":1}]}");
-            ChangeManager.addChangeable(changeable);
-        }
         return false;
     }
 
