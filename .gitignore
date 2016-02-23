@@ -32,13 +32,12 @@ android/gen/
 out/
 com_crashlytics_export_strings.xml
 
-##development-kit
+## development-kit
 development-kit/temp-zerobrane.zip
-development-kit/zbstudio
-development-kit/temp
-development-kit/builder
-development-kit/build
-
+development-kit/zbstudio/
+development-kit/temp/
+development-kit/builder/
+development-kit/build/
 
 ## Eclipse
 .classpath
