@@ -182,7 +182,8 @@ public class SceneHandler {
         shapeRenderer.begin(ShapeType.Line);
         Debug.render(shapeRenderer);
         shapeRenderer.end();
-        box2DRenderer.render(box2DWorld, worldCamera.combined);
+        if(RavTech.settings.getBoolean("renderDebug"))
+            box2DRenderer.render(box2DWorld, worldCamera.combined);
     }
 
     public void resize (int width, int height) {

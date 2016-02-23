@@ -138,7 +138,9 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 
     @Override
     public int getVariableId (String variableName) {
-        if (super.getVariableId(variableName) == -1) switch (variableName) {
+        int superId = super.getVariableId(variableName);
+        if (superId != -1) return superId;
+        switch (variableName) {
             case "x":
                 return 7;
             case "y":
