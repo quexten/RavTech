@@ -32,6 +32,7 @@ public class CircleColliderGizmo extends Gizmo {
 
     public CircleColliderGizmo(CircleCollider circleCollider) {
         this.circleCollider = circleCollider;
+        this.isExclusive = true;
     }
 
     @Override

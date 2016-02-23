@@ -57,7 +57,12 @@ public class RavTechDKUtil {
     public static boolean renderSelection;
     public static String selectedObject;
     public static ObjectMap<GameComponent, Gizmo> selectedObjectGizmoMap = new ObjectMap<GameComponent, Gizmo>();
-    public static Gizmo closestGizmo;
+    public static Gizmo closestGizmo;    
+    
+    //Gizmo that overrides the input and rendering rights of other gizmos, therefore gaining exclusivity
+    public static Gizmo exclusiveGizmo;
+    
+    
     public static Array<GameObject> selectedObjects = new Array<GameObject>();
     static ExecutorService service = Executors.newFixedThreadPool(5);
 
@@ -175,5 +180,13 @@ public class RavTechDKUtil {
             gizmo = new PolygonColliderGizmo((PolygonCollider)component);
         else if (iteratedComponentClass.equals(SpriteRenderer.class)) gizmo = new SpriteRendererGizmo((SpriteRenderer)component);
         return gizmo;
+    }
+
+    public static void setExclusiveGizmo (GameComponent component) {
+        if(component != null) {
+            RavTechDKUtil.exclusiveGizmo = getGizmoFor(component);
+        } else {
+            RavTechDKUtil.exclusiveGizmo = null;
+        }
     }
 }

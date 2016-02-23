@@ -37,6 +37,7 @@ import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.PasteAction;
+import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 
 import net.java.games.input.Component;
@@ -85,21 +86,25 @@ public class InputManager implements InputProcessor {
     @Override
     public boolean mouseMoved (int screenX, int screenY) {
         if (RavTechDKUtil.selectedObjects.size > 0) {
-            Values<Gizmo> values = RavTechDKUtil.selectedObjectGizmoMap.values();
-            Gizmo closestGizmo = null;
-            float closestDst = Float.MAX_VALUE;
-            while (values.hasNext) {
-                Gizmo giz = values.next();
-                float gizDst = giz.input(0, EventType.MouseMoved);
-                if (gizDst > 0 && gizDst < closestDst
-                    && Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f * RavTech.sceneHandler.worldCamera.zoom) {
-                    closestDst = gizDst;
-                    closestGizmo = giz;
+            if(RavTechDKUtil.exclusiveGizmo == null) {
+                Values<Gizmo> values = RavTechDKUtil.selectedObjectGizmoMap.values();
+                Gizmo closestGizmo = null;
+                float closestDst = Float.MAX_VALUE;
+                while (values.hasNext) {
+                    Gizmo giz = values.next();
+                    float gizDst = giz.input(0, EventType.MouseMoved);
+                    if (gizDst > 0 && gizDst < closestDst
+                        && Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f * RavTech.sceneHandler.worldCamera.zoom) {
+                        closestDst = gizDst;
+                        closestGizmo = giz;
+                    }
                 }
+                RavTechDK.ui.ravtechDKFrame
+                    .setCursor(Cursor.getPredefinedCursor(closestGizmo == null ? Cursor.DEFAULT_CURSOR : Cursor.MOVE_CURSOR));
+                RavTechDKUtil.closestGizmo = closestGizmo;
+            } else {
+                RavTechDKUtil.closestGizmo = (RavTechDKUtil.exclusiveGizmo.input(0, EventType.MouseMoved) > 0f) ? RavTechDKUtil.exclusiveGizmo : null;
             }
-            RavTechDK.ui.ravtechDKFrame
-                .setCursor(Cursor.getPredefinedCursor(closestGizmo == null ? Cursor.DEFAULT_CURSOR : Cursor.MOVE_CURSOR));
-            RavTechDKUtil.closestGizmo = closestGizmo;
         }
         return false;
     }
@@ -182,6 +187,7 @@ public class InputManager implements InputProcessor {
             } else {
                 RavTechDKUtil.selectedObjectGizmoMap.clear();
                 RavTechDKUtil.selectedObjects.clear();
+                RavTechDKUtil.setExclusiveGizmo(null);
             }
         }
         return false;
@@ -226,6 +232,7 @@ public class InputManager implements InputProcessor {
             RavTechDKUtil.closestGizmo = null;
             draggedGizmo.input(0, EventType.MouseUp);
             draggedGizmo = null;
+            RavTechDKUtil.renderSelection = false;
         }
         return false;
     }

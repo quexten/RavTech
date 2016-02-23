@@ -67,13 +67,16 @@ public class RavTechDK {
                         renderer.end();
                         Gdx.gl.glDisable(GL20.GL_BLEND);
                         renderer.begin(ShapeType.Line);
-                        for (int i = 0; i < RavTechDKUtil.selectedObjects.size; i++) {
-                            GameObject object = RavTechDKUtil.selectedObjects.get(i);
-                            if (object != null) for (int n = 0; n < object.getComponents().size; n++) {
-                                Gizmo gizmo = RavTechDKUtil.getGizmoFor(object.getComponents().get(n));
-                                if (gizmo != null) gizmo.draw(renderer, RavTech.spriteBatch, gizmo == RavTechDKUtil.closestGizmo);
+                        if(RavTechDKUtil.exclusiveGizmo == null)
+                            for (int i = 0; i < RavTechDKUtil.selectedObjects.size; i++) {
+                                GameObject object = RavTechDKUtil.selectedObjects.get(i);
+                                if (object != null) for (int n = 0; n < object.getComponents().size; n++) {
+                                    Gizmo gizmo = RavTechDKUtil.getGizmoFor(object.getComponents().get(n));
+                                    if (gizmo != null) gizmo.draw(renderer, RavTech.spriteBatch, gizmo == RavTechDKUtil.closestGizmo);
+                                }
                             }
-                        }
+                        else 
+                            RavTechDKUtil.exclusiveGizmo.draw(renderer, RavTech.spriteBatch, RavTechDKUtil.exclusiveGizmo == RavTechDKUtil.closestGizmo);
                         renderer.end();
                     }
                 });

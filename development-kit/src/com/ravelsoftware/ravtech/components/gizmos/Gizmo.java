@@ -21,6 +21,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public abstract class Gizmo {
 
+    /** Describes whether the Gizmo needs Exclusive rights to be edited, or will be editable in general selection mode */
+    boolean isExclusive = false;
+
     /** Draws the gizmo
      * @param renderer - the shapeRenderer
      * @param batch - the spriteBatch

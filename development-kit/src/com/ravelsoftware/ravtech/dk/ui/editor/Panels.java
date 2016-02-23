@@ -47,11 +47,14 @@ import com.ravelsoftware.ravtech.components.Rigidbody;
 import com.ravelsoftware.ravtech.components.ScriptComponent;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.ui.components.EditableJLabel;
 import com.ravelsoftware.ravtech.dk.ui.components.FileChooserTextField;
 import com.ravelsoftware.ravtech.dk.ui.components.SliderColorPicker;
 import com.ravelsoftware.ravtech.dk.ui.components.SliderDropdownList;
 import com.ravelsoftware.ravtech.dk.ui.components.SliderEditableLabel;
+import com.ravelsoftware.ravtech.dk.ui.components.TextButtonPair;
+import com.ravelsoftware.ravtech.dk.ui.components.TextLabelPair;
 import com.ravelsoftware.ravtech.dk.ui.components.ValueChangedListener;
 import com.ravelsoftware.ravtech.dk.ui.components.XComboBox;
 import com.ravelsoftware.ravtech.graphics.SortingLayer;
@@ -192,6 +195,15 @@ public class Panels {
             constraints.gridx = 0;
             constraints.gridy++;
         }
+
+        public void addButton (final ActionListener listener, String label, String text) {
+            final TextButtonPair textPair = new TextButtonPair(label, text, listener);
+            this.add(textPair.nameLabel, this.constraints);
+            constraints.gridx++;
+            this.add(textPair.pairedComponent, this.constraints);
+            constraints.gridx = 0;
+            constraints.gridy++;
+        }
     }
 
     public static ComponentPanel transform (final GameObject object) {
@@ -243,12 +255,18 @@ public class Panels {
         panel.addSliderLabel("restitution");
     }
 
-    public static ComponentPanel circleCollider (CircleCollider component) {
+    public static ComponentPanel circleCollider (final CircleCollider component) {
         final ComponentPanel panel = new ComponentPanel(component.getParent(), component);
         addColliderPanels(panel);
         panel.addSliderLabel("x");
         panel.addSliderLabel("y");
         panel.addSliderLabel("radius");
+        panel.addButton(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                RavTechDKUtil.setExclusiveGizmo(component);
+            }            
+        }, "EditCollider", "Edit");
         return panel;
     }
 
