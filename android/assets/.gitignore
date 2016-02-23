@@ -1,0 +1,3 @@
+# Keeps empty asset folder for project structure
+*
+!.gitignore
