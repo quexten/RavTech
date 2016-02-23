@@ -92,7 +92,7 @@ public class AdbManager {
                 try {
                     jadbConnection = new JadbConnection();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    executeAdbCommand("start-server");
                 }
                 initialized = true;
                 try {
