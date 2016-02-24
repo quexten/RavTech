@@ -81,10 +81,14 @@ public class ConeLightGizmo extends Gizmo {
         switch (eventType) {
             case EventType.MouseMoved:
                 float coneDst = Math.abs(origin.dst(RavTech.input.getWorldPosition()) - coneLight.getDistance() / 2f);
-                float rayDst = GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, light.angle),
-                    RavTech.input.getWorldPosition());
-                float rayDst2 = GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, -light.angle),
-                    RavTech.input.getWorldPosition());
+                float rayDst = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, light.angle),
+                    RavTech.input.getWorldPosition(), 1)
+                        ? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, light.angle), RavTech.input.getWorldPosition())
+                        : Float.MAX_VALUE;
+                float rayDst2 = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, -light.angle),
+                    RavTech.input.getWorldPosition(),
+                    1) ? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, -light.angle), RavTech.input.getWorldPosition())
+                        : Float.MAX_VALUE;
                 if (rayDst > rayDst2) rayDst = rayDst2;
                 if (coneDst < rayDst && coneDst < 1f) {
                     raySelected = false;
