@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2014-2016 Bernd Schoolmann
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,24 +24,8 @@ import javax.swing.UIManager;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.ObjectMap;
-import com.badlogic.gdx.utils.ObjectMap.Entries;
-import com.badlogic.gdx.utils.ObjectMap.Entry;
-import com.ravelsoftware.ravtech.components.BoxCollider;
-import com.ravelsoftware.ravtech.components.CircleCollider;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.components.Light;
-import com.ravelsoftware.ravtech.components.PolygonCollider;
-import com.ravelsoftware.ravtech.components.SpriteRenderer;
-import com.ravelsoftware.ravtech.components.Transform;
-import com.ravelsoftware.ravtech.components.gizmos.BoxColliderGizmo;
-import com.ravelsoftware.ravtech.components.gizmos.CircleColliderGizmo;
-import com.ravelsoftware.ravtech.components.gizmos.ConeLightGizmo;
-import com.ravelsoftware.ravtech.components.gizmos.Gizmo;
-import com.ravelsoftware.ravtech.components.gizmos.PolygonColliderGizmo;
-import com.ravelsoftware.ravtech.components.gizmos.SpriteRendererGizmo;
-import com.ravelsoftware.ravtech.components.gizmos.TransformGizmo;
 import com.ravelsoftware.ravtech.dk.ui.editor.Inspector.InspectableType;
 import com.ravelsoftware.ravtech.dk.ui.utils.ColorUtils;
 import com.ravelsoftware.ravtech.history.ChangeManager;
@@ -56,13 +40,6 @@ public class RavTechDKUtil {
     static boolean inspectorChanged;
     public static boolean renderSelection;
     public static String selectedObject;
-    public static ObjectMap<GameComponent, Gizmo> selectedObjectGizmoMap = new ObjectMap<GameComponent, Gizmo>();
-    public static Gizmo closestGizmo;    
-    
-    //Gizmo that overrides the input and rendering rights of other gizmos, therefore gaining exclusivity
-    public static Gizmo exclusiveGizmo;
-    
-    
     public static Array<GameObject> selectedObjects = new Array<GameObject>();
     static ExecutorService service = Executors.newFixedThreadPool(5);
 
@@ -90,14 +67,7 @@ public class RavTechDKUtil {
         return ColorUtils.swingToGdx(getAccentColor());
     }
 
-    public static Gizmo getGizmoFor (GameComponent component) {
-        Entries<GameComponent, Gizmo> iterator = selectedObjectGizmoMap.iterator();
-        while (iterator.hasNext()) {
-            Entry<GameComponent, Gizmo> entry = iterator.next();
-            if (entry.key == component) return entry.value;
-        }
-        return null;
-    }
+    
 
     public static boolean hasInspectorChanged () {
         return inspectorChanged;
@@ -132,7 +102,7 @@ public class RavTechDKUtil {
         selectedObjects.clear();
         if (object != null) selectedObjects.add(object);
         inspectorChanged();
-        setupGizmos();
+        RavTechDK.gizmoHandler.setupGizmos();
     }
 
     /** sets the currently selected objects
@@ -146,47 +116,9 @@ public class RavTechDKUtil {
         selectedObjects.clear();
         selectedObjects.addAll(objects);
         if (lastObjectCount != selectedObjects.size)
-            // Debug.log("Last", lastObjectCount + " | " +
-            // (selectedObjects.size));
             inspectorChanged();
-        setupGizmos();
+        RavTechDK.gizmoHandler.setupGizmos();
     }
 
-    static void setupGizmos () {
-        selectedObjectGizmoMap.clear();
-        for (int i = 0; i < selectedObjects.size; i++) {
-            GameObject selectedObject = selectedObjects.get(i);
-            if (selectedObject != null) for (int n = 0; n < selectedObject.getComponents().size; n++) {
-                GameComponent iteratedComponent = selectedObject.getComponents().get(n);
-                Gizmo gizmo = null;
-                gizmo = createGizmoFor(iteratedComponent);
-                if (gizmo != null) selectedObjectGizmoMap.put(iteratedComponent, gizmo);
-            }
-        }
-    }
-
-    public static Gizmo createGizmoFor (GameComponent component) {
-        Class<? extends GameComponent> iteratedComponentClass = component.getClass();
-        Gizmo gizmo = null;
-        if (iteratedComponentClass.equals(Transform.class))
-            gizmo = new TransformGizmo((Transform)component);
-        else if (iteratedComponentClass.equals(BoxCollider.class))
-            gizmo = new BoxColliderGizmo((BoxCollider)component);
-        else if (iteratedComponentClass.equals(CircleCollider.class))
-            gizmo = new CircleColliderGizmo((CircleCollider)component);
-        else if (iteratedComponentClass.equals(Light.class))
-            gizmo = new ConeLightGizmo((Light)component);
-        else if (iteratedComponentClass.equals(PolygonCollider.class))
-            gizmo = new PolygonColliderGizmo((PolygonCollider)component);
-        else if (iteratedComponentClass.equals(SpriteRenderer.class)) gizmo = new SpriteRendererGizmo((SpriteRenderer)component);
-        return gizmo;
-    }
-
-    public static void setExclusiveGizmo (GameComponent component) {
-        if(component != null) {
-            RavTechDKUtil.exclusiveGizmo = getGizmoFor(component);
-        } else {
-            RavTechDKUtil.exclusiveGizmo = null;
-        }
-    }
+    
 }

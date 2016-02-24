@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2014-2016 Bernd Schoolmann
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -47,14 +47,12 @@ import com.ravelsoftware.ravtech.components.Rigidbody;
 import com.ravelsoftware.ravtech.components.ScriptComponent;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.ui.components.EditableJLabel;
 import com.ravelsoftware.ravtech.dk.ui.components.FileChooserTextField;
 import com.ravelsoftware.ravtech.dk.ui.components.SliderColorPicker;
 import com.ravelsoftware.ravtech.dk.ui.components.SliderDropdownList;
 import com.ravelsoftware.ravtech.dk.ui.components.SliderEditableLabel;
 import com.ravelsoftware.ravtech.dk.ui.components.TextButtonPair;
-import com.ravelsoftware.ravtech.dk.ui.components.TextLabelPair;
 import com.ravelsoftware.ravtech.dk.ui.components.ValueChangedListener;
 import com.ravelsoftware.ravtech.dk.ui.components.XComboBox;
 import com.ravelsoftware.ravtech.graphics.SortingLayer;
@@ -262,10 +260,11 @@ public class Panels {
         panel.addSliderLabel("y");
         panel.addSliderLabel("radius");
         panel.addButton(new ActionListener() {
+
             @Override
             public void actionPerformed (ActionEvent e) {
-                RavTechDKUtil.setExclusiveGizmo(component);
-            }            
+                RavTechDK.gizmoHandler.setExclusiveGizmo(component);
+            }
         }, "EditCollider", "Edit");
         return panel;
     }

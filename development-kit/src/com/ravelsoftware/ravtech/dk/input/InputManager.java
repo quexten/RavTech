@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2014-2016 Bernd Schoolmann
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -24,7 +24,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.ravelsoftware.ravtech.RavTech;
@@ -32,15 +31,11 @@ import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.components.GameObject;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.components.gizmos.Gizmo;
-import com.ravelsoftware.ravtech.components.gizmos.TransformGizmo;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.PasteAction;
-import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
-
-import net.java.games.input.Component;
 
 public class InputManager implements InputProcessor {
 
@@ -52,18 +47,6 @@ public class InputManager implements InputProcessor {
     private boolean timerStarted;
     private Vector2 targetPosition;
     private float targetZoom;
-    private Gizmo draggedGizmo;
-    boolean dragged = false;
-
-    public void checkComponents (Component[] components) {
-        for (int i = 0; i < components.length; i++) {
-            Component component = components[i];
-            component.getIdentifier();
-            // Buttons
-            if (component.getPollData() > 0) {
-            }
-        }
-    }
 
     @Override
     public boolean keyDown (int keycode) {
@@ -85,50 +68,8 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean mouseMoved (int screenX, int screenY) {
-        if (RavTechDKUtil.selectedObjects.size > 0) {
-            if(RavTechDKUtil.exclusiveGizmo == null) {
-                Values<Gizmo> values = RavTechDKUtil.selectedObjectGizmoMap.values();
-                Gizmo closestGizmo = null;
-                float closestDst = Float.MAX_VALUE;
-                while (values.hasNext) {
-                    Gizmo giz = values.next();
-                    float gizDst = giz.input(0, EventType.MouseMoved);
-                    if (gizDst > 0 && gizDst < closestDst
-                        && Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f * RavTech.sceneHandler.worldCamera.zoom) {
-                        closestDst = gizDst;
-                        closestGizmo = giz;
-                    }
-                }
-                RavTechDK.ui.ravtechDKFrame
-                    .setCursor(Cursor.getPredefinedCursor(closestGizmo == null ? Cursor.DEFAULT_CURSOR : Cursor.MOVE_CURSOR));
-                RavTechDKUtil.closestGizmo = closestGizmo;
-            } else {
-                RavTechDKUtil.closestGizmo = (RavTechDKUtil.exclusiveGizmo.input(0, EventType.MouseMoved) > 0f) ? RavTechDKUtil.exclusiveGizmo : null;
-            }
-        }
+        if (RavTechDKUtil.selectedObjects.size > 0) RavTechDK.gizmoHandler.input(0, EventType.MouseMoved);
         return false;
-    }
-
-    public Transform getTransformAtPoint (Array<? extends GameComponent> objects) {
-        Transform transform = null;
-        for (int i = 0; i < objects.size; i++)
-            if (objects.get(i) instanceof GameObject) {
-                Transform localTransform = this.getTransformAtPoint(((GameObject)objects.get(i)).getComponents());
-                if (localTransform != null) {
-                    transform = localTransform;
-                    break;
-                }
-            } else {
-                Gizmo gizmo = RavTechDKUtil.createGizmoFor(objects.get(i));
-                if (gizmo != null) {
-                    boolean isIn = gizmo.isInBoundingBox(RavTech.input.getWorldPosition());
-                    if (isIn) {
-                        transform = objects.get(i).getParent().transform;
-                        break;
-                    }
-                }
-            }
-        return transform;
     }
 
     @Override
@@ -160,7 +101,7 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-        this.dragged = false;
+        RavTechDK.gizmoHandler.input(button, EventType.MouseDown);
         Vector3 unprojectedPosition = RavTech.sceneHandler.worldCamera.unproject(new Vector3(screenX, screenY, 0));
         if (button == Buttons.LEFT) {
             selectionAlpha = 0.3f;
@@ -168,39 +109,15 @@ public class InputManager implements InputProcessor {
             dragCurrentPosition = dragStartPosition.cpy();
         } else
             touchDownCoords = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
-        this.draggedGizmo = RavTechDKUtil.closestGizmo;
-        if (this.draggedGizmo != null)
-            this.draggedGizmo.input(0, EventType.MouseDown);
-        else {
-            Transform transform = this.getTransformAtPoint(RavTech.currentScene.gameObjects);
-            if (transform != null) {
-                Array<GameObject> objects = new Array<GameObject>();
-                objects.add(transform.getParent());
-                RavTechDKUtil.setSelectedObjects(objects);
-                if (button == Buttons.LEFT) {
-                    this.draggedGizmo = RavTechDKUtil.getGizmoFor(transform);
-                    ((TransformGizmo)this.draggedGizmo).moveGrab = true;
-                    this.draggedGizmo.input(0, EventType.MouseDown);
-                    ((TransformGizmo)this.draggedGizmo).moveGrab = false;
-                } else {
-                }
-            } else {
-                RavTechDKUtil.selectedObjectGizmoMap.clear();
-                RavTechDKUtil.selectedObjects.clear();
-                RavTechDKUtil.setExclusiveGizmo(null);
-            }
-        }
         return false;
     }
 
     @Override
     public boolean touchDragged (int screenX, int screenY, int pointer) {
-        this.dragged = true;
+        boolean wasConsumed = RavTechDK.gizmoHandler.input(0, EventType.MouseDrag);
         hasToLerp = false;
-        boolean wasConsumed = this.draggedGizmo != null;
         RavTechDK.ui.ravtechDKFrame
             .setCursor(Cursor.getPredefinedCursor(!wasConsumed ? Cursor.DEFAULT_CURSOR : Cursor.MOVE_CURSOR));
-        if (this.draggedGizmo != null) this.draggedGizmo.input(0, EventType.MouseDrag);
         if (!wasConsumed)
             RavTechDKUtil.renderSelection = true;
         else {
@@ -228,12 +145,29 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean touchUp (int screenX, int screenY, int pointer, int button) {
-        if (this.draggedGizmo != null) {
-            RavTechDKUtil.closestGizmo = null;
-            draggedGizmo.input(0, EventType.MouseUp);
-            draggedGizmo = null;
-            RavTechDKUtil.renderSelection = false;
-        }
+        RavTechDK.gizmoHandler.input(button, EventType.MouseUp);
         return false;
+    }
+
+    public static Transform getTransformAtPoint (Array<? extends GameComponent> objects) {
+        Transform transform = null;
+        for (int i = 0; i < objects.size; i++)
+            if (objects.get(i) instanceof GameObject) {
+                Transform localTransform = getTransformAtPoint(((GameObject)objects.get(i)).getComponents());
+                if (localTransform != null) {
+                    transform = localTransform;
+                    break;
+                }
+            } else {
+                Gizmo gizmo = RavTechDK.gizmoHandler.createGizmoFor(objects.get(i));
+                if (gizmo != null) {
+                    boolean isIn = gizmo.isInBoundingBox(RavTech.input.getWorldPosition());
+                    if (isIn) {
+                        transform = objects.get(i).getParent().transform;
+                        break;
+                    }
+                }
+            }
+        return transform;
     }
 }

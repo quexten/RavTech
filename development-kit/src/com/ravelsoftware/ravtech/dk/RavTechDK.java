@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2014-2016 Bernd Schoolmann
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,7 @@ import com.badlogic.gdx.utils.Json;
 import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.components.gizmos.Gizmo;
+import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
 import com.ravelsoftware.ravtech.dk.input.InputManager;
 import com.ravelsoftware.ravtech.project.Project;
 
@@ -39,9 +38,11 @@ public class RavTechDK {
     public static Project project;
     public static FileHandle projectHandle;
     public static RavTechDKUI ui;
+    public static GizmoHandler gizmoHandler;
 
     public static void initialize (RavTech ravtech) {
         ui = new RavTechDKUI(ravtech);
+        gizmoHandler = new GizmoHandler();
         setProject(projectHandle.path());
         Gdx.app.postRunnable(new Runnable() {
 
@@ -55,6 +56,7 @@ public class RavTechDK {
 
                     @Override
                     public void run () {
+                        // Selection
                         if (!Gdx.input.isButtonPressed(Buttons.LEFT)) inputManager.selectionAlpha -= Gdx.graphics.getDeltaTime();
                         ShapeRenderer renderer = RavTech.shapeRenderer;
                         Gdx.gl.glEnable(GL20.GL_BLEND);
@@ -66,17 +68,9 @@ public class RavTechDK {
                             inputManager.dragCurrentPosition.y - inputManager.dragStartPosition.y);
                         renderer.end();
                         Gdx.gl.glDisable(GL20.GL_BLEND);
+                        // Gizmos
                         renderer.begin(ShapeType.Line);
-                        if(RavTechDKUtil.exclusiveGizmo == null)
-                            for (int i = 0; i < RavTechDKUtil.selectedObjects.size; i++) {
-                                GameObject object = RavTechDKUtil.selectedObjects.get(i);
-                                if (object != null) for (int n = 0; n < object.getComponents().size; n++) {
-                                    Gizmo gizmo = RavTechDKUtil.getGizmoFor(object.getComponents().get(n));
-                                    if (gizmo != null) gizmo.draw(renderer, RavTech.spriteBatch, gizmo == RavTechDKUtil.closestGizmo);
-                                }
-                            }
-                        else 
-                            RavTechDKUtil.exclusiveGizmo.draw(renderer, RavTech.spriteBatch, RavTechDKUtil.exclusiveGizmo == RavTechDKUtil.closestGizmo);
+                        gizmoHandler.render(renderer);
                         renderer.end();
                     }
                 });

@@ -1,12 +1,12 @@
 /*******************************************************************************
  * Copyright 2014-2016 Bernd Schoolmann
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *   http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -458,8 +458,8 @@ public class RavTechDKFrame extends JFrame {
                     public void actionPerformed (ActionEvent arg0) {
                         CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
                             "{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
-                                + RavTech.sceneHandler.worldCamera.position.x + ",\"y\":" + RavTech.sceneHandler.worldCamera.position.y
-                                + ",\"rotation\":0,\"scale\":1}]}");
+                                + RavTech.sceneHandler.worldCamera.position.x + ",\"y\":"
+                                + RavTech.sceneHandler.worldCamera.position.y + ",\"rotation\":0,\"scale\":1}]}");
                         ChangeManager.addChangeable(changeable);
                         RavTechDKUtil.setSelectedObject(RavTech.currentScene.gameObjects.peek());
                     }
