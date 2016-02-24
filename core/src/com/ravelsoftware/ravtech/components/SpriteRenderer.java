@@ -57,7 +57,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 
     @SuppressWarnings("rawtypes")
     public SpriteRenderer() {
-        this("textures/Error.png", 2, 2);
+        this("textures/error.png", 2, 2);
         Array<AssetDescriptor> dependencies = new Array<AssetDescriptor>();
         this.load(dependencies);
         RavTech.files.loadAssets(dependencies);

@@ -51,9 +51,10 @@ public class Launcher {
         System.out.println("User Directory: " + System.getProperty("user.dir"));
         configureUILook();
         configureNativesPath();
-        Preferences preferences = new LwjglPreferences(
-            new LwjglFileHandle(new File(".prefs/", "RavTech Development Kit"), FileType.External));
-        if (!preferences.getString("RavTechDK.project.path").isEmpty()) {
+        Preferences preferences = new LwjglPreferences(new LwjglFileHandle(new File(".prefs/", "RavTech"), FileType.External));
+        if (!preferences.getString("RavTechDK.project.path").isEmpty()
+            && new LwjglFileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
+                .exists()) {
             RavTechDK.projectHandle = new LwjglFileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute);
             RavTechDK.project = Project.load(RavTechDK.projectHandle);
             try {

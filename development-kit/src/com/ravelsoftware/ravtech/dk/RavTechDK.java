@@ -113,6 +113,9 @@ public class RavTechDK {
         projectHandle.child("builds").mkdirs();
         projectHandle.child("icons").mkdirs();
         projectHandle.child("plugins").mkdirs();
+        FileHandle textureHandle = assetHandle.child("textures");
+        textureHandle.mkdirs();
+        textureHandle.child("error.png").write(new LwjglFileHandle(new File("resources/icons/error.png"), FileType.Local).read(), false);
         project.save(projectHandle);
     }
 
