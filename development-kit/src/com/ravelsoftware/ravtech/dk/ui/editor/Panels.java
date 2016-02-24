@@ -40,6 +40,7 @@ import com.ravelsoftware.ravtech.components.Animator;
 import com.ravelsoftware.ravtech.components.AudioEmitter;
 import com.ravelsoftware.ravtech.components.BoxCollider;
 import com.ravelsoftware.ravtech.components.CircleCollider;
+import com.ravelsoftware.ravtech.components.ComponentType;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.components.GameObject;
 import com.ravelsoftware.ravtech.components.Light;
@@ -265,7 +266,18 @@ public class Panels {
             public void actionPerformed (ActionEvent e) {
                 RavTechDK.gizmoHandler.setExclusiveGizmo(component);
             }
-        }, "EditCollider", "Edit");
+        }, "Edit Collider", "Edit");
+        panel.addButton(new ActionListener() {
+
+            @Override
+            public void actionPerformed (ActionEvent event) {
+                SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent().getComponentByType(ComponentType.SpriteRenderer);
+                if(spriteRenderer != null) {
+                    component.setRadius(spriteRenderer.height / 2);
+                    component.setPosition(-spriteRenderer.originX * spriteRenderer.width / 2, -spriteRenderer.originY * spriteRenderer.height / 2);
+                }
+            }
+        }, "Auto Fit", "Fit");
         return panel;
     }
 

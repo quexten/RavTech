@@ -67,8 +67,6 @@ public class RavTechDKUtil {
         return ColorUtils.swingToGdx(getAccentColor());
     }
 
-    
-
     public static boolean hasInspectorChanged () {
         return inspectorChanged;
     }
@@ -95,8 +93,7 @@ public class RavTechDKUtil {
         tempObject.dispose();
     }
 
-    /** sets the currently selected object
-     *
+    /** Sets the currently selected object
      * @param object - the object that has been selected */
     public static void setSelectedObject (GameObject object) {
         selectedObjects.clear();
@@ -105,8 +102,7 @@ public class RavTechDKUtil {
         RavTechDK.gizmoHandler.setupGizmos();
     }
 
-    /** sets the currently selected objects
-     *
+    /** Sets the currently selected objects
      * @param objects - the objects that have been selected */
     public static void setSelectedObjects (Array<GameObject> objects) {
         Array<GameObject> componentCountList = new Array<GameObject>();
@@ -115,10 +111,7 @@ public class RavTechDKUtil {
         int lastObjectCount = componentCountList.size;
         selectedObjects.clear();
         selectedObjects.addAll(objects);
-        if (lastObjectCount != selectedObjects.size)
-            inspectorChanged();
+        if (lastObjectCount != selectedObjects.size) inspectorChanged();
         RavTechDK.gizmoHandler.setupGizmos();
     }
-
-    
 }

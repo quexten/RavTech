@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.ravelsoftware.ravtech.components.Animator;
@@ -65,13 +66,19 @@ public class AddComponentAction implements Runnable {
 
             @Override
             public void actionPerformed (ActionEvent evt) {
-                try {
-                    GameComponent component = ClassReflection.newInstance(componentClass);
-                    RavTechDKUtil.selectedObjects.get(0).addComponent(component);
-                    component.finishedLoading();
-                } catch (ReflectionException e) {
-                    e.printStackTrace();
-                }
+                Gdx.app.postRunnable(new Runnable() {
+
+                    @Override
+                    public void run () {
+                        try {
+                            GameComponent component = ClassReflection.newInstance(componentClass);
+                            RavTechDKUtil.selectedObjects.get(0).addComponent(component);
+                            component.finishedLoading();
+                        } catch (ReflectionException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
             }
         });
         menu.add(item);

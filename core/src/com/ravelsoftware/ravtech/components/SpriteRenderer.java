@@ -55,6 +55,15 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
     public TextureWrap uWrap = TextureWrap.ClampToEdge;
     public TextureWrap vWrap = TextureWrap.ClampToEdge;
 
+    @SuppressWarnings("rawtypes")
+    public SpriteRenderer() {
+        this("textures/Error.png", 2, 2);
+        Array<AssetDescriptor> dependencies = new Array<AssetDescriptor>();
+        this.load(dependencies);
+        RavTech.files.loadAssets(dependencies);
+        RavTech.files.finishLoading();
+    }
+    
     public SpriteRenderer(String texturePath, float width, float height) {
         super();
         this.width = width;

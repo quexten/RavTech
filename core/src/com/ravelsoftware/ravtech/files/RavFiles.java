@@ -15,10 +15,12 @@
  ******************************************************************************/
 package com.ravelsoftware.ravtech.files;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
@@ -74,6 +76,15 @@ public class RavFiles {
      * @param assetType - the type of the asset */
     public <T> void loadAsset (String path, Class<T> assetType) {
         loadAsset(path, assetType, false);
+    }
+
+    /** Starts loading all assets specified
+     * @param dependencies - the assets to load */
+    @SuppressWarnings("rawtypes")
+    public void loadAssets (Array<AssetDescriptor> dependencies) {
+        for (AssetDescriptor descriptor : dependencies) {
+            assetManager.load(descriptor);
+        }
     }
 
     /** Gets the asset

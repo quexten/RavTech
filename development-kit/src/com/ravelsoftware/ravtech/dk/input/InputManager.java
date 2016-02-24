@@ -101,6 +101,7 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
+        RavTechDKUtil.inspectorChanged();
         RavTechDK.gizmoHandler.input(button, EventType.MouseDown);
         Vector3 unprojectedPosition = RavTech.sceneHandler.worldCamera.unproject(new Vector3(screenX, screenY, 0));
         if (button == Buttons.LEFT) {
