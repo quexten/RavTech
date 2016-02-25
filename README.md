@@ -21,3 +21,14 @@ It's still quite a way to the first stable version.
 
 ##License
 The Engine and Development Kit are Licensed under the Apache 2 License
+
+##How to Build
+In the projects root directory, run the command:
+```
+gradlew development-kit:dist
+```
+After it is done, navigate to 
+```
+development-kit/build/libs/
+```
+and run the generated application in the directory.
