@@ -15,7 +15,7 @@
  ******************************************************************************/
 package com.ravelsoftware.ravtech.dk.packaging;
 
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.BuildReporterDialog;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public abstract class PackageStep implements Runnable {
 

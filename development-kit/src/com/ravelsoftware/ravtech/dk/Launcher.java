@@ -16,8 +16,6 @@
 package com.ravelsoftware.ravtech.dk;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -32,8 +30,10 @@ import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
-import com.badlogic.gdx.backends.lwjgl.LwjglFileHandle;
-import com.badlogic.gdx.backends.lwjgl.LwjglPreferences;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
@@ -42,7 +42,6 @@ import com.ravelsoftware.ravtech.project.Project;
 import com.ravelsoftware.ravtech.scripts.Script;
 import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
 import com.ravelsoftware.ravtech.settings.SettingsValueListener;
-import com.ravelsoftware.ravtech.ui.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.util.Debug;
 
 public class Launcher {
@@ -51,11 +50,11 @@ public class Launcher {
         System.out.println("User Directory: " + System.getProperty("user.dir"));
         configureUILook();
         configureNativesPath();
-        Preferences preferences = new LwjglPreferences(new LwjglFileHandle(new File(".prefs/", "RavTech"), FileType.External));
+        Preferences preferences = new Lwjgl3Preferences(new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
         if (!preferences.getString("RavTechDK.project.path").isEmpty()
-            && new LwjglFileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
+            && new Lwjgl3FileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
                 .exists()) {
-            RavTechDK.projectHandle = new LwjglFileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute);
+            RavTechDK.projectHandle = new Lwjgl3FileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute);
             RavTechDK.project = Project.load(RavTechDK.projectHandle);
             try {
                 SwingUtilities.invokeAndWait(new Runnable() {
@@ -71,24 +70,25 @@ public class Launcher {
                 e.printStackTrace();
             }
         } else {
-            ProjectSettingsWizard wizard = new ProjectSettingsWizard(true);
-            final Project project = new Project();
-            wizard.onSaveListener = new ActionListener() {
+            //ProjectSettingsWizard wizard = new ProjectSettingsWizard(true);
+            //final Project project = new Project();
+            /*wizard.onSaveListener = new ActionListener() {
 
                 @Override
                 public void actionPerformed (ActionEvent event) {
-                    RavTechDK.projectHandle = new LwjglFileHandle(event.getActionCommand(), FileType.Absolute);
+                    RavTechDK.projectHandle = new Lwjgl3FileHandle(event.getActionCommand(), FileType.Absolute);
                     RavTechDK.createProject(event.getActionCommand(), project);
                     RavTechDK.project = project;
                     initializeEngine();
                 }
-            };
-            wizard.show(project);
+            };*/
+            //wizard.show(project);
         }
     }
 
     static void initializeEngine () {
-        final RavTech ravtech = new RavTech(new AbsoluteFileHandleResolver() {
+        RavTech.isEditor = true;
+        final RavTechDKApplication ravtech = new RavTechDKApplication(new AbsoluteFileHandleResolver() {
 
             @Override
             public FileHandle resolve (String fileName) {
@@ -98,8 +98,11 @@ public class Launcher {
                 return Gdx.files.absolute(resolver);
             }
         }, RavTechDK.project);
+        Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+        config.setWindowedMode(1280, 720);
         RavTech.files.getAssetManager().setLoader(Script.class, new LuaJScriptLoader(RavTech.files.getResolver()));
-        RavTechDK.initialize(ravtech);
+        // RavTechDK.initialize(ravtech);
+        new Lwjgl3Application(ravtech, config);
         Gdx.app.postRunnable(new Runnable() {
 
             @Override

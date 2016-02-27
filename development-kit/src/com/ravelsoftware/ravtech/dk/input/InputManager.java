@@ -15,17 +15,12 @@
  ******************************************************************************/
 package com.ravelsoftware.ravtech.dk.input;
 
-import java.awt.Cursor;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.Timer.Task;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.components.GameObject;
@@ -52,7 +47,6 @@ public class InputManager implements InputProcessor {
     public boolean keyDown (int keycode) {
         if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C) new CopyAction().run();
         if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V) new PasteAction().run();
-        if (keycode == Keys.F2) GamepadObserver.pollControllers();
         return false;
     }
 
@@ -74,7 +68,7 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean scrolled (int amount) {
-        hasToLerp = true;
+        /*hasToLerp = true;
         float lastzoom = RavTech.sceneHandler.worldCamera.zoom;
         Vector2 lastposition = new Vector2(RavTech.sceneHandler.worldCamera.position.x,
             RavTech.sceneHandler.worldCamera.position.y);
@@ -95,13 +89,13 @@ public class InputManager implements InputProcessor {
                 }
             }, 0, 0.016f);
             timerStarted = true;
-        }
+        }*/
         return false;
     }
 
     @Override
     public boolean touchDown (int screenX, int screenY, int pointer, int button) {
-        RavTechDKUtil.inspectorChanged();
+       /* RavTechDKUtil.inspectorChanged();
         RavTechDK.gizmoHandler.input(button, EventType.MouseDown);
         Vector3 unprojectedPosition = RavTech.sceneHandler.worldCamera.unproject(new Vector3(screenX, screenY, 0));
         if (button == Buttons.LEFT) {
@@ -109,7 +103,7 @@ public class InputManager implements InputProcessor {
             dragStartPosition = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
             dragCurrentPosition = dragStartPosition.cpy();
         } else
-            touchDownCoords = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
+            touchDownCoords = new Vector2(unprojectedPosition.x, unprojectedPosition.y);*/
         return false;
     }
 
@@ -117,8 +111,6 @@ public class InputManager implements InputProcessor {
     public boolean touchDragged (int screenX, int screenY, int pointer) {
         boolean wasConsumed = RavTechDK.gizmoHandler.input(0, EventType.MouseDrag);
         hasToLerp = false;
-        RavTechDK.ui.ravtechDKFrame
-            .setCursor(Cursor.getPredefinedCursor(!wasConsumed ? Cursor.DEFAULT_CURSOR : Cursor.MOVE_CURSOR));
         if (!wasConsumed)
             RavTechDKUtil.renderSelection = true;
         else {
@@ -133,13 +125,13 @@ public class InputManager implements InputProcessor {
             RavTechDKUtil.setSelectedObjects(objects);
         }
         if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
-            int screenCenterWidth = Gdx.graphics.getWidth() / 2;
+          /*  int screenCenterWidth = Gdx.graphics.getWidth() / 2;
             int screenCenterHeight = Gdx.graphics.getHeight() / 2;
             int screenDiffX = screenCenterWidth - screenX;
             int screenDiffY = screenCenterHeight + screenY - Gdx.graphics.getHeight();
             RavTech.sceneHandler.worldCamera.position.set(touchDownCoords.x + screenDiffX * RavTech.sceneHandler.worldCamera.zoom,
                 touchDownCoords.y + screenDiffY * RavTech.sceneHandler.worldCamera.zoom, 0);
-            RavTech.sceneHandler.worldCamera.update();
+            RavTech.sceneHandler.worldCamera.update();*/
         }
         return false;
     }

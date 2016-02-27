@@ -22,7 +22,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.shell.Shell;
-import com.ravelsoftware.ravtech.dk.ui.options.OpenOptionsDialogAction;
 
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
@@ -81,7 +80,6 @@ public class AdbManager {
             @Override
             public void run () {
                 if (adbLocation.getPath().startsWith("null") && !onBoot) {
-                    new OpenOptionsDialogAction().perform();
                     return;
                 } else if (adbLocation.getPath().startsWith("null") && onBoot) {
                     onBoot = false;

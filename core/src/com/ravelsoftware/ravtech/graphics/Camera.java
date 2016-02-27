@@ -15,14 +15,18 @@
  ******************************************************************************/
 package com.ravelsoftware.ravtech.graphics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.ravelsoftware.ravtech.RavTech;
+import com.ravelsoftware.ravtech.util.Debug;
+
+import box2dLight.DynamicLightMap;
 
 public class Camera extends OrthographicCamera {
 
@@ -30,14 +34,20 @@ public class Camera extends OrthographicCamera {
     int resolutionY;
     FrameBuffer cameraBuffer;
     FrameBuffer cameraPingPongBuffer;
+    DynamicLightMap lightMap;
     Array<Shader> shaders = new Array<Shader>();
     String cameraBufferName = "TestCameraBuffer";
     String cameraPingPongBufferName = "TestCameraPingPongBufferName";
-    boolean renderToFramebuffer = false;
+    boolean renderToFramebuffer = true;
+    public static int camId;
 
     public Camera(int width, int height) {
-        super(width, height);
-        setResolution(width, height);
+        super(width, height);   
+        camId ++;
+        cameraBufferName = this.cameraBufferName + camId;
+        cameraPingPongBufferName = this.cameraPingPongBufferName + camId;
+        lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
+        setResolution(width, height);        
     }
 
     public float getRotation () { // converts from -180|180 to 0|359
@@ -51,6 +61,12 @@ public class Camera extends OrthographicCamera {
     }
 
     public void render (SpriteBatch spriteBatch) {
+        if (RavTech.settings.getBoolean("useLights")) {
+            RavTech.sceneHandler.lightHandler.setLightMap(lightMap);
+            RavTech.sceneHandler.lightHandler.setCombinedMatrix(this);
+            RavTech.sceneHandler.lightHandler.updateAndRender();
+        }
+        
         RavTech.sceneHandler.renderer.render(spriteBatch, this);
         int passes = 0;
         for (int i = 0; i < shaders.size; i++) {
@@ -58,25 +74,17 @@ public class Camera extends OrthographicCamera {
                 passes % 2 == 1 ? cameraBuffer : cameraPingPongBuffer);
             passes += shaders.get(i).getShaderPassCount();
         }
-        if (renderToFramebuffer) {
-            spriteBatch.begin();
-            Matrix4 matrix = new Matrix4();
-            matrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            spriteBatch.disableBlending();
-            spriteBatch.setProjectionMatrix(matrix);
-            spriteBatch.draw(
-                passes % 2 == 0 ? cameraBuffer.getColorBufferTexture() : cameraPingPongBuffer.getColorBufferTexture(), 0,
-                Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
-            spriteBatch.end();
-            spriteBatch.enableBlending();
-        }
     }
 
     public void setResolution (int width, int height) {
+        Debug.log("SetResolution", width + "|" + height);
         dispose();
         resolutionX = width;
         resolutionY = height;
+        lightMap.dispose();
+        lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
         if (RavTech.sceneHandler.shaderManager != null && renderToFramebuffer) {
+            
             float downSample = 1f;
             RavTech.sceneHandler.shaderManager.createFB(cameraBufferName, (int)(resolutionX / downSample),
                 (int)(resolutionY / downSample));
@@ -94,4 +102,31 @@ public class Camera extends OrthographicCamera {
             RavTech.sceneHandler.shaderManager.disposeFB(cameraPingPongBufferName);
         }
     }
+
+    public Texture getCameraBufferTexture () {
+        return this.cameraBuffer.getColorBufferTexture();
+    }
+
+    public Vector2 getResolution () {
+        return new Vector2(this.resolutionX, this.resolutionY);
+    }
+    
+    @Override
+    public Vector3 unproject (Vector3 screenCoords, float viewportX, float viewportY, float viewportWidth, float viewportHeight) {
+        float x = screenCoords.x, y = screenCoords.y;
+        x = x - viewportX;
+        y = viewportHeight - y - 1;
+        y = y - viewportY;
+        screenCoords.x = (2 * x) / viewportWidth - 1;
+        screenCoords.y = (2 * y) / viewportHeight - 1;
+        screenCoords.z = 2 * screenCoords.z - 1;
+        screenCoords.prj(invProjectionView);
+        return screenCoords;
+    }
+    
+    public Vector3 unproject (Vector3 screenCoords) {
+        unproject(screenCoords, 0, 0, (float)resolutionX, (float)resolutionY);
+        return screenCoords;
+    }
+
 }

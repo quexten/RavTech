@@ -26,7 +26,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.dk.ui.editor.Inspector.InspectableType;
 import com.ravelsoftware.ravtech.dk.ui.utils.ColorUtils;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.CreateChangeable;
@@ -36,7 +35,6 @@ public class RavTechDKUtil {
 
     public static GameObject currentDragPreview;
     static File currentScene;
-    public static InspectableType inspectableType = InspectableType.GameComponents;
     static boolean inspectorChanged;
     public static boolean renderSelection;
     public static String selectedObject;

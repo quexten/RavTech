@@ -26,7 +26,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.BuildReporterDialog;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class Zipper {
 

@@ -37,20 +37,17 @@ project(":development-kit") {
 	
     dependencies {
         compile project(":core")                
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"        
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-controllers-lwjgl3:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"   
-        compile 'com.fifesoft.rtext:fife.common:2.5.6' 
-       	compile 'org.dockingframes:docking-frames-common:1.1.1'
        	compile 'commons-io:commons-io:2.4'       	
        	
 		ext {
        		libsPath = '/libs/'
 		}
 		
-        compile files(libsPath + 'jinput-2.0.5.jar')
         compile files(libsPath + 'jadb-v0.8.jar')
     }
 }
@@ -150,7 +147,7 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-        compile "com.kotcrab.vis:vis-ui:0.9.5"
+        compile "com.kotcrab.vis:vis-ui:1.0.1"
         compile "org.luaj:luaj-jse:3.0"
     }
 }

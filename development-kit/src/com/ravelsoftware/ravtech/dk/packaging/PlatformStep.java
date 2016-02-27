@@ -18,8 +18,8 @@ package com.ravelsoftware.ravtech.dk.packaging;
 import java.io.File;
 
 import com.ravelsoftware.ravtech.dk.packaging.platforms.Platform;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.BuildReporterDialog;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.PrinterListener;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.ravelsoftware.ravtech.dk.ui.packaging.PrinterListener;
 
 public class PlatformStep extends PackageStep {
 

@@ -22,7 +22,7 @@ import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.AndroidPlatform;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.DesktopPlatform;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.WebGLPlatform;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.BuildReporterDialog;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class Packager {
 

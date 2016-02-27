@@ -17,7 +17,7 @@ package com.ravelsoftware.ravtech.dk.packaging.platforms;
 
 import java.io.File;
 
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.BuildReporterDialog;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class WebGLPlatform implements Platform {
 

@@ -16,7 +16,7 @@
 package com.ravelsoftware.ravtech.dk.packaging;
 
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.BuildReporterDialog;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class AndroidPushStep extends PackageStep {
 

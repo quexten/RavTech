@@ -17,8 +17,7 @@ package com.ravelsoftware.ravtech.dk.packaging.platforms;
 
 import java.io.File;
 
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.BuildReporterDialog;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class AndroidPlatform implements Platform {
 
@@ -40,11 +39,11 @@ public class AndroidPlatform implements Platform {
 
     @Override
     public boolean run (BuildReporterDialog buildReporterDialog) {
-        if (deviceIdentifier.length() == 0)
+        /*if (deviceIdentifier.length() == 0)
             GradleInvoker.Invoke(RavTechDK.ui.buildWizard.buildReporterDialog, "android:installDebug android:run --stacktrace");
         else
             GradleInvoker.Invoke(RavTechDK.ui.buildWizard.buildReporterDialog,
-                "android:installDebug android:run -Pargs=" + deviceIdentifier + " --stacktrace");
+                "android:installDebug android:run -Pargs=" + deviceIdentifier + " --stacktrace");*/
         return false;
     }
 }

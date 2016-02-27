@@ -18,7 +18,7 @@ package com.ravelsoftware.ravtech.dk.packaging;
 import java.io.File;
 
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildWizard.BuildReporterDialog;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 import com.ravelsoftware.ravtech.util.Zipper;
 
 public class PackBundleStep extends PackageStep {

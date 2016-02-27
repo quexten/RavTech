@@ -19,40 +19,31 @@ import java.io.File;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.backends.lwjgl.LwjglFileHandle;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.utils.Json;
-import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
-import com.ravelsoftware.ravtech.dk.input.InputManager;
 import com.ravelsoftware.ravtech.project.Project;
 
 public class RavTechDK {
 
     public static Project project;
     public static FileHandle projectHandle;
-    public static RavTechDKUI ui;
     public static GizmoHandler gizmoHandler;
 
     public static void initialize (RavTech ravtech) {
-        ui = new RavTechDKUI(ravtech);
         gizmoHandler = new GizmoHandler();
         setProject(projectHandle.path());
         Gdx.app.postRunnable(new Runnable() {
 
             @Override
             public void run () {
-                ui.ravtechDKFrame.setTitle(ui.ravtechDKFrame.getFullTitle());
                 RavTech.sceneHandler.paused = true;
-                final InputManager inputManager = new InputManager();
-                Gdx.input.setInputProcessor(inputManager);
-                HookApi.onRenderHooks.add(new Runnable() {
+                //final InputManager inputManager = new InputManager();
+                //Gdx.input.setInputProcessor(inputManager);
+                /*HookApi.onRenderHooks.add(new Runnable() {
 
                     @Override
                     public void run () {
@@ -73,15 +64,15 @@ public class RavTechDK {
                         gizmoHandler.render(renderer);
                         renderer.end();
                     }
-                });
+                });*/
             }
         });
     }
 
     public static void setProject (final String projectRootPath) {
-        project = Project.load(projectHandle = new LwjglFileHandle(new File(projectRootPath), FileType.Absolute));
-        ui.ravtechDKFrame.setTitle(ui.ravtechDKFrame.getFullTitle());
-        ui.ravtechDKFrame.view.setPath(projectRootPath);
+        project = Project.load(projectHandle = new Lwjgl3FileHandle(new File(projectRootPath), FileType.Absolute));
+        //ui.ravtechDKFrame.setTitle(ui.ravtechDKFrame.getFullTitle());
+        //ui.ravtechDKFrame.view.setPath(projectRootPath);
         Gdx.app.postRunnable(new Runnable() {
 
             @Override
@@ -96,7 +87,7 @@ public class RavTechDK {
      * @param projectRootPath - the root path of the project
      * @param project - the project */
     public static void createProject (String projectRootPath, Project project) {
-        FileHandle projectHandle = new LwjglFileHandle(new File(projectRootPath), FileType.Absolute);
+        FileHandle projectHandle = new Lwjgl3FileHandle(new File(projectRootPath), FileType.Absolute);
         projectHandle.mkdirs();
         FileHandle assetHandle = projectHandle.child("assets");
         assetHandle.mkdirs();
@@ -107,15 +98,15 @@ public class RavTechDK {
         assetHandle.child("music").mkdirs();
         assetHandle.child(project.startScene).writeString(new Json().toJson(new Scene()), false);
         assetHandle.child("shaders").child("default.frag")
-            .writeString(new LwjglFileHandle(new File("resources/shaders/default.frag"), FileType.Local).readString(), false);
+            .writeString(new Lwjgl3FileHandle(new File("resources/shaders/default.frag"), FileType.Local).readString(), false);
         assetHandle.child("shaders").child("default.vert")
-            .writeString(new LwjglFileHandle(new File("resources/shaders/default.vert"), FileType.Local).readString(), false);
+            .writeString(new Lwjgl3FileHandle(new File("resources/shaders/default.vert"), FileType.Local).readString(), false);
         projectHandle.child("builds").mkdirs();
         projectHandle.child("icons").mkdirs();
         projectHandle.child("plugins").mkdirs();
         FileHandle textureHandle = assetHandle.child("textures");
         textureHandle.mkdirs();
-        textureHandle.child("error.png").write(new LwjglFileHandle(new File("resources/icons/error.png"), FileType.Local).read(), false);
+        textureHandle.child("error.png").write(new Lwjgl3FileHandle(new File("resources/icons/error.png"), FileType.Local).read(), false);
         project.save(projectHandle);
     }
 

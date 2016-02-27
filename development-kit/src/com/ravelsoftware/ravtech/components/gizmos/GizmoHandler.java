@@ -15,8 +15,6 @@
  ******************************************************************************/
 package com.ravelsoftware.ravtech.components.gizmos;
 
-import java.awt.Cursor;
-
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.utils.Array;
@@ -33,7 +31,6 @@ import com.ravelsoftware.ravtech.components.Light;
 import com.ravelsoftware.ravtech.components.PolygonCollider;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.input.InputManager;
 import com.ravelsoftware.ravtech.util.EventType;
@@ -81,8 +78,6 @@ public class GizmoHandler {
                             closestGizmo = giz;
                         }
                     }
-                    RavTechDK.ui.ravtechDKFrame
-                        .setCursor(Cursor.getPredefinedCursor(closestGizmo == null ? Cursor.DEFAULT_CURSOR : Cursor.MOVE_CURSOR));
                     this.closestGizmo = closestGizmo;
                 } else
                     closestGizmo = exclusiveGizmo.input(0, EventType.MouseMoved) > 0f ? exclusiveGizmo : null;
@@ -117,7 +112,6 @@ public class GizmoHandler {
                     draggedGizmo.input(0, EventType.MouseUp);
                     draggedGizmo = null;
                     RavTechDKUtil.renderSelection = false;
-                    RavTechDK.ui.ravtechDKFrame.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 }
                 return true;
             case EventType.MouseDrag:
