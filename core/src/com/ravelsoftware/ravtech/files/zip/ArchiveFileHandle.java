@@ -34,15 +34,18 @@ public class ArchiveFileHandle extends FileHandle {
     public ArchiveFileHandle(FileHandle zipfilehandle, String filePath, boolean init) {
         super(filePath, FileType.Classpath);
         this.zipfilehandle = zipfilehandle;
+        if(filePath.startsWith("/"))
+      	  filePath = filePath.substring(1);
         if (init) {
             ZipInputStream stream = new ZipInputStream(zipfilehandle.read());
             try {
                 ZipEntry entry;
-                while ((entry = stream.getNextEntry()) != null)
+                while ((entry = stream.getNextEntry()) != null) {
                     if (entry.getName().replace('\\', '/').equals(filePath)) {
                         entrystream = stream;
                         break;
                     }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
