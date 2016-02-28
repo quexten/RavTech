@@ -20,7 +20,8 @@ import com.ravelsoftware.ravtech.util.Debug;
 public class RavTechDKApplication extends RavTech {
 
     Stage stage;
-
+    Table container;
+    
     public RavTechDKApplication(AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
         super(absoluteFileHandleResolver, project);
     }
@@ -30,6 +31,9 @@ public class RavTechDKApplication extends RavTech {
         super.create();
         VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
         stage = new Stage(new ScreenViewport());
+        stage.setDebugAll(true);
+
+        
         final Table root = new Table();
         root.setFillParent(true);
         stage.addActor(root);
@@ -39,7 +43,40 @@ public class RavTechDKApplication extends RavTech {
         final SceneViewWidget mainSceneView = new SceneViewWidget(true);
         root.add(mainSceneView).expand().fill();
         Gdx.input.setInputProcessor(stage);
-        final VisWindow window = new VisWindow("Test");
+        
+        root.addListener(new InputListener() {
+      	  
+            @Override
+            public boolean scrolled (InputEvent event, float x, float y, int amount) {
+                return true;
+            }
+            
+        });
+        
+        HookApi.onResizeHooks.add(new Runnable() {
+      	  
+            @Override
+            public void run() {
+              
+            	mainSceneView.resize();
+            }
+        });
+    }
+
+    public void render () {        
+        stage.act();
+        RavTech.sceneHandler.render();
+        stage.draw();
+    }
+
+    public void resize (int width, int height) {
+        stage.getViewport().update(width, height, true);   
+        stage.draw();
+        super.resize(width, height);            
+    }
+    
+    public void addWindow(String title) {
+        final VisWindow window = new VisWindow(title);
         final SceneViewWidget sceneView = new SceneViewWidget(false);
         window.add(sceneView).expand().fill();
         window.setSize(128*3, 72*3);
@@ -50,35 +87,7 @@ public class RavTechDKApplication extends RavTech {
                 sceneView.setResolution((int)sceneView.getWidth(), (int)sceneView.getHeight());
                 sceneView.camera.setToOrtho(false, sceneView.getWidth(), sceneView.getHeight());
             }
-        });
-        window.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                Debug.log("Event", "touchUp");
-                
-            }
-        });
+        });        
         stage.addActor(window);
-
-        HookApi.onResizeHooks.add(new Runnable() {
-            @Override
-            public void run() {
-                mainSceneView.resize();
-            }
-        });
-    }
-
-    public void render () {
-        
-        stage.act();
-        RavTech.sceneHandler.render();
-        stage.draw();
-    }
-
-    public void resize (int width, int height) {
-        stage.getViewport().update(width, height, true);   
-        stage.draw();
-        super.resize(width, height);
-            
     }
 }
