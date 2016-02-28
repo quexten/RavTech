@@ -3,7 +3,6 @@ package com.ravelsoftware.ravtech.dk;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -15,12 +14,10 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.ui.editor.EditorMenuBar;
 import com.ravelsoftware.ravtech.dk.ui.editor.SceneViewWidget;
 import com.ravelsoftware.ravtech.project.Project;
-import com.ravelsoftware.ravtech.util.Debug;
 
 public class RavTechDKApplication extends RavTech {
 
     Stage stage;
-    Table container;
     
     public RavTechDKApplication(AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
         super(absoluteFileHandleResolver, project);
@@ -31,8 +28,6 @@ public class RavTechDKApplication extends RavTech {
         super.create();
         VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
         stage = new Stage(new ScreenViewport());
-        stage.setDebugAll(true);
-
         
         final Table root = new Table();
         root.setFillParent(true);
@@ -43,23 +38,14 @@ public class RavTechDKApplication extends RavTech {
         final SceneViewWidget mainSceneView = new SceneViewWidget(true);
         root.add(mainSceneView).expand().fill();
         Gdx.input.setInputProcessor(stage);
-        
-        root.addListener(new InputListener() {
-      	  
-            @Override
-            public boolean scrolled (InputEvent event, float x, float y, int amount) {
-                return true;
-            }
-            
-        });
-        
+                
         HookApi.onResizeHooks.add(new Runnable() {
       	  
             @Override
-            public void run() {
-              
+            public void run() {              
             	mainSceneView.resize();
             }
+            
         });
     }
 
@@ -82,11 +68,13 @@ public class RavTechDKApplication extends RavTech {
         window.setSize(128*3, 72*3);
         window.setResizable(true);
         window.addListener(new ClickListener() {
+      	  
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
                 sceneView.setResolution((int)sceneView.getWidth(), (int)sceneView.getHeight());
                 sceneView.camera.setToOrtho(false, sceneView.getWidth(), sceneView.getHeight());
             }
+            
         });        
         stage.addActor(window);
     }

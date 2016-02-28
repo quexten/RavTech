@@ -128,5 +128,10 @@ public class Camera extends OrthographicCamera {
         unproject(screenCoords, 0, 0, (float)resolutionX, (float)resolutionY);
         return screenCoords;
     }
+    
+    public Vector2 unproject (Vector2 screenCoords) {
+   	 Vector3 unprojection = unproject(new Vector3(screenCoords.x, screenCoords.y, 0));
+   	 return screenCoords.set(unprojection.x, unprojection.y);
+    }
 
 }

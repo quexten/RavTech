@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.kotcrab.vis.ui.VisUI;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.graphics.Camera;
 import com.ravelsoftware.ravtech.util.Debug;
@@ -27,6 +28,10 @@ public class SceneViewWidget extends Widget {
 	float targetZoom;
 	Vector2 targetPosition;
 
+	Vector2 selectionStart = new Vector2();
+	Vector2 selectionEnd = new Vector2();
+	boolean isDragging;
+
 	public SceneViewWidget (boolean main) {
 		camera = main ? RavTech.sceneHandler.worldCamera : RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
 		camera.zoom = 0.05f;
@@ -35,19 +40,31 @@ public class SceneViewWidget extends Widget {
 
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				Vector3 unprojectedPosition = camera.unproject(new Vector3(x, getHeight() - y, 0));
-				dragAnchorPosition = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
-				Debug.log("dragAnchor", dragAnchorPosition);
-				Debug.log("screenPosition", new Vector2(x, getHeight() - y));
+				if (button == Buttons.RIGHT) {
+					Vector3 unprojectedPosition = camera.unproject(new Vector3(x, getHeight() - y, 0));
+					dragAnchorPosition = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
+				} else if (button == Buttons.LEFT) {
+					isDragging = true;
+					selectionStart.set(camera.unproject(new Vector2(x, getHeight() - y)));
+					selectionEnd.set(selectionStart);
+				}
 				return true;
 			}
+
+			@Override
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				isDragging = false;
+			}
+
 		});
 
 		DragListener leftListener = new DragListener() {
 
 			@Override
 			public void drag (InputEvent event, float x, float y, int pointer) {
+				selectionEnd.set(camera.unproject(new Vector2(x, getHeight() - y)));
 			}
+
 		};
 		this.addListener(leftListener);
 
@@ -88,6 +105,7 @@ public class SceneViewWidget extends Widget {
 
 		};
 		this.addListener(scrollListener);
+
 		this.addListener(new InputListener() {
 
 			public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -95,6 +113,7 @@ public class SceneViewWidget extends Widget {
 			}
 
 		});
+
 		Gdx.app.postRunnable(new Runnable() {
 
 			@Override
@@ -107,6 +126,7 @@ public class SceneViewWidget extends Widget {
 
 	public void resize () {
 		if (!(getWidth() > 0 && getHeight() > 0)) return;
+		Debug.log("setToOrtho", getWidth() + "|" + getHeight());
 		this.camera.setToOrtho(false, getWidth(), getHeight());
 		this.camera.update();
 		this.camera.setResolution((int)getWidth(), (int)getHeight());
@@ -124,6 +144,17 @@ public class SceneViewWidget extends Widget {
 		batch.disableBlending();
 		((SpriteBatch)batch).draw(camera.getCameraBufferTexture(), 0, getHeight(), getWidth(), -getHeight());
 		batch.enableBlending();
+
+		if (isDragging) {
+			Vector3 selectionStartProjection = camera.project(new Vector3(selectionStart.x, selectionStart.y, 0), 0, 0, getWidth(),
+				getHeight());
+			Vector3 selectionEndProjection = camera.project(new Vector3(selectionEnd.x, selectionEnd.y, 0), 0, 0, getWidth(),
+				getHeight());
+			selectionEndProjection.sub(selectionStartProjection);
+			batch.setColor(new Color(1, 1, 1, 0.5f));
+			batch.draw(VisUI.getSkin().getRegion("window-bg"), selectionStartProjection.x, selectionStartProjection.y,
+				selectionEndProjection.x, selectionEndProjection.y);
+		}
 	}
 
 	public void setResolution (int width, int height) {
