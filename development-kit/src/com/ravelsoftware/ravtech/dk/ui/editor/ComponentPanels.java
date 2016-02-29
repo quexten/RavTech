@@ -4,6 +4,8 @@ package com.ravelsoftware.ravtech.dk.ui.editor;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.ravelsoftware.ravtech.components.GameComponent;
+import com.ravelsoftware.ravtech.components.Light;
+import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
 
 public class ComponentPanels {
@@ -20,16 +22,32 @@ public class ComponentPanels {
 
 	public static void registerPanels () {
 		ComponentPanels.registerComponent(Transform.class, new ComponentPanel() {
-			
 			@Override
 			public VisTable createTable (GameComponent component) {
 				VisTable table = new VisTable();
-				this.addSliderLabel(table, "x", component);
-				this.addSliderLabel(table, "y", component);
-				this.addSliderLabel(table, "rotation", component);
+				addSliderLabel(table, "x", component);
+				addSliderLabel(table, "y", component);
+				addSliderLabel(table, "rotation", component);
 				return table;
 			}
-			
+		});
+		ComponentPanels.registerComponent(SpriteRenderer.class, new ComponentPanel() {
+			@Override
+			public VisTable createTable (GameComponent component) {
+				VisTable table = new VisTable();
+				addColorPicker(table, "tint", component);
+				return table;
+			}
+		});
+		ComponentPanels.registerComponent(Light.class, new ComponentPanel() {
+			@Override
+			public VisTable createTable (GameComponent component) {
+				VisTable table = new VisTable();
+				addColorPicker(table, "color", component);
+				addSliderLabel(table, "angle", component);
+				addSliderLabel(table, "distance", component);
+				return table;
+			}
 		});
 	}
 
