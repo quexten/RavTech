@@ -16,6 +16,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.kotcrab.vis.ui.VisUI;
 import com.ravelsoftware.ravtech.RavTech;
+import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.graphics.Camera;
 import com.ravelsoftware.ravtech.util.Debug;
 
@@ -63,6 +64,8 @@ public class SceneViewWidget extends Widget {
 			@Override
 			public void drag (InputEvent event, float x, float y, int pointer) {
 				selectionEnd.set(camera.unproject(new Vector2(x, getHeight() - y)));
+				RavTechDKUtil.setSelectedObjects(
+					RavTech.currentScene.getGameObjectsIn(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y));
 			}
 
 		};
@@ -74,8 +77,8 @@ public class SceneViewWidget extends Widget {
 			public void drag (InputEvent event, float x, float y, int pointer) {
 				int screenCenterWidth = (int)getWidth();
 				int screenCenterHeight = (int)getHeight();
-				float screenDiffX = (screenCenterWidth - x) - (float)screenCenterWidth / 2f;
-				float screenDiffY = (screenCenterHeight - y - (float)screenCenterHeight / 2f);
+				float screenDiffX = screenCenterWidth - x - screenCenterWidth / 2f;
+				float screenDiffY = screenCenterHeight - y - screenCenterHeight / 2f;
 				camera.position.set(dragAnchorPosition.x + screenDiffX * camera.zoom,
 					dragAnchorPosition.y + screenDiffY * camera.zoom, 0);
 				camera.update();
@@ -135,9 +138,7 @@ public class SceneViewWidget extends Widget {
 	@Override
 	public void draw (Batch batch, float alpha) {
 		super.draw(batch, alpha);
-		if (hasToLerpZoom) {
-			camera.zoom += 0.16f * (targetZoom - camera.zoom);
-		}
+		if (hasToLerpZoom) camera.zoom += 0.16f * (targetZoom - camera.zoom);
 		if (hasToLerpPosition) camera.position.lerp(new Vector3(targetPosition.x, targetPosition.y, 0), 0.16f);
 		if (Math.abs(targetZoom - camera.zoom) < 0.00001f) hasToLerpZoom = hasToLerpPosition = false;
 		batch.setColor(Color.WHITE);

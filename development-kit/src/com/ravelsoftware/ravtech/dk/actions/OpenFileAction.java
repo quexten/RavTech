@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.dk.actions;
 
 import java.awt.Desktop;
@@ -23,39 +24,39 @@ import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 
 public class OpenFileAction implements Runnable {
 
-    File file;
+	File file;
 
-    public OpenFileAction(File file) {
-        this.file = file;
-    }
+	public OpenFileAction (File file) {
+		this.file = file;
+	}
 
-    @Override
-    public void run () {
-        switch (file.getName().substring(file.getName().lastIndexOf('.'), file.getName().length())) {
-            case ".map":
-                break;
-            case ".lua":
-                ZeroBraneUtil.openFile(file);
-                break;
-            case ".particle":
-                new Thread() {
+	@Override
+	public void run () {
+		switch (file.getName().substring(file.getName().lastIndexOf('.'), file.getName().length())) {
+		case ".map":
+			break;
+		case ".lua":
+			ZeroBraneUtil.openFile(file);
+			break;
+		case ".particle":
+			new Thread() {
 
-                    @Override
-                    public void run () {
-                        try {
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                }.start();
-                break;
-            default:
-                try {
-                    Desktop.getDesktop().open(file);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
-    }
+				@Override
+				public void run () {
+					try {
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			}.start();
+			break;
+		default:
+			try {
+				Desktop.getDesktop().open(file);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			break;
+		}
+	}
 }

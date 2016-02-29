@@ -29,6 +29,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.ComponentType;
 import com.ravelsoftware.ravtech.components.GameComponent;
@@ -157,13 +158,21 @@ public class SortedRenderer {
             renderables.addAll(currentRenderables);
         }
         if (camera.cameraBuffer != null) {
-            camera.cameraBuffer.begin();
+            camera.cameraBuffer.begin();            
             Gdx.gl.glClearColor(0, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
             renderRunnables(renderables);
+            for(int i = 0; i < HookApi.onRenderHooks.size; i++) {
+          	  HookApi.onRenderHooks.get(i).run();
+            }
             camera.cameraBuffer.end();
-        } else
+        } else {
             renderRunnables(renderables);
+
+            for(int i = 0; i < HookApi.onRenderHooks.size; i++) {
+          	  HookApi.onRenderHooks.get(i).run();
+            }
+        }
     }
 
     public void renderRunnables (Array<Renderable> renderables) {

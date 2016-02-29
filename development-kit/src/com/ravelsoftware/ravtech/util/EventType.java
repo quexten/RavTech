@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.util;
 
 public class EventType {
 
-    public static final int MouseDown = 0;
-    public static final int MouseUp = 1;
-    public static final int MouseDrag = 2;
-    public static final int MouseMoved = 3;
+	public static final int MouseDown = 0;
+	public static final int MouseUp = 1;
+	public static final int MouseDrag = 2;
+	public static final int MouseMoved = 3;
 }

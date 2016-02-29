@@ -13,25 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.dk.packaging;
 
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public abstract class PackageStep implements Runnable {
 
-    BuildReporterDialog buildReporterDialog;
-    PackageStep nextStep;
+	BuildReporterDialog buildReporterDialog;
+	PackageStep nextStep;
 
-    public PackageStep(BuildReporterDialog buildReporterDialog) {
-        this.buildReporterDialog = buildReporterDialog;
-    }
+	public PackageStep (BuildReporterDialog buildReporterDialog) {
+		this.buildReporterDialog = buildReporterDialog;
+	}
 
-    public void executeNext () {
-        if (nextStep != null) nextStep.run();
-    }
+	public void executeNext () {
+		if (nextStep != null) nextStep.run();
+	}
 
-    public PackageStep setNextStep (PackageStep nextStep) {
-        this.nextStep = nextStep;
-        return nextStep;
-    }
+	public PackageStep setNextStep (PackageStep nextStep) {
+		this.nextStep = nextStep;
+		return nextStep;
+	}
 }

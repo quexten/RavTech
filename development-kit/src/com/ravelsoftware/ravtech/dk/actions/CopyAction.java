@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.dk.actions;
 
 import com.badlogic.gdx.Gdx;
@@ -23,9 +24,9 @@ import com.ravelsoftware.ravtech.util.PrefabManager;
 
 public class CopyAction implements Runnable {
 
-    @Override
-    public void run () {
-        Array<GameObject> objects = RavTechDKUtil.selectedObjects;
-        Gdx.app.getClipboard().setContents(PrefabManager.makePrefab(objects.get(0)));
-    }
+	@Override
+	public void run () {
+		Array<GameObject> objects = RavTechDKUtil.selectedObjects;
+		Gdx.app.getClipboard().setContents(PrefabManager.makePrefab(objects.get(0)));
+	}
 }

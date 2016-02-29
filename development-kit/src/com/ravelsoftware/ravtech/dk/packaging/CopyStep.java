@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.dk.packaging;
 
 import java.io.File;
@@ -24,24 +25,24 @@ import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class CopyStep extends PackageStep {
 
-    File dstDir;
-    File srcDir;
+	File dstDir;
+	File srcDir;
 
-    public CopyStep(BuildReporterDialog buildReporterDialog, File srcDir, File dstDir) {
-        super(buildReporterDialog);
-        this.srcDir = srcDir;
-        this.dstDir = dstDir;
-    }
+	public CopyStep (BuildReporterDialog buildReporterDialog, File srcDir, File dstDir) {
+		super(buildReporterDialog);
+		this.srcDir = srcDir;
+		this.dstDir = dstDir;
+	}
 
-    @Override
-    public void run () {
-        buildReporterDialog.log("Copy from [" + srcDir.getAbsolutePath() + "] to [" + dstDir.getAbsolutePath() + "]");
-        try {
-            Files.copy(srcDir.toPath(), dstDir.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            buildReporterDialog.logError(e.getMessage());
-        }
-        buildReporterDialog.log("Copy Done!");
-        this.executeNext();
-    }
+	@Override
+	public void run () {
+		buildReporterDialog.log("Copy from [" + srcDir.getAbsolutePath() + "] to [" + dstDir.getAbsolutePath() + "]");
+		try {
+			Files.copy(srcDir.toPath(), dstDir.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		} catch (IOException e) {
+			buildReporterDialog.logError(e.getMessage());
+		}
+		buildReporterDialog.log("Copy Done!");
+		this.executeNext();
+	}
 }

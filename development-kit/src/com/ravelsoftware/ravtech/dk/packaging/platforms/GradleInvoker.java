@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.dk.packaging.platforms;
 
 import java.io.File;
@@ -23,27 +24,27 @@ import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler.Printer;
 
 public class GradleInvoker {
 
-    public static void Invoke (final BuildReporterDialog buildReporterDialog, String command) {
-        String fileSeparator = System.getProperty("file.separator");
-        Shell.executeCommand(new File(System.getProperty("user.dir") + fileSeparator + "builder" + fileSeparator),
-            "gradlew.bat " + command + " --stacktrace", new Printer() {
+	public static void Invoke (final BuildReporterDialog buildReporterDialog, String command) {
+		String fileSeparator = System.getProperty("file.separator");
+		Shell.executeCommand(new File(System.getProperty("user.dir") + fileSeparator + "builder" + fileSeparator),
+			"gradlew.bat " + command + " --stacktrace", new Printer() {
 
-                @Override
-                public void run () {
-                    buildReporterDialog.log(line);
-                }
-            }, new Printer() {
+				@Override
+				public void run () {
+					buildReporterDialog.log(line);
+				}
+			}, new Printer() {
 
-                @Override
-                public void run () {
-                    buildReporterDialog.logError(line);
-                }
-            });
-    }
+				@Override
+				public void run () {
+					buildReporterDialog.logError(line);
+				}
+			});
+	}
 
-    public static void Invoke (final String command) {
-        String fileSeparator = System.getProperty("file.separator");
-        Shell.executeCommand(new File(System.getProperty("user.dir") + fileSeparator + "builder" + fileSeparator),
-            "gradlew.bat " + command + " --stacktrace");
-    }
+	public static void Invoke (final String command) {
+		String fileSeparator = System.getProperty("file.separator");
+		Shell.executeCommand(new File(System.getProperty("user.dir") + fileSeparator + "builder" + fileSeparator),
+			"gradlew.bat " + command + " --stacktrace");
+	}
 }

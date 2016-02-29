@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.dk.ui.utils;
 
 import java.io.BufferedReader;
@@ -22,33 +23,33 @@ import java.io.InputStreamReader;
 
 public class StreamGobbler extends Thread {
 
-    public static abstract class Printer implements Runnable {
+	public static abstract class Printer implements Runnable {
 
-        protected String line;
+		protected String line;
 
-        abstract public void run ();
-    }
+		abstract public void run ();
+	}
 
-    InputStream is;
-    Printer printer;
+	InputStream is;
+	Printer printer;
 
-    public StreamGobbler(InputStream is, Printer printer) {
-        this.is = is;
-        this.printer = printer;
-    }
+	public StreamGobbler (InputStream is, Printer printer) {
+		this.is = is;
+		this.printer = printer;
+	}
 
-    @Override
-    public void run () {
-        try {
-            InputStreamReader isr = new InputStreamReader(is);
-            BufferedReader br = new BufferedReader(isr);
-            String line = null;
-            while ((line = br.readLine()) != null) {
-                printer.line = line;
-                printer.run();
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
+	@Override
+	public void run () {
+		try {
+			InputStreamReader isr = new InputStreamReader(is);
+			BufferedReader br = new BufferedReader(isr);
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				printer.line = line;
+				printer.run();
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 }

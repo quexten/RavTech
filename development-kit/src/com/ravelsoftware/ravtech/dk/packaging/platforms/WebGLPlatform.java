@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.dk.packaging.platforms;
 
 import java.io.File;
@@ -21,18 +22,18 @@ import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class WebGLPlatform implements Platform {
 
-    @Override
-    public boolean build (File buildPath, BuildReporterDialog buildReporterDialog) {
-        GradleInvoker.Invoke(buildReporterDialog, "html:dist --stacktrace");
-        buildReporterDialog.setVisible(true);
-        return false;
-    }
+	@Override
+	public boolean build (File buildPath, BuildReporterDialog buildReporterDialog) {
+		GradleInvoker.Invoke(buildReporterDialog, "html:dist --stacktrace");
+		buildReporterDialog.setVisible(true);
+		return false;
+	}
 
-    @Override
-    public boolean run (BuildReporterDialog buildReporterDialog) {
-        GradleInvoker.Invoke("--stop");
-        GradleInvoker.Invoke(buildReporterDialog, "html:superDev --stacktrace");
-        buildReporterDialog.setVisible(true);
-        return false;
-    }
+	@Override
+	public boolean run (BuildReporterDialog buildReporterDialog) {
+		GradleInvoker.Invoke("--stop");
+		GradleInvoker.Invoke(buildReporterDialog, "html:superDev --stacktrace");
+		buildReporterDialog.setVisible(true);
+		return false;
+	}
 }
