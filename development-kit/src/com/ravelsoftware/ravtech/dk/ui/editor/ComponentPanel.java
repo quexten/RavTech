@@ -47,7 +47,7 @@ public abstract class ComponentPanel {
 		final LabelColorPair label = new LabelColorPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
 			((Color)(component.getVariable(component.getVariableId(variable)))));
 		table.add(label.label).padLeft(6).growX();
-		table.add(label.pairedComponent).growX().padTop(20);
+		table.add(label.pairedComponent).expand().height(20).growX();
 		table.setFillParent(true);
 		table.row();
 

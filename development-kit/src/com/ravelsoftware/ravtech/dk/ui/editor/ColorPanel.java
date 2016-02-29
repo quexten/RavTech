@@ -12,7 +12,6 @@ public class ColorPanel extends Widget {
 	public ColorPanel(Color color) {
 		super();		
 		this.backgroundColor = color;
-		this.setFillParent(true);
 	}
 	
 	@Override
