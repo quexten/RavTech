@@ -4,7 +4,6 @@ package com.ravelsoftware.ravtech.dk.ui.editor;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 
 public class Inspector extends VisTable {
@@ -15,19 +14,7 @@ public class Inspector extends VisTable {
 		this.getStage();
 		add(new VisTextField("test")).top().padTop(32);
 		row();
-
-		ComponentPanels.registerComponent(Transform.class, new ComponentPanel() {
-
-			@Override
-			public VisTable createTable (GameComponent component) {
-				VisTable table = new VisTable();
-				this.addSliderLabel(table, "x", component);
-				this.addSliderLabel(table, "y", component);
-				return table;
-			}
-
-		});
-
+		ComponentPanels.registerPanels();
 	}
 
 	public void act (float delta) {
