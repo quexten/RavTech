@@ -2,13 +2,21 @@
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
+import com.kotcrab.vis.ui.widget.file.FileChooser;
+import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
+import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
+import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
+import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 import com.ravelsoftware.ravtech.history.ChangeManager;
@@ -41,7 +49,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						RavTech.files.getAsset(RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene));
+						RavTech.files.getAssetHandle(RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene)).writeString(new Json().toJson(RavTech.currentScene), true);
 						Debug.log("Saved Scene", "[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
 					}
 				});
@@ -54,8 +62,17 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						RavTech.files.getAsset(RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene));
-						Debug.log("Saved Scene", "[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
+						FileChooser fileChooser = new FileChooser(Mode.SAVE);
+						fileChooser.setSelectionMode(SelectionMode.FILES);
+						fileChooser.setListener(new FileChooserAdapter() {
+						    @Override
+						    public void selected (Array<FileHandle> file) {						   	 
+						   	 file.first().writeString(new Json().toJson(RavTech.currentScene), true);
+						   	 	Debug.log("Saved Scene", "[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
+						    }
+						});
+						fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
+						actor.getStage().addActor(fileChooser);						
 					}
 				});
 				entry.setShortcut(Keys.CONTROL_LEFT, Keys.SHIFT_LEFT, Keys.S);

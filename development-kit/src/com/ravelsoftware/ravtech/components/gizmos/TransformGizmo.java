@@ -46,7 +46,6 @@ public class TransformGizmo extends Gizmo {
 
 	@Override
 	public void draw (ShapeRenderer renderer, boolean selected) {
-		Debug.log("selectedAxis", selectedaxis);
 		float zoom = RavTech.sceneHandler.worldCamera.zoom;
 		Vector2 endpoint_x = new Vector2(transform.getPosition().add(new Vector2(50f * zoom, 0)));
 		Vector2 endpoint_y = new Vector2(transform.getPosition().add(new Vector2(0, 50f * zoom)));
