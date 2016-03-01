@@ -23,6 +23,7 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.ModifyChangeable;
+import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 
@@ -31,13 +32,13 @@ public class TransformGizmo extends Gizmo {
 	Transform transform;
 	private float oldX, oldY;
 	private float oldRotation;
-	private static int xaxis = 1, yaxis = 2, raxis = 3, xyaxis = 4; // for drawing
-																							// gizmos
+	private static int xaxis = 1, yaxis = 2, raxis = 3, xyaxis = 4;
 	private Vector2 grabPosition = null;
 	private boolean isGrabbed = false;
 	private int grabbedAxis = 0;
 	float currentDst = 0;
 	public boolean moveGrab;
+	int selectedaxis;
 
 	public TransformGizmo (Transform transform) {
 		this.transform = transform;
@@ -45,11 +46,7 @@ public class TransformGizmo extends Gizmo {
 
 	@Override
 	public void draw (ShapeRenderer renderer, boolean selected) {
-		int selectedaxis;
-		if (!isGrabbed)
-			selectedaxis = getSelectedAxis();
-		else
-			selectedaxis = grabbedAxis;
+		Debug.log("selectedAxis", selectedaxis);
 		float zoom = RavTech.sceneHandler.worldCamera.zoom;
 		Vector2 endpoint_x = new Vector2(transform.getPosition().add(new Vector2(50f * zoom, 0)));
 		Vector2 endpoint_y = new Vector2(transform.getPosition().add(new Vector2(0, 50f * zoom)));
@@ -76,26 +73,21 @@ public class TransformGizmo extends Gizmo {
 		renderer.line(endpoint_r,
 			new Vector2(endpoint_r.x - (float)Math.cos(Math.toRadians(transform.getRotation() - 25)) * 0.2f * 50 * zoom,
 				endpoint_r.y - (float)Math.sin(Math.toRadians(transform.getRotation() - 25)) * 0.2f * 50 * zoom));
-		/*
-		 * if(!RavTech.assetManager.isLoaded("ui/Arrow.png")) { RavTech.assetManager.load("ui/Arrow.png", Texture.class);
-		 * RavTech.assetManager.finishLoading(); } renderer.end(); batch.begin();
-		 * batch.draw(RavTech.assetManager.get("ui/Arrow.png", Texture.class), getParent().transform.getPosition().x,
-		 * getParent().transform.getPosition().y, 15f*zoom, 15*zoom); batch.end(); renderer.begin(ShapeType.Line);
-		 */
 	}
 
 	@Override
-	public float input (int button, int eventtype) {
-		int selectedaxis = 0;
+	public float input (float x, float y, int button, int eventtype) {
+		Vector2 worldPosition = new Vector2(x, y);
 		if (!isGrabbed)
-			selectedaxis = getSelectedAxis();
+			selectedaxis = getSelectedAxis(worldPosition);
 		else
 			selectedaxis = grabbedAxis;
+
 		if (moveGrab) selectedaxis = xyaxis;
 		if (selectedaxis != 0) {
 			switch (eventtype) {
 			case EventType.MouseDown:
-				grabPosition = transform.getPosition().sub(RavTech.input.getWorldPosition());
+				grabPosition = transform.getPosition().sub(worldPosition);
 				oldX = this.transform.getLocalPosition().cpy().x;
 				oldY = this.transform.getLocalPosition().cpy().y;
 				oldRotation = this.transform.getLocalRotation();
@@ -105,7 +97,7 @@ public class TransformGizmo extends Gizmo {
 			case EventType.MouseDrag:
 				if (!isGrabbed) return currentDst;
 				Vector2 currentposition = transform.getPosition();
-				Vector2 mouseposition = RavTech.input.getWorldPosition();
+				Vector2 mouseposition = worldPosition;
 				if (grabPosition != null && (grabbedAxis == xaxis || grabbedAxis == yaxis)) {
 					this.transform
 						.setPosition(new Vector2(selectedaxis == xaxis ? mouseposition.x + grabPosition.x : currentposition.x,
@@ -161,7 +153,7 @@ public class TransformGizmo extends Gizmo {
 		return -1f;
 	}
 
-	private int getSelectedAxis () {
+	private int getSelectedAxis (Vector2 worldPosition) {
 		float zoom = RavTech.sceneHandler.worldCamera.zoom;
 		float selectiondst = 0.2f * 20f * zoom;
 		int selectedaxis = 0;
@@ -170,18 +162,15 @@ public class TransformGizmo extends Gizmo {
 		Vector2 endpoint_r = new Vector2(
 			transform.getLocalPosition().cpy().add(new Vector2((float)Math.cos(Math.toRadians(transform.getRotation())) * 30f * zoom,
 				(float)Math.sin(Math.toRadians(transform.getRotation())) * 30f * zoom)));
-		float xaxisdst = GeometryUtils.dstFromLine(transform.getLocalPosition().cpy(), endpoint_x,
-			RavTech.input.getWorldPosition());
-		boolean ispointnearxaxis = GeometryUtils.isPointNearLine(transform.getLocalPosition().cpy(), endpoint_x,
-			RavTech.input.getWorldPosition(), selectiondst);
-		float yaxisdst = GeometryUtils.dstFromLine(transform.getLocalPosition().cpy(), endpoint_y,
-			RavTech.input.getWorldPosition());
-		boolean ispointnearyaxis = GeometryUtils.isPointNearLine(transform.getLocalPosition().cpy(), endpoint_y,
-			RavTech.input.getWorldPosition(), selectiondst);
-		float raxisdst = GeometryUtils.dstFromLine(transform.getLocalPosition().cpy(), endpoint_r,
-			RavTech.input.getWorldPosition());
-		boolean ispointnearraxis = GeometryUtils.isPointNearLine(transform.getLocalPosition().cpy(), endpoint_r,
-			RavTech.input.getWorldPosition(), selectiondst);
+		float xaxisdst = GeometryUtils.dstFromLine(transform.getLocalPosition().cpy(), endpoint_x, worldPosition);
+		boolean ispointnearxaxis = GeometryUtils.isPointNearLine(transform.getLocalPosition().cpy(), endpoint_x, worldPosition,
+			selectiondst);
+		float yaxisdst = GeometryUtils.dstFromLine(transform.getLocalPosition().cpy(), endpoint_y, worldPosition);
+		boolean ispointnearyaxis = GeometryUtils.isPointNearLine(transform.getLocalPosition().cpy(), endpoint_y, worldPosition,
+			selectiondst);
+		float raxisdst = GeometryUtils.dstFromLine(transform.getLocalPosition().cpy(), endpoint_r, worldPosition);
+		boolean ispointnearraxis = GeometryUtils.isPointNearLine(transform.getLocalPosition().cpy(), endpoint_r, worldPosition,
+			selectiondst);
 		if (ispointnearraxis && raxisdst <= xaxisdst && raxisdst <= yaxisdst) {
 			selectedaxis = raxis;
 			currentDst = raxisdst;
@@ -192,9 +181,9 @@ public class TransformGizmo extends Gizmo {
 			selectedaxis = yaxis;
 			currentDst = yaxisdst;
 		}
-		if (RavTech.input.getWorldPosition().dst(this.transform.getPosition()) < 0.3f * 20f * zoom) {
+		if (worldPosition.dst(this.transform.getPosition()) < 0.3f * 20f * zoom) {
 			selectedaxis = xyaxis;
-			currentDst = RavTech.input.getWorldPosition().dst(this.transform.getPosition());
+			currentDst = worldPosition.dst(this.transform.getPosition());
 		}
 		return selectedaxis;
 	}

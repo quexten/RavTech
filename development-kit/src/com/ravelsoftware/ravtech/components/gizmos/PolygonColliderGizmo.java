@@ -79,9 +79,8 @@ public class PolygonColliderGizmo extends Gizmo {
 	}
 
 	@Override
-	public float input (int button, int eventType) {
-		Vector3 unprojectedMouse = RavTech.sceneHandler.worldCamera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-		Vector2 mousePosition = new Vector2(unprojectedMouse.x, unprojectedMouse.y);
+	public float input (float x, float y, int button, int eventType) {
+		Vector2 mousePosition = new Vector2(x, y);
 		switch (eventType) {
 		case EventType.MouseMoved:
 			for (int i = 0; i < polygonCollider.vertecies.size; i++)

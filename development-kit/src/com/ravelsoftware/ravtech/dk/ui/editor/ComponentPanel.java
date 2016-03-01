@@ -10,7 +10,6 @@ import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.ModifyChangeable;
-import com.ravelsoftware.ravtech.util.Debug;
 
 public abstract class ComponentPanel {
 
@@ -66,8 +65,7 @@ public abstract class ComponentPanel {
 					}
 
 					@Override
-					public void reset (Color previousColor, Color newColor) {
-						
+					public void reset (Color previousColor, Color newColor) {						
 					}
 
 					@Override

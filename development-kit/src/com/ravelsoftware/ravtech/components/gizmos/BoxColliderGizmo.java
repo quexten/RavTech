@@ -99,12 +99,11 @@ public class BoxColliderGizmo extends Gizmo {
 	}
 
 	@Override
-	public float input (int button, int eventType) {
+	public float input (float x, float y, int button, int eventType) {
 		if (!boxCollider.canEdit) return -1f;
 		float rotation = boxCollider.getParent().transform.getRotation();
 		Vector2 middlePosition = oldPosition;
-		Vector3 unprojectedMouse = RavTech.sceneHandler.worldCamera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-		Vector2 mousePosition = new Vector2(unprojectedMouse.x, unprojectedMouse.y);
+		Vector2 mousePosition = new Vector2(x, y);
 		switch (eventType) {
 		case EventType.MouseDown:
 			oldPosition = boxCollider.getParent().transform.getPosition()

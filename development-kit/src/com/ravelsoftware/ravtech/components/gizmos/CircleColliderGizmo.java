@@ -43,10 +43,10 @@ public class CircleColliderGizmo extends Gizmo {
 	}
 
 	@Override
-	public float input (int button, int eventtype) {
+	public float input (float x, float y, int button, int eventtype) {
 		switch (eventtype) {
 		case EventType.MouseMoved:
-			float distanceToMiddle = getMiddleDistance();
+			float distanceToMiddle = getMiddleDistance(x, y);
 			if (Math.abs(distanceToMiddle - circleCollider.radius) < RavTech.sceneHandler.worldCamera.zoom * 3)
 				return distanceToMiddle;
 			else
@@ -55,11 +55,11 @@ public class CircleColliderGizmo extends Gizmo {
 			oldRadius = circleCollider.radius;
 			break;
 		case EventType.MouseDrag:
-			new ModifyChangeable(circleCollider, "", "radius", oldRadius, getMiddleDistance()).redo();
+			new ModifyChangeable(circleCollider, "", "radius", oldRadius, getMiddleDistance(x, y)).redo();
 			break;
 		case EventType.MouseUp:
 			ChangeManager.addChangeable(
-				new ModifyChangeable(circleCollider, "Set Circle Collider Radius: ", "radius", oldRadius, getMiddleDistance()));
+				new ModifyChangeable(circleCollider, "Set Circle Collider Radius: ", "radius", oldRadius, getMiddleDistance(x, y)));
 			break;
 		}
 		return -1f;
@@ -75,7 +75,7 @@ public class CircleColliderGizmo extends Gizmo {
 			.add(circleCollider.getPosition().rotate(circleCollider.getParent().transform.getRotation()));
 	}
 
-	private float getMiddleDistance () {
-		return getMiddlePosition().dst(RavTech.input.getWorldPosition());
+	private float getMiddleDistance (float x, float y) {
+		return getMiddlePosition().dst(x, y);
 	}
 }

@@ -19,7 +19,6 @@ package com.ravelsoftware.ravtech.components.gizmos;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.Light;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
@@ -77,19 +76,16 @@ public class ConeLightGizmo extends Gizmo {
 	}
 
 	@Override
-	public float input (int button, int eventType) {
+	public float input (float x, float y, int button, int eventType) {
 		Vector2 origin = new Vector2(light.getParent().transform.getPosition().x, light.getParent().transform.getPosition().y);
+		Vector2 worldPosition = new Vector2(x, y);
 		switch (eventType) {
 		case EventType.MouseMoved:
-			float coneDst = Math.abs(origin.dst(RavTech.input.getWorldPosition()) - coneLight.getDistance() / 2f);
-			float rayDst = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, light.angle),
-				RavTech.input.getWorldPosition(), 1)
-					? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, light.angle), RavTech.input.getWorldPosition())
-					: Float.MAX_VALUE;
-			float rayDst2 = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, -light.angle),
-				RavTech.input.getWorldPosition(), 1)
-					? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, -light.angle), RavTech.input.getWorldPosition())
-					: Float.MAX_VALUE;
+			float coneDst = Math.abs(origin.dst(worldPosition) - coneLight.getDistance() / 2f);
+			float rayDst = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, light.angle), worldPosition, 1)
+				? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, light.angle), worldPosition) : Float.MAX_VALUE;
+			float rayDst2 = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, -light.angle), worldPosition, 1)
+				? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, -light.angle), worldPosition) : Float.MAX_VALUE;
 			if (rayDst > rayDst2) rayDst = rayDst2;
 			if (coneDst < rayDst && coneDst < 1f) {
 				raySelected = false;
@@ -103,9 +99,9 @@ public class ConeLightGizmo extends Gizmo {
 			break;
 		case EventType.MouseDrag:
 			if (!raySelected)
-				light.setVariable(1, origin.dst(RavTech.input.getWorldPosition()) * 2);
+				light.setVariable(1, origin.dst(worldPosition) * 2);
 			else {
-				float angle = RavTech.input.getWorldPosition().sub(origin).angle();
+				float angle = worldPosition.cpy().sub(origin).angle();
 				float rotation = light.getParent().transform.getRotation();
 				angle = angle - rotation;
 				if (angle < 0) angle += 360;

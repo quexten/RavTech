@@ -32,8 +32,8 @@ import com.ravelsoftware.ravtech.components.Light;
 import com.ravelsoftware.ravtech.components.PolygonCollider;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
+import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
-import com.ravelsoftware.ravtech.dk.input.InputManager;
 import com.ravelsoftware.ravtech.util.EventType;
 
 public class GizmoHandler {
@@ -59,10 +59,12 @@ public class GizmoHandler {
 	}
 
 	/** Inputs the given input to all gizmos and returns whether the input has been consumed
+	 * @param x - the x position in world coordinate space
+	 * @param y - the y position in world coordinate space
 	 * @param button - the button that the mouse action is performed with
 	 * @param eventType - the type of mouse event performed
 	 * @return - Whether the event has been consumed */
-	public boolean input (int button, int eventType) {
+	public boolean input (float x, float y, int button, int eventType) {
 		switch (eventType) {
 		case EventType.MouseMoved:
 			if (exclusiveGizmo == null) {
@@ -71,7 +73,7 @@ public class GizmoHandler {
 				float closestDst = Float.MAX_VALUE;
 				while (values.hasNext) {
 					Gizmo giz = values.next();
-					float gizDst = giz.input(0, EventType.MouseMoved);
+					float gizDst = giz.input(x, y, 0, EventType.MouseMoved);
 					if (gizDst > 0 && gizDst < closestDst
 						&& Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f * RavTech.sceneHandler.worldCamera.zoom
 						&& !giz.isExclusive) {
@@ -81,14 +83,14 @@ public class GizmoHandler {
 				}
 				this.closestGizmo = closestGizmo;
 			} else
-				closestGizmo = exclusiveGizmo.input(0, EventType.MouseMoved) > 0f ? exclusiveGizmo : null;
+				closestGizmo = exclusiveGizmo.input(x, y, 0, EventType.MouseMoved) > 0f ? exclusiveGizmo : null;
 			return closestGizmo != null;
 		case EventType.MouseDown:
 			this.draggedGizmo = closestGizmo;
 			if (this.draggedGizmo != null)
-				this.draggedGizmo.input(0, EventType.MouseDown);
+				this.draggedGizmo.input(x, y, 0, EventType.MouseDown);
 			else {
-				Transform transform = InputManager.getTransformAtPoint(RavTech.currentScene.gameObjects);
+				Transform transform = getTransformAtPoint(RavTech.currentScene.gameObjects);
 				if (transform != null) {
 					Array<GameObject> objects = new Array<GameObject>();
 					objects.add(transform.getParent());
@@ -96,7 +98,7 @@ public class GizmoHandler {
 					if (button == Buttons.LEFT) {
 						this.draggedGizmo = getGizmoFor(transform);
 						((TransformGizmo)this.draggedGizmo).moveGrab = true;
-						this.draggedGizmo.input(0, EventType.MouseDown);
+						this.draggedGizmo.input(x, y, 0, EventType.MouseDown);
 						((TransformGizmo)this.draggedGizmo).moveGrab = false;
 					} else {
 					}
@@ -110,13 +112,13 @@ public class GizmoHandler {
 		case EventType.MouseUp:
 			if (this.draggedGizmo != null) {
 				closestGizmo = null;
-				draggedGizmo.input(0, EventType.MouseUp);
+				draggedGizmo.input(x, y, 0, EventType.MouseUp);
 				draggedGizmo = null;
 				RavTechDKUtil.renderSelection = false;
 			}
 			return true;
 		case EventType.MouseDrag:
-			if (this.draggedGizmo != null) this.draggedGizmo.input(button, EventType.MouseDrag);
+			if (this.draggedGizmo != null) this.draggedGizmo.input(x, y, button, EventType.MouseDrag);
 			return this.draggedGizmo != null;
 		}
 		return false;
@@ -174,4 +176,27 @@ public class GizmoHandler {
 		else
 			exclusiveGizmo = null;
 	}
+	
+	public static Transform getTransformAtPoint (Array<? extends GameComponent> objects) {
+		Transform transform = null;
+		for (int i = 0; i < objects.size; i++)
+			if (objects.get(i) instanceof GameObject) {
+				Transform localTransform = getTransformAtPoint(((GameObject)objects.get(i)).getComponents());
+				if (localTransform != null) {
+					transform = localTransform;
+					break;
+				}
+			} else {
+				Gizmo gizmo = RavTechDK.gizmoHandler.createGizmoFor(objects.get(i));
+				if (gizmo != null) {
+					boolean isIn = gizmo.isInBoundingBox(RavTech.input.getWorldPosition());
+					if (isIn) {
+						transform = objects.get(i).getParent().transform;
+						break;
+					}
+				}
+			}
+		return transform;
+	}
+	
 }

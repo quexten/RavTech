@@ -124,12 +124,12 @@ public class SpriteRendererGizmo extends Gizmo {
 	}
 
 	@Override
-	public float input (int button, int eventType) {
+	public float input (float x, float y, int button, int eventType) {
 		float rotation = spriteRenderer.getParent().transform.getRotation();
 		Vector2 middlePosition = spriteRenderer.getParent().transform.getPosition().sub(
 			new Vector2(spriteRenderer.originX * (spriteRenderer.width / 2), spriteRenderer.originY * (spriteRenderer.height / 2))
 				.rotate(rotation));
-		Vector2 mousePosition = RavTech.input.getWorldPosition();
+		Vector2 mousePosition = new Vector2(x, y);
 		switch (eventType) {
 		case EventType.MouseMoved:
 			Vector2 tl = middlePosition.cpy()

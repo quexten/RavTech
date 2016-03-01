@@ -16,9 +16,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.kotcrab.vis.ui.VisUI;
 import com.ravelsoftware.ravtech.RavTech;
+import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.graphics.Camera;
 import com.ravelsoftware.ravtech.util.Debug;
+import com.ravelsoftware.ravtech.util.EventType;
 
 public class SceneViewWidget extends Widget {
 
@@ -36,13 +38,22 @@ public class SceneViewWidget extends Widget {
 	public SceneViewWidget (boolean main) {
 		camera = main ? RavTech.sceneHandler.worldCamera : RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
 		camera.zoom = 0.05f;
-
+		
+		this.addListener(new InputListener() {
+			public boolean mouseMoved (InputEvent event, float x, float y) {
+				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
+				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseMoved);
+				return false;
+			}
+		});
+		
 		this.addListener(new ClickListener() {
 
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
+				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseDown);
 				if (button == Buttons.RIGHT) {
-					Vector3 unprojectedPosition = camera.unproject(new Vector3(x, getHeight() - y, 0));
 					dragAnchorPosition = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
 				} else if (button == Buttons.LEFT) {
 					isDragging = true;
@@ -54,6 +65,8 @@ public class SceneViewWidget extends Widget {
 
 			@Override
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
+				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp);
 				isDragging = false;
 			}
 
@@ -63,6 +76,9 @@ public class SceneViewWidget extends Widget {
 
 			@Override
 			public void drag (InputEvent event, float x, float y, int pointer) {
+				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
+				if(RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseDrag))
+					return;
 				selectionEnd.set(camera.unproject(new Vector2(x, getHeight() - y)));
 				RavTechDKUtil.setSelectedObjects(
 					RavTech.currentScene.getGameObjectsIn(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y));
