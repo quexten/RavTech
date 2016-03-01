@@ -11,8 +11,8 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 
 public abstract class LabelActorPair<T> {
 
-	VisLabel label;
-	Actor pairedComponent;
+	public VisLabel label;
+	public Actor pairedComponent;
 	T dragValue;
 	T oldValue;
 	Runnable draggedListener = new Runnable() {

@@ -23,7 +23,6 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.ModifyChangeable;
-import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 

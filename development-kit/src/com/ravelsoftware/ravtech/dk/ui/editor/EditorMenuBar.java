@@ -1,8 +1,15 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowConfiguration;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
@@ -18,6 +25,7 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
+import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.CreateChangeable;
@@ -148,11 +156,20 @@ public class EditorMenuBar extends MenuBar {
 		{ // Window Menu
 			menu = new Menu("Project");
 			{ // Components
-				entry = new MenuItem("Component Settings");
+				entry = new MenuItem("Project Settings");
 				entry.addListener(new ChangeListener() {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
+						Lwjgl3Application app = (Lwjgl3Application)Gdx.app;
+						Lwjgl3WindowConfiguration config = new Lwjgl3WindowConfiguration();
+						DisplayMode mode = Gdx.graphics.getDisplayMode();
+						config.setWindowPosition(MathUtils.random(0, mode.width - 640), MathUtils.random(0, mode.height - 480));
+						config.setWindowedMode(330, 330);
+						config.setTitle("Child window");
+						config.setResizable(false);
+						ApplicationListener listener = new ProjectSettingsWizard(RavTechDK.project, true);
+						Lwjgl3Window window = app.newWindow(listener, config);
 					}
 				});
 				menu.addItem(entry);
@@ -181,7 +198,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-
+						
 					}
 				});
 				menu.addItem(entry);
