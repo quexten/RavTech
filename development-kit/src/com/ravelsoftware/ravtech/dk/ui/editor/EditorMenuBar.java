@@ -84,9 +84,23 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-
-						RavTech.files.getAsset(RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene));
-						Debug.log("Saved Scene", "[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
+						
+						FileChooser fileChooser = new FileChooser(Mode.OPEN);
+						fileChooser.setSelectionMode(SelectionMode.FILES);
+						fileChooser.setListener(new FileChooserAdapter() {
+						    @Override
+						    public void selected (Array<FileHandle> file) {
+						   	 String localScenePath = file.first().path().replaceAll(RavTechDK.projectHandle.child("assets").path(), "").substring(1);
+						   	 Debug.log("Load", "[" + localScenePath + "]");
+						   	 RavTech.files.getAssetManager().unload(RavTechDK.getCurrentScene());
+						   	 RavTech.files.loadAsset(localScenePath, Scene.class);						   	 
+						   	 RavTech.files.finishLoading();
+						   	 RavTech.currentScene.dispose();
+						   	 RavTech.currentScene = RavTech.files.getAsset(localScenePath);
+						    }
+						});
+						fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
+						actor.getStage().addActor(fileChooser);
 					}
 				});
 				entry.setShortcut(Keys.CONTROL_LEFT, Keys.L);
