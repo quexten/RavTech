@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.graphics;
 
 import com.badlogic.gdx.Gdx;
@@ -25,44 +26,44 @@ import com.ravelsoftware.ravtech.RavTech;
 
 public class Shader {
 
-    Array<String> passes;
-    Matrix4 matrix = new Matrix4();
+	Array<String> passes;
+	Matrix4 matrix = new Matrix4();
 
-    public Shader() {
-        matrix.setToOrtho2D(0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
-    }
+	public Shader () {
+		matrix.setToOrtho2D(0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+	}
 
-    public Shader(Array<String> passes) {
-        this.passes = passes;
-        matrix.setToOrtho2D(0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
-    }
+	public Shader (Array<String> passes) {
+		this.passes = passes;
+		matrix.setToOrtho2D(0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+	}
 
-    public FrameBuffer applyPasses (SpriteBatch batch, FrameBuffer inputBuffer, FrameBuffer outputBuffer) {
-        batch.begin();
-        batch.setProjectionMatrix(matrix);
-        FrameBuffer iBuffer = inputBuffer;
-        FrameBuffer oBuffer = outputBuffer;
-        for (int i = 0; i < passes.size; i++) {
-            oBuffer.begin();
-            Gdx.gl.glClearColor(0, 0, 0, 1);
-            Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-            batch.setShader(RavTech.sceneHandler.shaderManager.get(passes.get(i)));
-            batch.draw(iBuffer.getColorBufferTexture(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-            batch.setShader(RavTech.sceneHandler.shaderManager.get("default"));
-            oBuffer.end();
-            FrameBuffer tempBuffer = oBuffer;
-            oBuffer = iBuffer;
-            iBuffer = tempBuffer;
-        }
-        batch.end();
-        return oBuffer;
-    }
+	public FrameBuffer applyPasses (SpriteBatch batch, FrameBuffer inputBuffer, FrameBuffer outputBuffer) {
+		batch.begin();
+		batch.setProjectionMatrix(matrix);
+		FrameBuffer iBuffer = inputBuffer;
+		FrameBuffer oBuffer = outputBuffer;
+		for (int i = 0; i < passes.size; i++) {
+			oBuffer.begin();
+			Gdx.gl.glClearColor(0, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			batch.setShader(RavTech.sceneHandler.shaderManager.get(passes.get(i)));
+			batch.draw(iBuffer.getColorBufferTexture(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			batch.setShader(RavTech.sceneHandler.shaderManager.get("default"));
+			oBuffer.end();
+			FrameBuffer tempBuffer = oBuffer;
+			oBuffer = iBuffer;
+			iBuffer = tempBuffer;
+		}
+		batch.end();
+		return oBuffer;
+	}
 
-    public int getShaderPassCount () {
-        return passes.size;
-    }
+	public int getShaderPassCount () {
+		return passes.size;
+	}
 
-    public void setPasses (Array<String> programs) {
-        this.passes = programs;
-    }
+	public void setPasses (Array<String> programs) {
+		this.passes = programs;
+	}
 }

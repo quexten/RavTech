@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.graphics;
 
 public abstract class Renderable {
 
-    public String shaderName = "";
+	public String shaderName = "";
 
-    public Renderable(String shaderName) {
-        this.shaderName = shaderName;
-    }
+	public Renderable (String shaderName) {
+		this.shaderName = shaderName;
+	}
 
-    public abstract void render ();
+	public abstract void render ();
 }

@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.files;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -27,30 +28,30 @@ import com.ravelsoftware.ravtech.Scene;
 
 public class SceneLoader extends AsynchronousAssetLoader<Scene, AssetLoaderParameters<Scene>> {
 
-    Scene scene;
+	Scene scene;
 
-    public SceneLoader(FileHandleResolver resolver) {
-        super(resolver);
-    }
+	public SceneLoader (FileHandleResolver resolver) {
+		super(resolver);
+	}
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
-        scene = new Json().fromJson(Scene.class, file.readString());
-        Array<AssetDescriptor> assetDependencies = new Array<AssetDescriptor>();
-        for (int i = 0; i < scene.gameObjects.size; i++)
-            scene.gameObjects.get(i).load(assetDependencies);
-        return assetDependencies;
-    }
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
+		scene = new Json().fromJson(Scene.class, file.readString());
+		Array<AssetDescriptor> assetDependencies = new Array<AssetDescriptor>();
+		for (int i = 0; i < scene.gameObjects.size; i++)
+			scene.gameObjects.get(i).load(assetDependencies);
+		return assetDependencies;
+	}
 
-    @Override
-    public void loadAsync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
-    }
+	@Override
+	public void loadAsync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
+	}
 
-    @Override
-    public Scene loadSync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
-        for (int i = 0; i < scene.gameObjects.size; i++)
-            scene.gameObjects.get(i).finishedLoading();
-        return scene;
-    }
+	@Override
+	public Scene loadSync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
+		for (int i = 0; i < scene.gameObjects.size; i++)
+			scene.gameObjects.get(i).finishedLoading();
+		return scene;
+	}
 }

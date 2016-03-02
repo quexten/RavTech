@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.files;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -27,26 +28,26 @@ import com.ravelsoftware.ravtech.project.Project;
 
 public class ProjectLoader extends AsynchronousAssetLoader<Project, AssetLoaderParameters<Project>> {
 
-    Project project;
+	Project project;
 
-    public ProjectLoader(FileHandleResolver resolver) {
-        super(resolver);
-    }
+	public ProjectLoader (FileHandleResolver resolver) {
+		super(resolver);
+	}
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
-        project = new Json().fromJson(Project.class, file.readString());
-        Array<AssetDescriptor> assetDependencies = new Array<AssetDescriptor>();
-        return assetDependencies;
-    }
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
+		project = new Json().fromJson(Project.class, file.readString());
+		Array<AssetDescriptor> assetDependencies = new Array<AssetDescriptor>();
+		return assetDependencies;
+	}
 
-    @Override
-    public void loadAsync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
-    }
+	@Override
+	public void loadAsync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
+	}
 
-    @Override
-    public Project loadSync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
-        return project;
-    }
+	@Override
+	public Project loadSync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
+		return project;
+	}
 }

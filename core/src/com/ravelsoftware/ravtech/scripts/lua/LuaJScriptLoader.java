@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.scripts.lua;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -26,23 +27,23 @@ import com.ravelsoftware.ravtech.scripts.ScriptLoaderParameter;
 
 public class LuaJScriptLoader extends AsynchronousAssetLoader<Script, ScriptLoaderParameter> {
 
-    public LuaJScriptLoader(FileHandleResolver resolver) {
-        super(resolver);
-    }
+	public LuaJScriptLoader (FileHandleResolver resolver) {
+		super(resolver);
+	}
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, ScriptLoaderParameter parameter) {
-        return new Array<AssetDescriptor>();
-    }
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, ScriptLoaderParameter parameter) {
+		return new Array<AssetDescriptor>();
+	}
 
-    @Override
-    public void loadAsync (AssetManager manager, String fileName, FileHandle file, ScriptLoaderParameter parameter) {
-    }
+	@Override
+	public void loadAsync (AssetManager manager, String fileName, FileHandle file, ScriptLoaderParameter parameter) {
+	}
 
-    @Override
-    public Script loadSync (AssetManager manager, String fileName, FileHandle file, ScriptLoaderParameter parameter) {
-        LuaJScript script = new LuaJScript(file.readString(), parameter.selfObject);
-        return script;
-    }
+	@Override
+	public Script loadSync (AssetManager manager, String fileName, FileHandle file, ScriptLoaderParameter parameter) {
+		LuaJScript script = new LuaJScript(file.readString(), parameter.selfObject);
+		return script;
+	}
 }

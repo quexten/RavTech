@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.components;
 
 public enum ComponentType {
-    Default, GameObject, SpriteRenderer, Renderer, Transform, Rigidbody, BoxCollider, CircleCollider, AudioEmitter, Light, Animator, PolygonCollider, ScriptComponent;
+	Default, GameObject, SpriteRenderer, Renderer, Transform, Rigidbody, BoxCollider, CircleCollider, AudioEmitter, Light, Animator, PolygonCollider, ScriptComponent;
 }

@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.history;
 
 public interface ChangeListener {
 
-    void changed (Changeable changeable);
+	void changed (Changeable changeable);
 }

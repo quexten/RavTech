@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  ******************************************************************************/
+
 package com.ravelsoftware.ravtech.graphics;
 
 public class SortingLayer {
 
-    public String name;
+	public String name;
 
-    public SortingLayer(String layerName) {
-        this.name = layerName;
-    }
+	public SortingLayer (String layerName) {
+		this.name = layerName;
+	}
 
-    public SortingLayer() {
-    }
+	public SortingLayer () {
+	}
 
-    @Override
-    public String toString () {
-        return name;
-    }
+	@Override
+	public String toString () {
+		return name;
+	}
 }
