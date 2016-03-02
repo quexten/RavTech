@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.kotcrab.vis.ui.widget.MenuItem;
 import com.kotcrab.vis.ui.widget.PopupMenu;
+import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
@@ -17,12 +18,13 @@ import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 
 public class Inspector extends VisWindow {
 
+	VisTable contentTable;
+
 	public Inspector () {
 		super("Inspector");
-		top();
 		ComponentPanels.registerPanels();
 		setSize(300, 500);
-		setVisible(false);
+		setVisible(true);
 	}
 
 	public void act (float delta) {
@@ -35,8 +37,12 @@ public class Inspector extends VisWindow {
 
 	void rebuild () {
 		clear();
-		add(new VisTable()).top().padTop(32);
-		row();
+
+		contentTable = new VisTable();
+		contentTable.top();
+		VisScrollPane scrollPane = new VisScrollPane(contentTable);
+		scrollPane.setScrollingDisabled(true, false);
+		contentTable.clear();
 		setVisible(true);
 		if (RavTechDKUtil.selectedObjects.size > 0) {
 			for (int i = 0; i < RavTechDKUtil.selectedObjects.first().getComponents().size; i++)
@@ -49,16 +55,18 @@ public class Inspector extends VisWindow {
 					menu.showMenu(getStage(), textButton.getX(), textButton.getY());
 				}
 			});
-			row();
-			add(textButton);
+			contentTable.row();
+			contentTable.add(textButton);
 		} else
 			setVisible(false);
+		scrollPane.setFlickScroll(false);
+		add(scrollPane).grow();
 	}
 
 	void addCollapsiblePanel (GameComponent component) {
 		CollapsiblePanel title = new CollapsiblePanel(component.getName(), ComponentPanels.createTable(component));
-		add(title).growX();
-		row();
+		contentTable.add(title).growX();
+		contentTable.row();
 	}
 
 	PopupMenu createMenu () {

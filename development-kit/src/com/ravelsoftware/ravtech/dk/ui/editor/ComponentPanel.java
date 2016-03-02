@@ -2,8 +2,11 @@
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
@@ -39,7 +42,26 @@ public abstract class ComponentPanel {
 			}
 		};
 	}
-
+	
+	public void addDropdown (VisTable table, String variableName, String[] options, GameComponent component) {
+		final String variable = variableName;
+		final GameComponent gameComponent = component;
+		final LabelDropdownPair label = new LabelDropdownPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
+			options, String.valueOf(gameComponent.getVariable(gameComponent.getVariableId(variableName))));
+		table.add(label.label).padLeft(6).growX();
+		table.add(label.pairedComponent).growX();
+		table.setFillParent(true);
+		table.row();
+		
+		label.pairedComponent.addListener(new ChangeListener() {
+			@SuppressWarnings("unchecked")
+			@Override
+			public void changed (ChangeEvent event, Actor actor) {
+				gameComponent.setVariable(gameComponent.getVariableId(variable), ((VisSelectBox<String>) label.pairedComponent).getSelected());
+			}			
+		});
+	}
+	
 	public void addColorPicker (VisTable table, String variableName, GameComponent component) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;

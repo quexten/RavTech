@@ -204,8 +204,8 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	}
 
 	@Override
-	public void setVariable (int variableID, Object value) {
-		switch (variableID) {
+	public void setVariable (int variableId, Object value) {
+		switch (variableId) {
 		case 0:
 			this.sortingLayerName = String.valueOf(value);
 			break;
@@ -251,7 +251,6 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 				: value.equals("Nearest") ? TextureFilter.Nearest : TextureFilter.MipMap;
 			minFilter = (TextureFilter)value;
 			Gdx.app.postRunnable(new Runnable() {
-
 				@Override
 				public void run () {
 					texture.setFilter(minFilter, magFilter);
