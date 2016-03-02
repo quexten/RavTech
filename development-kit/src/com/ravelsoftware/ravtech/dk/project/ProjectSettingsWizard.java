@@ -1,21 +1,18 @@
 
 package com.ravelsoftware.ravtech.dk.project;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.VisWindow;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
@@ -24,30 +21,23 @@ import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.ui.editor.LabelTextPair;
 import com.ravelsoftware.ravtech.project.Project;
 
-public class ProjectSettingsWizard implements ApplicationListener {
+public class ProjectSettingsWizard extends VisWindow {
 
-	Stage stage;
 	VisTable table;
 	Project project;
 	ObjectMap<String, VisTextField> fieldMap = new ObjectMap<String, VisTextField>();
 	boolean isCreation;
-	String creationPath = "";
+	public String creationPath = "";
 
-	public ProjectSettingsWizard (Project project, boolean isCreation) {
+	public ProjectSettingsWizard (final Project project, boolean isCreation) {
+		super("Project Settings");
 		this.project = project;
 		this.isCreation = isCreation;
-	}
+		System.out.println("project: " + project);
 
-	@Override
-	public void create () {
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		table = new VisTable();
-		table.top();
-		table.setFillParent(true);
-		table.setBackground(VisUI.getSkin().getDrawable("window"));
+		top();
 		if (isCreation) {
-			table.add(new VisLabel("Path:"));
+			add(new VisLabel("Path:"));
 			final VisTextField textField = new VisTextField("");
 			textField.setDisabled(true);
 			textField.addListener(new ClickListener() {
@@ -66,8 +56,8 @@ public class ProjectSettingsWizard implements ApplicationListener {
 					event.getListenerActor().getStage().addActor(fileChooser);
 				}
 			});
-			table.add(textField);
-			table.row();
+			add(textField);
+			row();
 		}
 		addTextLabelPair("Developer Name:", project.developerName);
 		addTextLabelPair("App Name:", project.appName);
@@ -87,47 +77,26 @@ public class ProjectSettingsWizard implements ApplicationListener {
 				project.minorVersion = Integer.valueOf(fieldMap.get("MinorVersion:").getText());
 				project.microVersion = Integer.valueOf(fieldMap.get("MicroVersion:").getText());
 				project.startScene = fieldMap.get("StartScene:").getText();
-				if (ProjectSettingsWizard.this.isCreation)
+				if (ProjectSettingsWizard.this.isCreation) {
 					RavTechDK.createProject(creationPath, project);
-				else
+					RavTechDK.setProject(creationPath);
+					RavTechDK.loadScene(project.startScene);
+				} else
 					project.save(RavTechDK.projectHandle);
+
 			}
 		});
-		table.add();
-		table.add(button);
-		table.row();
-		stage.addActor(table);
-	}
-
-	@Override
-	public void render () {
-		stage.act();
-		stage.draw();
-	}
-
-	@Override
-	public void resize (int width, int height) {
-		stage.getViewport().update(width, height, true);
-	}
-
-	@Override
-	public void pause () {
-	}
-
-	@Override
-	public void resume () {
-	}
-
-	@Override
-	public void dispose () {
-		stage.dispose();
+		add();
+		add(button);
+		row();
+		this.setModal(true);
 	}
 
 	void addTextLabelPair (String name, String initialValue) {
 		LabelTextPair label = new LabelTextPair(name, initialValue);
-		table.add(label.label).expandX();
-		table.add(label.pairedComponent).expandX();
-		table.row();
+		add(label.label).expandX();
+		add(label.pairedComponent).expandX();
+		row();
 		fieldMap.put(name, (VisTextField)label.pairedComponent);
 	}
 

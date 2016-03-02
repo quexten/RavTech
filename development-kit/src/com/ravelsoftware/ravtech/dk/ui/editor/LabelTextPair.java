@@ -1,3 +1,4 @@
+
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
 import com.kotcrab.vis.ui.widget.VisTextField;
@@ -10,7 +11,7 @@ public class LabelTextPair extends LabelActorPair<String> {
 
 	@Override
 	public String getValue () {
-		return ((VisTextField) pairedComponent).getText();
+		return ((VisTextField)pairedComponent).getText();
 	}
 
 }

@@ -44,7 +44,7 @@ public abstract class ComponentPanel {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
 		final LabelColorPair label = new LabelColorPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
-			((Color)(component.getVariable(component.getVariableId(variable)))));
+			(Color)component.getVariable(component.getVariableId(variable)));
 		table.add(label.label).padLeft(6).growX();
 		table.add(label.pairedComponent).expand().height(20).growX();
 		table.setFillParent(true);
@@ -65,13 +65,13 @@ public abstract class ComponentPanel {
 					}
 
 					@Override
-					public void reset (Color previousColor, Color newColor) {						
+					public void reset (Color previousColor, Color newColor) {
 					}
 
 					@Override
 					public void finished (Color newColor) {
 						picker.dispose();
-					}					
+					}
 				});
 				label.label.getStage().addActor(picker);
 			}

@@ -38,7 +38,7 @@ public class SceneViewWidget extends Widget {
 	public SceneViewWidget (boolean main) {
 		camera = main ? RavTech.sceneHandler.worldCamera : RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
 		camera.zoom = 0.05f;
-		
+
 		this.addListener(new InputListener() {
 			public boolean mouseMoved (InputEvent event, float x, float y) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
@@ -46,16 +46,16 @@ public class SceneViewWidget extends Widget {
 				return false;
 			}
 		});
-		
+
 		this.addListener(new ClickListener() {
 
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
 				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseDown);
-				if (button == Buttons.RIGHT) {
+				if (button == Buttons.RIGHT)
 					dragAnchorPosition = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
-				} else if (button == Buttons.LEFT) {
+				else if (button == Buttons.LEFT) {
 					isDragging = true;
 					selectionStart.set(camera.unproject(new Vector2(x, getHeight() - y)));
 					selectionEnd.set(selectionStart);
@@ -68,8 +68,8 @@ public class SceneViewWidget extends Widget {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
 				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp);
 				isDragging = false;
+				RavTechDKUtil.inspectorChanged();
 			}
-
 		});
 
 		DragListener leftListener = new DragListener() {
@@ -77,8 +77,7 @@ public class SceneViewWidget extends Widget {
 			@Override
 			public void drag (InputEvent event, float x, float y, int pointer) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				if(RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseDrag))
-					return;
+				if (RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseDrag)) return;
 				selectionEnd.set(camera.unproject(new Vector2(x, getHeight() - y)));
 				RavTechDKUtil.setSelectedObjects(
 					RavTech.currentScene.getGameObjectsIn(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y));

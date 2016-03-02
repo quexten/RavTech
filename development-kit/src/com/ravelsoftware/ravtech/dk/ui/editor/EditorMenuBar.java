@@ -1,15 +1,8 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowConfiguration;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
@@ -25,7 +18,6 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
-import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.CreateChangeable;
@@ -57,7 +49,8 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						RavTech.files.getAssetHandle(RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene)).writeString(new Json().toJson(RavTech.currentScene), true);
+						RavTech.files.getAssetHandle(RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene))
+							.writeString(new Json().toJson(RavTech.currentScene), true);
 						Debug.log("Saved Scene", "[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
 					}
 				});
@@ -73,14 +66,15 @@ public class EditorMenuBar extends MenuBar {
 						FileChooser fileChooser = new FileChooser(Mode.SAVE);
 						fileChooser.setSelectionMode(SelectionMode.FILES);
 						fileChooser.setListener(new FileChooserAdapter() {
-						    @Override
-						    public void selected (Array<FileHandle> file) {						   	 
-						   	 file.first().writeString(new Json().toJson(RavTech.currentScene), true);
-						   	 	Debug.log("Saved Scene", "[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
-						    }
+							@Override
+							public void selected (Array<FileHandle> file) {
+								file.first().writeString(new Json().toJson(RavTech.currentScene), true);
+								Debug.log("Saved Scene",
+									"[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
+							}
 						});
 						fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
-						actor.getStage().addActor(fileChooser);						
+						actor.getStage().addActor(fileChooser);
 					}
 				});
 				entry.setShortcut(Keys.CONTROL_LEFT, Keys.SHIFT_LEFT, Keys.S);
@@ -92,20 +86,16 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						
+
 						FileChooser fileChooser = new FileChooser(Mode.OPEN);
 						fileChooser.setSelectionMode(SelectionMode.FILES);
 						fileChooser.setListener(new FileChooserAdapter() {
-						    @Override
-						    public void selected (Array<FileHandle> file) {
-						   	 String localScenePath = file.first().path().replaceAll(RavTechDK.projectHandle.child("assets").path(), "").substring(1);
-						   	 Debug.log("Load", "[" + localScenePath + "]");
-						   	 RavTech.files.getAssetManager().unload(RavTechDK.getCurrentScene());
-						   	 RavTech.files.loadAsset(localScenePath, Scene.class);						   	 
-						   	 RavTech.files.finishLoading();
-						   	 RavTech.currentScene.dispose();
-						   	 RavTech.currentScene = RavTech.files.getAsset(localScenePath);
-						    }
+							@Override
+							public void selected (Array<FileHandle> file) {
+								String localScenePath = file.first().path().replaceAll(RavTechDK.projectHandle.child("assets").path(), "")
+									.substring(1);
+								RavTechDK.loadScene(localScenePath);
+							}
 						});
 						fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
 						actor.getStage().addActor(fileChooser);
@@ -161,15 +151,6 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						Lwjgl3Application app = (Lwjgl3Application)Gdx.app;
-						Lwjgl3WindowConfiguration config = new Lwjgl3WindowConfiguration();
-						DisplayMode mode = Gdx.graphics.getDisplayMode();
-						config.setWindowPosition(MathUtils.random(0, mode.width - 640), MathUtils.random(0, mode.height - 480));
-						config.setWindowedMode(330, 330);
-						config.setTitle("Child window");
-						config.setResizable(false);
-						ApplicationListener listener = new ProjectSettingsWizard(RavTechDK.project, true);
-						Lwjgl3Window window = app.newWindow(listener, config);
 					}
 				});
 				menu.addItem(entry);
@@ -198,7 +179,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						
+
 					}
 				});
 				menu.addItem(entry);

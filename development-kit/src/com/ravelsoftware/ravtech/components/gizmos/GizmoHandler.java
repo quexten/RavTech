@@ -176,7 +176,7 @@ public class GizmoHandler {
 		else
 			exclusiveGizmo = null;
 	}
-	
+
 	public static Transform getTransformAtPoint (Array<? extends GameComponent> objects) {
 		Transform transform = null;
 		for (int i = 0; i < objects.size; i++)
@@ -198,5 +198,5 @@ public class GizmoHandler {
 			}
 		return transform;
 	}
-	
+
 }

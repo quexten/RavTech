@@ -27,6 +27,7 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
 import com.ravelsoftware.ravtech.project.Project;
+import com.ravelsoftware.ravtech.util.Debug;
 
 public class RavTechDK {
 
@@ -46,7 +47,7 @@ public class RavTechDK {
 				// Gdx.input.setInputProcessor(inputManager);
 				/*
 				 * HookApi.onRenderHooks.add(new Runnable() {
-				 * 
+				 *
 				 * @Override public void run () { // Selection if (!Gdx.input.isButtonPressed(Buttons.LEFT))
 				 * inputManager.selectionAlpha -= Gdx.graphics.getDeltaTime(); ShapeRenderer renderer = RavTech.shapeRenderer;
 				 * Gdx.gl.glEnable(GL20.GL_BLEND); Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
@@ -116,5 +117,14 @@ public class RavTechDK {
 
 	public static String getCurrentScene () {
 		return RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene);
+	}
+
+	public static void loadScene (String path) {
+		Debug.log("Load", "[" + path + "]");
+		RavTech.files.getAssetManager().unload(RavTechDK.getCurrentScene());
+		RavTech.files.loadAsset(path, Scene.class);
+		RavTech.files.finishLoading();
+		RavTech.currentScene.dispose();
+		RavTech.currentScene = RavTech.files.getAsset(path);
 	}
 }

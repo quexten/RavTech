@@ -1,8 +1,10 @@
 
 package com.ravelsoftware.ravtech.dk;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -13,6 +15,7 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
+import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.ui.editor.EditorMenuBar;
 import com.ravelsoftware.ravtech.dk.ui.editor.Inspector;
 import com.ravelsoftware.ravtech.dk.ui.editor.SceneViewWidget;
@@ -29,9 +32,9 @@ public class RavTechDKApplication extends RavTech {
 	@Override
 	public void create () {
 		super.create();
-		VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
+		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 		stage = new Stage(new ScreenViewport());
-
+		
 		final Table root = new Table();
 		root.setFillParent(true);
 		stage.addActor(root);
@@ -51,11 +54,8 @@ public class RavTechDKApplication extends RavTech {
 
 		});
 
-		VisWindow window = new VisWindow("Inspector");
-		window.setSize(300, 500);
-		window.addActor(new Inspector());
-		window.setResizable(true);
-		stage.addActor(window);
+		stage.addActor(new Inspector());
+
 		RavTechDK.gizmoHandler = new GizmoHandler();
 		HookApi.onRenderHooks.add(new Runnable() {
 			@Override
@@ -66,6 +66,15 @@ public class RavTechDKApplication extends RavTech {
 				RavTech.shapeRenderer.end();
 			}
 		});
+
+		if (RavTech.settings.getString("RavTechDK.project.path").isEmpty()
+			|| !new Lwjgl3FileHandle(RavTech.settings.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
+				.exists()) {
+			final Project project = new Project();
+			final ProjectSettingsWizard wizard = new ProjectSettingsWizard(project, true);
+			wizard.setSize(330, 330);
+			stage.addActor(wizard);
+		}
 	}
 
 	public void render () {

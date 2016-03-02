@@ -19,11 +19,9 @@ package com.ravelsoftware.ravtech.dk;
 import java.awt.Color;
 import java.io.File;
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Enumeration;
 
 import javax.swing.JPopupMenu;
-import javax.swing.SwingUtilities;
 import javax.swing.ToolTipManager;
 import javax.swing.UIManager;
 
@@ -36,7 +34,6 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.files.FileHandle;
-import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
 import com.ravelsoftware.ravtech.project.Project;
@@ -51,37 +48,13 @@ public class Launcher {
 		System.out.println("User Directory: " + System.getProperty("user.dir"));
 		configureUILook();
 		configureNativesPath();
-		Preferences preferences = new Lwjgl3Preferences(new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
-		if (!preferences.getString("RavTechDK.project.path").isEmpty()
-			&& new Lwjgl3FileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
-				.exists()) {
-			RavTechDK.projectHandle = new Lwjgl3FileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute);
-			RavTechDK.project = Project.load(RavTechDK.projectHandle);
-			try {
-				SwingUtilities.invokeAndWait(new Runnable() {
+		final Preferences preferences = new Lwjgl3Preferences(
+			new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
 
-					@Override
-					public void run () {
-						initializeEngine();
-					}
-				});
-			} catch (InvocationTargetException e) {
-				e.printStackTrace();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		} else {
-			// ProjectSettingsWizard wizard = new ProjectSettingsWizard(true);
-			// final Project project = new Project();
-			/*
-			 * wizard.onSaveListener = new ActionListener() {
-			 * 
-			 * @Override public void actionPerformed (ActionEvent event) { RavTechDK.projectHandle = new
-			 * Lwjgl3FileHandle(event.getActionCommand(), FileType.Absolute); RavTechDK.createProject(event.getActionCommand(),
-			 * project); RavTechDK.project = project; initializeEngine(); } };
-			 */
-			// wizard.show(project);
-		}
+		RavTechDK.projectHandle = new Lwjgl3FileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute);
+		RavTechDK.project = Project.load(RavTechDK.projectHandle);
+		initializeEngine();
+
 	}
 
 	static void initializeEngine () {
@@ -96,25 +69,15 @@ public class Launcher {
 				return Gdx.files.absolute(resolver);
 			}
 		}, RavTechDK.project);
+
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setWindowedMode(1280, 720);
 		RavTech.files.getAssetManager().setLoader(Script.class, new LuaJScriptLoader(RavTech.files.getResolver()));
-		// RavTechDK.initialize(ravtech);
 		new Lwjgl3Application(ravtech, config);
 		Gdx.app.postRunnable(new Runnable() {
-
 			@Override
 			public void run () {
 				registerSettingsListeners();
-			}
-		});
-		RavTech.isEditor = true;
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-
-			@Override
-			public void run () {
-				for (int i = 0; i < HookApi.onShutdownHooks.size; i++)
-					HookApi.onShutdownHooks.get(i).run();
 			}
 		});
 	}
