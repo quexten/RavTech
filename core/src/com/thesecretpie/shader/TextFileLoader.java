@@ -1,3 +1,7 @@
+/**
+ * Licensed under the Apache 2 license
+ * More info can be found at https://bitbucket.org/Thotep/gdx-shaders/
+ */
 
 package com.thesecretpie.shader;
 
