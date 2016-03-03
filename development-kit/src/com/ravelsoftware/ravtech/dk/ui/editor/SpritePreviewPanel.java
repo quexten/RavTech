@@ -9,12 +9,12 @@ import com.ravelsoftware.ravtech.RavTech;
 public class SpritePreviewPanel extends AssetPreviewPanel {
 
 	public SpritePreviewPanel (String assetPath) {
-		RavTech.files.loadAsset("textures/error.png", Texture.class);
+		RavTech.files.loadAsset(assetPath, Texture.class);
 		RavTech.files.finishLoading();
-		Image image = new Image((Texture)RavTech.files.getAsset("textures/error.png"));
+		Image image = new Image((Texture)RavTech.files.getAsset(assetPath));
 		image.getDrawable().setMinHeight(100);
 		image.getDrawable().setMinWidth(100);
-		VisLabel label = new VisLabel("text");
+		VisLabel label = new VisLabel(assetPath.contains("/") ? assetPath.substring(assetPath.lastIndexOf('/')) : assetPath);
 		add(image).grow();
 		row();
 		add(label);
