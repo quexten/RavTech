@@ -16,6 +16,7 @@ import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
+import com.ravelsoftware.ravtech.dk.ui.editor.AssetViewer;
 import com.ravelsoftware.ravtech.dk.ui.editor.EditorMenuBar;
 import com.ravelsoftware.ravtech.dk.ui.editor.Inspector;
 import com.ravelsoftware.ravtech.dk.ui.editor.SceneViewWidget;
@@ -24,7 +25,7 @@ import com.ravelsoftware.ravtech.project.Project;
 public class RavTechDKApplication extends RavTech {
 
 	Stage stage;
-
+	
 	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
 		super(absoluteFileHandleResolver, project);
 	}
@@ -34,7 +35,7 @@ public class RavTechDKApplication extends RavTech {
 		super.create();
 		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 		stage = new Stage(new ScreenViewport());
-		
+		stage.setDebugAll(true);
 		final Table root = new Table();
 		root.setFillParent(true);
 		stage.addActor(root);
@@ -75,6 +76,10 @@ public class RavTechDKApplication extends RavTech {
 			wizard.setSize(330, 330);
 			stage.addActor(wizard);
 		}
+		VisWindow window = new VisWindow("Title");
+		window.add(new AssetViewer()).grow();
+		window.setResizable(true);
+		stage.addActor(window);
 	}
 
 	public void render () {

@@ -37,7 +37,7 @@ public class Inspector extends VisWindow {
 
 	void rebuild () {
 		clear();
-
+		
 		contentTable = new VisTable();
 		contentTable.top();
 		VisScrollPane scrollPane = new VisScrollPane(contentTable);

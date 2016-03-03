@@ -20,6 +20,7 @@ import java.io.File;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
@@ -28,15 +29,18 @@ import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
 import com.ravelsoftware.ravtech.project.Project;
 import com.ravelsoftware.ravtech.util.Debug;
+import com.ravelsoftware.ravtech.util.ResourceFileHandleResolver;
 
 public class RavTechDK {
 
 	public static Project project;
 	public static FileHandle projectHandle;
 	public static GizmoHandler gizmoHandler;
-
+	public static AssetManager editorAssetManager = new AssetManager(new ResourceFileHandleResolver());
+	
 	public static void initialize (RavTech ravtech) {
-		gizmoHandler = new GizmoHandler();
+		gizmoHandler = new GizmoHandler();		
+		
 		setProject(projectHandle.path());
 		Gdx.app.postRunnable(new Runnable() {
 
