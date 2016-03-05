@@ -97,43 +97,16 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	public void dispose () {
 	}
 
-	public void setTexture (final String texturePath) {
-		Gdx.app.postRunnable(new Runnable() {
-
-			@Override
-			public void run () {
-				SpriteRenderer.this.texturePath = texturePath;
-				RavTech.files.loadAsset(SpriteRenderer.this.texturePath, Texture.class, false);
-				RavTech.files.finishLoading();
-				SpriteRenderer.this.texture = RavTech.files.getAsset(SpriteRenderer.this.texturePath);
-			}
-		});
+	public void setTexture (String texturePath) {
+		this.texturePath = texturePath;
+		if (!RavTech.files.isLoaded(SpriteRenderer.this.texturePath))
+			RavTech.files.loadAsset(SpriteRenderer.this.texturePath, Texture.class, false);
+		RavTech.files.finishLoading();
+		texture = RavTech.files.getAsset(SpriteRenderer.this.texturePath);
+		srcWidth = texture.getWidth();
+		srcHeight = texture.getHeight();
 	}
 
-	/*
-	 * public void loadTexture() {
-	 *
-	 * /* Gdx.app.postRunnable(new Runnable() {
-	 *
-	 * @Override public void run() { FileHandleResolver fileHandleResolver = RavTech.files.getResolver(); // RavTech.isEditor ? new
-	 * InternalFileHandleResolver() : new // ArchiveFileHandleResolver(RavTech.files.getFileHandle()); if
-	 * (texturePath.endsWith(".png") || texturePath.endsWith(".jpg")) { RavTech.assetManager.setLoader(Texture.class, new
-	 * TextureLoader(fileHandleResolver)); RavTech.assetManager.load(RavTech.isEditor ? texturePath : texturePath, Texture.class);
-	 * RavTech.assetManager.finishLoading(); texture = RavTech.assetManager.get(RavTech.isEditor ? texturePath : texturePath,
-	 * Texture.class); if (!useCustomSrc || srcWidth == 0 && srcHeight == 0) { srcX = 0; srcY = 0; srcWidth = texture.getWidth();
-	 * srcHeight = texture.getHeight(); } } else if (texturePath.endsWith(".atlas")) {
-	 * RavTech.assetManager.setLoader(TextureAtlas.class, new TextureAtlasLoader(fileHandleResolver));
-	 * RavTech.assetManager.load(RavTech.isEditor ? texturePath : texturePath, TextureAtlas.class);
-	 * RavTech.assetManager.finishLoading(); TextureAtlas atlas = RavTech.assetManager.get(RavTech.isEditor ? texturePath :
-	 * texturePath, TextureAtlas.class); TextureRegion region = atlas.findRegion(regionName); texture = region.getTexture(); if
-	 * (!useCustomSrc) { srcX = region.getRegionX(); srcY = region.getRegionY(); srcWidth = region.getRegionWidth(); srcHeight =
-	 * region.getRegionHeight(); } minFilter = texture.getMinFilter(); magFilter = texture.getMagFilter(); } else {
-	 * SpriteRenderer.this.sortingLayerName = "Foreground"; if (!useCustomSrc) { srcX = 0; srcY = 0; srcWidth = texture.getWidth();
-	 * srcHeight = texture.getHeight(); } } texture.setFilter(minFilter, magFilter); texture.setWrap(uWrap, vWrap);
-	 * SpriteRenderer.this.sortingLayerName = "Default"; } });
-	 *
-	 * }
-	 */
 	public void setColor (Color color) {
 		this.color = color;
 	}

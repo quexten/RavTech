@@ -3,17 +3,24 @@ package com.ravelsoftware.ravtech.dk.ui.editor;
 
 import java.util.Comparator;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.kotcrab.vis.ui.layout.HorizontalFlowGroup;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 
 public class AssetViewer extends VisTable {
 
@@ -36,7 +43,6 @@ public class AssetViewer extends VisTable {
 
 		add(headerTable).growX();
 		row();
-
 		add(assetView = new AssetView()).grow();
 	}
 
@@ -45,14 +51,14 @@ public class AssetViewer extends VisTable {
 		ObjectMap<String, AssetPreviewPanel> previewPanels = new ObjectMap<String, AssetPreviewPanel>();
 		AssetPreviewPanel lastSelected;
 		FileHandle folderHandle;
+		String currentPath;
 
 		public AssetView () {
 			setDirectory("");
 		}
 
 		public void setDirectory (String path) {
-
-			com.ravelsoftware.ravtech.util.Debug.log("path", path);
+			this.currentPath = path;
 			clear();
 			HorizontalFlowGroup group = new HorizontalFlowGroup();
 			add(group).grow();
@@ -70,15 +76,24 @@ public class AssetViewer extends VisTable {
 				}
 			});
 
+			DragAndDrop fileDragAndDrop = new DragAndDrop();
+			fileDragAndDrop.setDragActorPosition(0, 0);
+			fileDragAndDrop.addTarget(new Target(((RavTechDKApplication)Gdx.app.getApplicationListener()).mainSceneView) {
+				@Override
+				public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
+					return true;
+				}
+
+				@Override
+				public void drop (Source source, Payload payload, float x, float y, int pointer) {
+					((AssetPreviewPanel)payload.getDragActor()).addToScene();
+				}
+			});
+
 			for (int i = 0; i < files.size; i++) {
 				final FileHandle fileHandle = files.get(i);
-				AssetPreviewPanel panel = null;
-				if (fileHandle.isDirectory()) {
-					panel = new FolderPreviewPanel(fileHandle.name());
-				} else if (fileHandle.extension().equals("png")) {
-					panel = new SpritePreviewPanel(
-						fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
-				}
+				final String filePath = fileHandle.path();
+				AssetPreviewPanel panel = getPreviewPanelFor(fileHandle);
 				panel.addListener(new ClickListener() {
 
 					public void clicked (InputEvent event, float x, float y) {
@@ -94,6 +109,35 @@ public class AssetViewer extends VisTable {
 					}
 
 				});
+
+				fileDragAndDrop.addSource(new Source(panel) {
+					public Payload dragStart (InputEvent event, float x, float y, int pointer) {
+						Payload payload = new Payload();
+						payload.setDragActor(getDragPanel(filePath, event, Color.CORAL.cpy().mul(1, 1, 1, 0.5f)));
+						payload.setValidDragActor(getDragPanel(filePath, event, Color.GREEN.cpy().mul(1, 1, 1, 0.5f)));
+						payload.setInvalidDragActor(getDragPanel(filePath, event, Color.RED.cpy().mul(1, 1, 1, 0.5f)));
+						payload.setObject(filePath);
+						return payload;
+					}
+				});
+
+				if (fileHandle.isDirectory()) {
+					fileDragAndDrop.addTarget(new Target(panel) {
+						@Override
+						public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
+							return true;
+						}
+
+						@Override
+						public void drop (Source source, Payload payload, float x, float y, int pointer) {
+							FileHandle srcHandle = Gdx.files.absolute(String.valueOf(payload.getObject()));
+							FileHandle dstHandle = Gdx.files.absolute(filePath).child(srcHandle.name());
+							srcHandle.moveTo(dstHandle);
+							AssetView.this.refresh();
+						}
+					});
+				}
+
 				group.addActor(panel.pad(5));
 				previewPanels.put(fileHandle.name(), panel);
 			}
@@ -111,6 +155,30 @@ public class AssetViewer extends VisTable {
 			this
 				.setDirectory((folderHandle.parent().path() + "/").substring((RavTechDK.projectHandle.path() + "/assets/").length()));
 		}
+
+		public void refresh () {
+			this.setDirectory(this.currentPath);
+		}
+
+		AssetPreviewPanel getDragPanel (String filePath, InputEvent event, Color color) {
+			AssetPreviewPanel previewPanel = getPreviewPanelFor(Gdx.files.absolute(filePath));
+			previewPanel.setSelectionColor(color);
+			previewPanel.select();
+			previewPanel.setSize(event.getListenerActor().getWidth() - 10, event.getListenerActor().getHeight() - 10);
+			return previewPanel;
+		}
+
+		AssetPreviewPanel getPreviewPanelFor (FileHandle fileHandle) {
+			AssetPreviewPanel panel = null;
+			String extension = fileHandle.extension();
+			if (fileHandle.isDirectory()) {
+				panel = new FolderPreviewPanel(fileHandle.name());
+			} else if (extension.equals("png") || extension.equals("jpg")) {
+				panel = new SpritePreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+			}
+			return panel;
+		}
+
 	}
 
 }

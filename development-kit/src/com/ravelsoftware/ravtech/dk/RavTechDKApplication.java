@@ -25,6 +25,7 @@ import com.ravelsoftware.ravtech.project.Project;
 public class RavTechDKApplication extends RavTech {
 
 	Stage stage;
+	public SceneViewWidget mainSceneView;
 	
 	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
 		super(absoluteFileHandleResolver, project);
@@ -42,7 +43,7 @@ public class RavTechDKApplication extends RavTech {
 		EditorMenuBar menuBar = new EditorMenuBar();
 		root.add(menuBar.getTable()).expandX().fillX().row();
 		root.row();
-		final SceneViewWidget mainSceneView = new SceneViewWidget(true);
+		mainSceneView = new SceneViewWidget(true);
 		root.add(mainSceneView).expand().fill();
 		Gdx.input.setInputProcessor(stage);
 
@@ -81,6 +82,7 @@ public class RavTechDKApplication extends RavTech {
 		VisWindow window = new VisWindow("AssetView");
 		window.add(assetViewer).grow();
 		window.setResizable(true);
+		window.setSize(1000, 300);
 		stage.addActor(window);
 	}
 
