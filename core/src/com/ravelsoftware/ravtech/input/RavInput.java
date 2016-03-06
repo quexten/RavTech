@@ -4,7 +4,9 @@ package com.ravelsoftware.ravtech.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.ravelsoftware.ravtech.RavTech;
 
 public class RavInput {
 
@@ -54,13 +56,11 @@ public class RavInput {
 	}
 
 	public Vector2 getWorldPosition () {
-		// Vector3 mouseworldpos = RavTech.sceneHandler.worldCamera.unproject(new Vector3(getX(), getY(), 0));
-		return new Vector2(0, 0);
+		return RavTech.sceneHandler.worldCamera.unproject(new Vector2(getX(), getY()));
 	}
 
 	public Vector2 getWorldPosition (int pointer) {
-		// Vector3 mouseworldpos = RavTech.sceneHandler.worldCamera.unproject(new Vector3(getX(pointer), getY(pointer), 0));
-		return new Vector2(0, 0);
+		return RavTech.sceneHandler.worldCamera.unproject(new Vector2(getX(pointer), getY(pointer)));
 	}
 
 	public boolean isTouched () {

@@ -16,8 +16,10 @@
 
 package com.ravelsoftware.ravtech.components.gizmos;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
@@ -33,7 +35,9 @@ import com.ravelsoftware.ravtech.components.PolygonCollider;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
+import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 
 public class GizmoHandler {
@@ -189,7 +193,8 @@ public class GizmoHandler {
 			} else {
 				Gizmo gizmo = RavTechDK.gizmoHandler.createGizmoFor(objects.get(i));
 				if (gizmo != null) {
-					boolean isIn = gizmo.isInBoundingBox(RavTech.input.getWorldPosition());
+					boolean isIn = gizmo.isInBoundingBox(((RavTechDKApplication)Gdx.app.getApplicationListener()).mainSceneView.camera
+						.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY() - 24)));
 					if (isIn) {
 						transform = objects.get(i).getParent().transform;
 						break;

@@ -21,7 +21,7 @@ public class SpritePreviewPanel extends AssetPreviewPanel {
 		Image image = new Image((Texture)RavTech.files.getAsset(assetPath));
 		image.getDrawable().setMinHeight(100);
 		image.getDrawable().setMinWidth(100);
-		VisLabel label = new VisLabel(assetPath.contains("/") ? assetPath.substring(assetPath.lastIndexOf('/')) : assetPath);
+		VisLabel label = new VisLabel(assetPath.contains("/") ? assetPath.substring(assetPath.lastIndexOf('/') + 1) : assetPath);
 		add(image).grow();
 		row();
 		add(label);

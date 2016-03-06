@@ -43,7 +43,6 @@ public class BoxColliderGizmo extends Gizmo {
 
 	@Override
 	public void draw (ShapeRenderer renderer, boolean selected) {
-		if (!boxCollider.canEdit) return;
 		renderer.setAutoShapeType(true);
 		renderer.setColor(Color.LIGHT_GRAY);
 		Gdx.gl.glLineWidth(2.0f);
