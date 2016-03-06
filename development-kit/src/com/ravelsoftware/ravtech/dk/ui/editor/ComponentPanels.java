@@ -81,6 +81,10 @@ public class ComponentPanels {
 			@Override
 			public VisTable createTable (GameComponent component) {
 				VisTable table = new VisTable();
+				addSliderLabel(table, "angularDamping", component);
+				addSliderLabel(table, "gravityScale", component);
+				addSliderLabel(table, "linearDamping", component);
+				addDropdown(table, "bodyType", new String[]{"Static", "Dynamic", "Kinematic"}, component);
 				return table;
 			}
 		});
