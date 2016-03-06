@@ -1,15 +1,20 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
+import com.kotcrab.vis.ui.widget.VisImageButton;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
@@ -197,5 +202,15 @@ public class EditorMenuBar extends MenuBar {
 			}
 			this.addMenu(menu);
 		}
+		
+		VisTextButton playButton = new VisTextButton("Run");
+		playButton.addListener(new ChangeListener() {
+			@Override
+			public void changed (ChangeEvent event, Actor actor) {
+				
+			}			
+		});
+		playButton.setFocusBorderEnabled(false);
+		this.getTable().add(playButton);
 	}
 }
