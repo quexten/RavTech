@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Json;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.project.Project;
+import com.ravelsoftware.ravtech.util.Debug;
 
 public class RavFiles {
 
@@ -101,7 +102,7 @@ public class RavFiles {
 	/** Loads the specified scene as the current Scene
 	 * @param sceneString - the Scene to load */
 	public void loadState (final String sceneString) {
-		getAssetManager().clear();
+		getAssetManager().unload(getAssetManager().getAssetFileName(RavTech.currentScene));
 		getAssetManager().setLoader(Scene.class, new SceneLoader(new FileHandleResolver() {
 
 			@Override
@@ -117,7 +118,9 @@ public class RavFiles {
 		}));
 		loadAsset("loadState", Scene.class);
 		finishLoading();
+		Debug.log("currentScene", RavTech.currentScene);
 		RavTech.currentScene = getAsset("loadState");
+		Debug.log("NewScene", RavTech.currentScene);
 		getAssetManager().setLoader(Scene.class, new SceneLoader(getResolver()));
 	}
 }

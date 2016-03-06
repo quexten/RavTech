@@ -21,6 +21,7 @@ import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
+import com.ravelsoftware.ravtech.SceneHandler;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
@@ -202,13 +203,24 @@ public class EditorMenuBar extends MenuBar {
 			}
 			this.addMenu(menu);
 		}
-		
-		VisTextButton playButton = new VisTextButton("Run");
+
+		final VisTextButton playButton = new VisTextButton("Run");
 		playButton.addListener(new ChangeListener() {
+			String state;
+
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				
-			}			
+				RavTech.sceneHandler.paused = !RavTech.sceneHandler.paused;
+				if (RavTech.sceneHandler.paused) {
+					RavTech.files.loadState(state);
+					playButton.setText("Run");
+				} else {
+					state = RavTech.files.storeState();
+					RavTech.sceneHandler.reloadScripts();
+					RavTech.sceneHandler.initScripts();
+					playButton.setText("Stop");
+				}
+			}
 		});
 		playButton.setFocusBorderEnabled(false);
 		this.getTable().add(playButton);
