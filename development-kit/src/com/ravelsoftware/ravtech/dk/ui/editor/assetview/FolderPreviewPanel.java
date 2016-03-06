@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.ravelsoftware.ravtech.dk.ui.editor.assetview;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;

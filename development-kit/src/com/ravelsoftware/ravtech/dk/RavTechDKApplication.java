@@ -16,10 +16,10 @@ import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
-import com.ravelsoftware.ravtech.dk.ui.editor.AssetViewer;
 import com.ravelsoftware.ravtech.dk.ui.editor.EditorMenuBar;
 import com.ravelsoftware.ravtech.dk.ui.editor.Inspector;
 import com.ravelsoftware.ravtech.dk.ui.editor.SceneViewWidget;
+import com.ravelsoftware.ravtech.dk.ui.editor.assetview.AssetViewer;
 import com.ravelsoftware.ravtech.project.Project;
 
 public class RavTechDKApplication extends RavTech {

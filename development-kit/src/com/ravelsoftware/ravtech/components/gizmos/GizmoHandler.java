@@ -37,7 +37,6 @@ import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
-import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 
 public class GizmoHandler {

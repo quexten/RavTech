@@ -1,4 +1,4 @@
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.ravelsoftware.ravtech.dk.ui.editor.assetview;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;

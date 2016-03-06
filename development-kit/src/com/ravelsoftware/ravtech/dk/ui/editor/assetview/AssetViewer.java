@@ -1,6 +1,7 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.ravelsoftware.ravtech.dk.ui.editor.assetview;
 
+import java.io.File;
 import java.util.Comparator;
 
 import com.badlogic.gdx.Gdx;
@@ -21,6 +22,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
+import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 
 public class AssetViewer extends VisTable {
 
@@ -170,11 +172,22 @@ public class AssetViewer extends VisTable {
 
 		AssetPreviewPanel getPreviewPanelFor (FileHandle fileHandle) {
 			AssetPreviewPanel panel = null;
+			final String filePath = fileHandle.path();
 			String extension = fileHandle.extension();
 			if (fileHandle.isDirectory()) {
 				panel = new FolderPreviewPanel(fileHandle.name());
 			} else if (extension.equals("png") || extension.equals("jpg")) {
 				panel = new SpritePreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+			} else if (extension.equals("lua")) {
+				panel = new LuaPreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+				panel.addListener(new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						if(this.getTapCount() > 1) {
+							ZeroBraneUtil.openFile(new File(filePath));
+						}
+					}
+				});
 			}
 			return panel;
 		}
