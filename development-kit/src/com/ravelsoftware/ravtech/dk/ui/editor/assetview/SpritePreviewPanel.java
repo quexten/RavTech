@@ -12,7 +12,7 @@ import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 
 public class SpritePreviewPanel extends AssetPreviewPanel {
-		
+
 	public SpritePreviewPanel (String assetPath) {
 		super(assetPath);
 		com.ravelsoftware.ravtech.util.Debug.log("assetPath", assetPath);

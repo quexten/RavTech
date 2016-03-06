@@ -1,3 +1,4 @@
+
 package com.ravelsoftware.ravtech.dk.ui.editor.assetview;
 
 import com.badlogic.gdx.graphics.Color;
@@ -6,12 +7,12 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.ravelsoftware.ravtech.RavTech;
 
 public abstract class AssetPreviewPanel extends VisTable {
-	
+
 	String assetPath;
 	boolean isSelected;
 	Color selectionColor = Color.CORAL;
-	
-	public AssetPreviewPanel(String assetPath) {
+
+	public AssetPreviewPanel (String assetPath) {
 		this.assetPath = assetPath;
 	}
 
@@ -22,20 +23,20 @@ public abstract class AssetPreviewPanel extends VisTable {
 	public void unselect () {
 		isSelected = false;
 	}
-	
-	public void setSelectionColor(Color color) {
+
+	public void setSelectionColor (Color color) {
 		this.selectionColor = color;
 	}
-	
+
 	@Override
-	public void draw(Batch batch, float alpha) {
-		if(isSelected) {
+	public void draw (Batch batch, float alpha) {
+		if (isSelected) {
 			batch.setColor(selectionColor);
 			batch.draw(RavTech.sceneHandler.renderer.ambientTexture, getX(), getY(), getWidth(), getHeight());
 		}
 		super.draw(batch, alpha);
 	}
-	
-	public abstract void addToScene();
-	
+
+	public abstract void addToScene ();
+
 }

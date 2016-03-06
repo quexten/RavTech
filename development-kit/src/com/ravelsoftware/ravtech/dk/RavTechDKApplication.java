@@ -26,7 +26,7 @@ public class RavTechDKApplication extends RavTech {
 
 	Stage stage;
 	public SceneViewWidget mainSceneView;
-	
+
 	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
 		super(absoluteFileHandleResolver, project);
 	}

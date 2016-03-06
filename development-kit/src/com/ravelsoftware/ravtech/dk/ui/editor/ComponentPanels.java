@@ -76,7 +76,7 @@ public class ComponentPanels {
 				addSliderLabel(table, "distance", component);
 				return table;
 			}
-		});		
+		});
 		ComponentPanels.registerComponent(Rigidbody.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (GameComponent component) {
@@ -84,7 +84,7 @@ public class ComponentPanels {
 				addSliderLabel(table, "angularDamping", component);
 				addSliderLabel(table, "gravityScale", component);
 				addSliderLabel(table, "linearDamping", component);
-				addDropdown(table, "bodyType", new String[]{"Static", "Dynamic", "Kinematic"}, component);
+				addDropdown(table, "bodyType", new String[] {"Static", "Dynamic", "Kinematic"}, component);
 				return table;
 			}
 		});
@@ -100,18 +100,20 @@ public class ComponentPanels {
 				addButton(table, "Edit Collider", "Edit", new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						 RavTechDK.gizmoHandler.setExclusiveGizmo(component);
-					}					
+						RavTechDK.gizmoHandler.setExclusiveGizmo(component);
+					}
 				});
 				addButton(table, "AutoFit", "Fit", new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent().getComponentByType(ComponentType.SpriteRenderer);
-	                if(spriteRenderer != null) {
-	                    ((BoxCollider)component).setBounds(spriteRenderer.width, spriteRenderer.height);
-	                    ((BoxCollider)component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2, -spriteRenderer.originY * spriteRenderer.height / 2);
-	                }
-					}					
+						SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent()
+							.getComponentByType(ComponentType.SpriteRenderer);
+						if (spriteRenderer != null) {
+							((BoxCollider)component).setBounds(spriteRenderer.width, spriteRenderer.height);
+							((BoxCollider)component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2,
+								-spriteRenderer.originY * spriteRenderer.height / 2);
+						}
+					}
 				});
 				return table;
 			}
@@ -126,18 +128,20 @@ public class ComponentPanels {
 				addButton(table, "Edit Collider", "Edit", new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						 RavTechDK.gizmoHandler.setExclusiveGizmo(component);
-					}					
+						RavTechDK.gizmoHandler.setExclusiveGizmo(component);
+					}
 				});
 				addButton(table, "AutoFit", "Fit", new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent().getComponentByType(ComponentType.SpriteRenderer);
-	                if(spriteRenderer != null) {
-	                    ((CircleCollider)component).setRadius(spriteRenderer.height / 2);
-	                    ((CircleCollider)component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2, -spriteRenderer.originY * spriteRenderer.height / 2);
-	                }
-					}					
+						SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent()
+							.getComponentByType(ComponentType.SpriteRenderer);
+						if (spriteRenderer != null) {
+							((CircleCollider)component).setRadius(spriteRenderer.height / 2);
+							((CircleCollider)component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2,
+								-spriteRenderer.originY * spriteRenderer.height / 2);
+						}
+					}
 				});
 				return table;
 			}

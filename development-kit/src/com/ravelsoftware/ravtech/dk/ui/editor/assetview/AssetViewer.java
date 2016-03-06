@@ -182,8 +182,8 @@ public class AssetViewer extends VisTable {
 				panel = new LuaPreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
 				panel.addListener(new ClickListener() {
 					@Override
-					public void clicked(InputEvent event, float x, float y) {
-						if(this.getTapCount() > 1) {
+					public void clicked (InputEvent event, float x, float y) {
+						if (this.getTapCount() > 1) {
 							ZeroBraneUtil.openFile(new File(filePath));
 						}
 					}

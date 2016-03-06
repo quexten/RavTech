@@ -238,7 +238,7 @@ public class BoxColliderGizmo extends Gizmo {
 		boxCollider.width = width;
 		boxCollider.height = height;
 	}
-	
+
 	@Override
 	public boolean isInBoundingBox (Vector2 coord) {
 		return false;
