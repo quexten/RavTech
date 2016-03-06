@@ -84,6 +84,7 @@ public class RavTechDKApplication extends RavTech {
 		window.add(assetViewer).grow();
 		window.setResizable(true);
 		window.setSize(1000, 300);
+		window.setPosition(2000, 0);
 		stage.addActor(window);
 	}
 

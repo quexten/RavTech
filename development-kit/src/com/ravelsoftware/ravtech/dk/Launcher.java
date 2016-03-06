@@ -71,7 +71,7 @@ public class Launcher {
 		}, RavTechDK.project);
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setWindowedMode(1280, 720);
+		config.setWindowedMode(1600, 900);
 		RavTech.files.getAssetManager().setLoader(Script.class, new LuaJScriptLoader(RavTech.files.getResolver()));
 		new Lwjgl3Application(ravtech, config);
 		Gdx.app.postRunnable(new Runnable() {

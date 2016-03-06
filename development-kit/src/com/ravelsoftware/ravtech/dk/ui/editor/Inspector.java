@@ -1,6 +1,7 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
@@ -24,6 +25,7 @@ public class Inspector extends VisWindow {
 		super("Inspector");
 		ComponentPanels.registerPanels();
 		setSize(300, 500);
+		setPosition(0, 200);
 		setVisible(true);
 	}
 
@@ -52,7 +54,8 @@ public class Inspector extends VisWindow {
 				@Override
 				public void changed (ChangeEvent event, Actor actor) {
 					PopupMenu menu = createMenu();
-					menu.showMenu(getStage(), textButton.getX(), textButton.getY());
+					Vector2 stageCoordinates = contentTable.localToStageCoordinates(new Vector2(textButton.getX(), textButton.getY()));
+					menu.showMenu(getStage(), stageCoordinates.x, stageCoordinates.y);
 				}
 			});
 			contentTable.row();
@@ -85,6 +88,7 @@ public class Inspector extends VisWindow {
 						component = ClassReflection.newInstance(ClassReflection.forName(className));
 						RavTechDKUtil.selectedObjects.get(0).addComponent(component);
 						component.finishedLoading();
+						Inspector.this.rebuild();
 					} catch (ReflectionException e) {
 						e.printStackTrace();
 					}
