@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.ravelsoftware.ravtech.util.Debug;
 
 public class BoxCollider extends Box2dCollider {
 
@@ -93,7 +94,7 @@ public class BoxCollider extends Box2dCollider {
 		Body body = ((Rigidbody)this.getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
 		FixtureDef fixtureDef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(width, height, new Vector2(x, y), (float)Math.toRadians(angle));
+		shape.setAsBox(width / 2, height / 2, new Vector2(x, y), (float)Math.toRadians(angle));
 		fixtureDef.density = this.density;
 		fixtureDef.friction = this.friction;
 		fixtureDef.isSensor = this.isSensor;

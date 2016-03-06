@@ -39,7 +39,8 @@ public class ColorUtils {
 		case AudioEmitter:
 			break;
 		case BoxCollider:
-			break;
+			return getPhysicsBodyTypeColor(
+				((Rigidbody)component.getParent().getComponentByType(ComponentType.Rigidbody)).getBody().getType());
 		case CircleCollider:
 			return getPhysicsBodyTypeColor(
 				((Rigidbody)component.getParent().getComponentByType(ComponentType.Rigidbody)).getBody().getType());

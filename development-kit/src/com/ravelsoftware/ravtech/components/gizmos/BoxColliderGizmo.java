@@ -1,18 +1,3 @@
-/*******************************************************************************
- * Copyright 2014-2016 Bernd Schoolmann
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
 
 package com.ravelsoftware.ravtech.components.gizmos;
 
@@ -21,11 +6,13 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.BoxCollider;
+import com.ravelsoftware.ravtech.dk.ui.utils.ColorUtils;
+import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 
@@ -35,7 +22,11 @@ public class BoxColliderGizmo extends Gizmo {
 	boolean isGrabbed = false;
 	int grabbedPoint = 0;
 	Vector2 oldPosition;
+	Vector2 trueOldPosition;
 	Vector2 oldBounds;
+	boolean canEdit = true;
+	float closestDst;
+	int selectedPoint;
 
 	public BoxColliderGizmo (BoxCollider boxCollider) {
 		this.boxCollider = boxCollider;
@@ -43,227 +34,211 @@ public class BoxColliderGizmo extends Gizmo {
 
 	@Override
 	public void draw (ShapeRenderer renderer, boolean selected) {
+		if (!canEdit) return;
 		renderer.setAutoShapeType(true);
-		renderer.setColor(Color.LIGHT_GRAY);
-		Gdx.gl.glLineWidth(2.0f);
+		renderer.setColor(ColorUtils.getGizmoColor(this.boxCollider));
 		float rotation = boxCollider.getParent().transform.getRotation();
 		Vector2 middlePosition = boxCollider.getParent().transform.getPosition()
-			.add(new Vector2(boxCollider.x, boxCollider.y).rotate(rotation));
-		Vector3 unprojectedMouse = RavTech.sceneHandler.worldCamera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-		Vector2 mousePosition = new Vector2(unprojectedMouse.x, unprojectedMouse.y);
-		Vector2 tl = middlePosition.cpy()
-			.sub(new Vector2(boxCollider.width, boxCollider.height).rotate(boxCollider.angle + rotation));
-		Vector2 tr = middlePosition.cpy()
-			.sub(new Vector2(boxCollider.width, -boxCollider.height).rotate(boxCollider.angle + rotation));
-		Vector2 br = middlePosition.cpy()
-			.add(new Vector2(boxCollider.width, boxCollider.height).rotate(boxCollider.angle + rotation));
-		Vector2 bl = middlePosition.cpy()
-			.add(new Vector2(boxCollider.width, -boxCollider.height).rotate(boxCollider.angle + rotation));
-		Vector2 t = middlePosition.cpy().sub(new Vector2(0, -boxCollider.height).rotate(boxCollider.angle + rotation));
-		Vector2 r = middlePosition.cpy().sub(new Vector2(-boxCollider.width, 0).rotate(boxCollider.angle + rotation));
-		Vector2 b = middlePosition.cpy().sub(new Vector2(0, boxCollider.height).rotate(boxCollider.angle + rotation));
-		Vector2 l = middlePosition.cpy().sub(new Vector2(boxCollider.width, 0).rotate(boxCollider.angle + rotation));
-		// renderer.line(tl, br);
-		// renderer.line(tr, bl);
+			.add(new Vector2((boxCollider.x), (boxCollider.y)).rotate(rotation));
+		Vector2 tl = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
+		Vector2 tr = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
+		Vector2 br = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
+		Vector2 bl = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
+		// tl
+		Vector2 tlb = tl.cpy().interpolate(bl, 0.25f, Interpolation.linear);
+		Vector2 tlr = tl.cpy().interpolate(tr, 0.25f, Interpolation.linear);
+		// tr
+		Vector2 trb = tr.cpy().interpolate(br, 0.25f, Interpolation.linear);
+		Vector2 trl = tr.cpy().interpolate(tl, 0.25f, Interpolation.linear);
+		// br
+		Vector2 brt = br.cpy().interpolate(tr, 0.25f, Interpolation.linear);
+		Vector2 brl = br.cpy().interpolate(bl, 0.25f, Interpolation.linear);
+		// bl
+		Vector2 blt = bl.cpy().interpolate(tl, 0.25f, Interpolation.linear);
+		Vector2 blr = bl.cpy().interpolate(br, 0.25f, Interpolation.linear);
 		renderer.line(tl, tr);
 		renderer.line(tr, br);
 		renderer.line(br, bl);
 		renderer.line(bl, tl);
-		renderer.setColor(RavTech.input.getWorldPosition().dst(middlePosition) < 0.5f ? Color.YELLOW : Color.GRAY);
-		renderer.line(middlePosition.cpy().add(new Vector2(0.5f, 0).rotate(boxCollider.angle + rotation)),
-			middlePosition.cpy().add(new Vector2(-0.5f, 0).rotate(boxCollider.angle + rotation)));
-		renderer.line(middlePosition.cpy().add(new Vector2(0, 0.5f).rotate(boxCollider.angle + rotation)),
-			middlePosition.cpy().add(new Vector2(0, -0.5f).rotate(boxCollider.angle + rotation)));
-		boolean ispointnearxaxis = GeometryUtils.isPointNearLine(middlePosition, r, RavTech.input.getWorldPosition(), 0.4f);
-		renderer.setColor(ispointnearxaxis ? Color.YELLOW : Color.LIGHT_GRAY);
-		renderer.line(middlePosition, r);
-		float closestDst = Float.MAX_VALUE;
-		Array<Vector2> positions = new Array<Vector2>();
-		positions.add(tl);
-		positions.add(tr);
-		positions.add(br);
-		positions.add(bl);
-		positions.add(t);
-		positions.add(r);
-		positions.add(b);
-		positions.add(l);
-		for (int i = 0; i < positions.size; i++)
-			if (closestDst > positions.get(i).dst(mousePosition)) closestDst = positions.get(i).dst(mousePosition);
-		renderer.set(ShapeType.Filled);
-		for (int i = 0; i < positions.size; i++)
-			renderCircle(renderer, positions.get(i), mousePosition, positions.get(i).dst(mousePosition) <= closestDst);
+		renderer.end();
+		renderer.begin(ShapeType.Line);
+		if (selected) {
+			Gdx.gl.glLineWidth(4);
+			renderer.setColor(Color.YELLOW);
+		}
+		switch (selectedPoint) {
+		case 0:
+			renderer.line(brt, br);
+			renderer.line(brl, br);
+			break;
+		case 1:
+			renderer.line(blt, bl);
+			renderer.line(blr, bl);
+			break;
+		case 2:
+			renderer.line(tlb, tl);
+			renderer.line(tlr, tl);
+			break;
+		case 3:
+			renderer.line(trb, tr);
+			renderer.line(trl, tr);
+			break;
+		case 4:
+			renderer.line(bl, tl);
+			break;
+		case 5:
+			renderer.line(tl, tr);
+			break;
+		case 6:
+			renderer.line(tr, br);
+			break;
+		case 7:
+			renderer.line(br, bl);
+			break;
+		}
 		renderer.setColor(Color.GRAY);
-		renderer.set(ShapeType.Line);
-		Gdx.gl.glLineWidth(1.0f);
+		renderer.end();
+		renderer.begin(ShapeType.Line);
+		Gdx.gl.glLineWidth(1);
+		renderer.setColor(Color.GRAY);
 	}
 
 	@Override
 	public float input (float x, float y, int button, int eventType) {
-		if (!boxCollider.canEdit) return -1f;
 		float rotation = boxCollider.getParent().transform.getRotation();
-		Vector2 middlePosition = oldPosition;
+		Vector2 middlePosition = boxCollider.getParent().transform.getPosition()
+			.sub(new Vector2(-boxCollider.x, -boxCollider.y).rotate(rotation));
 		Vector2 mousePosition = new Vector2(x, y);
 		switch (eventType) {
-		case EventType.MouseDown:
-			oldPosition = boxCollider.getParent().transform.getPosition()
-				.add(new Vector2(boxCollider.x, boxCollider.y).rotate(rotation));
-			middlePosition = oldPosition;
-			Vector2 tl = middlePosition.cpy()
-				.sub(new Vector2(boxCollider.width, boxCollider.height).rotate(boxCollider.angle + rotation));
-			Vector2 tr = middlePosition.cpy()
-				.sub(new Vector2(boxCollider.width, -boxCollider.height).rotate(boxCollider.angle + rotation));
-			Vector2 br = middlePosition.cpy()
-				.add(new Vector2(boxCollider.width, boxCollider.height).rotate(boxCollider.angle + rotation));
-			Vector2 bl = middlePosition.cpy()
-				.add(new Vector2(boxCollider.width, -boxCollider.height).rotate(boxCollider.angle + rotation));
-			Vector2 t = middlePosition.cpy().sub(new Vector2(0, -boxCollider.height).rotate(boxCollider.angle + rotation));
-			Vector2 r = middlePosition.cpy().sub(new Vector2(-boxCollider.width, 0).rotate(boxCollider.angle + rotation));
-			Vector2 b = middlePosition.cpy().sub(new Vector2(0, boxCollider.height).rotate(boxCollider.angle + rotation));
-			Vector2 l = middlePosition.cpy().sub(new Vector2(boxCollider.width, 0).rotate(boxCollider.angle + rotation));
-			float closestDst = Float.MAX_VALUE;
-			int closest = -1;
+		case EventType.MouseMoved:
+			Vector2 tl = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
+			Vector2 tr = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
+			Vector2 br = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
+			Vector2 bl = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
+			closestDst = Float.MAX_VALUE;
 			Array<Vector2> positions = new Array<Vector2>();
 			positions.add(tl);
 			positions.add(tr);
 			positions.add(br);
 			positions.add(bl);
-			positions.add(t);
-			positions.add(r);
-			positions.add(b);
-			positions.add(l);
-			for (int i = 0; i < positions.size; i++)
-				if (closestDst > positions.get(i).dst(mousePosition)) {
-					closestDst = positions.get(i).dst(mousePosition);
-					closest = i;
-				}
-			if (closestDst > 1) {
-				boolean ispointnearxaxis = GeometryUtils.isPointNearLine(middlePosition, r, RavTech.input.getWorldPosition(), 0.4f);
-				if (RavTech.input.getWorldPosition().dst(middlePosition) < 0.5f)
-					closest = 8;
-				else if (ispointnearxaxis)
-					closest = 9;
-				else
-					return -1f;
+			float camFactor = RavTech.sceneHandler.worldCamera.zoom * 20f;
+			float lDst = GeometryUtils.isInBoundingBox(tl, tr, mousePosition, camFactor)
+				? GeometryUtils.dstFromLine(tl, tr, mousePosition) : Float.MAX_VALUE;
+			float tDst = GeometryUtils.isInBoundingBox(tr, br, mousePosition, camFactor)
+				? GeometryUtils.dstFromLine(tr, br, mousePosition) : Float.MAX_VALUE;
+			float rDst = GeometryUtils.isInBoundingBox(br, bl, mousePosition, camFactor)
+				? GeometryUtils.dstFromLine(br, bl, mousePosition) : Float.MAX_VALUE;
+			float bDst = GeometryUtils.isInBoundingBox(bl, tl, mousePosition, camFactor)
+				? GeometryUtils.dstFromLine(bl, tl, mousePosition) : Float.MAX_VALUE;
+			if (closestDst > tDst) {
+				selectedPoint = 4;
+				closestDst = tDst;
 			}
+			if (closestDst > rDst) {
+				selectedPoint = 5;
+				closestDst = rDst;
+			}
+			if (closestDst > bDst) {
+				selectedPoint = 6;
+				closestDst = bDst;
+			}
+			if (closestDst > lDst) {
+				selectedPoint = 7;
+				closestDst = lDst;
+			}
+			for (int i = 0; i < positions.size; i++)
+				if (camFactor > positions.get(i).dst(mousePosition)) {
+					closestDst = positions.get(i).dst(mousePosition);
+					selectedPoint = i;
+				}
+			if (closestDst > camFactor) return -1f;
+			break;
+		case EventType.MouseDown:
 			oldPosition = boxCollider.getParent().transform.getPosition()
-				.add(new Vector2(boxCollider.x, boxCollider.y).rotate(rotation));
+				.sub(new Vector2(-boxCollider.x * 2, -boxCollider.y * 2).rotate(rotation));
+			middlePosition = oldPosition;
+			oldPosition = boxCollider.getParent().transform.getPosition()
+				.sub(new Vector2(-boxCollider.x, -boxCollider.y).rotate(rotation));
+			trueOldPosition = boxCollider.getParent().transform.getPosition()
+				.sub(new Vector2(-boxCollider.x * 2, -boxCollider.y * 2).rotate(0));
 			oldBounds = new Vector2(boxCollider.width, boxCollider.height);
 			isGrabbed = true;
-			grabbedPoint = closest;
+			grabbedPoint = selectedPoint;
 			return -1f;
 		case EventType.MouseDrag:
 			if (isGrabbed) switch (grabbedPoint) {
 			case 0: // tl
-				changeBounds(
-					mousePosition.cpy().sub(middlePosition)
-						.rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).x,
-					mousePosition.cpy().sub(middlePosition)
-						.rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).y,
-					false, false);
+				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
+					mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false, false);
 				break;
 			case 1: // tr
-				changeBounds(
-					mousePosition.cpy().sub(middlePosition)
-						.rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).x,
-					mousePosition.cpy().sub(middlePosition)
-						.rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).y,
-					false, true);
+				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
+					mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false, true);
 				break;
 			case 2: // br
-				changeBounds(
-					mousePosition.cpy().sub(middlePosition)
-						.rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).x,
-					mousePosition.cpy().sub(middlePosition)
-						.rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).y,
-					true, true);
+				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
+					mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true, true);
 				break;
 			case 3: // bl
-				changeBounds(
-					mousePosition.cpy().sub(middlePosition)
-						.rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).x,
-					mousePosition.cpy().sub(middlePosition)
-						.rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).y,
-					true, false);
+				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
+					mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true, false);
 				break;
 			case 4: // t
-				changeHeight(
-					mousePosition.sub(middlePosition).rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).y,
-					true);
+				changeHeight(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true);
 				break;
 			case 5: // r
-				changeWidth(
-					mousePosition.sub(middlePosition).rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).x,
-					true);
+				changeWidth(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x, true);
 				break;
 			case 6: // b
-				changeHeight(
-					mousePosition.sub(middlePosition).rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).y,
-					false);
+				changeHeight(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false);
 				break;
 			case 7: // l
-				changeWidth(
-					mousePosition.sub(middlePosition).rotate(-boxCollider.getParent().transform.getRotation() - boxCollider.angle).x,
-					false);
+				changeWidth(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x, false);
 				break;
 			case 8:
 				Vector2 subPosition = mousePosition.sub(boxCollider.getParent().transform.getPosition());
-				boxCollider.x = subPosition.x;
-				boxCollider.y = subPosition.y;
-				break;
-			case 9:
-				boxCollider.angle = mousePosition.sub(middlePosition).angle();
+				boxCollider.x = subPosition.x / boxCollider.width * 2;
+				boxCollider.y = subPosition.y / boxCollider.height * 2;
 				break;
 			}
 			return -1f;
 		case EventType.MouseUp:
 			isGrabbed = false;
-			boxCollider.apply();
 			break;
 		}
-		return -1f;
+		return this.closestDst;
 	}
 
 	private void changeWidth (float width, boolean changeRight) {
-		width = (changeRight ? 0.5f : -0.5f) * (width - oldBounds.x) + oldBounds.x * (changeRight ? 1 : 0);
-		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0)
-			.rotate(boxCollider.getParent().transform.getRotation() + boxCollider.angle);
-		boxCollider.x = oldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).x;
-		boxCollider.y = oldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).y;
+		Debug.log("OldBounds", oldBounds);
+		Debug.log("TrueOLdPosition", trueOldPosition);
+		width = (changeRight ? 1f : -1f) * (width - oldBounds.x * 0.5f) + oldBounds.x * (changeRight ? 1 : 0);
+		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0);
+		boxCollider.x = trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).x / 2;
 		boxCollider.width = width;
 	}
 
 	private void changeHeight (float height, boolean changeTop) {
-		height = (changeTop ? 0.5f : -0.5f) * (height - oldBounds.y) + oldBounds.y * (changeTop ? 1 : 0);
-		Vector2 addPosition = new Vector2(0, changeTop ? height + -oldBounds.y : oldBounds.y - height)
-			.rotate(boxCollider.getParent().transform.getRotation() + boxCollider.angle);
-		boxCollider.x = oldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).x;
-		boxCollider.y = oldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).y;
+		height = (changeTop ? 1 : -1f) * (height - oldBounds.y * 0.5f) + oldBounds.y * (changeTop ? 1 : 0);
+		Vector2 addPosition = new Vector2(0, changeTop ? height + -oldBounds.y : oldBounds.y - height);
+		boxCollider.y = trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).y / 2;
 		boxCollider.height = height;
 	}
 
 	private void changeBounds (float width, float height, boolean changeRight, boolean changeTop) {
-		width = (changeRight ? 0.5f : -0.5f) * (width - oldBounds.x) + oldBounds.x * (changeRight ? 1 : 0);
-		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0)
-			.rotate(boxCollider.getParent().transform.getRotation() + boxCollider.angle);
-		boxCollider.x = oldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).x;
-		boxCollider.y = oldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).y;
-		height = (changeTop ? 0.5f : -0.5f) * (height - oldBounds.y) + oldBounds.y * (changeTop ? 1 : 0);
-		Vector2 addPosition2 = new Vector2(0, changeTop ? height + -oldBounds.y : oldBounds.y - height)
-			.rotate(boxCollider.getParent().transform.getRotation() + boxCollider.angle);
-		Vector2 newPosition = new Vector2(boxCollider.x, boxCollider.y);
-		boxCollider.x = newPosition.cpy().add(addPosition2).x;
-		boxCollider.y = newPosition.cpy().add(addPosition2).y;
+		width = (changeRight ? 1f : -1f) * (width - oldBounds.x * 0.5f) + oldBounds.x * (changeRight ? 1 : 0);
+		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0);
+		boxCollider.x = trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).x;
+		boxCollider.y = -trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).y;
+		height = (changeTop ? 1 : -1f) * (height - oldBounds.y * 0.5f) + oldBounds.y * (changeTop ? 1 : 0);
+		Vector2 addPosition2 = new Vector2(0, changeTop ? height + -oldBounds.y : oldBounds.y - height);
+		Vector2 newPosition = new Vector2(-boxCollider.x, -boxCollider.y);
+		boxCollider.x = -newPosition.cpy().add(addPosition2).x / 2;
+		boxCollider.y = newPosition.cpy().add(addPosition2).y / 2;
 		boxCollider.width = width;
 		boxCollider.height = height;
 	}
-
-	private void renderCircle (ShapeRenderer renderer, Vector2 position, Vector2 mousePosition, boolean isClosest) {
-		boolean hoverable = (Gdx.input.isButtonPressed(Buttons.LEFT) && isGrabbed || !Gdx.input.isButtonPressed(Buttons.LEFT))
-			&& isClosest;
-		renderer.setColor(isGrabbed || position.dst(mousePosition.x, mousePosition.y) < 1 && hoverable ? Color.YELLOW : Color.GRAY);
-		renderer.circle(position.x, position.y, 1 * 0.15f, 20);
-	}
-
+	
 	@Override
 	public boolean isInBoundingBox (Vector2 coord) {
 		return false;
