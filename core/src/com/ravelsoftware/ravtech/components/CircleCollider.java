@@ -81,6 +81,8 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 
 	@Override
 	public void finishedLoading () {
+		if(this.getParent().getComponentByType(ComponentType.Rigidbody) == null)
+			this.getParent().addComponent(new Rigidbody());
 		apply();
 	}
 

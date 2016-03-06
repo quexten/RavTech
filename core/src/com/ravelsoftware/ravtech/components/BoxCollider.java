@@ -45,6 +45,8 @@ public class BoxCollider extends Box2dCollider {
 
 	@Override
 	public void finishedLoading () {
+		if(this.getParent().getComponentByType(ComponentType.Rigidbody) == null)
+			this.getParent().addComponent(new Rigidbody());
 		apply();
 	}
 

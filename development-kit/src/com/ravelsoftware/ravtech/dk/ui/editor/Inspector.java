@@ -15,6 +15,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.ravelsoftware.ravtech.components.GameComponent;
+import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 
 public class Inspector extends VisWindow {
@@ -89,6 +90,7 @@ public class Inspector extends VisWindow {
 						RavTechDKUtil.selectedObjects.get(0).addComponent(component);
 						component.finishedLoading();
 						Inspector.this.rebuild();
+						RavTechDK.gizmoHandler.setupGizmos();
 					} catch (ReflectionException e) {
 						e.printStackTrace();
 					}
