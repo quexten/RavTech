@@ -2,7 +2,6 @@
 package com.ravelsoftware.ravtech.components.gizmos;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -30,6 +29,7 @@ public class BoxColliderGizmo extends Gizmo {
 
 	public BoxColliderGizmo (BoxCollider boxCollider) {
 		this.boxCollider = boxCollider;
+		this.isExclusive = true;
 	}
 
 	@Override

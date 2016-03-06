@@ -1,16 +1,21 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.BoxCollider;
+import com.ravelsoftware.ravtech.components.CircleCollider;
+import com.ravelsoftware.ravtech.components.ComponentType;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.components.Light;
 import com.ravelsoftware.ravtech.components.Rigidbody;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
+import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.graphics.SortingLayer;
 
 public class ComponentPanels {
@@ -71,7 +76,7 @@ public class ComponentPanels {
 				addSliderLabel(table, "distance", component);
 				return table;
 			}
-		});
+		});		
 		ComponentPanels.registerComponent(Rigidbody.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (GameComponent component) {
@@ -81,13 +86,55 @@ public class ComponentPanels {
 		});
 		ComponentPanels.registerComponent(BoxCollider.class, new ComponentPanel() {
 			@Override
-			public VisTable createTable (GameComponent component) {
+			public VisTable createTable (final GameComponent component) {
 				VisTable table = new VisTable();
 				addSliderLabel(table, "x", component);
 				addSliderLabel(table, "y", component);
 				addSliderLabel(table, "width", component);
 				addSliderLabel(table, "height", component);
 				addSliderLabel(table, "angle", component);
+				addButton(table, "Edit Collider", "Edit", new ChangeListener() {
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						 RavTechDK.gizmoHandler.setExclusiveGizmo(component);
+					}					
+				});
+				addButton(table, "AutoFit", "Fit", new ChangeListener() {
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent().getComponentByType(ComponentType.SpriteRenderer);
+	                if(spriteRenderer != null) {
+	                    ((BoxCollider)component).setBounds(spriteRenderer.width, spriteRenderer.height);
+	                    ((BoxCollider)component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2, -spriteRenderer.originY * spriteRenderer.height / 2);
+	                }
+					}					
+				});
+				return table;
+			}
+		});
+		ComponentPanels.registerComponent(CircleCollider.class, new ComponentPanel() {
+			@Override
+			public VisTable createTable (final GameComponent component) {
+				VisTable table = new VisTable();
+				addSliderLabel(table, "x", component);
+				addSliderLabel(table, "y", component);
+				addSliderLabel(table, "radius", component);
+				addButton(table, "Edit Collider", "Edit", new ChangeListener() {
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						 RavTechDK.gizmoHandler.setExclusiveGizmo(component);
+					}					
+				});
+				addButton(table, "AutoFit", "Fit", new ChangeListener() {
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent().getComponentByType(ComponentType.SpriteRenderer);
+	                if(spriteRenderer != null) {
+	                    ((CircleCollider)component).setRadius(spriteRenderer.height / 2);
+	                    ((CircleCollider)component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2, -spriteRenderer.originY * spriteRenderer.height / 2);
+	                }
+					}					
+				});
 				return table;
 			}
 		});

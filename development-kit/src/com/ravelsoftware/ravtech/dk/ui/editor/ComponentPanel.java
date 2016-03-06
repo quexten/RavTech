@@ -6,8 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
 import com.ravelsoftware.ravtech.components.GameComponent;
@@ -42,7 +44,7 @@ public abstract class ComponentPanel {
 			}
 		};
 	}
-	
+
 	public void addDropdown (VisTable table, String variableName, String[] options, GameComponent component) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
@@ -52,16 +54,17 @@ public abstract class ComponentPanel {
 		table.add(label.pairedComponent).growX();
 		table.setFillParent(true);
 		table.row();
-		
+
 		label.pairedComponent.addListener(new ChangeListener() {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				gameComponent.setVariable(gameComponent.getVariableId(variable), ((VisSelectBox<String>) label.pairedComponent).getSelected());
-			}			
+				gameComponent.setVariable(gameComponent.getVariableId(variable),
+					((VisSelectBox<String>)label.pairedComponent).getSelected());
+			}
 		});
 	}
-	
+
 	public void addColorPicker (VisTable table, String variableName, GameComponent component) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
@@ -98,6 +101,14 @@ public abstract class ComponentPanel {
 				label.label.getStage().addActor(picker);
 			}
 		});
+	}
+
+	public void addButton (VisTable table, String text, String title, ChangeListener listener) {
+		table.add(new VisLabel(text));
+		VisTextButton button = new VisTextButton(title);
+		button.addListener(listener);
+		table.add(button);
+		table.row();
 	}
 
 }
