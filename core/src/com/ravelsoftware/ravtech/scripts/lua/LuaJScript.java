@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.ravelsoftware.ravtech.components.GameObject;
 import com.ravelsoftware.ravtech.scripts.Script;
+import com.ravelsoftware.ravtech.util.Debug;
 
 public class LuaJScript extends Script {
 
@@ -30,6 +31,7 @@ public class LuaJScript extends Script {
 		values.put("this", selfObject);
 		values.put("Keys", Keys.class);
 		values.put("Input", Gdx.input);
+		values.put("Debug", Debug.class);
 		setEnviroment(values);
 	}
 
@@ -42,7 +44,7 @@ public class LuaJScript extends Script {
 
 	@Override
 	public void update () {
-		globals.get("update").call();
+		globals.get("update").invoke();	
 	}
 
 	@Override

@@ -1,11 +1,16 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
@@ -13,6 +18,8 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
 import com.ravelsoftware.ravtech.components.GameComponent;
+import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.ModifyChangeable;
 
@@ -109,6 +116,31 @@ public abstract class ComponentPanel {
 		button.addListener(listener);
 		table.add(button);
 		table.row();
+	}
+
+	public void addFileSelector (VisTable table, String text, String initialPath, final ChangeListener listener,
+		final String... fileTypes) {
+		table.add(new VisLabel(text)).expandX().growX().padLeft(5);
+		final VisLabel fileLabel = new VisLabel(initialPath);
+		VisTable padTable = new VisTable();
+		table.add(padTable).expandX().growX().height(20).width(240);
+		padTable.add(fileLabel).growX().fillX();
+		table.row();
+		((RavTechDKApplication)Gdx.app.getApplicationListener()).assetViewer.dragAndDrop.addTarget(new Target(padTable) {
+			@Override
+			public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
+				String objectPath = String.valueOf(payload.getObject());
+				for (int i = 0; i < fileTypes.length; i++)
+					if (fileTypes[i].equals(objectPath.substring(objectPath.lastIndexOf(".") + 1))) return true;
+				return false;
+			}
+
+			@Override
+			public void drop (Source source, Payload payload, float x, float y, int pointer) {
+				fileLabel.setText(String.valueOf(payload.getObject()).replace(RavTechDK.projectHandle.path() + "/assets/", ""));
+				listener.changed(new ChangeEvent(), fileLabel);
+			}
+		});
 	}
 
 }

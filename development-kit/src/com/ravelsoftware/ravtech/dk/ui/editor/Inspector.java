@@ -4,6 +4,7 @@ package com.ravelsoftware.ravtech.dk.ui.editor;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
@@ -21,7 +22,8 @@ import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 public class Inspector extends VisWindow {
 
 	VisTable contentTable;
-
+	public Array<Actor> dragActors = new Array<Actor>();
+	
 	public Inspector () {
 		super("Inspector");
 		ComponentPanels.registerPanels();
@@ -39,6 +41,7 @@ public class Inspector extends VisWindow {
 	}
 
 	void rebuild () {
+		//this.dragActors.clear();
 		clear();
 
 		contentTable = new VisTable();

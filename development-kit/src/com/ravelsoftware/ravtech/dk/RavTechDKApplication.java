@@ -26,7 +26,9 @@ public class RavTechDKApplication extends RavTech {
 
 	Stage stage;
 	public SceneViewWidget mainSceneView;
-
+	public Inspector inspector;
+	public AssetViewer assetViewer;
+	
 	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
 		super(absoluteFileHandleResolver, project);
 	}
@@ -37,7 +39,7 @@ public class RavTechDKApplication extends RavTech {
 		RavTech.sceneHandler.paused = true;
 		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 		stage = new Stage(new ScreenViewport());
-
+		stage.setDebugAll(true);
 		final Table root = new Table();
 		root.setFillParent(true);
 		stage.addActor(root);
@@ -57,7 +59,7 @@ public class RavTechDKApplication extends RavTech {
 
 		});
 
-		stage.addActor(new Inspector());
+		stage.addActor(inspector = new Inspector());
 
 		RavTechDK.gizmoHandler = new GizmoHandler();
 		HookApi.onRenderHooks.add(new Runnable() {
@@ -79,7 +81,7 @@ public class RavTechDKApplication extends RavTech {
 			stage.addActor(wizard);
 		}
 
-		final AssetViewer assetViewer = new AssetViewer();
+		assetViewer = new AssetViewer();
 		VisWindow window = new VisWindow("AssetView");
 		window.add(assetViewer).grow();
 		window.setResizable(true);

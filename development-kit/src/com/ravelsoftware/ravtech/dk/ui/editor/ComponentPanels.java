@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.BoxCollider;
@@ -13,6 +14,7 @@ import com.ravelsoftware.ravtech.components.ComponentType;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.components.Light;
 import com.ravelsoftware.ravtech.components.Rigidbody;
+import com.ravelsoftware.ravtech.components.ScriptComponent;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
@@ -145,6 +147,21 @@ public class ComponentPanels {
 				});
 				return table;
 			}
+		});
+		ComponentPanels.registerComponent(ScriptComponent.class, new ComponentPanel() {
+			@Override
+			public VisTable createTable (final GameComponent component) {
+				VisTable table = new VisTable();
+				addFileSelector(table, "Path:", ((ScriptComponent) component).path, new ChangeListener() {
+
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						((ScriptComponent) component).setScript(((VisLabel) actor).getText().toString());
+					}
+					
+				}, "lua");
+				return table;
+			}			
 		});
 	}
 

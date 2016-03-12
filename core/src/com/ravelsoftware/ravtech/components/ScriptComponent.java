@@ -22,7 +22,7 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public String getName () {
-		return "";
+		return (path != null && !path.isEmpty()) ? path.substring(((path.lastIndexOf('/') > -1) ? path.lastIndexOf('/') + 1 : 0)) : "Empty Script Component";
 	}
 
 	public ScriptComponent () {
@@ -36,7 +36,7 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public void finishedLoading () {
-		this.script = RavTech.files.getAsset(path);
+		if (RavTech.files.getAssetManager().isLoaded(path)) this.script = RavTech.files.getAsset(path);
 	}
 
 	@Override
@@ -92,7 +92,7 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 	public void setScript (String scriptPath) {
 		if (scriptPath.startsWith("/")) scriptPath = scriptPath.substring(1);
 		this.path = scriptPath;
-		RavTech.files.getAssetManager().unload(path);
+		if (RavTech.files.getAssetManager().isLoaded(path)) RavTech.files.getAssetManager().unload(path);
 		RavTech.files.getAssetManager()
 			.load(new AssetDescriptor<Script>(path, Script.class, new ScriptLoaderParameter(this.getParent())));
 		RavTech.files.finishLoading();
