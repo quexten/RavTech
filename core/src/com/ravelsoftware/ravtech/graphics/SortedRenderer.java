@@ -141,7 +141,8 @@ public class SortedRenderer {
 		}
 		if (camera.cameraBuffer != null) {
 			camera.cameraBuffer.begin();
-			Gdx.gl.glClearColor(0, 0, 0, 1);
+			Color clearColor = RavTech.currentScene.renderProperties.backgroundColor;
+			Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			renderRunnables(renderables);
 			for (int i = 0; i < HookApi.onRenderHooks.size; i++) {

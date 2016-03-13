@@ -3,12 +3,14 @@ package com.ravelsoftware.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
@@ -18,6 +20,9 @@ import com.kotcrab.vis.ui.VisUI;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
+import com.ravelsoftware.ravtech.dk.actions.CopyAction;
+import com.ravelsoftware.ravtech.dk.actions.DeleteAction;
+import com.ravelsoftware.ravtech.dk.actions.PasteAction;
 import com.ravelsoftware.ravtech.graphics.Camera;
 import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
@@ -128,10 +133,23 @@ public class SceneViewWidget extends Widget {
 
 			public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				SceneViewWidget.this.getStage().setScrollFocus(SceneViewWidget.this);
+				SceneViewWidget.this.getStage().setKeyboardFocus(SceneViewWidget.this);
 			}
 
 		});
-
+		this.addListener(new InputListener() {
+			public boolean keyDown (InputEvent event, int keycode) {
+				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C)
+					new CopyAction().run();
+				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V) 
+					new PasteAction().run();
+				
+				if (keycode == Keys.FORWARD_DEL)
+					new DeleteAction().run();
+				return false;
+			}
+		});
+		
 		Gdx.app.postRunnable(new Runnable() {
 
 			@Override

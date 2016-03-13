@@ -39,7 +39,7 @@ public class RavTechDKApplication extends RavTech {
 		RavTech.sceneHandler.paused = true;
 		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 		stage = new Stage(new ScreenViewport());
-		stage.setDebugAll(true);
+
 		final Table root = new Table();
 		root.setFillParent(true);
 		stage.addActor(root);

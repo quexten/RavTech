@@ -1,19 +1,15 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
-import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
@@ -21,7 +17,6 @@ import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
-import com.ravelsoftware.ravtech.SceneHandler;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
@@ -56,7 +51,7 @@ public class EditorMenuBar extends MenuBar {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
 						RavTech.files.getAssetHandle(RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene))
-							.writeString(new Json().toJson(RavTech.currentScene), true);
+							.writeString(new Json().toJson(RavTech.currentScene), false);
 						Debug.log("Saved Scene", "[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
 					}
 				});
