@@ -15,6 +15,7 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
+import com.ravelsoftware.ravtech.dk.adb.AdbManager;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.ui.editor.EditorMenuBar;
 import com.ravelsoftware.ravtech.dk.ui.editor.Inspector;
@@ -28,7 +29,7 @@ public class RavTechDKApplication extends RavTech {
 	public SceneViewWidget mainSceneView;
 	public Inspector inspector;
 	public AssetViewer assetViewer;
-	
+
 	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
 		super(absoluteFileHandleResolver, project);
 	}
@@ -36,6 +37,9 @@ public class RavTechDKApplication extends RavTech {
 	@Override
 	public void create () {
 		super.create();
+
+		AdbManager.initializeAdb();
+
 		RavTech.sceneHandler.paused = true;
 		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 		stage = new Stage(new ScreenViewport());
@@ -90,6 +94,7 @@ public class RavTechDKApplication extends RavTech {
 		stage.addActor(window);
 	}
 
+	@Override
 	public void render () {
 		stage.act();
 		RavTech.sceneHandler.render();

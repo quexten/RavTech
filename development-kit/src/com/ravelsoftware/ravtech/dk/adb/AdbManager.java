@@ -8,6 +8,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.shell.Shell;
+import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler.Printer;
+import com.ravelsoftware.ravtech.util.Debug;
 
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
@@ -21,7 +23,22 @@ public class AdbManager {
 	private static boolean onBoot;
 
 	public static String executeAdbCommand (String arguments) {
-		return Shell.executeCommand(adbLocation, "adb " + arguments);
+		Shell.executeCommand(adbLocation, "adb " + arguments, new Printer() {
+
+			@Override
+			public void run () {
+				Debug.log("Line", this.line);
+			}
+
+		}, new Printer() {
+
+			@Override
+			public void run () {
+				Debug.log("Error", this.line);
+			}
+
+		});
+		return "";
 	}
 
 	public static JadbDevice getDevice (String deviceId) {
@@ -89,6 +106,8 @@ public class AdbManager {
 	}
 
 	public static void initializeAdb () {
+		Debug.log("InitializeAdb",
+			RavTech.settings.getString("RavTechDK.android.sdk.dir") + System.getProperty("file.separator") + "platform-tools");
 		adbLocation = new File(
 			RavTech.settings.getString("RavTechDK.android.sdk.dir") + System.getProperty("file.separator") + "platform-tools");
 		initAdbConnection();

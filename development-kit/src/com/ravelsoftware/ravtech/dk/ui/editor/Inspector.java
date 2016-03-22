@@ -23,7 +23,7 @@ public class Inspector extends VisWindow {
 
 	VisTable contentTable;
 	public Array<Actor> dragActors = new Array<Actor>();
-	
+
 	public Inspector () {
 		super("Inspector");
 		ComponentPanels.registerPanels();
@@ -41,7 +41,7 @@ public class Inspector extends VisWindow {
 	}
 
 	void rebuild () {
-		//this.dragActors.clear();
+		// this.dragActors.clear();
 		clear();
 
 		contentTable = new VisTable();
@@ -89,7 +89,7 @@ public class Inspector extends VisWindow {
 				public void changed (ChangeEvent event, Actor actor) {
 					GameComponent component;
 					try {
-						component = ClassReflection.newInstance(ClassReflection.forName(className));
+						component = (GameComponent)ClassReflection.newInstance(ClassReflection.forName(className));
 						RavTechDKUtil.selectedObjects.get(0).addComponent(component);
 						component.finishedLoading();
 						Inspector.this.rebuild();

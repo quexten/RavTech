@@ -1,15 +1,14 @@
 
 package com.ravelsoftware.ravtech.dk.packaging;
 
-import java.io.File;
-
+import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.Platform;
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 import com.ravelsoftware.ravtech.dk.ui.packaging.PrinterListener;
 
 public class PlatformStep extends PackageStep {
 
-	File directory;
+	FileHandle directory;
 	Platform platform;
 	boolean run;
 
@@ -19,23 +18,23 @@ public class PlatformStep extends PackageStep {
 		this.run = true;
 	}
 
-	public PlatformStep (BuildReporterDialog buildReporterDialog, Platform platform, File directory) {
+	public PlatformStep (BuildReporterDialog buildReporterDialog, Platform platform, FileHandle destinationDir) {
 		this(buildReporterDialog, platform);
 		this.run = false;
-		this.directory = directory;
+		this.directory = destinationDir;
 	}
 
 	@Override
 	public void run () {
-		if (run) { // Wether to do a test run or package the app for release
-			buildReporterDialog.printerListeners.add(new PrinterListener() {
-
-				public void onPrint (String line) {
-					if (line.equals("BUILD SUCCESSFUL")) PlatformStep.this.executeNext();
-				}
-			});
+		buildReporterDialog.printerListeners.add(new PrinterListener() {
+			@Override
+			public void onPrint (String line) {
+				if (line.equals("BUILD SUCCESSFUL")) PlatformStep.this.executeNext();
+			}
+		});
+		if (run)
 			platform.run(this.buildReporterDialog);
-		} else
+		else
 			platform.build(directory, buildReporterDialog);
 	}
 }

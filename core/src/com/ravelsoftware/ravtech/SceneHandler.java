@@ -58,7 +58,7 @@ public class SceneHandler {
 
 		// worldViewport = new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), worldCamera);
 
-		box2DWorld = new World(new Vector2(0, -9.81f), false);
+		box2DWorld = new World(new Vector2(0, 0), false);
 		box2DWorld.setContactListener(new ContactListener() {
 
 			@Override
@@ -144,6 +144,7 @@ public class SceneHandler {
 		// state.update();
 		// Prevent False game speed
 		int targetFramerate = RavTech.settings.getInt("targetFramerate");
+
 		if (Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / targetFramerate) > 2) {
 			accumulator += Gdx.graphics.getDeltaTime();
 			while (accumulator > step) {
@@ -179,9 +180,11 @@ public class SceneHandler {
 		if (worldCamera == null) return;
 		for (int i = 0; i < HookApi.onResizeHooks.size; i++)
 			HookApi.onResizeHooks.get(i).run();
-		// worldCamera.setResolution(width, height);
-		// worldCamera.setToOrtho(false, width, height);
-		// worldCamera.update();
+		worldCamera.setResolution(width, height);
+		worldCamera.setToOrtho(false, width, height);
+		Debug.log("Width", worldCamera.viewportWidth);
+		Debug.log("Height", worldCamera.viewportHeight);
+		worldCamera.update();
 		// render();
 	}
 

@@ -15,7 +15,7 @@ public class LabelDropdownPair extends LabelActorPair<String> {
 	@SuppressWarnings("unchecked")
 	@Override
 	String getValue () {
-		return (String)((VisSelectBox<String>)this.pairedComponent).getSelected();
+		return ((VisSelectBox<String>)this.pairedComponent).getSelected();
 	}
 
 }

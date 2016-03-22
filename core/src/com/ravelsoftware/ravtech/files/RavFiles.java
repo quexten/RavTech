@@ -69,9 +69,8 @@ public class RavFiles {
 	 * @param dependencies - the assets to load */
 	@SuppressWarnings("rawtypes")
 	public void loadAssets (Array<AssetDescriptor> dependencies) {
-		for (AssetDescriptor descriptor : dependencies) {
+		for (AssetDescriptor descriptor : dependencies)
 			assetManager.load(descriptor);
-		}
 	}
 
 	/** Gets the asset

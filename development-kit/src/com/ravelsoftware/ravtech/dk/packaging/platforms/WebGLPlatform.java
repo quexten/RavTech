@@ -1,14 +1,13 @@
 
 package com.ravelsoftware.ravtech.dk.packaging.platforms;
 
-import java.io.File;
-
+import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class WebGLPlatform implements Platform {
 
 	@Override
-	public boolean build (File buildPath, BuildReporterDialog buildReporterDialog) {
+	public boolean build (FileHandle buildPath, BuildReporterDialog buildReporterDialog) {
 		GradleInvoker.Invoke(buildReporterDialog, "html:dist --stacktrace");
 		buildReporterDialog.setVisible(true);
 		return false;

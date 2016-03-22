@@ -18,6 +18,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
 import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
@@ -57,6 +58,30 @@ public class Launcher {
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setWindowedMode(1600, 900);
+		config.setWindowListener(new Lwjgl3WindowListener() {
+			@Override
+			public void iconified () {
+			}
+
+			@Override
+			public void deiconified () {
+			}
+
+			@Override
+			public void focusLost () {
+			}
+
+			@Override
+			public void focusGained () {
+			}
+
+			@Override
+			public boolean windowIsClosing () {
+				System.exit(0);
+				return true;
+			}
+
+		});
 		RavTech.files.getAssetManager().setLoader(Script.class, new LuaJScriptLoader(RavTech.files.getResolver()));
 		new Lwjgl3Application(ravtech, config);
 		Gdx.app.postRunnable(new Runnable() {

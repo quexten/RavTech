@@ -25,12 +25,11 @@ public class ArchiveFileHandle extends FileHandle {
 			ZipInputStream stream = new ZipInputStream(zipfilehandle.read());
 			try {
 				ZipEntry entry;
-				while ((entry = stream.getNextEntry()) != null) {
+				while ((entry = stream.getNextEntry()) != null)
 					if (entry.getName().replace('\\', '/').equals(filePath)) {
 						entrystream = stream;
 						break;
 					}
-				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

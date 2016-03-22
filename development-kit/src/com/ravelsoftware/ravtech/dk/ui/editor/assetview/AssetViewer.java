@@ -30,7 +30,7 @@ public class AssetViewer extends VisTable {
 	AssetView assetView;
 	VisTextButton upButton;
 	public DragAndDrop dragAndDrop;
-	
+
 	public AssetViewer () {
 		VisTable headerTable = new VisTable();
 		upButton = new VisTextButton("Up");
@@ -94,9 +94,9 @@ public class AssetViewer extends VisTable {
 					((AssetPreviewPanel)payload.getDragActor()).addToScene();
 				}
 			});
-			
-			Array<Actor> inspectorActors = ((RavTechDKApplication) Gdx.app.getApplicationListener()).inspector.dragActors;
-			for (int i = 0; i < inspectorActors.size; i++) {
+
+			Array<Actor> inspectorActors = ((RavTechDKApplication)Gdx.app.getApplicationListener()).inspector.dragActors;
+			for (int i = 0; i < inspectorActors.size; i++)
 				dragAndDrop.addTarget(new Target(inspectorActors.get(i)) {
 
 					@Override
@@ -107,9 +107,8 @@ public class AssetViewer extends VisTable {
 					@Override
 					public void drop (Source source, Payload payload, float x, float y, int pointer) {
 					}
-					
+
 				});
-			}
 
 			for (int i = 0; i < files.size; i++) {
 				final FileHandle fileHandle = files.get(i);
@@ -119,13 +118,11 @@ public class AssetViewer extends VisTable {
 
 					public void clicked (InputEvent event, float x, float y) {
 						AssetView.this.setSelected(fileHandle.name());
-						if (this.getTapCount() > 1) {
-							if (fileHandle.isDirectory())
-								AssetView.this
-									.setDirectory(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
-							else {
+						if (this.getTapCount() > 1) if (fileHandle.isDirectory())
+							AssetView.this
+								.setDirectory(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+						else {
 
-							}
 						}
 					}
 
@@ -142,22 +139,20 @@ public class AssetViewer extends VisTable {
 					}
 				});
 
-				if (fileHandle.isDirectory()) {
-					dragAndDrop.addTarget(new Target(panel) {
-						@Override
-						public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
-							return true;
-						}
+				if (fileHandle.isDirectory()) dragAndDrop.addTarget(new Target(panel) {
+					@Override
+					public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
+						return true;
+					}
 
-						@Override
-						public void drop (Source source, Payload payload, float x, float y, int pointer) {
-							FileHandle srcHandle = Gdx.files.absolute(String.valueOf(payload.getObject()));
-							FileHandle dstHandle = Gdx.files.absolute(filePath).child(srcHandle.name());
-							srcHandle.moveTo(dstHandle);
-							AssetView.this.refresh();
-						}
-					});
-				}
+					@Override
+					public void drop (Source source, Payload payload, float x, float y, int pointer) {
+						FileHandle srcHandle = Gdx.files.absolute(String.valueOf(payload.getObject()));
+						FileHandle dstHandle = Gdx.files.absolute(filePath).child(srcHandle.name());
+						srcHandle.moveTo(dstHandle);
+						AssetView.this.refresh();
+					}
+				});
 
 				group.addActor(panel.pad(5));
 				previewPanels.put(fileHandle.name(), panel);
@@ -193,18 +188,16 @@ public class AssetViewer extends VisTable {
 			AssetPreviewPanel panel = null;
 			final String filePath = fileHandle.path();
 			String extension = fileHandle.extension();
-			if (fileHandle.isDirectory()) {
+			if (fileHandle.isDirectory())
 				panel = new FolderPreviewPanel(fileHandle.name());
-			} else if (extension.equals("png") || extension.equals("jpg")) {
+			else if (extension.equals("png") || extension.equals("jpg"))
 				panel = new SpritePreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
-			} else if (extension.equals("lua")) {
+			else if (extension.equals("lua")) {
 				panel = new LuaPreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
 				panel.addListener(new ClickListener() {
 					@Override
 					public void clicked (InputEvent event, float x, float y) {
-						if (this.getTapCount() > 1) {
-							ZeroBraneUtil.openFile(new File(filePath));
-						}
+						if (this.getTapCount() > 1) ZeroBraneUtil.openFile(new File(filePath));
 					}
 				});
 			}

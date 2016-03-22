@@ -87,6 +87,12 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	public void write (Json json) {
 		json.writeValue("name", name);
 		json.writeArrayStart("components");
+		for (int i = 0; i < components.size; i++)
+			if (components.get(i) instanceof Rigidbody) {
+				Rigidbody rigidbody = (Rigidbody)components.get(i);
+				components.removeIndex(i);
+				components.insert(1, rigidbody);
+			}
 		for (int i = 0; i < components.size; i++) {
 			GameComponent component = components.get(i);
 			json.writeObjectStart();
@@ -124,11 +130,10 @@ public class GameObject extends GameComponent implements Json.Serializable {
 			component = new Light();
 		else if (classname.equals("ScriptComponent"))
 			component = new ScriptComponent();
-		else if (classname.equals("GameObject")) 
+		else if (classname.equals("GameObject"))
 			component = new GameObject();
-		else if(classname.equals("CircleCollider"))
-			component = new CircleCollider();
-		
+		else if (classname.equals("CircleCollider")) component = new CircleCollider();
+
 		if (!classname.equals("Transform")) {
 			this.addComponent(component);
 			component.read(json, currententry);

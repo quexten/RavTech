@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
@@ -139,17 +138,15 @@ public class SceneViewWidget extends Widget {
 		});
 		this.addListener(new InputListener() {
 			public boolean keyDown (InputEvent event, int keycode) {
-				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C)
-					new CopyAction().run();
-				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V) 
-					new PasteAction().run();
-				
-				if (keycode == Keys.FORWARD_DEL)
-					new DeleteAction().run();
+				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C) new CopyAction().run();
+				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V) new PasteAction().run();
+
+				if (keycode == Keys.FORWARD_DEL) new DeleteAction().run();
+
 				return false;
 			}
 		});
-		
+
 		Gdx.app.postRunnable(new Runnable() {
 
 			@Override

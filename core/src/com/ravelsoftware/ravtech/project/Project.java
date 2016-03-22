@@ -27,6 +27,7 @@ public class Project {
 	// iOS
 	// HTML5
 	public String versionName;
+	public String appId;
 
 	public void save (FileHandle handle) {
 		Json json = new Json();

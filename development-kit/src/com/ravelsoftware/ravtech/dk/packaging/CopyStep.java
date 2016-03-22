@@ -1,19 +1,15 @@
 
 package com.ravelsoftware.ravtech.dk.packaging;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-
+import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class CopyStep extends PackageStep {
 
-	File dstDir;
-	File srcDir;
+	FileHandle dstDir;
+	FileHandle srcDir;
 
-	public CopyStep (BuildReporterDialog buildReporterDialog, File srcDir, File dstDir) {
+	public CopyStep (BuildReporterDialog buildReporterDialog, FileHandle srcDir, FileHandle dstDir) {
 		super(buildReporterDialog);
 		this.srcDir = srcDir;
 		this.dstDir = dstDir;
@@ -21,12 +17,8 @@ public class CopyStep extends PackageStep {
 
 	@Override
 	public void run () {
-		buildReporterDialog.log("Copy from [" + srcDir.getAbsolutePath() + "] to [" + dstDir.getAbsolutePath() + "]");
-		try {
-			Files.copy(srcDir.toPath(), dstDir.toPath(), StandardCopyOption.REPLACE_EXISTING);
-		} catch (IOException e) {
-			buildReporterDialog.logError(e.getMessage());
-		}
+		buildReporterDialog.log("Copy from [" + srcDir.path() + "] to [" + dstDir.path() + "]");
+		srcDir.copyTo(dstDir);
 		buildReporterDialog.log("Copy Done!");
 		this.executeNext();
 	}

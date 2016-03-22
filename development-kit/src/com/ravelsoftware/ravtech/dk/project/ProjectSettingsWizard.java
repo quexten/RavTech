@@ -33,6 +33,8 @@ public class ProjectSettingsWizard extends VisWindow {
 		super("Project Settings");
 		this.project = project;
 		this.isCreation = isCreation;
+		this.setSize(330, 330);
+		this.addCloseButton();
 		System.out.println("project: " + project);
 
 		top();
@@ -65,6 +67,7 @@ public class ProjectSettingsWizard extends VisWindow {
 		addTextLabelPair("MajorVersion:", String.valueOf(project.majorVersion));
 		addTextLabelPair("MinorVersion:", String.valueOf(project.minorVersion));
 		addTextLabelPair("MicroVersion:", String.valueOf(project.microVersion));
+		addTextLabelPair("Package:", String.valueOf(project.appId));
 		addTextLabelPair("StartScene:", project.startScene);
 		VisTextButton button = new VisTextButton("Save");
 		button.addListener(new ChangeListener() {
@@ -76,6 +79,7 @@ public class ProjectSettingsWizard extends VisWindow {
 				project.majorVersion = Integer.valueOf(fieldMap.get("MajorVersion:").getText());
 				project.minorVersion = Integer.valueOf(fieldMap.get("MinorVersion:").getText());
 				project.microVersion = Integer.valueOf(fieldMap.get("MicroVersion:").getText());
+				project.appId = fieldMap.get("Package:").getText();
 				project.startScene = fieldMap.get("StartScene:").getText();
 				if (ProjectSettingsWizard.this.isCreation) {
 					RavTechDK.createProject(creationPath, project);

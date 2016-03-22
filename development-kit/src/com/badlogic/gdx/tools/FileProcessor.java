@@ -1,8 +1,6 @@
 
 package com.badlogic.gdx.tools;
 
-import com.badlogic.gdx.utils.Array;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.ArrayList;
@@ -10,6 +8,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.regex.Pattern;
+
+import com.badlogic.gdx.utils.Array;
 
 /** Collects files recursively, filtering by file name. Callbacks are provided to process files and the results are collected,
  * either {@link #processFile(Entry)} or {@link #processDir(Entry, ArrayList)} can be overridden, or both. The entries provided to
@@ -145,13 +145,12 @@ public class FileProcessor {
 		}
 
 		if (comparator != null) Collections.sort(allEntries, entryComparator);
-		for (Entry entry : allEntries) {
+		for (Entry entry : allEntries)
 			try {
 				processFile(entry);
 			} catch (Exception ex) {
 				throw new Exception("Error processing file: " + entry.inputFile.getAbsolutePath(), ex);
 			}
-		}
 
 		return outputFiles;
 	}
@@ -172,12 +171,11 @@ public class FileProcessor {
 			if (file.isFile()) {
 				if (inputRegex.size > 0) {
 					boolean found = false;
-					for (Pattern pattern : inputRegex) {
+					for (Pattern pattern : inputRegex)
 						if (pattern.matcher(file.getName()).matches()) {
 							found = true;
 							continue;
 						}
-					}
 					if (!found) continue;
 				}
 
@@ -192,11 +190,10 @@ public class FileProcessor {
 				entry.inputFile = file;
 				entry.outputDir = outputDir;
 
-				if (flattenOutput) {
+				if (flattenOutput)
 					entry.outputFile = new File(outputRoot, outputName);
-				} else {
+				else
 					entry.outputFile = new File(outputDir, outputName);
-				}
 
 				dirToEntries.get(dir).add(entry);
 			}

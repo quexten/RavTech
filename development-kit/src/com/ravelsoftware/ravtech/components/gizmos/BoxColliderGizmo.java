@@ -39,7 +39,7 @@ public class BoxColliderGizmo extends Gizmo {
 		renderer.setColor(ColorUtils.getGizmoColor(this.boxCollider));
 		float rotation = boxCollider.getParent().transform.getRotation();
 		Vector2 middlePosition = boxCollider.getParent().transform.getPosition()
-			.add(new Vector2((boxCollider.x), (boxCollider.y)).rotate(rotation));
+			.add(new Vector2(boxCollider.x, boxCollider.y).rotate(rotation));
 		Vector2 tl = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
 		Vector2 tr = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
 		Vector2 br = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));

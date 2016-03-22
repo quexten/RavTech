@@ -152,16 +152,16 @@ public class ComponentPanels {
 			@Override
 			public VisTable createTable (final GameComponent component) {
 				VisTable table = new VisTable();
-				addFileSelector(table, "Path:", ((ScriptComponent) component).path, new ChangeListener() {
+				addFileSelector(table, "Path:", ((ScriptComponent)component).path, new ChangeListener() {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						((ScriptComponent) component).setScript(((VisLabel) actor).getText().toString());
+						((ScriptComponent)component).setScript(((VisLabel)actor).getText().toString());
 					}
-					
+
 				}, "lua");
 				return table;
-			}			
+			}
 		});
 	}
 

@@ -10,7 +10,6 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
-import com.ravelsoftware.ravtech.util.Debug;
 
 public class BoxCollider extends Box2dCollider {
 
@@ -45,8 +44,7 @@ public class BoxCollider extends Box2dCollider {
 
 	@Override
 	public void finishedLoading () {
-		if(this.getParent().getComponentByType(ComponentType.Rigidbody) == null)
-			this.getParent().addComponent(new Rigidbody());
+		if (this.getParent().getComponentByType(ComponentType.Rigidbody) == null) this.getParent().addComponent(new Rigidbody());
 		apply();
 	}
 

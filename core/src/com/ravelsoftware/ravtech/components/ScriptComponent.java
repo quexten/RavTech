@@ -22,7 +22,8 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public String getName () {
-		return (path != null && !path.isEmpty()) ? path.substring(((path.lastIndexOf('/') > -1) ? path.lastIndexOf('/') + 1 : 0)) : "Empty Script Component";
+		return path != null && !path.isEmpty() ? path.substring(path.lastIndexOf('/') > -1 ? path.lastIndexOf('/') + 1 : 0)
+			: "Empty Script Component";
 	}
 
 	public ScriptComponent () {

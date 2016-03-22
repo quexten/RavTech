@@ -5,7 +5,7 @@ import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public abstract class PackageStep implements Runnable {
 
-	BuildReporterDialog buildReporterDialog;
+	protected BuildReporterDialog buildReporterDialog;
 	PackageStep nextStep;
 
 	public PackageStep (BuildReporterDialog buildReporterDialog) {

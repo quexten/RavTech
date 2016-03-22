@@ -1,4 +1,7 @@
 {
+com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
+    stage-background: { name: round, color: green }
+},
 com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	default-font: {file: default.fnt },
 	small-font: {file: font-small.fnt }
@@ -40,7 +43,7 @@ com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 	default-horizontal: {handle: splitpane }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
-	default: {titleFont: default-font, background: window, titleFontColor: white },
+	default: {titleFont: default-font, background: window, titleFontColor: white, stageBackground: stage-background },
 	resizable: {background: window-resizable, titleFont: default-font, titleFontColor: white },
 	noborder: {background: window-noborder, titleFont: default-font, titleFontColor: white },
 	dialog: {stageBackground: dialogDim, titleFont: default-font, background: window, titleFontColor: white }

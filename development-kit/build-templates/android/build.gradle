@@ -1,4 +1,4 @@
-def appId = "com.ravelsoftware.ravtech"
+def appId = APP_ID
 
 android {
     buildToolsVersion "23.0.2"

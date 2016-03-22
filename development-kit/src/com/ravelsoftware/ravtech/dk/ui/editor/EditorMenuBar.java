@@ -19,6 +19,8 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
+import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
+import com.ravelsoftware.ravtech.dk.ui.packaging.BuildDialog;
 import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.CreateChangeable;
@@ -112,6 +114,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
+						actor.getStage().addActor(new BuildDialog());
 					}
 				});
 				menu.addItem(entry);
@@ -152,6 +155,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
+						actor.getStage().addActor(new ProjectSettingsWizard(RavTechDK.project, false));
 					}
 				});
 				menu.addItem(entry);

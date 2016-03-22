@@ -24,7 +24,7 @@ public class Camera extends OrthographicCamera {
 	Array<Shader> shaders = new Array<Shader>();
 	String cameraBufferName = "TestCameraBuffer";
 	String cameraPingPongBufferName = "TestCameraPingPongBufferName";
-	boolean renderToFramebuffer = true;
+	boolean renderToFramebuffer = RavTech.isEditor;
 	public static int camId;
 
 	public Camera (int width, int height) {
@@ -103,15 +103,15 @@ public class Camera extends OrthographicCamera {
 		x = x - viewportX;
 		y = viewportHeight - y - 1;
 		y = y - viewportY;
-		screenCoords.x = (2 * x) / viewportWidth - 1;
-		screenCoords.y = (2 * y) / viewportHeight - 1;
+		screenCoords.x = 2 * x / viewportWidth - 1;
+		screenCoords.y = 2 * y / viewportHeight - 1;
 		screenCoords.z = 2 * screenCoords.z - 1;
 		screenCoords.prj(invProjectionView);
 		return screenCoords;
 	}
 
 	public Vector3 unproject (Vector3 screenCoords) {
-		unproject(screenCoords, 0, 0, (float)resolutionX, (float)resolutionY);
+		unproject(screenCoords, 0, 0, resolutionX, resolutionY);
 		return screenCoords;
 	}
 

@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler;
 import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler.Printer;
 
@@ -27,7 +26,7 @@ public class Shell {
 			BufferedReader reader = new BufferedReader(in);
 			String line;
 			while ((line = reader.readLine()) != null)
-				stringBuilder.append(line + "\n");
+				System.err.println(line);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -49,12 +48,6 @@ public class Shell {
 			final Process process = builder.start();
 			new StreamGobbler(process.getInputStream(), logPrinter).start();
 			new StreamGobbler(process.getErrorStream(), errorPrinter).start();
-			HookApi.onShutdownHooks.add(new Runnable() {
-
-				@Override
-				public void run () {
-				}
-			});
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

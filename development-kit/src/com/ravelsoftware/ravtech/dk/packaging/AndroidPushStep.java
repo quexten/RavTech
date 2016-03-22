@@ -3,6 +3,7 @@ package com.ravelsoftware.ravtech.dk.packaging;
 
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.ravelsoftware.ravtech.util.Debug;
 
 public class AndroidPushStep extends PackageStep {
 
@@ -18,7 +19,7 @@ public class AndroidPushStep extends PackageStep {
 	@Override
 	public void run () {
 		this.buildReporterDialog.log("Pushing Assets to " + externalPath);
-		this.buildReporterDialog.logError(AdbManager.executeAdbCommand("push " + localPath + " " + externalPath));
+		Debug.logError("Error", AdbManager.executeAdbCommand("push " + localPath + " " + externalPath));
 		this.buildReporterDialog.log("Finished Pushing Assets");
 		this.executeNext();
 	}
