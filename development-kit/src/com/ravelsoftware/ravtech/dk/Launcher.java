@@ -39,6 +39,7 @@ public class Launcher {
 
 		RavTechDK.projectHandle = new Lwjgl3FileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute);
 		RavTechDK.project = Project.load(RavTechDK.projectHandle);
+		AssetFileWatcher.set(RavTechDK.projectHandle);
 		initializeEngine();
 
 	}

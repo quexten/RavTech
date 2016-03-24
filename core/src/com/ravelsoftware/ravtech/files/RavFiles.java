@@ -122,4 +122,10 @@ public class RavFiles {
 		Debug.log("NewScene", RavTech.currentScene);
 		getAssetManager().setLoader(Scene.class, new SceneLoader(getResolver()));
 	}
+
+	public void reloadAsset (String fileName) {
+		Class<?> type = this.getAssetManager().getAssetType(fileName);
+		this.getAssetManager().unload(fileName);
+		this.getAssetManager().load(fileName, type);
+	}
 }

@@ -27,7 +27,7 @@ import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 
 public class AssetViewer extends VisTable {
 
-	AssetView assetView;
+	public AssetView assetView;
 	VisTextButton upButton;
 	public DragAndDrop dragAndDrop;
 
@@ -50,7 +50,7 @@ public class AssetViewer extends VisTable {
 		add(assetView = new AssetView()).grow();
 	}
 
-	class AssetView extends VisTable {
+	public class AssetView extends VisTable {
 
 		ObjectMap<String, AssetPreviewPanel> previewPanels = new ObjectMap<String, AssetPreviewPanel>();
 		AssetPreviewPanel lastSelected;
