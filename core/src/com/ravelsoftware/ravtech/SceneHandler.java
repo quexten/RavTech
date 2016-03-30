@@ -102,7 +102,7 @@ public class SceneHandler {
 		lightHandler.setBlurNum(2);
 		lightHandler.setLightMapRendering(false);
 		lightHandler.setCulling(true);
-		worldCamera = cameraManager.createCamera(1, 1);
+		worldCamera = cameraManager.createCamera(1, 1);		
 	}
 
 	public void update (float delta) {
@@ -144,7 +144,7 @@ public class SceneHandler {
 		// state.update();
 		// Prevent False game speed
 		int targetFramerate = RavTech.settings.getInt("targetFramerate");
-
+				
 		if (Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / targetFramerate) > 2) {
 			accumulator += Gdx.graphics.getDeltaTime();
 			while (accumulator > step) {

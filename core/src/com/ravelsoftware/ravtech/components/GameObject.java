@@ -132,7 +132,10 @@ public class GameObject extends GameComponent implements Json.Serializable {
 			component = new ScriptComponent();
 		else if (classname.equals("GameObject"))
 			component = new GameObject();
-		else if (classname.equals("CircleCollider")) component = new CircleCollider();
+		else if (classname.equals("CircleCollider")) 
+			component = new CircleCollider();
+		else if (classname.equals("FontRenderer"))
+			component = new FontRenderer();
 
 		if (!classname.equals("Transform")) {
 			this.addComponent(component);

@@ -23,7 +23,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
 import com.ravelsoftware.ravtech.project.Project;
-import com.ravelsoftware.ravtech.scripts.Script;
 import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
 import com.ravelsoftware.ravtech.settings.SettingsValueListener;
 import com.ravelsoftware.ravtech.util.Debug;
@@ -83,7 +82,7 @@ public class Launcher {
 			}
 
 		});
-		RavTech.files.getAssetManager().setLoader(Script.class, new LuaJScriptLoader(RavTech.files.getResolver()));
+		RavTech.scriptLoader = new LuaJScriptLoader();
 		new Lwjgl3Application(ravtech, config);
 		Gdx.app.postRunnable(new Runnable() {
 			@Override

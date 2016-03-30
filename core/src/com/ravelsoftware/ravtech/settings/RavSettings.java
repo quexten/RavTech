@@ -7,6 +7,7 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.ravelsoftware.ravtech.RavTech;
 
 public class RavSettings {
 
@@ -15,7 +16,7 @@ public class RavSettings {
 	Preferences preferences;
 
 	public RavSettings () {
-		preferences = Gdx.app.getPreferences("RavTech");
+		preferences = Gdx.app.getPreferences(RavTech.isEditor ? "RavTech" : RavTech.project.appName);
 		if (preferences.get().size() > 0)
 			load();
 		else {
@@ -75,7 +76,7 @@ public class RavSettings {
 	}
 
 	public void load () {
-		Preferences preferences = Gdx.app.getPreferences("RavTech");
+		Preferences preferences = Gdx.app.getPreferences(RavTech.isEditor ? "RavTech" : RavTech.project.appName);
 		if (preferences == null) return;
 		this.preferences = preferences;
 		Map<String, ?> preferenceMap = preferences.get();

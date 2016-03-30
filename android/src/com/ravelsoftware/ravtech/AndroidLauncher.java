@@ -1,11 +1,11 @@
 
 package com.ravelsoftware.ravtech;
 
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFiles;
 import com.ravelsoftware.ravtech.files.zip.ArchiveFileHandleResolver;
-import com.ravelsoftware.ravtech.scripts.Script;
 import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
 
 import android.os.Bundle;
@@ -23,9 +23,14 @@ public class AndroidLauncher extends AndroidApplication {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		RavTech ravtech = new RavTech(
-			new ArchiveFileHandleResolver(files.external("Android/obb/" + getPackageName() + "/main." + versionCode + "." + getPackageName() + ".obb")));
-		RavTech.files.getAssetManager().setLoader(Script.class, new LuaJScriptLoader(RavTech.files.getResolver()));
+
+		boolean useExternalAssetBundle = true;
+
+		RavTech ravtech = new RavTech(useExternalAssetBundle
+			? new ArchiveFileHandleResolver(
+				files.external("Android/obb/" + getPackageName() + "/main." + versionCode + "." + getPackageName() + ".obb"))
+			: new InternalFileHandleResolver());
+		RavTech.scriptLoader = new LuaJScriptLoader();
 		initialize(ravtech, config);
 	}
 

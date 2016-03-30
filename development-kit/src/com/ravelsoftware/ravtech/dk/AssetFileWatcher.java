@@ -38,7 +38,6 @@ public class AssetFileWatcher {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("AssetSet: " + rootDirectory.path());
 		watchThread = new Thread(new Runnable() {
 			@Override
 			public void run () {
@@ -58,8 +57,7 @@ public class AssetFileWatcher {
 								Gdx.app.postRunnable(new Runnable() {
 									@Override
 									public void run () {
-										if (RavTech.files.isLoaded(assetPath)) 
-											RavTech.files.reloadAsset(assetPath);
+										if (RavTech.files.isLoaded(assetPath)) RavTech.files.reloadAsset(assetPath);
 										((RavTechDKApplication)Gdx.app.getApplicationListener()).assetViewer.assetView.refresh();
 									}
 								});

@@ -2,17 +2,18 @@
 package com.ravelsoftware.ravtech.components;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.scripts.Script;
-import com.ravelsoftware.ravtech.scripts.ScriptLoaderParameter;
 
 public class ScriptComponent extends GameComponent implements Json.Serializable {
 
 	public Script script;
+	public String scriptSource;
 	public String path;
 
 	@Override
@@ -32,12 +33,14 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void load (Array<AssetDescriptor> dependencies) {
-		dependencies.add(new AssetDescriptor<Script>(path, Script.class, new ScriptLoaderParameter(this.getParent())));
+		dependencies.add(new AssetDescriptor<String>(path, String.class));
 	}
 
 	@Override
 	public void finishedLoading () {
-		if (RavTech.files.getAssetManager().isLoaded(path)) this.script = RavTech.files.getAsset(path);
+		if (RavTech.files.getAssetManager().isLoaded(path))
+			this.scriptSource = RavTech.files.getAsset(path);
+		this.script = RavTech.scriptLoader.createScript(this.scriptSource, this.getParent());
 	}
 
 	@Override
@@ -51,6 +54,7 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public void dispose () {
+		RavTech.files.removeDependency(this.path, this);
 	}
 
 	@Override
@@ -91,12 +95,21 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 	}
 
 	public void setScript (String scriptPath) {
+		RavTech.files.addDependency(scriptPath, this);
 		if (scriptPath.startsWith("/")) scriptPath = scriptPath.substring(1);
 		this.path = scriptPath;
 		if (RavTech.files.getAssetManager().isLoaded(path)) RavTech.files.getAssetManager().unload(path);
 		RavTech.files.getAssetManager()
-			.load(new AssetDescriptor<Script>(path, Script.class, new ScriptLoaderParameter(this.getParent())));
+			.load(new AssetDescriptor<String>(path, String.class, new AssetLoaderParameters<String>()));
 		RavTech.files.finishLoading();
 		this.finishedLoading();
+	}
+	
+	public void callFunction(String name, Object[] args) {
+		this.script.callFunction(name, args);
+	}
+	
+	public Object getVariable(String name) {
+		return this.script.getVariable(name);		
 	}
 }

@@ -15,7 +15,6 @@ public class SpritePreviewPanel extends AssetPreviewPanel {
 
 	public SpritePreviewPanel (String assetPath) {
 		super(assetPath);
-		com.ravelsoftware.ravtech.util.Debug.log("assetPath", assetPath);
 		RavTech.files.loadAsset(assetPath, Texture.class);
 		RavTech.files.finishLoading();
 		Image image = new Image((Texture)RavTech.files.getAsset(assetPath));

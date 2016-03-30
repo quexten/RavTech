@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.animation.VariableAccessor;
+import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.JsonUtil;
 
 public class SpriteRenderer extends Renderer implements Json.Serializable, VariableAccessor {
@@ -60,6 +61,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	@Override
 	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 		dependencies.add(new AssetDescriptor<Texture>(this.texturePath, Texture.class));
+		RavTech.files.addDependency(texturePath, this);
 	}
 
 	@Override
@@ -95,9 +97,11 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 
 	@Override
 	public void dispose () {
+		RavTech.files.removeDependency(texturePath, this);
 	}
 
 	public void setTexture (String texturePath) {
+		RavTech.files.addDependency(texturePath, this);
 		this.texturePath = texturePath;
 		if (!RavTech.files.isLoaded(SpriteRenderer.this.texturePath))
 			RavTech.files.loadAsset(SpriteRenderer.this.texturePath, Texture.class, false);
@@ -183,7 +187,10 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 			this.sortingLayerName = String.valueOf(value);
 			break;
 		case 1:
-			this.sortingOrder = Integer.valueOf(String.valueOf(value));
+			String varString = String.valueOf(value);
+			if(varString.indexOf('.') > 0)
+				varString = varString.substring(0, varString.indexOf('.'));				
+			this.sortingOrder = Integer.valueOf(varString);
 			break;
 		case 2:
 			width = Float.valueOf(String.valueOf(value.toString()));

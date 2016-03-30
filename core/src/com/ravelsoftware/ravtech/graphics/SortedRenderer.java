@@ -47,7 +47,7 @@ public class SortedRenderer {
 			renderingLayers.put(str.name, new Array<Renderer>());
 		for (int n = 0; n < RavTech.currentScene.gameObjects.size; n++) {
 			GameObject object = RavTech.currentScene.gameObjects.get(n);
-			Array<GameComponent> components = object.getComponentsInChildren(ComponentType.SpriteRenderer, ComponentType.Light);
+			Array<GameComponent> components = object.getComponentsInChildren(ComponentType.SpriteRenderer, ComponentType.Light, ComponentType.FontRenderer);
 			components.reverse();
 			for (int i = 0; i < components.size; i++) {
 				Renderer renderer = (Renderer)components.get(i);

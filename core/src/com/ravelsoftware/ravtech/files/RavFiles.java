@@ -4,23 +4,30 @@ package com.ravelsoftware.ravtech.files;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
+import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.project.Project;
 import com.ravelsoftware.ravtech.util.Debug;
 
 public class RavFiles {
 
 	AssetManager assetManager;
+	ObjectMap<String, Array<GameComponent>> componentDependencies = new ObjectMap<String, Array<GameComponent>>();
 
 	public RavFiles (FileHandleResolver assetResolver) {
 		assetManager = new AssetManager(assetResolver);
 		assetManager.setLoader(Scene.class, new SceneLoader(assetResolver));
 		assetManager.setLoader(Project.class, new ProjectLoader(assetResolver));
+		assetManager.setLoader(String.class, new StringLoader(assetResolver));
+		assetManager.setLoader(BitmapFont.class, new BitmapFontLoader(assetManager.getFileHandleResolver()));
 	}
 
 	/** @return - The AssetManager */
@@ -73,6 +80,19 @@ public class RavFiles {
 			assetManager.load(descriptor);
 	}
 
+	/** Reloads the specified asset
+	 * @param fileName - the file name of the asset */
+	public void reloadAsset (String path) {
+		Class<?> type = this.getAssetManager().getAssetType(path);
+		this.getAssetManager().setReferenceCount(path, 1);
+		this.getAssetManager().unload(path);
+		this.getAssetManager().load(path, type);
+		this.finishLoading();
+		Array<GameComponent> dependentComponents = this.getDependentComponents(path);
+		for (int i = 0; i < dependentComponents.size; i++)
+			dependentComponents.get(i).finishedLoading();
+	}
+
 	/** Gets the asset
 	 * @param path - the path to the asset
 	 * @return The asset */
@@ -123,9 +143,23 @@ public class RavFiles {
 		getAssetManager().setLoader(Scene.class, new SceneLoader(getResolver()));
 	}
 
-	public void reloadAsset (String fileName) {
-		Class<?> type = this.getAssetManager().getAssetType(fileName);
-		this.getAssetManager().unload(fileName);
-		this.getAssetManager().load(fileName, type);
+	public Array<GameComponent> getDependentComponents (String path) {
+		if (!componentDependencies.containsKey(path))
+			return new Array<GameComponent>();
+		else
+			return componentDependencies.get(path);
 	}
+
+	public void addDependency (String path, GameComponent component) {
+		Debug.log("AddDependency", path);
+		if (!componentDependencies.containsKey(path)) componentDependencies.put(path, new Array<GameComponent>());
+		componentDependencies.get(path).add(component);
+	}
+
+	public void removeDependency (String path, GameComponent component) {
+		Debug.log("RemoveDependency", path);
+		componentDependencies.get(path).removeValue(component, true);
+		if (componentDependencies.get(path).size == 0) componentDependencies.remove(path);
+	}
+
 }

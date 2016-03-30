@@ -138,4 +138,14 @@ public class MoonshineJSScript extends Script {
     public void setLoaded () {
         loaded = true;
     }
+
+	@Override
+	public Object callFunction (String name, Object[] args) {
+		return null;
+	}
+
+	@Override
+	public Object getVariable (String name) {
+		return null;
+	}
 }

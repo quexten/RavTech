@@ -12,4 +12,8 @@ public abstract class Script {
 	public abstract void setEnviroment (ObjectMap<String, Object> values);
 
 	public abstract boolean isLoaded ();
+
+	public abstract Object callFunction (String name, Object[] args);
+
+	public abstract Object getVariable (String name);
 }

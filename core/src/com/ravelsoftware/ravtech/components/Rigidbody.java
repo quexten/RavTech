@@ -79,9 +79,9 @@ public class Rigidbody extends GameComponent implements Json.Serializable {
 	}
 
 	public void onCollisionExit (Fixture other) {
-		if (!RavTech.sceneHandler.paused) for (int i = 0; i < getParent().getComponents().size; i++) {
-			// call onCollisionExit on scripts
-		}
+		if (this.getParent().getComponentByType(ComponentType.ScriptComponent) != null)
+			((ScriptComponent)this.getParent().getComponentByType(ComponentType.ScriptComponent)).callFunction("onCollisionExit",
+				new Object[] {other});
 	}
 
 	public Body getBody () {

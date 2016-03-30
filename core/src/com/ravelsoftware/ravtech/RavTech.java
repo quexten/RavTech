@@ -12,6 +12,7 @@ import com.ravelsoftware.ravtech.files.RavFiles;
 import com.ravelsoftware.ravtech.input.RavInput;
 import com.ravelsoftware.ravtech.project.Project;
 import com.ravelsoftware.ravtech.screens.PlayScreen;
+import com.ravelsoftware.ravtech.scripts.ScriptLoader;
 import com.ravelsoftware.ravtech.scripts.WebGLScriptManager;
 import com.ravelsoftware.ravtech.settings.RavSettings;
 
@@ -31,6 +32,7 @@ public class RavTech extends Game {
 	public static RavFiles files;
 	public static RavSettings settings;
 	public static RavInput input;
+	public static ScriptLoader scriptLoader;
 	public static FPSLogger logger = new FPSLogger();
 	public static boolean isEditor;
 
@@ -69,6 +71,9 @@ public class RavTech extends Game {
 			RavTech.currentScene = files.getAsset(project.startScene);
 		}
 		this.setScreen(new PlayScreen());
+		sceneHandler.paused = true;
+		sceneHandler.update(0);
+		sceneHandler.paused = false;
 		if (Gdx.app.getType() != ApplicationType.WebGL && !isEditor) sceneHandler.initScripts();
 	}
 

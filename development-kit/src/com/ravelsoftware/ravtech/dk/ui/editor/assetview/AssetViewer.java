@@ -114,48 +114,50 @@ public class AssetViewer extends VisTable {
 				final FileHandle fileHandle = files.get(i);
 				final String filePath = fileHandle.path();
 				AssetPreviewPanel panel = getPreviewPanelFor(fileHandle);
-				panel.addListener(new ClickListener() {
-
-					public void clicked (InputEvent event, float x, float y) {
-						AssetView.this.setSelected(fileHandle.name());
-						if (this.getTapCount() > 1) if (fileHandle.isDirectory())
-							AssetView.this
-								.setDirectory(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
-						else {
-
+				if(panel != null) {
+					panel.addListener(new ClickListener() {
+	
+						public void clicked (InputEvent event, float x, float y) {
+							AssetView.this.setSelected(fileHandle.name());
+							if (this.getTapCount() > 1) if (fileHandle.isDirectory())
+								AssetView.this
+									.setDirectory(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+							else {
+	
+							}
 						}
-					}
-
-				});
-
-				dragAndDrop.addSource(new Source(panel) {
-					public Payload dragStart (InputEvent event, float x, float y, int pointer) {
-						Payload payload = new Payload();
-						payload.setDragActor(getDragPanel(filePath, event, Color.CORAL.cpy().mul(1, 1, 1, 0.5f)));
-						payload.setValidDragActor(getDragPanel(filePath, event, Color.GREEN.cpy().mul(1, 1, 1, 0.5f)));
-						payload.setInvalidDragActor(getDragPanel(filePath, event, Color.RED.cpy().mul(1, 1, 1, 0.5f)));
-						payload.setObject(filePath);
-						return payload;
-					}
-				});
-
-				if (fileHandle.isDirectory()) dragAndDrop.addTarget(new Target(panel) {
-					@Override
-					public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
-						return true;
-					}
-
-					@Override
-					public void drop (Source source, Payload payload, float x, float y, int pointer) {
-						FileHandle srcHandle = Gdx.files.absolute(String.valueOf(payload.getObject()));
-						FileHandle dstHandle = Gdx.files.absolute(filePath).child(srcHandle.name());
-						srcHandle.moveTo(dstHandle);
-						AssetView.this.refresh();
-					}
-				});
-
-				group.addActor(panel.pad(5));
-				previewPanels.put(fileHandle.name(), panel);
+	
+					});
+	
+					dragAndDrop.addSource(new Source(panel) {
+						public Payload dragStart (InputEvent event, float x, float y, int pointer) {
+							Payload payload = new Payload();
+							payload.setDragActor(getDragPanel(filePath, event, Color.CORAL.cpy().mul(1, 1, 1, 0.5f)));
+							payload.setValidDragActor(getDragPanel(filePath, event, Color.GREEN.cpy().mul(1, 1, 1, 0.5f)));
+							payload.setInvalidDragActor(getDragPanel(filePath, event, Color.RED.cpy().mul(1, 1, 1, 0.5f)));
+							payload.setObject(filePath);
+							return payload;
+						}
+					});
+	
+					if (fileHandle.isDirectory()) dragAndDrop.addTarget(new Target(panel) {
+						@Override
+						public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
+							return true;
+						}
+	
+						@Override
+						public void drop (Source source, Payload payload, float x, float y, int pointer) {
+							FileHandle srcHandle = Gdx.files.absolute(String.valueOf(payload.getObject()));
+							FileHandle dstHandle = Gdx.files.absolute(filePath).child(srcHandle.name());
+							srcHandle.moveTo(dstHandle);
+							AssetView.this.refresh();
+						}
+					});
+	
+					group.addActor(panel.pad(5));
+					previewPanels.put(fileHandle.name(), panel);
+				}
 			}
 
 			upButton.setDisabled(folderHandle.path().equals(RavTechDK.projectHandle.child("assets").path()));

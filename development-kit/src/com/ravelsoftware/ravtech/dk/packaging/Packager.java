@@ -92,11 +92,12 @@ public class Packager {
 		case Android:
 			RavTechDK.saveScene(RavTech.files.getAssetHandle(RavTechDK.getCurrentScene()));
 			firstStep = new PackBundleStep(buildReporterDialog);
-			firstStep.setNextStep(new PackBundleStep(buildReporterDialog)).setNextStep(new ApkPreparationStep(buildReporterDialog))
-				.setNextStep(new AndroidPushStep(buildReporterDialog, System.getProperty("user.dir") + "/temp/build.ravpack ",
+			firstStep.setNextStep(new PackBundleStep(buildReporterDialog))
+			.setNextStep(new ApkPreparationStep(buildReporterDialog))
+			.setNextStep(new AndroidPushStep(buildReporterDialog, System.getProperty("user.dir") + "/temp/build.ravpack ",
 					"/sdcard/Android/obb/" + RavTechDK.project.appId + "/main." + RavTech.project.buildVersion + "."
 						+ RavTech.project.appId + ".obb"))
-				.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(deviceIdentifier)));
+			.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(deviceIdentifier)));
 			break;
 		case WebGL:
 			RavTechDK.saveScene(RavTech.files.getAssetHandle(RavTechDK.getCurrentScene()));
