@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.animation.VariableAccessor;
-import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.JsonUtil;
 
 public class SpriteRenderer extends Renderer implements Json.Serializable, VariableAccessor {
@@ -126,7 +125,8 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 		json.writeValue("width", width);
 		json.writeValue("height", height);
 		json.writeValue("texture", texturePath);
-		if (regionName != null) json.writeValue(regionName);
+		if (regionName != null) 
+			json.writeValue(regionName);
 		json.writeValue("srcX", srcX);
 		json.writeValue("srcY", srcY);
 		json.writeValue("srcWidth", srcWidth);

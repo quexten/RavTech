@@ -5,16 +5,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
+import com.badlogic.gdx.utils.Align;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
 import com.ravelsoftware.ravtech.components.GameComponent;
@@ -123,7 +127,7 @@ public abstract class ComponentPanel {
 		table.add(new VisLabel(text)).expandX().growX().padLeft(5);
 		final VisLabel fileLabel = new VisLabel(initialPath);
 		VisTable padTable = new VisTable();
-		table.add(padTable).expandX().growX().height(20).width(240);
+		table.add(padTable).expandX().growX().height(20);
 		padTable.add(fileLabel).growX().fillX();
 		table.row();
 		((RavTechDKApplication)Gdx.app.getApplicationListener()).assetViewer.dragAndDrop.addTarget(new Target(padTable) {
@@ -142,5 +146,31 @@ public abstract class ComponentPanel {
 			}
 		});
 	}
-
+	
+	public void addTextField (VisTable table, final String variableName, final GameComponent component) {
+		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX().padLeft(5);
+		final VisTextField textField = new VisTextField(String.valueOf(component.getVariable(component.getVariableId(variableName))));		
+		textField.addListener(new ChangeListener() {
+			@Override
+			public void changed (ChangeEvent event, Actor actor) {
+				component.setVariable(component.getVariableId(variableName), textField.getText());
+			}			
+		});
+		table.add(textField).growX();
+		table.row();
+	}
+	
+	public void addCheckBox (VisTable table, final String variableName, final GameComponent component) {
+		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX().padLeft(5);
+		final VisCheckBox checkBox = new VisCheckBox("", Boolean.valueOf(String.valueOf(component.getVariable(component.getVariableId(variableName)))));		
+		checkBox.addListener(new ChangeListener() {
+			@Override
+			public void changed (ChangeEvent event, Actor actor) {
+				component.setVariable(component.getVariableId(variableName), checkBox.isChecked());
+			}			
+		});
+		table.add(checkBox).align(Align.right).padRight(20);
+		table.row();
+	}
+	
 }

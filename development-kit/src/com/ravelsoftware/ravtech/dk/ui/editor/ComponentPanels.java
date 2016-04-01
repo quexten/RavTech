@@ -11,6 +11,7 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.BoxCollider;
 import com.ravelsoftware.ravtech.components.CircleCollider;
 import com.ravelsoftware.ravtech.components.ComponentType;
+import com.ravelsoftware.ravtech.components.FontRenderer;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.components.Light;
 import com.ravelsoftware.ravtech.components.Rigidbody;
@@ -66,6 +67,25 @@ public class ComponentPanels {
 				addColorPicker(table, "tint", component);
 				addDropdown(table, "uTextureWrap", new String[] {"ClampToEdge", "Repeat", "MirroredRepeat"}, component);
 				addDropdown(table, "vTextureWrap", new String[] {"ClampToEdge", "Repeat", "MirroredRepeat"}, component);
+				return table;
+			}
+		});
+		ComponentPanels.registerComponent(FontRenderer.class, new ComponentPanel() {
+			@Override
+			public VisTable createTable (final GameComponent component) {
+				VisTable table = new VisTable();
+				addFileSelector(table, "Path:", ((FontRenderer) component).path , new ChangeListener() {
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						((FontRenderer) component).setFont(((VisLabel)actor).getText().toString());
+					}
+				}, "font");
+				addTextField(table, "text", component);
+				addCheckBox(table, "centered", component);
+				addCheckBox(table, "flipped",  component);
+				addSliderLabel(table, "xScale", component);
+				addSliderLabel(table, "yScale", component);
+				addColorPicker(table, "tint", component);				
 				return table;
 			}
 		});
