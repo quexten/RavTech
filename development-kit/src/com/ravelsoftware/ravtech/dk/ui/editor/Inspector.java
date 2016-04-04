@@ -1,8 +1,11 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
+import java.lang.reflect.Method;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
@@ -22,7 +25,10 @@ import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 public class Inspector extends VisWindow {
 
 	VisTable contentTable;
+	VisScrollPane scrollPane;
+	float scroll;
 	public Array<Actor> dragActors = new Array<Actor>();
+	Array<ComponentPanel> componentPanels = new Array<ComponentPanel>();
 
 	public Inspector () {
 		super("Inspector");
@@ -41,12 +47,14 @@ public class Inspector extends VisWindow {
 	}
 
 	void rebuild () {
+		if (scrollPane != null) this.scroll = scrollPane.getScrollY();
+		System.out.println("scroll: " + this.scroll);
 		// this.dragActors.clear();
 		clear();
 
 		contentTable = new VisTable();
 		contentTable.top();
-		VisScrollPane scrollPane = new VisScrollPane(contentTable);
+		scrollPane = new VisScrollPane(contentTable);
 		scrollPane.setScrollingDisabled(true, false);
 		contentTable.clear();
 		setVisible(true);
@@ -67,12 +75,23 @@ public class Inspector extends VisWindow {
 		} else
 			setVisible(false);
 		scrollPane.setFlickScroll(false);
+		scrollPane.setFadeScrollBars(false);
+		scrollPane.setForceScroll(false, true);
+		scrollPane.setSmoothScrolling(false);
 		add(scrollPane).grow();
+		try {
+			Method scrollMethod = ScrollPane.class.getDeclaredMethod("scrollY", float.class);
+			scrollMethod.setAccessible(true);
+			scrollMethod.invoke(scrollPane, scroll);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		scrollPane.act(0.1f);
 	}
 
 	void addCollapsiblePanel (GameComponent component) {
 		CollapsiblePanel title = new CollapsiblePanel(component.getName(), ComponentPanels.createTable(component));
-		contentTable.add(title).growX();
+		contentTable.add(title).growX().padRight(20).padLeft(20);
 		contentTable.row();
 	}
 
@@ -102,6 +121,11 @@ public class Inspector extends VisWindow {
 			menu.addItem(item);
 		}
 		return menu;
+	}
+
+	public void updateValue (GameComponent component, String valueName) {
+		for (int i = 0; i < this.componentPanels.size; i++)
+			if (this.componentPanels.get(i).component.equals(component)) this.componentPanels.get(i).updateValue(valueName);
 	}
 
 }

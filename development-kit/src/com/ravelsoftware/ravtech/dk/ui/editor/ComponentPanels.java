@@ -37,42 +37,45 @@ public class ComponentPanels {
 		ComponentPanels.registerComponent(Transform.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (GameComponent component) {
+				this.component = component;
 				VisTable table = new VisTable();
-				addSliderLabel(table, "x", component);
-				addSliderLabel(table, "y", component);
-				addSliderLabel(table, "rotation", component);
+				addSliderLabel(table, "x");
+				addSliderLabel(table, "y");
+				addSliderLabel(table, "rotation");
 				return table;
 			}
 		});
 		ComponentPanels.registerComponent(SpriteRenderer.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (GameComponent component) {
+				this.component = component;
 				VisTable table = new VisTable();
-				addSliderLabel(table, "width", component);
-				addSliderLabel(table, "height", component);
-				addSliderLabel(table, "srcX", component);
-				addSliderLabel(table, "srcY", component);
-				addSliderLabel(table, "srcWidth", component);
-				addSliderLabel(table, "srcHeight", component);
-				addSliderLabel(table, "originX", component);
-				addSliderLabel(table, "originY", component);
-				addDropdown(table, "minFilter", new String[] {"Linear", "Nearest"}, component);
-				addDropdown(table, "magFilter", new String[] {"Linear", "Nearest"}, component);
+				addSliderLabel(table, "width");
+				addSliderLabel(table, "height");
+				addSliderLabel(table, "srcX");
+				addSliderLabel(table, "srcY");
+				addSliderLabel(table, "srcWidth");
+				addSliderLabel(table, "srcHeight");
+				addSliderLabel(table, "originX");
+				addSliderLabel(table, "originY");
+				addDropdown(table, "minFilter", new String[] {"Linear", "Nearest"});
+				addDropdown(table, "magFilter", new String[] {"Linear", "Nearest"});
 				Array<SortingLayer> layers = RavTech.currentScene.renderProperties.sortingLayers;
 				String[] layernames = new String[layers.size];
 				for (int i = 0; i < layers.size; i++)
 					layernames[i] = layers.get(i).name;
-				addDropdown(table, "sortingLayerName", layernames, component);
-				addSliderLabel(table, "sortingOrder", component);
-				addColorPicker(table, "tint", component);
-				addDropdown(table, "uTextureWrap", new String[] {"ClampToEdge", "Repeat", "MirroredRepeat"}, component);
-				addDropdown(table, "vTextureWrap", new String[] {"ClampToEdge", "Repeat", "MirroredRepeat"}, component);
+				addDropdown(table, "sortingLayer", layernames);
+				addSliderLabel(table, "sortingOrder");
+				addColorPicker(table, "tint");
+				addDropdown(table, "uTextureWrap", new String[] {"ClampToEdge", "Repeat", "MirroredRepeat"});
+				addDropdown(table, "vTextureWrap", new String[] {"ClampToEdge", "Repeat", "MirroredRepeat"});
 				return table;
 			}
 		});
 		ComponentPanels.registerComponent(FontRenderer.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (final GameComponent component) {
+				this.component = component;
 				VisTable table = new VisTable();
 				addFileSelector(table, "Path:", ((FontRenderer) component).path , new ChangeListener() {
 					@Override
@@ -80,45 +83,48 @@ public class ComponentPanels {
 						((FontRenderer) component).setFont(((VisLabel)actor).getText().toString());
 					}
 				}, "font");
-				addTextField(table, "text", component);
-				addCheckBox(table, "centered", component);
-				addCheckBox(table, "flipped",  component);
-				addSliderLabel(table, "xScale", component);
-				addSliderLabel(table, "yScale", component);
-				addColorPicker(table, "tint", component);				
+				addTextField(table, "text");
+				addCheckBox(table, "centered");
+				addCheckBox(table, "flipped");
+				addSliderLabel(table, "xScale");
+				addSliderLabel(table, "yScale");
+				addColorPicker(table, "tint");				
 				return table;
 			}
 		});
 		ComponentPanels.registerComponent(Light.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (GameComponent component) {
+				this.component = component;
 				VisTable table = new VisTable();
-				addColorPicker(table, "color", component);
-				addSliderLabel(table, "angle", component);
-				addSliderLabel(table, "distance", component);
+				addColorPicker(table, "color");
+				addSliderLabel(table, "angle");
+				addSliderLabel(table, "distance");
 				return table;
 			}
 		});
 		ComponentPanels.registerComponent(Rigidbody.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (GameComponent component) {
+				this.component = component;
 				VisTable table = new VisTable();
-				addSliderLabel(table, "angularDamping", component);
-				addSliderLabel(table, "gravityScale", component);
-				addSliderLabel(table, "linearDamping", component);
-				addDropdown(table, "bodyType", new String[] {"Static", "Dynamic", "Kinematic"}, component);
+				addSliderLabel(table, "angularDamping");
+				addSliderLabel(table, "gravityScale");
+				addSliderLabel(table, "linearDamping");
+				addDropdown(table, "bodyType", new String[] {"Static", "Dynamic", "Kinematic"});
 				return table;
 			}
 		});
 		ComponentPanels.registerComponent(BoxCollider.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (final GameComponent component) {
+				this.component = component;
 				VisTable table = new VisTable();
-				addSliderLabel(table, "x", component);
-				addSliderLabel(table, "y", component);
-				addSliderLabel(table, "width", component);
-				addSliderLabel(table, "height", component);
-				addSliderLabel(table, "angle", component);
+				addSliderLabel(table, "x");
+				addSliderLabel(table, "y");
+				addSliderLabel(table, "width");
+				addSliderLabel(table, "height");
+				addSliderLabel(table, "angle");
 				addButton(table, "Edit Collider", "Edit", new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
@@ -143,10 +149,11 @@ public class ComponentPanels {
 		ComponentPanels.registerComponent(CircleCollider.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (final GameComponent component) {
+				this.component = component;
 				VisTable table = new VisTable();
-				addSliderLabel(table, "x", component);
-				addSliderLabel(table, "y", component);
-				addSliderLabel(table, "radius", component);
+				addSliderLabel(table, "x");
+				addSliderLabel(table, "y");
+				addSliderLabel(table, "radius");
 				addButton(table, "Edit Collider", "Edit", new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
@@ -159,8 +166,8 @@ public class ComponentPanels {
 						SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent()
 							.getComponentByType(ComponentType.SpriteRenderer);
 						if (spriteRenderer != null) {
-							((CircleCollider)component).setRadius(spriteRenderer.height / 2);
-							((CircleCollider)component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2,
+							((CircleCollider) component).setRadius(spriteRenderer.height / 2);
+							((CircleCollider) component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2,
 								-spriteRenderer.originY * spriteRenderer.height / 2);
 						}
 					}
@@ -171,6 +178,7 @@ public class ComponentPanels {
 		ComponentPanels.registerComponent(ScriptComponent.class, new ComponentPanel() {
 			@Override
 			public VisTable createTable (final GameComponent component) {
+				this.component = component;
 				VisTable table = new VisTable();
 				addFileSelector(table, "Path:", ((ScriptComponent)component).path, new ChangeListener() {
 

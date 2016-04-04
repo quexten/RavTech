@@ -205,8 +205,13 @@ public class FontRenderer extends Renderer {
 		return new Object[] {this.path, this.text, this.centered, this.flipped, this.xScale, this.yScale, this.tint};
 	}
 
-	public void setFont (String string) {
-		
+	public void setFont (String path) {
+		if(!RavTech.files.isLoaded(path)) {
+			RavTech.files.loadAsset(path, BitmapFont.class);
+			RavTech.files.finishLoading();
+		}
+		this.path = path;
+		this.finishedLoading();
 	}
 
 }

@@ -202,6 +202,8 @@ public class AssetViewer extends VisTable {
 						if (this.getTapCount() > 1) ZeroBraneUtil.openFile(new File(filePath));
 					}
 				});
+			} else if (extension.equals("fnt")) {
+				panel = new FontPreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
 			}
 			return panel;
 		}

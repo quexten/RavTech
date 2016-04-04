@@ -21,6 +21,7 @@ import com.kotcrab.vis.ui.VisUI;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.FontRenderer;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.DeleteAction;
@@ -73,9 +74,10 @@ public class SceneViewWidget extends Widget {
 			@Override
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp);
 				isDragging = false;
-				RavTechDKUtil.inspectorChanged();
+				if (!RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp)) {
+					RavTechDKUtil.inspectorChanged();
+				}
 			}
 		});
 

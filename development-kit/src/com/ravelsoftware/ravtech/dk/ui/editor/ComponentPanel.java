@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -13,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisSelectBox;
@@ -30,8 +30,11 @@ import com.ravelsoftware.ravtech.history.ModifyChangeable;
 public abstract class ComponentPanel {
 
 	public abstract VisTable createTable (GameComponent component);
-
-	public void addSliderLabel (VisTable table, String variableName, GameComponent component) {
+	
+	ObjectMap<String, Runnable> valueChangedListeners = new ObjectMap<String, Runnable>();
+	GameComponent component;
+		
+	public void addSliderLabel (VisTable table, String variableName) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
 		final LabelNumberPair label = new LabelNumberPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
@@ -54,9 +57,15 @@ public abstract class ComponentPanel {
 					.addChangeable(new ModifyChangeable(gameComponent, "Set " + variable, variable, label.oldValue, label.dragValue));
 			}
 		};
+		valueChangedListeners.put(variableName, new Runnable() {
+			@Override
+			public void run () {
+				label.label.setText(String.valueOf(component.getVariable(component.getVariableId(variable))));
+			}			
+		});
 	}
 
-	public void addDropdown (VisTable table, String variableName, String[] options, GameComponent component) {
+	public void addDropdown (VisTable table, String variableName, String[] options) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
 		final LabelDropdownPair label = new LabelDropdownPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
@@ -76,7 +85,7 @@ public abstract class ComponentPanel {
 		});
 	}
 
-	public void addColorPicker (VisTable table, String variableName, GameComponent component) {
+	public void addColorPicker (VisTable table, String variableName) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
 		final LabelColorPair label = new LabelColorPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
@@ -147,7 +156,7 @@ public abstract class ComponentPanel {
 		});
 	}
 	
-	public void addTextField (VisTable table, final String variableName, final GameComponent component) {
+	public void addTextField (VisTable table, final String variableName) {
 		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX().padLeft(5);
 		final VisTextField textField = new VisTextField(String.valueOf(component.getVariable(component.getVariableId(variableName))));		
 		textField.addListener(new ChangeListener() {
@@ -160,7 +169,7 @@ public abstract class ComponentPanel {
 		table.row();
 	}
 	
-	public void addCheckBox (VisTable table, final String variableName, final GameComponent component) {
+	public void addCheckBox (VisTable table, final String variableName) {
 		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX().padLeft(5);
 		final VisCheckBox checkBox = new VisCheckBox("", Boolean.valueOf(String.valueOf(component.getVariable(component.getVariableId(variableName)))));		
 		checkBox.addListener(new ChangeListener() {
@@ -173,4 +182,9 @@ public abstract class ComponentPanel {
 		table.row();
 	}
 	
+	
+	public void updateValue(String value) {
+		if(this.valueChangedListeners.containsKey(value))
+			this.valueChangedListeners.get(value).run();
+	}
 }

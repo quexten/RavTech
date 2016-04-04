@@ -53,8 +53,10 @@ public class AudioEmitter extends GameComponent implements Json.Serializable {
 
 	@Override
 	public void dispose () {
-		Sound sound = (Sound)RavTech.files.getAsset(filePath);
-		sound.stop(id);
+		if (RavTech.files.isLoaded(filePath)) {
+			Sound sound = (Sound)RavTech.files.getAsset(filePath);
+			sound.stop(id);
+		}
 	}
 
 	public void setClip (String path) {

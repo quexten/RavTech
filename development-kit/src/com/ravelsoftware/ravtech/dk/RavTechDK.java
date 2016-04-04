@@ -21,8 +21,8 @@ public class RavTechDK {
 	public static Project project;
 	public static FileHandle projectHandle;
 	public static GizmoHandler gizmoHandler;
-	public static AssetManager editorAssetManager = new AssetManager(new ResourceFileHandleResolver());
-
+	public static AssetManager editorAssetManager = new AssetManager(new ResourceFileHandleResolver());	
+	
 	public static void initialize (RavTech ravtech) {
 		gizmoHandler = new GizmoHandler();
 

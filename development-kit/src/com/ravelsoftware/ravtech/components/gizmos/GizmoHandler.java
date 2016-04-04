@@ -103,8 +103,9 @@ public class GizmoHandler {
 				draggedGizmo.input(x, y, 0, EventType.MouseUp);
 				draggedGizmo = null;
 				RavTechDKUtil.renderSelection = false;
+				return true;
 			}
-			return true;
+			return false;
 		case EventType.MouseDrag:
 			if (this.draggedGizmo != null) this.draggedGizmo.input(x, y, button, EventType.MouseDrag);
 			return this.draggedGizmo != null;

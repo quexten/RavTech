@@ -27,7 +27,7 @@ public class CollapsiblePanel extends VisTable {
 		VisLabel nameLabel = new VisLabel(title);
 
 		titleTable.add(icon).size(32).spaceRight(0);
-		titleTable.add(nameLabel).spaceRight(0).width(230);
+		titleTable.add(nameLabel).spaceRight(0).width(220);
 		titleTable.add().space(0).expandX().fillX();
 		VisImageButton button = new VisImageButton("close");
 		VisImageButtonStyle style = button.getStyle();

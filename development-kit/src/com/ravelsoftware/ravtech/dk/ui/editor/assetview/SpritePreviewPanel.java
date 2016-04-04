@@ -21,9 +21,10 @@ public class SpritePreviewPanel extends AssetPreviewPanel {
 		image.getDrawable().setMinHeight(100);
 		image.getDrawable().setMinWidth(100);
 		VisLabel label = new VisLabel(assetPath.contains("/") ? assetPath.substring(assetPath.lastIndexOf('/') + 1) : assetPath);
-		add(image).grow();
+		label.setEllipsis(true);
+		add(image).grow().minWidth(100).maxWidth(100).prefWidth(100);
 		row();
-		add(label);
+		add(label).width(100);
 	}
 
 	@Override
