@@ -27,6 +27,7 @@ public abstract class LabelActorPair<T> {
 	};
 
 	public LabelActorPair (String labelText, Actor pairedComponent, boolean draggable) {
+
 		label = new VisLabel(labelText);
 		if (draggable) {
 			label.addListener(new InputListener() {
@@ -38,6 +39,7 @@ public abstract class LabelActorPair<T> {
 					Gdx.graphics.setSystemCursor(SystemCursor.Arrow);
 				}
 			});
+
 			label.addListener(new DragListener() {
 				public void dragStart (InputEvent event, float x, float y, int pointer) {
 					Gdx.graphics.setSystemCursor(SystemCursor.HorizontalResize);
@@ -52,6 +54,7 @@ public abstract class LabelActorPair<T> {
 				}
 			});
 		}
+
 		label.addListener(new DragListener() {
 
 			float startX;
@@ -73,6 +76,7 @@ public abstract class LabelActorPair<T> {
 				LabelActorPair.this.releasedListener.run();
 			}
 		});
+
 		this.pairedComponent = pairedComponent;
 	}
 

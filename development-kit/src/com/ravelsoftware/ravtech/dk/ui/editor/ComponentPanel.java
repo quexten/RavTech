@@ -19,6 +19,7 @@ import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
+import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
 import com.ravelsoftware.ravtech.components.GameComponent;
@@ -56,7 +57,7 @@ public abstract class ComponentPanel {
 				ChangeManager
 					.addChangeable(new ModifyChangeable(gameComponent, "Set " + variable, variable, label.oldValue, label.dragValue));
 			}
-		};
+		};		
 		valueChangedListeners.put(variableName, new Runnable() {
 			@Override
 			public void run () {
@@ -165,6 +166,14 @@ public abstract class ComponentPanel {
 				component.setVariable(component.getVariableId(variableName), textField.getText());
 			}			
 		});
+		textField.setFocusTraversal(false);
+		textField.setTextFieldListener(new TextFieldListener() {
+			@Override
+			public void keyTyped (VisTextField textField, char key) {
+				if (key == '\n' || key == '\r')
+					textField.focusLost();
+			}
+		});
 		table.add(textField).growX();
 		table.row();
 	}
@@ -178,7 +187,7 @@ public abstract class ComponentPanel {
 				component.setVariable(component.getVariableId(variableName), checkBox.isChecked());
 			}			
 		});
-		table.add(checkBox).align(Align.right).padRight(20);
+		table.add(checkBox).align(Align.right);
 		table.row();
 	}
 	
