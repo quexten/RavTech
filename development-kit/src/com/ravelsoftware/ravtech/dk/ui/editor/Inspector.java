@@ -48,8 +48,6 @@ public class Inspector extends VisWindow {
 
 	void rebuild () {
 		if (scrollPane != null) this.scroll = scrollPane.getScrollY();
-		System.out.println("scroll: " + this.scroll);
-		// this.dragActors.clear();
 		clear();
 
 		contentTable = new VisTable();

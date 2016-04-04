@@ -31,10 +31,10 @@ import com.ravelsoftware.ravtech.history.ModifyChangeable;
 public abstract class ComponentPanel {
 
 	public abstract VisTable createTable (GameComponent component);
-	
+
 	ObjectMap<String, Runnable> valueChangedListeners = new ObjectMap<String, Runnable>();
 	GameComponent component;
-		
+
 	public void addSliderLabel (VisTable table, String variableName) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
@@ -57,12 +57,12 @@ public abstract class ComponentPanel {
 				ChangeManager
 					.addChangeable(new ModifyChangeable(gameComponent, "Set " + variable, variable, label.oldValue, label.dragValue));
 			}
-		};		
+		};
 		valueChangedListeners.put(variableName, new Runnable() {
 			@Override
 			public void run () {
 				label.label.setText(String.valueOf(component.getVariable(component.getVariableId(variable))));
-			}			
+			}
 		});
 	}
 
@@ -102,11 +102,13 @@ public abstract class ComponentPanel {
 				picker.setListener(new ColorPickerListener() {
 					@Override
 					public void canceled (Color oldColor) {
+						((ColorPanel)label.pairedComponent).backgroundColor.set(oldColor);
 						gameComponent.setVariable(gameComponent.getVariableId(variable), oldColor);
 					}
 
 					@Override
 					public void changed (Color newColor) {
+						((ColorPanel)label.pairedComponent).backgroundColor.set(newColor);
 						gameComponent.setVariable(gameComponent.getVariableId(variable), newColor);
 					}
 
@@ -156,44 +158,45 @@ public abstract class ComponentPanel {
 			}
 		});
 	}
-	
+
 	public void addTextField (VisTable table, final String variableName) {
-		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX().padLeft(5);
-		final VisTextField textField = new VisTextField(String.valueOf(component.getVariable(component.getVariableId(variableName))));		
+		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX()
+			.padLeft(5);
+		final VisTextField textField = new VisTextField(
+			String.valueOf(component.getVariable(component.getVariableId(variableName))));
 		textField.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				component.setVariable(component.getVariableId(variableName), textField.getText());
-			}			
+			}
 		});
 		textField.setFocusTraversal(false);
 		textField.setTextFieldListener(new TextFieldListener() {
 			@Override
 			public void keyTyped (VisTextField textField, char key) {
-				if (key == '\n' || key == '\r')
-					textField.focusLost();
+				if (key == '\n' || key == '\r') textField.focusLost();
 			}
 		});
 		table.add(textField).growX();
 		table.row();
 	}
-	
+
 	public void addCheckBox (VisTable table, final String variableName) {
-		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX().padLeft(5);
-		final VisCheckBox checkBox = new VisCheckBox("", Boolean.valueOf(String.valueOf(component.getVariable(component.getVariableId(variableName)))));		
+		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX()
+			.padLeft(5);
+		final VisCheckBox checkBox = new VisCheckBox("",
+			Boolean.valueOf(String.valueOf(component.getVariable(component.getVariableId(variableName)))));
 		checkBox.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				component.setVariable(component.getVariableId(variableName), checkBox.isChecked());
-			}			
+			}
 		});
 		table.add(checkBox).align(Align.right);
 		table.row();
 	}
-	
-	
-	public void updateValue(String value) {
-		if(this.valueChangedListeners.containsKey(value))
-			this.valueChangedListeners.get(value).run();
+
+	public void updateValue (String value) {
+		if (this.valueChangedListeners.containsKey(value)) this.valueChangedListeners.get(value).run();
 	}
 }
