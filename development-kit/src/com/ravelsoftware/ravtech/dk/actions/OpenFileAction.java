@@ -18,7 +18,7 @@ public class OpenFileAction implements Runnable {
 	@Override
 	public void run () {
 		switch (file.getName().substring(file.getName().lastIndexOf('.'), file.getName().length())) {
-		case ".map":
+		case ".scene":
 			break;
 		case ".lua":
 			ZeroBraneUtil.openFile(file);

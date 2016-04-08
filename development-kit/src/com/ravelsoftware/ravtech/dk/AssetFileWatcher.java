@@ -57,7 +57,9 @@ public class AssetFileWatcher {
 								Gdx.app.postRunnable(new Runnable() {
 									@Override
 									public void run () {
-										if (RavTech.files.isLoaded(assetPath)) RavTech.files.reloadAsset(assetPath);
+										if(!assetPath.endsWith(".scene"))
+											if (RavTech.files.isLoaded(assetPath)) 
+												RavTech.files.reloadAsset(assetPath);
 										((RavTechDKApplication)Gdx.app.getApplicationListener()).assetViewer.assetView.refresh();
 									}
 								});

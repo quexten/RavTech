@@ -19,7 +19,7 @@ public class Project {
 	public int microVersion;
 	public int minorVersion;
 	// Game Settings
-	public String startScene = "scenes/map.map";
+	public String startScene = "scenes/map.scene";
 	// TODO Plugins
 	// TODO Player Settings
 	// Desktop
