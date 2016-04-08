@@ -40,7 +40,7 @@ public class FontRenderer extends Renderer {
 	public float xScale = 1;
 	public float yScale = 1;
 
-	Color tint = Color.WHITE;
+	Color tint = Color.WHITE.cpy();
 	public TextureFilter minFilter = TextureFilter.Linear;
 	public TextureFilter magFilter = TextureFilter.Linear;
 
