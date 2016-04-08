@@ -133,7 +133,7 @@ public class FontRenderer extends Renderer {
 		if (jsonData.has("path")) this.path = jsonData.getString("path");
 		if (jsonData.has("text")) text = jsonData.getString("text");
 		if (jsonData.has("centerText")) centered = jsonData.getBoolean("centerText");
-		if (jsonData.has("flipped")) flipped = jsonData.getBoolean("flip");
+		if (jsonData.has("flipped")) flipped = jsonData.getBoolean("flipped");
 		if (jsonData.has("xScale")) xScale = jsonData.getFloat("xScale");
 		if (jsonData.has("yScale")) yScale = jsonData.getFloat("yScale");
 		if (jsonData.has("tint")) tint = JsonUtil.readColorFromJson(jsonData, "tint");

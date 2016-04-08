@@ -22,12 +22,15 @@ public class RavTech extends Game {
 	public static final int majorVersion = 0;
 	public static final int minorVersion = 1;
 	public static final int microVersion = 0;
+
 	// Renderers
 	public static SpriteBatch spriteBatch;
 	public static ShapeRenderer shapeRenderer;
+
 	// Scene
 	public static Scene currentScene = new Scene();
 	public static SceneHandler sceneHandler;
+
 	// RavTech Components
 	public static RavFiles files;
 	public static RavSettings settings;
@@ -52,6 +55,7 @@ public class RavTech extends Game {
 			files.finishLoading();
 			RavTech.project = files.getAsset("project.json");
 		}
+		
 		// Serializes current Scene for later restore after context loss
 		final String serializedCurrentScene = input != null ? files.storeState() : null;
 		if (input != null) sceneHandler.dispose();
@@ -63,6 +67,7 @@ public class RavTech extends Game {
 		spriteBatch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		shapeRenderer.setAutoShapeType(true);
+		
 		if (serializedCurrentScene != null)
 			files.loadState(serializedCurrentScene);
 		else {
@@ -70,6 +75,7 @@ public class RavTech extends Game {
 			files.finishLoading();
 			RavTech.currentScene = files.getAsset(project.startScene);
 		}
+		
 		this.setScreen(new PlayScreen());
 		sceneHandler.paused = true;
 		sceneHandler.update(0);

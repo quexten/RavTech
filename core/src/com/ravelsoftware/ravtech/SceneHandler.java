@@ -182,6 +182,8 @@ public class SceneHandler {
 			HookApi.onResizeHooks.get(i).run();
 		worldCamera.setResolution(width, height);
 		worldCamera.setToOrtho(false, width, height);
+		worldCamera.position.set(0,0,0);
+		worldCamera.zoom = 0.05f;
 		Debug.log("Width", worldCamera.viewportWidth);
 		Debug.log("Height", worldCamera.viewportHeight);
 		worldCamera.update();

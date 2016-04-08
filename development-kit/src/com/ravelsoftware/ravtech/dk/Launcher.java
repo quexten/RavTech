@@ -18,6 +18,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
 import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.RavTech;
@@ -58,6 +59,7 @@ public class Launcher {
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setWindowedMode(1600, 900);
+		config.setTitle("RavTech Development Kit Version " + RavTechDK.getVersionString());
 		config.setWindowListener(new Lwjgl3WindowListener() {
 			@Override
 			public void iconified () {

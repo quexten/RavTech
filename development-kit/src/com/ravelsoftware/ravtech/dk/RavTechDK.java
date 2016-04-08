@@ -18,6 +18,14 @@ import com.ravelsoftware.ravtech.util.ResourceFileHandleResolver;
 
 public class RavTechDK {
 
+	public static final int majorVersion = 0;
+	public static final int minorVersion = 2;
+	public static final int microVersion = 0;
+	
+	public static String getVersionString() {
+		return "V " + majorVersion + "." + minorVersion + "." + microVersion;
+	}
+	
 	public static Project project;
 	public static FileHandle projectHandle;
 	public static GizmoHandler gizmoHandler;

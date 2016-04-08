@@ -121,13 +121,13 @@ public class RavFiles {
 	/** Loads the specified scene as the current Scene
 	 * @param sceneString - the Scene to load */
 	public void loadState (final String sceneString) {
-		getAssetManager().unload(getAssetManager().getAssetFileName(RavTech.currentScene));
+		String scenePath = getAssetManager().getAssetFileName(RavTech.currentScene);
+		RavTech.currentScene.dispose();
+		getAssetManager().unload(scenePath);
 		getAssetManager().setLoader(Scene.class, new SceneLoader(new FileHandleResolver() {
-
 			@Override
 			public FileHandle resolve (String fileName) {
 				return new FileHandle() {
-
 					@Override
 					public String readString () {
 						return sceneString;
@@ -135,11 +135,9 @@ public class RavFiles {
 				};
 			}
 		}));
-		loadAsset("loadState", Scene.class);
+		loadAsset(scenePath, Scene.class);
 		finishLoading();
-		Debug.log("currentScene", RavTech.currentScene);
-		RavTech.currentScene = getAsset("loadState");
-		Debug.log("NewScene", RavTech.currentScene);
+		RavTech.currentScene = getAsset(scenePath);
 		getAssetManager().setLoader(Scene.class, new SceneLoader(getResolver()));
 	}
 
