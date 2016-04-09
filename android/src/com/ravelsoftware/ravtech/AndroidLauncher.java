@@ -1,10 +1,13 @@
 
 package com.ravelsoftware.ravtech;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFiles;
+import com.badlogic.gdx.utils.Json;
+import com.ravelsoftware.ravtech.android.AndroidEngineConfiguration;
 import com.ravelsoftware.ravtech.files.zip.ArchiveFileHandleResolver;
 import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
 
@@ -17,6 +20,9 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidFiles files = new AndroidFiles(this.getAssets());
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		AndroidEngineConfiguration engineConfiguration = new Json().fromJson(AndroidEngineConfiguration.class,
+			files.getFileHandle("config.json", FileType.Internal).readString());
+		
 		int versionCode = 0;
 		try {
 			versionCode = this.getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
@@ -29,7 +35,8 @@ public class AndroidLauncher extends AndroidApplication {
 		RavTech ravtech = new RavTech(useExternalAssetBundle
 			? new ArchiveFileHandleResolver(
 				files.external("Android/obb/" + getPackageName() + "/main." + versionCode + "." + getPackageName() + ".obb"))
-			: new InternalFileHandleResolver());
+			: new InternalFileHandleResolver(),
+			engineConfiguration);
 		RavTech.scriptLoader = new LuaJScriptLoader();
 		initialize(ravtech, config);
 	}

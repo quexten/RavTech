@@ -4,7 +4,6 @@ package com.ravelsoftware.ravtech.dk.ui.packaging;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.VisUI;
-import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextArea;
 
@@ -28,12 +27,10 @@ public class BuildReporterDialog extends VisTable {
 		Gdx.app.log("BuildReporterDialog", string);
 		for (int i = 0; i < printerListeners.size; i++)
 			printerListeners.get(i).onPrint(string);
-		((VisScrollPane)this.getParent()).layout();
 		textArea.setText(textArea.getText() + string + "\n");
 	}
 
 	public void logError (String message) {
-		((VisScrollPane)this.getParent()).layout();
 		textArea.setText(textArea.getText() + "[Error]" + message + "\n");
 	}
 

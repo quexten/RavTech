@@ -31,24 +31,37 @@ public class Packager {
 	public static void dist (BuildReporterDialog buildReporterDialog, TargetPlatform targetPlatform, Object userData,
 		FileHandle destinationDir) {
 		RavTechDK.saveScene(RavTech.files.getAssetHandle(RavTechDK.getCurrentScene()));
+		RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
 		PackageStep firstStep = new PackBundleStep(buildReporterDialog);
 		// Builds the packaging chain
 		switch (targetPlatform) {
 		case Android:
 			firstStep
-				.setNextStep(
-					new CopyStep(buildReporterDialog, Gdx.files.absolute(System.getProperty("user.dir") + "/temp/build.ravpack"),
-						destinationDir.parent().child("extension.obb")))
+				.setNextStep(new CopyStep(buildReporterDialog,
+					Gdx.files.absolute(System.getProperty("user.dir") + "/temp/build.ravpack"), destinationDir.child("extension.obb")))
 				.setNextStep(new ApkPreparationStep(buildReporterDialog))
-				.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(), destinationDir))
+				.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(), destinationDir.child("build.apk")))
 				.setNextStep(new SignStep(buildReporterDialog, (KeyStoreCredentials)userData))
 				.setNextStep(new AlignStep(buildReporterDialog))
 				.setNextStep(new CopyStep(buildReporterDialog,
 					Gdx.files
 						.absolute(System.getProperty("user.dir") + "/builder/android/build/outputs/apk/android-release-aligned.apk"),
-						destinationDir));
+					destinationDir.child("build.apk")))
+				.setNextStep(
+					new DeleteFileStep(buildReporterDialog, (RavTechDK.projectHandle.child("assets").child("project.json"))));
 			break;
 		case Desktop:
+			firstStep
+				.setNextStep(
+					new CopyStep(buildReporterDialog, Gdx.files.absolute(System.getProperty("user.dir") + "/temp/build.ravpack"),
+						destinationDir.child("assets.ravpack")))
+				.setNextStep(new PlatformStep(buildReporterDialog, new DesktopPlatform(), destinationDir.child("build.jar")))
+				.setNextStep(new CopyStep(buildReporterDialog,
+					Gdx.files.absolute(System.getProperty("user.dir") + "/builder/desktop/build/libs/desktop-1.0.jar"),
+					destinationDir.child("build.jar")))
+				.setNextStep(
+					new DeleteFileStep(buildReporterDialog, (RavTechDK.projectHandle.child("assets").child("project.json"))));
+
 			break;
 		case Linux:
 			break;
@@ -92,12 +105,11 @@ public class Packager {
 		case Android:
 			RavTechDK.saveScene(RavTech.files.getAssetHandle(RavTechDK.getCurrentScene()));
 			firstStep = new PackBundleStep(buildReporterDialog);
-			firstStep.setNextStep(new PackBundleStep(buildReporterDialog))
-			.setNextStep(new ApkPreparationStep(buildReporterDialog))
-			.setNextStep(new AndroidPushStep(buildReporterDialog, System.getProperty("user.dir") + "/temp/build.ravpack ",
+			firstStep.setNextStep(new PackBundleStep(buildReporterDialog)).setNextStep(new ApkPreparationStep(buildReporterDialog))
+				.setNextStep(new AndroidPushStep(buildReporterDialog, System.getProperty("user.dir") + "/temp/build.ravpack ",
 					"/sdcard/Android/obb/" + RavTechDK.project.appId + "/main." + RavTech.project.buildVersion + "."
 						+ RavTech.project.appId + ".obb"))
-			.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(deviceIdentifier)));
+				.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(deviceIdentifier)));
 			break;
 		case WebGL:
 			RavTechDK.saveScene(RavTech.files.getAssetHandle(RavTechDK.getCurrentScene()));

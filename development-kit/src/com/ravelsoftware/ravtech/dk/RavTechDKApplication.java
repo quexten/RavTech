@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisWindow;
+import com.ravelsoftware.ravtech.EngineConfiguration;
 import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
@@ -31,7 +32,7 @@ public class RavTechDKApplication extends RavTech {
 	public AssetViewer assetViewer;
 
 	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
-		super(absoluteFileHandleResolver, project);
+		super(absoluteFileHandleResolver, project, new EngineConfiguration());
 	}
 
 	@Override

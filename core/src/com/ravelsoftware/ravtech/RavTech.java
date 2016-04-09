@@ -19,6 +19,7 @@ import com.ravelsoftware.ravtech.settings.RavSettings;
 public class RavTech extends Game {
 
 	public static Project project;
+	public static EngineConfiguration engineConfiguration;
 	public static final int majorVersion = 0;
 	public static final int minorVersion = 1;
 	public static final int microVersion = 0;
@@ -39,13 +40,14 @@ public class RavTech extends Game {
 	public static FPSLogger logger = new FPSLogger();
 	public static boolean isEditor;
 
-	public RavTech (FileHandleResolver assetResolver, Project project) {
-		files = new RavFiles(assetResolver);
+	public RavTech (FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
+		this(assetResolver, applicationConfig);
 		RavTech.project = project;
 	}
 
-	public RavTech (FileHandleResolver assetResolver) {
+	public RavTech (FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
 		files = new RavFiles(assetResolver);
+		engineConfiguration = applicationConfig;
 	}
 
 	@Override

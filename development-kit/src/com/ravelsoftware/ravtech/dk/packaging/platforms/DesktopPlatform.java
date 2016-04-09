@@ -8,7 +8,7 @@ public class DesktopPlatform implements Platform {
 
 	@Override
 	public boolean build (FileHandle buildPath, BuildReporterDialog dialog) {
-		GradleInvoker.Invoke(dialog, "desktop:build");
+		GradleInvoker.Invoke(dialog, "desktop:dist");
 		return true;
 	}
 

@@ -1,19 +1,24 @@
 
 package com.ravelsoftware.ravtech.desktop;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
+import com.badlogic.gdx.utils.Json;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.files.zip.ArchiveFileHandleResolver;
 import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
+		Lwjgl3Files files = new Lwjgl3Files();
+		DesktopEngineConfiguration engineConfiguration = new Json().fromJson(DesktopEngineConfiguration.class,
+			files.getFileHandle("config.json", FileType.Internal).readString());
+
 		final Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setTitle("test");
 		config.setWindowedMode(1280, 720);
 		config.setDecorated(true);
 		config.setWindowListener(new Lwjgl3WindowListener() {
@@ -40,12 +45,16 @@ public class DesktopLauncher {
 			}
 
 		});
-		config.setTitle("RavTech - " + RavTech.majorVersion + "." + RavTech.minorVersion + "." + RavTech.microVersion);
-
-		boolean useExternalAssetBundle = true;
+		config.setTitle(engineConfiguration.title);
+		config.setResizable(engineConfiguration.resizable);
+		
+		boolean useExternalAssetBundle = engineConfiguration.useAssetBundle;
 
 		RavTech ravtech = new RavTech(useExternalAssetBundle
-			? new ArchiveFileHandleResolver(new Lwjgl3Files().internal("resourcepack.ravpack")) : new InternalFileHandleResolver());
+			? new ArchiveFileHandleResolver(new Lwjgl3Files().local("assets.ravpack")) : new InternalFileHandleResolver(), engineConfiguration);
+
+		System.out.println(
+			"Initializing Ravtech - Desktop using " + (useExternalAssetBundle ? " External " : " Internal ") + "FileHandle");
 
 		RavTech.scriptLoader = new LuaJScriptLoader();
 		new Lwjgl3Application(ravtech, config);
