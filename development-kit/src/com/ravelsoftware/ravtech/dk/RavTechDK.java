@@ -103,7 +103,15 @@ public class RavTechDK {
 	public static File getLocalFile (String path) {
 		return new File(System.getProperty("user.dir") + "/" + path);
 	}
-
+	
+	public static FileHandle getDownloadsFile(String name) {
+		return getPluginsFile("downloads").child(name);
+	}
+	
+	public static FileHandle getPluginsFile(String name) {
+		return Gdx.files.absolute(System.getProperty("user.dir") + "/plugins/" + name);
+	}
+	
 	public static String getSystemExecutableEnding () {
 		return System.getProperty("os.name").toLowerCase().contains("windows") ? "exe" : "sh";
 	}

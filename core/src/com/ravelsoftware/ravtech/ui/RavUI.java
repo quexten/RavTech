@@ -6,11 +6,12 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.VisUI;
 
 public class RavUI {
 
-	Stage screenStage = new Stage();
+	Stage screenStage = new Stage(new ScreenViewport());
 	public DebugConsole debugConsole;
 	
 	public RavUI () {
@@ -30,6 +31,7 @@ public class RavUI {
 	}
 
 	public void render () {
+		screenStage.act();
 		screenStage.draw();
 	}
 
