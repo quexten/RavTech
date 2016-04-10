@@ -63,7 +63,7 @@ public class Camera extends OrthographicCamera {
 	}
 
 	public void setResolution (int width, int height) {
-		Debug.log("SetResolution", width + "|" + height);
+		Debug.logDebug("SetResolution", width + "|" + height);
 		dispose();
 		resolutionX = width;
 		resolutionY = height;

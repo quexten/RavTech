@@ -2,11 +2,11 @@
 package com.ravelsoftware.ravtech.scripts.lua;
 
 import org.luaj.vm2.Globals;
+import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
@@ -50,14 +50,13 @@ public class LuaJScript extends Script {
 
 	@Override
 	public void init () {
-		chunk = globals.load(script);
-		chunk.call();
-		globals.get("init").invoke();
+		loadChunk(this.script);
+		invokeFunction("init");
 	}
 
 	@Override
 	public void update () {
-		globals.get("update").invoke();
+		invokeFunction("update");
 	}
 
 	@Override
@@ -78,9 +77,7 @@ public class LuaJScript extends Script {
 	@Override
 	public Object callFunction (String name, Object[] args) {
 		LuaValue function = globals.get(name);
-		if(function == LuaValue.NIL)
-			return LuaValue.NIL;
-		Debug.log("Args Length", args.length);
+		if (function == LuaValue.NIL) return LuaValue.NIL;
 		LuaValue returnValue = null;
 		switch (args.length) {
 		case 0:
@@ -104,4 +101,33 @@ public class LuaJScript extends Script {
 	public Object getVariable (String name) {
 		return globals.get(name);
 	}
+
+	void invokeFunction (String name) {
+		try {
+			globals.get(name).invoke();
+		} catch (LuaError luaError) {
+			printLuaError(luaError);
+			return;
+		}
+	}
+
+	void printLuaError (LuaError error) {
+		String[] messageParts = error.getMessage().split(":");
+		String lineNumberString = messageParts[messageParts.length - 2];
+		String message = messageParts[messageParts.length - 1];
+		int lineNumber = Integer.parseInt(lineNumberString);
+
+		Debug.logError("Lua", "Script Error in line " + lineNumber + " - " + script.split("\n")[lineNumber - 1] + " - " + message);
+	}
+	
+	public void loadChunk(String source) {
+		try {
+			chunk = globals.load(source);
+			chunk.call();
+		} catch (LuaError luaError) {
+			printLuaError(luaError);
+			return;
+		}
+	}
+	
 }

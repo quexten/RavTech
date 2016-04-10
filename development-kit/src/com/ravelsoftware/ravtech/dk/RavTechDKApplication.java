@@ -6,10 +6,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.ravelsoftware.ravtech.EngineConfiguration;
@@ -26,7 +24,6 @@ import com.ravelsoftware.ravtech.project.Project;
 
 public class RavTechDKApplication extends RavTech {
 
-	Stage stage;
 	public SceneViewWidget mainSceneView;
 	public Inspector inspector;
 	public AssetViewer assetViewer;
@@ -43,17 +40,16 @@ public class RavTechDKApplication extends RavTech {
 
 		RavTech.sceneHandler.paused = true;
 		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
-		stage = new Stage(new ScreenViewport());
 
 		final Table root = new Table();
 		root.setFillParent(true);
-		stage.addActor(root);
+		RavTech.ui.getStage().addActor(root);
 		EditorMenuBar menuBar = new EditorMenuBar();
 		root.add(menuBar.getTable()).expandX().fillX().row();
 		root.row();
 		mainSceneView = new SceneViewWidget(true);
 		root.add(mainSceneView).expand().fill();
-		Gdx.input.setInputProcessor(stage);
+		Gdx.input.setInputProcessor(RavTech.ui.getStage());
 
 		HookApi.onResizeHooks.add(new Runnable() {
 
@@ -64,7 +60,7 @@ public class RavTechDKApplication extends RavTech {
 
 		});
 
-		stage.addActor(inspector = new Inspector());
+		RavTech.ui.getStage().addActor(inspector = new Inspector());
 
 		RavTechDK.gizmoHandler = new GizmoHandler();
 		HookApi.onRenderHooks.add(new Runnable() {
@@ -83,7 +79,7 @@ public class RavTechDKApplication extends RavTech {
 			final Project project = new Project();
 			final ProjectSettingsWizard wizard = new ProjectSettingsWizard(project, true);
 			wizard.setSize(330, 330);
-			stage.addActor(wizard);
+			RavTech.ui.getStage().addActor(wizard);
 		}
 
 		assetViewer = new AssetViewer();
@@ -92,19 +88,19 @@ public class RavTechDKApplication extends RavTech {
 		window.setResizable(true);
 		window.setSize(1000, 300);
 		window.setPosition(2000, 0);
-		stage.addActor(window);
+		RavTech.ui.getStage().addActor(window);
 	}
 
 	@Override
 	public void render () {
-		stage.act();
+		RavTech.ui.getStage().act();
 		RavTech.sceneHandler.render();
-		stage.draw();
+		RavTech.ui.getStage().draw();
 	}
 
 	public void resize (int width, int height) {
-		stage.getViewport().update(width, height, true);
-		stage.draw();
+		RavTech.ui.getStage().getViewport().update(width, height, true);
+		RavTech.ui.getStage().draw();
 		super.resize(width, height);
 	}
 
@@ -123,6 +119,6 @@ public class RavTechDKApplication extends RavTech {
 			}
 
 		});
-		stage.addActor(window);
+		RavTech.ui.getStage().addActor(window);
 	}
 }

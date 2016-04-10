@@ -210,8 +210,6 @@ public class BoxColliderGizmo extends Gizmo {
 	}
 
 	private void changeWidth (float width, boolean changeRight) {
-		Debug.log("OldBounds", oldBounds);
-		Debug.log("TrueOLdPosition", trueOldPosition);
 		width = (changeRight ? 1f : -1f) * (width - oldBounds.x * 0.5f) + oldBounds.x * (changeRight ? 1 : 0);
 		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0);
 		boxCollider.x = trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition()).x / 2;

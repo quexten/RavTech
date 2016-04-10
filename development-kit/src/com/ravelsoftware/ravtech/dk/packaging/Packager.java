@@ -25,9 +25,9 @@ public class Packager {
 	 * thread so that it doesn't lock the editors GUI.
 	 *
 	 * @param buildReporterDialog - the dialog to log the progress in
-	 * @param targetPlatform - the plattform the app is packaged for (E.g Android / Dekstop / iOS)
+	 * @param targetPlatform - the platform the app is packaged for (E.g Android / Dekstop / iOS)
 	 * @param userData
-	 * @param destinationDir - the destionation, meaning the path the package is saved at */
+	 * @param destinationDir - the destination, meaning the path the package is saved at */
 	public static void dist (BuildReporterDialog buildReporterDialog, TargetPlatform targetPlatform, Object userData,
 		FileHandle destinationDir) {
 		RavTechDK.saveScene(RavTech.files.getAssetHandle(RavTechDK.getCurrentScene()));

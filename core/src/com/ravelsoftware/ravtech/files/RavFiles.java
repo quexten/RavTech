@@ -149,13 +149,13 @@ public class RavFiles {
 	}
 
 	public void addDependency (String path, GameComponent component) {
-		Debug.log("AddDependency", path);
+		Debug.logDebug("AddDependency", path);
 		if (!componentDependencies.containsKey(path)) componentDependencies.put(path, new Array<GameComponent>());
 		componentDependencies.get(path).add(component);
 	}
 
 	public void removeDependency (String path, GameComponent component) {
-		Debug.log("RemoveDependency", path);
+		Debug.logDebug("RemoveDependency", path);
 		if (componentDependencies.get(path) == null) return;
 		componentDependencies.get(path).removeValue(component, true);
 		if (componentDependencies.get(path).size == 0) componentDependencies.remove(path);

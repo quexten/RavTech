@@ -1,6 +1,7 @@
 
 package com.ravelsoftware.ravtech.dk.ui.editor;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -11,6 +12,7 @@ import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisWindow;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
@@ -167,9 +169,41 @@ public class EditorMenuBar extends MenuBar {
 			{ // About
 				entry = new MenuItem("Preferences");
 				entry.addListener(new ChangeListener() {
-
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
+					
+					}
+				});
+				menu.addItem(entry);
+				entry = new MenuItem("Toggle Debug Console");
+				entry.addListener(new ChangeListener() {
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						Gdx.app.postRunnable(new Runnable() {
+							@Override
+							public void run() {
+								RavTech.ui.debugConsole.toggleVisible();
+							}
+						});						
+					}
+				});
+				menu.addItem(entry);
+				entry = new MenuItem("Add Scene View");
+				entry.addListener(new ChangeListener() {
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						Gdx.app.postRunnable(new Runnable() {
+							@Override
+							public void run() {
+								VisWindow window = new VisWindow("Scene");
+								window.addCloseButton();
+								window.setSize(320, 180);
+								window.add(new SceneViewWidget(false)).grow();
+								window.toFront();
+								window.setVisible(true);
+								RavTech.ui.getStage().addActor(window);
+							}
+						});						
 					}
 				});
 				menu.addItem(entry);

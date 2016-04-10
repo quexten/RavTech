@@ -4,7 +4,6 @@ package com.ravelsoftware.ravtech.dk.ui.editor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,9 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.VisUI;
 import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.FontRenderer;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.DeleteAction;
@@ -149,13 +146,9 @@ public class SceneViewWidget extends Widget {
 				if (keycode == Keys.FORWARD_DEL) new DeleteAction().run();
 
 				if (keycode == Keys.F5) {
-					FontRenderer fontRenderer = new FontRenderer();
-					Array<AssetDescriptor> dependencies = new Array<AssetDescriptor>();
-					fontRenderer.load(dependencies);
-					RavTech.files.loadAssets(dependencies);
-					RavTech.files.finishLoading();
-					fontRenderer.finishedLoading();
-					RavTechDKUtil.selectedObjects.first().addComponent(fontRenderer);
+					Array<String> assetNames = RavTech.files.getAssetManager().getAssetNames();
+					for(int i = 0; i < assetNames.size; i++)
+						RavTech.files.reloadAsset(assetNames.get(i));
 				}
 				return false;
 			}
@@ -173,7 +166,7 @@ public class SceneViewWidget extends Widget {
 
 	public void resize () {
 		if (!(getWidth() > 0 && getHeight() > 0)) return;
-		Debug.log("setToOrtho", getWidth() + "|" + getHeight());
+		Debug.logDebug("setToOrtho", getWidth() + "|" + getHeight());
 		this.camera.setToOrtho(false, getWidth(), getHeight());
 		this.camera.update();
 		this.camera.setResolution((int)getWidth(), (int)getHeight());
