@@ -144,7 +144,7 @@ public class SortedRenderer {
 			Color clearColor = RavTech.currentScene.renderProperties.backgroundColor;
 			Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			spriteBatch.setProjectionMatrix(RavTech.sceneHandler.worldCamera.combined);
+			spriteBatch.setProjectionMatrix(camera.combined);
 			renderRunnables(renderables);
 			for (int i = 0; i < HookApi.onRenderHooks.size; i++)
 				HookApi.onRenderHooks.get(i).run();
