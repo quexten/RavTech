@@ -23,7 +23,6 @@ import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildDialog;
-import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 import com.ravelsoftware.ravtech.history.ChangeManager;
 import com.ravelsoftware.ravtech.history.CreateChangeable;
 import com.ravelsoftware.ravtech.util.Debug;
@@ -224,12 +223,11 @@ public class EditorMenuBar extends MenuBar {
 				menu.addItem(entry);
 			}
 			{ // ZeroBrane
-				entry = new MenuItem("Check for ZeroBrane Updates");
+				entry = new MenuItem("Updates");
 				entry.addListener(new ChangeListener() {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						ZeroBraneUtil.checkForUpdates();
 					}
 				});
 				menu.addItem(entry);

@@ -36,7 +36,6 @@ public class RavTechDK {
 
 		setProject(projectHandle.path());
 		Gdx.app.postRunnable(new Runnable() {
-
 			@Override
 			public void run () {
 				RavTech.sceneHandler.paused = true;
@@ -55,7 +54,7 @@ public class RavTechDK {
 				 * renderer.begin(ShapeType.Line); gizmoHandler.render(renderer); renderer.end(); } });
 				 */
 			}
-		});
+		});		
 	}
 
 	public static void setProject (final String projectRootPath) {
@@ -63,7 +62,6 @@ public class RavTechDK {
 		// ui.ravtechDKFrame.setTitle(ui.ravtechDKFrame.getFullTitle());
 		// ui.ravtechDKFrame.view.setPath(projectRootPath);
 		Gdx.app.postRunnable(new Runnable() {
-
 			@Override
 			public void run () {
 				RavTech.settings.setValue("RavTechDK.project.path", projectRootPath);
@@ -100,8 +98,8 @@ public class RavTechDK {
 		project.save(projectHandle);
 	}
 
-	public static File getLocalFile (String path) {
-		return new File(System.getProperty("user.dir") + "/" + path);
+	public static FileHandle getLocalFile (String path) {
+		return Gdx.files.absolute((System.getProperty("user.dir") + "/" + path));
 	}
 	
 	public static FileHandle getDownloadsFile(String name) {

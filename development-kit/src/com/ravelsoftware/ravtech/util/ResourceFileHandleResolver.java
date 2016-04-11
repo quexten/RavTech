@@ -9,6 +9,10 @@ public class ResourceFileHandleResolver implements FileHandleResolver {
 
 	@Override
 	public FileHandle resolve (String fileName) {
+		fileName = fileName.replace('\\', '/');
+		if(fileName.startsWith("resources/")) {
+			fileName = fileName.substring("resources/".length());
+		}
 		return Gdx.files.local("resources").child(fileName);
 	}
 

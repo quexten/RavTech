@@ -23,6 +23,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
 import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
+import com.ravelsoftware.ravtech.dk.ui.utils.UpdateManager;
 import com.ravelsoftware.ravtech.project.Project;
 import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
 import com.ravelsoftware.ravtech.settings.SettingsValueListener;
@@ -40,6 +41,7 @@ public class Launcher {
 		RavTechDK.projectHandle = new Lwjgl3FileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute);
 		RavTechDK.project = Project.load(RavTechDK.projectHandle);
 		AssetFileWatcher.set(RavTechDK.projectHandle);
+		
 		initializeEngine();
 
 	}

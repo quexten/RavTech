@@ -23,6 +23,7 @@ import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.DeleteAction;
 import com.ravelsoftware.ravtech.dk.actions.PasteAction;
+import com.ravelsoftware.ravtech.dk.ui.utils.GitHubUpdater;
 import com.ravelsoftware.ravtech.graphics.Camera;
 import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
@@ -39,7 +40,7 @@ public class SceneViewWidget extends Widget {
 	Vector2 selectionStart = new Vector2();
 	Vector2 selectionEnd = new Vector2();
 	boolean isDragging;
-
+	
 	public SceneViewWidget (boolean main) {
 		camera = main ? RavTech.sceneHandler.worldCamera : RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
 		camera.zoom = 0.05f;
@@ -149,6 +150,13 @@ public class SceneViewWidget extends Widget {
 					Array<String> assetNames = RavTech.files.getAssetManager().getAssetNames();
 					for(int i = 0; i < assetNames.size; i++)
 						RavTech.files.reloadAsset(assetNames.get(i));
+				}
+				
+				if (keycode == Keys.F2) {
+					//Debug.log("isNewVersionAvalible", updater.isNewVersionAvalible());
+				}
+				if(keycode == Keys.F3) {
+				//	updater.update("1.30");
 				}
 				return false;
 			}

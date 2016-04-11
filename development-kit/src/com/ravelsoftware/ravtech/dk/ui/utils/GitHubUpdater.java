@@ -23,14 +23,13 @@ public class GitHubUpdater extends Updater {
 
 	String user;
 	String archive;
-
-	public GitHubUpdater (String currentVersion, String user, String archive) {
-		super(currentVersion);
+	
+	public GitHubUpdater (String user, String archive) {
+		super();
 		this.user = user;
 		this.archive = archive;
 		this.repositoryUrl = "https://codeload.github.com/" + user + "/" + archive + "/zip/";
 		this.versionUrl = "https://api.github.com/repos/" + user + "/" + archive + "/tags";
-		this.checkRemoteVersion();
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class GitHubUpdater extends Updater {
 
 	@Override
 	public boolean isNewVersionAvalible () {
-		return Float.valueOf(getRemoteVersion()) > Float.valueOf(this.currentVersion);
+		return Float.valueOf((getRemoteVersion() != null) ? getRemoteVersion() : "0") > Float.valueOf(this.currentVersion);
 	}
 
 	@Override
@@ -54,9 +53,14 @@ public class GitHubUpdater extends Updater {
 			Zipper.extract(RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").file(), RavTechDK.getDownloadsFile("").file());
 			RavTechDK.getDownloadsFile(archive + "-" + version).moveTo(RavTechDK.getPluginsFile(archive + "/"));
 			RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").delete();
+			this.currentVersion = version;
+			if(this.updaterEntry != null) {
+				this.updaterEntry.finishedUpdating();
+			}
+			UpdateManager.saveCurrentVersions();
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}
+		}		
 	}
 
 	public void checkRemoteVersion () {
@@ -70,6 +74,9 @@ public class GitHubUpdater extends Updater {
 				String versionName = httpResponseMessage.substring(versionStart + 2, versionStart + 10);
 				versionName = versionName.substring(0, versionName.indexOf('"'));
 				GitHubUpdater.this.remoteVersion = versionName;
+				if(GitHubUpdater.this.updaterEntry != null) {
+					GitHubUpdater.this.updaterEntry.gotRemoteVersion();
+				}
 			}
 
 			@Override

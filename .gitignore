@@ -37,6 +37,7 @@ development-kit/zbstudio/
 development-kit/temp/
 development-kit/builder/
 development-kit/build/
+development-kit/versions.json
 
 ## Eclipse
 .classpath
