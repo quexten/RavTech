@@ -20,6 +20,7 @@ import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildDialog;
@@ -228,6 +229,8 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
+						VisWindow window = ((RavTechDKApplication) Gdx.app.getApplicationListener()).updateWidget;
+						window.setVisible(!window.isVisible());
 					}
 				});
 				menu.addItem(entry);

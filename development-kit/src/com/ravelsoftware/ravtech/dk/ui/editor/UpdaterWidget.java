@@ -39,6 +39,7 @@ public class UpdaterWidget extends VisWindow {
 
 		setResizable(true);
 		setSize(450, 600);
+		setVisible(false);
 	}
 
 	public class UpdaterEntry extends VisTable {
@@ -68,7 +69,8 @@ public class UpdaterWidget extends VisWindow {
 			add(subLineTable).align(Align.left);
 			add(new Actor()).growX();
 			actionButton = new VisTextButton(updater.isNewVersionAvalible() ? "Update" : (updater.currentVersion().equals("") ? "Install" : "Uninstall"));
-
+			actionButton.setDisabled(true);
+			
 			actionButton.addListener(new ChangeListener() {
 				@Override
 				public void changed (ChangeEvent event, Actor actor) {

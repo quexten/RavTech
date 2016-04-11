@@ -31,6 +31,7 @@ public class RavTechDKApplication extends RavTech {
 	public SceneViewWidget mainSceneView;
 	public Inspector inspector;
 	public AssetViewer assetViewer;
+	public UpdaterWidget updateWidget;
 
 	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
 		super(absoluteFileHandleResolver, project, new EngineConfiguration());
@@ -100,7 +101,7 @@ public class RavTechDKApplication extends RavTech {
 		UpdateManager.checkForUpdates();
 		RavTechDK.editorAssetManager.load("fonts/OpenSansBold.fnt", BitmapFont.class);
 		RavTechDK.editorAssetManager.finishLoading();
-		RavTech.ui.getStage().addActor(new UpdaterWidget());
+		RavTech.ui.getStage().addActor(this.updateWidget = new UpdaterWidget());
 		
 	}
 
