@@ -28,11 +28,6 @@ import com.ravelsoftware.ravtech.project.Project;
 
 public class RavTechDKApplication extends RavTech {
 
-	public SceneViewWidget mainSceneView;
-	public Inspector inspector;
-	public AssetViewer assetViewer;
-	public UpdaterWidget updateWidget;
-
 	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
 		super(absoluteFileHandleResolver, project, new EngineConfiguration());
 	}
@@ -46,28 +41,7 @@ public class RavTechDKApplication extends RavTech {
 		RavTech.sceneHandler.paused = true;
 		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 
-		final Table root = new Table();
-		root.setFillParent(true);
-		RavTech.ui.getStage().addActor(root);
-		EditorMenuBar menuBar = new EditorMenuBar();
-		root.add(menuBar.getTable()).expandX().fillX().row();
-		root.row();
-		mainSceneView = new SceneViewWidget(true);
-		root.add(mainSceneView).expand().fill();
-		Gdx.input.setInputProcessor(RavTech.ui.getStage());
-
-		HookApi.onResizeHooks.add(new Runnable() {
-
-			@Override
-			public void run () {
-				mainSceneView.resize();
-			}
-
-		});
-
-		RavTech.ui.getStage().addActor(inspector = new Inspector());
-
-		RavTechDK.gizmoHandler = new GizmoHandler();
+		RavTechDK.initialize();
 		HookApi.onRenderHooks.add(new Runnable() {
 			@Override
 			public void run () {
@@ -87,27 +61,11 @@ public class RavTechDKApplication extends RavTech {
 			RavTech.ui.getStage().addActor(wizard);
 		}
 
-		assetViewer = new AssetViewer();
-		VisWindow window = new VisWindow("AssetView");
-		window.add(assetViewer).grow();
-		window.setResizable(true);
-		window.setSize(1000, 300);
-		window.setPosition(2000, 0);
-		RavTech.ui.getStage().addActor(window);
-
-		UpdateManager.loadCurrentVersions();
-		ZeroBraneUtil.initialize();
-		
-		UpdateManager.checkForUpdates();
-		RavTechDK.editorAssetManager.load("fonts/OpenSansBold.fnt", BitmapFont.class);
-		RavTechDK.editorAssetManager.finishLoading();
-		RavTech.ui.getStage().addActor(this.updateWidget = new UpdaterWidget());
 		
 	}
 
 	@Override
 	public void render () {
-		//UpdateManager.update();
 		RavTech.ui.getStage().act();
 		RavTech.sceneHandler.render();
 		RavTech.ui.getStage().draw();
@@ -136,4 +94,6 @@ public class RavTechDKApplication extends RavTech {
 		});
 		RavTech.ui.getStage().addActor(window);
 	}
+	
+	
 }

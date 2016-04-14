@@ -142,7 +142,7 @@ public abstract class ComponentPanel {
 		table.add(padTable).expandX().growX().height(20);
 		padTable.add(fileLabel).growX().fillX();
 		table.row();
-		((RavTechDKApplication)Gdx.app.getApplicationListener()).assetViewer.dragAndDrop.addTarget(new Target(padTable) {
+		RavTechDK.assetViewer.dragAndDrop.addTarget(new Target(padTable) {
 			@Override
 			public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
 				String objectPath = String.valueOf(payload.getObject());

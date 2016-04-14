@@ -8,6 +8,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.FontRenderer;
 import com.ravelsoftware.ravtech.components.GameObject;
+import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 
 public class FontPreviewPanel extends AssetPreviewPanel {
@@ -35,7 +36,7 @@ public class FontPreviewPanel extends AssetPreviewPanel {
 
 	@Override
 	public void addToScene () {
-		Vector2 worldPosition = ((RavTechDKApplication)Gdx.app.getApplicationListener()).mainSceneView.camera
+		Vector2 worldPosition = RavTechDK.mainSceneView.camera
 			.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		GameObject object = RavTech.currentScene.addGameObject(worldPosition.x, worldPosition.y);
 		FontRenderer renderer = new FontRenderer();

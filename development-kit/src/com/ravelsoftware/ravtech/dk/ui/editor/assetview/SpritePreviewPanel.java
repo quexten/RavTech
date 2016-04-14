@@ -9,7 +9,7 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.GameObject;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
-import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
+import com.ravelsoftware.ravtech.dk.RavTechDK;
 
 public class SpritePreviewPanel extends AssetPreviewPanel {
 
@@ -29,7 +29,7 @@ public class SpritePreviewPanel extends AssetPreviewPanel {
 
 	@Override
 	public void addToScene () {
-		Vector2 worldPosition = ((RavTechDKApplication)Gdx.app.getApplicationListener()).mainSceneView.camera
+		Vector2 worldPosition = RavTechDK.mainSceneView.camera
 			.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		GameObject object = RavTech.currentScene.addGameObject(worldPosition.x, worldPosition.y);
 		SpriteRenderer renderer = new SpriteRenderer();

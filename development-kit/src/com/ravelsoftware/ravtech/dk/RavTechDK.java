@@ -8,10 +8,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
+import com.kotcrab.vis.ui.widget.VisWindow;
+import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
+import com.ravelsoftware.ravtech.components.GameObject;
 import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
+import com.ravelsoftware.ravtech.dk.ui.editor.EditorMenuBar;
+import com.ravelsoftware.ravtech.dk.ui.editor.Inspector;
+import com.ravelsoftware.ravtech.dk.ui.editor.SceneViewWidget;
+import com.ravelsoftware.ravtech.dk.ui.editor.UpdaterWidget;
+import com.ravelsoftware.ravtech.dk.ui.editor.assetview.AssetViewer;
+import com.ravelsoftware.ravtech.dk.ui.utils.UpdateManager;
+import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 import com.ravelsoftware.ravtech.project.Project;
 import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.ResourceFileHandleResolver;
@@ -30,33 +43,55 @@ public class RavTechDK {
 	public static FileHandle projectHandle;
 	public static GizmoHandler gizmoHandler;
 	public static AssetManager editorAssetManager = new AssetManager(new ResourceFileHandleResolver());	
+	public static Inspector inspector;
+	public static SceneViewWidget mainSceneView;
+	public static AssetViewer assetViewer;
+	public static UpdaterWidget updateWidget;
 	
-	public static void initialize (RavTech ravtech) {
-		gizmoHandler = new GizmoHandler();
+	public static Array<GameObject> selectedObjects = new Array<GameObject>();
+	
+	public static void initialize() {
 
-		setProject(projectHandle.path());
-		Gdx.app.postRunnable(new Runnable() {
+		final Table root = new Table();
+		root.setFillParent(true);
+		RavTech.ui.getStage().addActor(root);
+		EditorMenuBar menuBar = new EditorMenuBar();
+		root.add(menuBar.getTable()).expandX().fillX().row();
+		root.row();
+		mainSceneView = new SceneViewWidget(true);
+		root.add(mainSceneView).expand().fill();
+		Gdx.input.setInputProcessor(RavTech.ui.getStage());
+
+		HookApi.onResizeHooks.add(new Runnable() {
+
 			@Override
 			public void run () {
-				RavTech.sceneHandler.paused = true;
-				// final InputManager inputManager = new InputManager();
-				// Gdx.input.setInputProcessor(inputManager);
-				/*
-				 * HookApi.onRenderHooks.add(new Runnable() {
-				 *
-				 * @Override public void run () { // Selection if (!Gdx.input.isButtonPressed(Buttons.LEFT))
-				 * inputManager.selectionAlpha -= Gdx.graphics.getDeltaTime(); ShapeRenderer renderer = RavTech.shapeRenderer;
-				 * Gdx.gl.glEnable(GL20.GL_BLEND); Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-				 * renderer.setColor(1, 1, 1, inputManager.selectionAlpha); renderer.begin(ShapeType.Filled);
-				 * renderer.rect(inputManager.dragStartPosition.x, inputManager.dragStartPosition.y,
-				 * inputManager.dragCurrentPosition.x - inputManager.dragStartPosition.x, inputManager.dragCurrentPosition.y -
-				 * inputManager.dragStartPosition.y); renderer.end(); Gdx.gl.glDisable(GL20.GL_BLEND); // Gizmos
-				 * renderer.begin(ShapeType.Line); gizmoHandler.render(renderer); renderer.end(); } });
-				 */
+				mainSceneView.resize();
 			}
-		});		
-	}
 
+		});
+
+		RavTech.ui.getStage().addActor(inspector = new Inspector());
+		RavTechDK.gizmoHandler = new GizmoHandler();
+
+		assetViewer = new AssetViewer();
+		VisWindow window = new VisWindow("AssetView");
+		window.add(assetViewer).grow();
+		window.setResizable(true);
+		window.setSize(1000, 300);
+		window.setPosition(2000, 0);
+		RavTech.ui.getStage().addActor(window);
+
+
+		UpdateManager.loadCurrentVersions();
+		ZeroBraneUtil.initialize();
+		
+		UpdateManager.checkForUpdates();
+		RavTechDK.editorAssetManager.load("fonts/OpenSansBold.fnt", BitmapFont.class);
+		RavTechDK.editorAssetManager.finishLoading();
+		RavTech.ui.getStage().addActor(updateWidget = new UpdaterWidget());
+	}
+	
 	public static void setProject (final String projectRootPath) {
 		project = Project.load(projectHandle = new Lwjgl3FileHandle(new File(projectRootPath), FileType.Absolute));
 		// ui.ravtechDKFrame.setTitle(ui.ravtechDKFrame.getFullTitle());
@@ -130,4 +165,25 @@ public class RavTechDK {
 		RavTech.currentScene.dispose();
 		RavTech.currentScene = RavTech.files.getAsset(path);
 	}
+	
+	/** Sets the currently selected objects
+	 * @param objects - the objects that have been selected */
+	public static void setSelectedObjects (Array<GameObject> objects) {
+		Array<GameObject> componentCountList = new Array<GameObject>();
+		for (int i = 0; i < selectedObjects.size; i++)
+			if (!componentCountList.contains(selectedObjects.get(i), true)) componentCountList.add(selectedObjects.get(i));
+		int lastObjectCount = componentCountList.size;
+		selectedObjects.clear();
+		selectedObjects.addAll(objects);
+		if (lastObjectCount != selectedObjects.size) RavTechDK.inspector.changed();
+		RavTechDK.gizmoHandler.setupGizmos();
+	}
+
+	public static void setSelectedObjects (GameObject... objects) {
+		selectedObjects.clear();
+		selectedObjects.addAll(objects);
+		inspector.changed();
+		gizmoHandler.setupGizmos();
+	}
+	
 }

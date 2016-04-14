@@ -21,8 +21,6 @@ import com.kotcrab.vis.ui.layout.HorizontalFlowGroup;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
-import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 
 public class AssetViewer extends VisTable {
@@ -62,7 +60,7 @@ public class AssetViewer extends VisTable {
 		}
 
 		public void setDirectory (String path) {
-			RavTechDKUtil.inspectorChanged();
+			RavTechDK.inspector.changed();
 			this.currentPath = path;
 			clear();
 			HorizontalFlowGroup group = new HorizontalFlowGroup();
@@ -83,7 +81,7 @@ public class AssetViewer extends VisTable {
 
 			dragAndDrop = new DragAndDrop();
 			dragAndDrop.setDragActorPosition(0, 0);
-			dragAndDrop.addTarget(new Target(((RavTechDKApplication)Gdx.app.getApplicationListener()).mainSceneView) {
+			dragAndDrop.addTarget(new Target(RavTechDK.mainSceneView) {
 				@Override
 				public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
 					return true;
@@ -95,7 +93,7 @@ public class AssetViewer extends VisTable {
 				}
 			});
 
-			Array<Actor> inspectorActors = ((RavTechDKApplication)Gdx.app.getApplicationListener()).inspector.dragActors;
+			Array<Actor> inspectorActors = RavTechDK.inspector.dragActors;
 			for (int i = 0; i < inspectorActors.size; i++)
 				dragAndDrop.addTarget(new Target(inspectorActors.get(i)) {
 

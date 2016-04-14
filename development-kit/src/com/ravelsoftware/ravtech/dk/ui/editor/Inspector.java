@@ -20,7 +20,6 @@ import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.ravelsoftware.ravtech.components.GameComponent;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 
 public class Inspector extends VisWindow {
 
@@ -30,6 +29,8 @@ public class Inspector extends VisWindow {
 	public Array<Actor> dragActors = new Array<Actor>();
 	Array<ComponentPanel> componentPanels = new Array<ComponentPanel>();
 
+	boolean inspectorChanged;
+		
 	public Inspector () {
 		super("Inspector");
 		ComponentPanels.registerPanels();
@@ -40,8 +41,8 @@ public class Inspector extends VisWindow {
 
 	public void act (float delta) {
 		super.act(delta);
-		if (RavTechDKUtil.hasInspectorChanged()) {
-			RavTechDKUtil.inspectorSynced();
+		if (hasChanged()) {
+			synced();
 			rebuild();
 		}
 	}
@@ -56,9 +57,9 @@ public class Inspector extends VisWindow {
 		scrollPane.setScrollingDisabled(true, false);
 		contentTable.clear();
 		setVisible(true);
-		if (RavTechDKUtil.selectedObjects.size > 0) {
-			for (int i = 0; i < RavTechDKUtil.selectedObjects.first().getComponents().size; i++)
-				addCollapsiblePanel(RavTechDKUtil.selectedObjects.first().getComponents().get(i));
+		if (RavTechDK.selectedObjects.size > 0) {
+			for (int i = 0; i < RavTechDK.selectedObjects.first().getComponents().size; i++)
+				addCollapsiblePanel(RavTechDK.selectedObjects.first().getComponents().get(i));
 			final VisTextButton textButton = new VisTextButton("Add Component");
 			textButton.addListener(new ChangeListener() {
 				@Override
@@ -107,7 +108,7 @@ public class Inspector extends VisWindow {
 					GameComponent component;
 					try {
 						component = (GameComponent)ClassReflection.newInstance(ClassReflection.forName(className));
-						RavTechDKUtil.selectedObjects.get(0).addComponent(component);
+						RavTechDK.selectedObjects.get(0).addComponent(component);
 						component.finishedLoading();
 						Inspector.this.rebuild();
 						RavTechDK.gizmoHandler.setupGizmos();
@@ -124,6 +125,19 @@ public class Inspector extends VisWindow {
 	public void updateValue (GameComponent component, String valueName) {
 		for (int i = 0; i < this.componentPanels.size; i++)
 			if (this.componentPanels.get(i).component.equals(component)) this.componentPanels.get(i).updateValue(valueName);
+	}
+
+	public boolean hasChanged () {
+		return inspectorChanged;
+	}
+
+	public void changed () {
+		com.ravelsoftware.ravtech.util.Debug.log("Inspector", "changed");
+		inspectorChanged = true;
+	}
+
+	public void synced () {
+		inspectorChanged = false;
 	}
 
 }

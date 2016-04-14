@@ -34,34 +34,6 @@ public class UpdateManager {
 		RavTechDK.getLocalFile("versions.json").writeString(new Json().prettyPrint(versions), false);
 	}
 
-	public static void update () {
-		if (!finishedCheckingRemoteVersions) {
-			Entries<String, Updater> entries = updaters.iterator();
-			
-			boolean finished = true;
-			
-			while (entries.hasNext) {
-				Entry<String, Updater> entry = entries.next();
-				if (entry.value.getRemoteVersion() == null) {
-					finished = false;
-					break;
-				}
-			}
-			
-			if (finished) {
-				finishedCheckingRemoteVersions = true;
-				entries = updaters.iterator();
-				while (entries.hasNext) {
-					Entry<String, Updater> entry = entries.next();
-					if (entry.value.isNewVersionAvalible()) {
-						Debug.logDebug("Update Manager", "New Version Avalible For: " + entry.key + " " + entry.value.currentVersion() + "/"
-							+ entry.value.getRemoteVersion());
-					}
-				}
-			}
-		}
-	}
-
 	public static void checkForUpdates () {
 		finishedCheckingRemoteVersions = false;
 		Entries<String, Updater> entries = updaters.iterator();

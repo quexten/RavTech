@@ -20,7 +20,6 @@ import com.ravelsoftware.ravtech.components.Light;
 import com.ravelsoftware.ravtech.components.Rigidbody;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
-import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.ui.utils.IconUtil;
 
 public class AddComponentAction implements Runnable {
@@ -58,7 +57,7 @@ public class AddComponentAction implements Runnable {
 					public void run () {
 						try {
 							GameComponent component = ClassReflection.newInstance(componentClass);
-							RavTechDKUtil.selectedObjects.get(0).addComponent(component);
+							//add component
 							component.finishedLoading();
 						} catch (ReflectionException e) {
 							e.printStackTrace();

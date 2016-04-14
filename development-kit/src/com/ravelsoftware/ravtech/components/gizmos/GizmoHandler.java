@@ -21,7 +21,6 @@ import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
-import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.util.EventType;
 
 public class GizmoHandler {
@@ -34,15 +33,15 @@ public class GizmoHandler {
 	/** Renders the currently active gizmos
 	 * @param renderer - the shaperenderer to render the gizmos with */
 	public void render (ShapeRenderer renderer) {
-		if (exclusiveGizmo == null)
-			for (int i = 0; i < RavTechDKUtil.selectedObjects.size; i++) {
-				GameObject object = RavTechDKUtil.selectedObjects.get(i);
+		if (exclusiveGizmo == null) {
+			for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
+				GameObject object = RavTechDK.selectedObjects.get(i);
 				if (object != null) for (int n = 0; n < object.getComponents().size; n++) {
 					Gizmo gizmo = getGizmoFor(object.getComponents().get(n));
 					if (gizmo != null) gizmo.draw(renderer, gizmo == closestGizmo);
 				}
 			}
-		else
+		} else
 			exclusiveGizmo.draw(renderer, exclusiveGizmo == closestGizmo);
 	}
 
@@ -82,7 +81,7 @@ public class GizmoHandler {
 				if (transform != null) {
 					Array<GameObject> objects = new Array<GameObject>();
 					objects.add(transform.getParent());
-					RavTechDKUtil.setSelectedObjects(objects);
+					RavTechDK.setSelectedObjects(objects);
 					if (button == Buttons.LEFT) {
 						this.draggedGizmo = getGizmoFor(transform);
 						((TransformGizmo)this.draggedGizmo).moveGrab = true;
@@ -92,7 +91,7 @@ public class GizmoHandler {
 					}
 				} else {
 					selectedObjectGizmoMap.clear();
-					RavTechDKUtil.selectedObjects.clear();
+					RavTechDK.selectedObjects.clear();
 					setExclusiveGizmo(null);
 				}
 			}
@@ -102,7 +101,6 @@ public class GizmoHandler {
 				closestGizmo = null;
 				draggedGizmo.input(x, y, 0, EventType.MouseUp);
 				draggedGizmo = null;
-				RavTechDKUtil.renderSelection = false;
 				return true;
 			}
 			return false;
@@ -126,8 +124,8 @@ public class GizmoHandler {
 	/** Sets up gizmos for the currently selected list of objects */
 	public void setupGizmos () {
 		selectedObjectGizmoMap.clear();
-		for (int i = 0; i < RavTechDKUtil.selectedObjects.size; i++) {
-			GameObject selectedObject = RavTechDKUtil.selectedObjects.get(i);
+		for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
+			GameObject selectedObject = RavTechDK.selectedObjects.get(i);
 			if (selectedObject != null) for (int n = 0; n < selectedObject.getComponents().size; n++) {
 				GameComponent iteratedComponent = selectedObject.getComponents().get(n);
 				Gizmo gizmo = null;
@@ -178,8 +176,8 @@ public class GizmoHandler {
 			} else {
 				Gizmo gizmo = RavTechDK.gizmoHandler.createGizmoFor(objects.get(i));
 				if (gizmo != null) {
-					boolean isIn = gizmo.isInBoundingBox(((RavTechDKApplication)Gdx.app.getApplicationListener()).mainSceneView.camera
-						.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY() - 24)));
+					boolean isIn = gizmo.isInBoundingBox((RavTechDK.mainSceneView.camera
+						.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY() - 24))));
 					if (isIn) {
 						transform = objects.get(i).getParent().transform;
 						break;

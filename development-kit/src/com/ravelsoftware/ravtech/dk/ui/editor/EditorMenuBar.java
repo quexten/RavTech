@@ -21,7 +21,6 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
-import com.ravelsoftware.ravtech.dk.RavTechDKUtil;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildDialog;
 import com.ravelsoftware.ravtech.history.ChangeManager;
@@ -142,7 +141,7 @@ public class EditorMenuBar extends MenuBar {
 								+ RavTech.sceneHandler.worldCamera.position.x + ",\"y\":" + RavTech.sceneHandler.worldCamera.position.y
 								+ ",\"rotation\":0,\"scale\":1}]}");
 						ChangeManager.addChangeable(changeable);
-						RavTechDKUtil.setSelectedObject(RavTech.currentScene.gameObjects.peek());
+						RavTechDK.setSelectedObjects(RavTech.currentScene.gameObjects.peek());
 					}
 				});
 				menu.addItem(entry);
@@ -229,7 +228,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						VisWindow window = ((RavTechDKApplication) Gdx.app.getApplicationListener()).updateWidget;
+						VisWindow window = RavTechDK.updateWidget;
 						window.setVisible(!window.isVisible());
 					}
 				});

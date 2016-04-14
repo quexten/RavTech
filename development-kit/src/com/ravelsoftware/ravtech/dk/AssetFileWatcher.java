@@ -60,7 +60,7 @@ public class AssetFileWatcher {
 										if(!assetPath.endsWith(".scene"))
 											if (RavTech.files.isLoaded(assetPath)) 
 												RavTech.files.reloadAsset(assetPath);
-										((RavTechDKApplication)Gdx.app.getApplicationListener()).assetViewer.assetView.refresh();
+										RavTechDK.assetViewer.assetView.refresh();
 									}
 								});
 							}
