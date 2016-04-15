@@ -58,6 +58,8 @@ public class GitHubUpdater extends Updater {
 				this.updaterEntry.finishedUpdating();
 			}
 			UpdateManager.saveCurrentVersions();
+			if(this.postUpdateHook != null)
+				this.postUpdateHook.run();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}		

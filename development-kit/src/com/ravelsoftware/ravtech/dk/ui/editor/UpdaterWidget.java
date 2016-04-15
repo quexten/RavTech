@@ -101,6 +101,7 @@ public class UpdaterWidget extends VisWindow {
 		public void gotRemoteVersion () {
 			versionLabel.setText("Version: " + updater.currentVersion() + "/" + updater.getRemoteVersion());
 			actionButton.setText(updater.isNewVersionAvalible() ? "Update" : (updater.currentVersion().equals("") ? "Install" : "Uninstall"));
+			actionButton.setDisabled(false);
 		}
 		
 	}

@@ -10,6 +10,7 @@ public abstract class Updater {
 	String projectPage = "";
 
 	UpdaterEntry updaterEntry;
+	Runnable postUpdateHook;
 	
 	public Updater () {
 	}
@@ -66,6 +67,11 @@ public abstract class Updater {
 	
 	public Updater setUpdaterEntry (UpdaterEntry updaterEntry) {
 		this.updaterEntry = updaterEntry;
+		return this;
+	}
+
+	public Updater addPostUpdateHook (Runnable runnable) {
+		this.postUpdateHook = runnable;
 		return this;
 	}
 
