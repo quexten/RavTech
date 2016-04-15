@@ -25,6 +25,7 @@ public class Camera extends OrthographicCamera {
 	String cameraBufferName = "TestCameraBuffer";
 	String cameraPingPongBufferName = "TestCameraPingPongBufferName";
 	boolean renderToFramebuffer = RavTech.isEditor;
+	public boolean drawGrid;
 	public static int camId;
 
 	public Camera (int width, int height) {

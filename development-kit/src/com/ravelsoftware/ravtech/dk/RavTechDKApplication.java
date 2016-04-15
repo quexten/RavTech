@@ -5,25 +5,16 @@ import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.ravelsoftware.ravtech.EngineConfiguration;
 import com.ravelsoftware.ravtech.HookApi;
 import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.gizmos.GizmoHandler;
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
-import com.ravelsoftware.ravtech.dk.ui.editor.EditorMenuBar;
-import com.ravelsoftware.ravtech.dk.ui.editor.Inspector;
 import com.ravelsoftware.ravtech.dk.ui.editor.SceneViewWidget;
-import com.ravelsoftware.ravtech.dk.ui.editor.UpdaterWidget;
-import com.ravelsoftware.ravtech.dk.ui.editor.assetview.AssetViewer;
-import com.ravelsoftware.ravtech.dk.ui.utils.UpdateManager;
-import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
 import com.ravelsoftware.ravtech.project.Project;
 
 public class RavTechDKApplication extends RavTech {
@@ -61,7 +52,7 @@ public class RavTechDKApplication extends RavTech {
 			RavTech.ui.getStage().addActor(wizard);
 		}
 
-		
+		RavTechDK.mainSceneView.camera.drawGrid = true;
 	}
 
 	@Override

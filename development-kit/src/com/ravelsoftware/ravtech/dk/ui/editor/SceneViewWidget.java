@@ -18,12 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.VisUI;
 import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.GameObject;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.DeleteAction;
 import com.ravelsoftware.ravtech.dk.actions.PasteAction;
 import com.ravelsoftware.ravtech.graphics.Camera;
+import com.ravelsoftware.ravtech.graphics.Renderable;
 import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 
@@ -39,8 +39,9 @@ public class SceneViewWidget extends Widget {
 	Vector2 selectionStart = new Vector2();
 	Vector2 selectionEnd = new Vector2();
 	boolean isDragging;
-			
-	
+
+	boolean renderGrid;
+
 	public SceneViewWidget (boolean main) {
 		camera = main ? RavTech.sceneHandler.worldCamera : RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
 		camera.zoom = 0.05f;
