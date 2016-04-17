@@ -29,8 +29,7 @@ public class SpritePreviewPanel extends AssetPreviewPanel {
 
 	@Override
 	public void addToScene () {
-		Vector2 worldPosition = RavTechDK.mainSceneView.camera
-			.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		Vector2 worldPosition = RavTechDK.mainSceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		GameObject object = RavTech.currentScene.addGameObject(worldPosition.x, worldPosition.y);
 		SpriteRenderer renderer = new SpriteRenderer();
 		renderer.setTexture(assetPath);

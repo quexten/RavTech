@@ -23,7 +23,6 @@ import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.DeleteAction;
 import com.ravelsoftware.ravtech.dk.actions.PasteAction;
 import com.ravelsoftware.ravtech.graphics.Camera;
-import com.ravelsoftware.ravtech.graphics.Renderable;
 import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 
@@ -74,9 +73,8 @@ public class SceneViewWidget extends Widget {
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
 				isDragging = false;
-				if (!RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp)) {
+				if (!RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp))
 					RavTechDK.inspector.changed();
-				}
 			}
 		});
 
@@ -149,15 +147,15 @@ public class SceneViewWidget extends Widget {
 
 				if (keycode == Keys.F5) {
 					Array<String> assetNames = RavTech.files.getAssetManager().getAssetNames();
-					for(int i = 0; i < assetNames.size; i++)
+					for (int i = 0; i < assetNames.size; i++)
 						RavTech.files.reloadAsset(assetNames.get(i));
 				}
-				
+
 				if (keycode == Keys.F2) {
-					//Debug.log("isNewVersionAvalible", updater.isNewVersionAvalible());
+					// Debug.log("isNewVersionAvalible", updater.isNewVersionAvalible());
 				}
-				if(keycode == Keys.F3) {
-				//	updater.update("1.30");
+				if (keycode == Keys.F3) {
+					// updater.update("1.30");
 				}
 				return false;
 			}

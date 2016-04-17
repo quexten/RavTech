@@ -3,19 +3,12 @@ package com.ravelsoftware.ravtech.dk;
 
 import java.io.File;
 
-import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
-import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
-import com.ravelsoftware.ravtech.project.Project;
 import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
 import com.ravelsoftware.ravtech.settings.SettingsValueListener;
 import com.ravelsoftware.ravtech.util.Debug;
@@ -23,11 +16,11 @@ import com.ravelsoftware.ravtech.util.Debug;
 public class Launcher {
 
 	public static void main (String[] args) {
-		RavTech.isEditor = true;		
+		RavTech.isEditor = true;
 		initializeEngine();
 	}
 
-	static void initializeEngine () {		
+	static void initializeEngine () {
 		final RavTechDKApplication ravtech = new RavTechDKApplication();
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();

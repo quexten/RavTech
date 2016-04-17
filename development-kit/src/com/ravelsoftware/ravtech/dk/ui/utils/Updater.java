@@ -11,14 +11,14 @@ public abstract class Updater {
 
 	UpdaterEntry updaterEntry;
 	Runnable postUpdateHook;
-	
+
 	public Updater () {
 	}
-	
-	public void setCurrentVersion(String version) {
+
+	public void setCurrentVersion (String version) {
 		this.currentVersion = version;
 	}
-	
+
 	/** @return the current Version of the Plugin */
 	public String currentVersion () {
 		return this.currentVersion;
@@ -64,7 +64,7 @@ public abstract class Updater {
 	public String getProjectPage () {
 		return this.projectPage;
 	}
-	
+
 	public Updater setUpdaterEntry (UpdaterEntry updaterEntry) {
 		this.updaterEntry = updaterEntry;
 		return this;

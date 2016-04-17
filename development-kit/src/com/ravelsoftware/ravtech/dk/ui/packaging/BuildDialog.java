@@ -196,17 +196,16 @@ public class BuildDialog extends VisWindow {
 		if (run)
 			Packager.run(buildDialog, targetPlatform, "");
 		else
-			Packager.dist(buildDialog, targetPlatform, userData,
-				getDistFileHandle(targetPlatform));
+			Packager.dist(buildDialog, targetPlatform, userData, getDistFileHandle(targetPlatform));
 	}
 
 	public void build (TargetPlatform targetPlatform, boolean run) {
 		this.build(targetPlatform, run, null);
 	}
 
-	FileHandle getDistFileHandle(TargetPlatform platform) {
+	FileHandle getDistFileHandle (TargetPlatform platform) {
 		FileHandle buildsHandle = RavTechDK.projectHandle.child("builds");
-		switch(platform) {
+		switch (platform) {
 		case Android:
 			return buildsHandle.child("android");
 		case Desktop:
@@ -222,9 +221,9 @@ public class BuildDialog extends VisWindow {
 		case iOS:
 			break;
 		default:
-			break;		
+			break;
 		}
 		return buildsHandle.child("error");
 	}
-	
+
 }

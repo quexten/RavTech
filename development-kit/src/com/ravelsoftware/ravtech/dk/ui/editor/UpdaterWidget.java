@@ -43,11 +43,11 @@ public class UpdaterWidget extends VisWindow {
 	}
 
 	public class UpdaterEntry extends VisTable {
-		
+
 		VisLabel versionLabel;
 		VisTextButton actionButton;
 		Updater updater;
-		
+
 		public UpdaterEntry (String title, final Updater updater) {
 			this.updater = updater;
 			align(Align.left);
@@ -68,9 +68,10 @@ public class UpdaterWidget extends VisWindow {
 			subLineTable.add(new LinkLabel(title, updater.getProjectPage())).padLeft(15);
 			add(subLineTable).align(Align.left);
 			add(new Actor()).growX();
-			actionButton = new VisTextButton(updater.isNewVersionAvalible() ? "Update" : (updater.currentVersion().equals("") ? "Install" : "Uninstall"));
+			actionButton = new VisTextButton(
+				updater.isNewVersionAvalible() ? "Update" : updater.currentVersion().equals("") ? "Install" : "Uninstall");
 			actionButton.setDisabled(true);
-			
+
 			actionButton.addListener(new ChangeListener() {
 				@Override
 				public void changed (ChangeEvent event, Actor actor) {
@@ -94,16 +95,17 @@ public class UpdaterWidget extends VisWindow {
 		}
 
 		public void finishedUpdating () {
-			versionLabel.setText("Version: " + updater.currentVersion() + "/" + updater.getRemoteVersion()); 
+			versionLabel.setText("Version: " + updater.currentVersion() + "/" + updater.getRemoteVersion());
 			actionButton.setText("Uninstall");
 		}
-		
+
 		public void gotRemoteVersion () {
 			versionLabel.setText("Version: " + updater.currentVersion() + "/" + updater.getRemoteVersion());
-			actionButton.setText(updater.isNewVersionAvalible() ? "Update" : (updater.currentVersion().equals("") ? "Install" : "Uninstall"));
+			actionButton
+				.setText(updater.isNewVersionAvalible() ? "Update" : updater.currentVersion().equals("") ? "Install" : "Uninstall");
 			actionButton.setDisabled(false);
 		}
-		
+
 	}
 
 }

@@ -30,7 +30,7 @@ public class Inspector extends VisWindow {
 	Array<ComponentPanel> componentPanels = new Array<ComponentPanel>();
 
 	boolean inspectorChanged;
-		
+
 	public Inspector () {
 		super("Inspector");
 		ComponentPanels.registerPanels();

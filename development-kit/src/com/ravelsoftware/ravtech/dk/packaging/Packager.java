@@ -47,8 +47,7 @@ public class Packager {
 					Gdx.files
 						.absolute(System.getProperty("user.dir") + "/builder/android/build/outputs/apk/android-release-aligned.apk"),
 					destinationDir.child("build.apk")))
-				.setNextStep(
-					new DeleteFileStep(buildReporterDialog, (RavTechDK.projectHandle.child("assets").child("project.json"))));
+				.setNextStep(new DeleteFileStep(buildReporterDialog, RavTechDK.projectHandle.child("assets").child("project.json")));
 			break;
 		case Desktop:
 			firstStep
@@ -59,8 +58,7 @@ public class Packager {
 				.setNextStep(new CopyStep(buildReporterDialog,
 					Gdx.files.absolute(System.getProperty("user.dir") + "/builder/desktop/build/libs/desktop-1.0.jar"),
 					destinationDir.child("build.jar")))
-				.setNextStep(
-					new DeleteFileStep(buildReporterDialog, (RavTechDK.projectHandle.child("assets").child("project.json"))));
+				.setNextStep(new DeleteFileStep(buildReporterDialog, RavTechDK.projectHandle.child("assets").child("project.json")));
 
 			break;
 		case Linux:

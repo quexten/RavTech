@@ -20,7 +20,6 @@ import com.ravelsoftware.ravtech.components.PolygonCollider;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 import com.ravelsoftware.ravtech.util.EventType;
 
 public class GizmoHandler {
@@ -33,7 +32,7 @@ public class GizmoHandler {
 	/** Renders the currently active gizmos
 	 * @param renderer - the shaperenderer to render the gizmos with */
 	public void render (ShapeRenderer renderer) {
-		if (exclusiveGizmo == null) {
+		if (exclusiveGizmo == null)
 			for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
 				GameObject object = RavTechDK.selectedObjects.get(i);
 				if (object != null) for (int n = 0; n < object.getComponents().size; n++) {
@@ -41,7 +40,7 @@ public class GizmoHandler {
 					if (gizmo != null) gizmo.draw(renderer, gizmo == closestGizmo);
 				}
 			}
-		} else
+		else
 			exclusiveGizmo.draw(renderer, exclusiveGizmo == closestGizmo);
 	}
 
@@ -176,8 +175,8 @@ public class GizmoHandler {
 			} else {
 				Gizmo gizmo = RavTechDK.gizmoHandler.createGizmoFor(objects.get(i));
 				if (gizmo != null) {
-					boolean isIn = gizmo.isInBoundingBox((RavTechDK.mainSceneView.camera
-						.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY() - 24))));
+					boolean isIn = gizmo.isInBoundingBox(
+						RavTechDK.mainSceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY() - 24)));
 					if (isIn) {
 						transform = objects.get(i).getParent().transform;
 						break;

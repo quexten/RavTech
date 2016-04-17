@@ -61,8 +61,7 @@ public class SortedRenderer {
 		for (int i = 0; i < RavTech.currentScene.renderProperties.sortingLayers.size; i++) {
 			renderingLayers.get(sortingLayers.get(i).name).sort(comparator);
 			Array<Renderable> currentRenderables = new Array<Renderable>();
-			if (camera.drawGrid)
-				if (sortingLayers.get(i).name.equals("Default")) currentRenderables.add(new Renderable("default") {
+			if (camera.drawGrid) if (sortingLayers.get(i).name.equals("Default")) currentRenderables.add(new Renderable("default") {
 				@Override
 				public void render () {
 					spriteBatch.begin();

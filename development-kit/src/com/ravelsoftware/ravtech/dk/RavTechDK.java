@@ -35,23 +35,23 @@ public class RavTechDK {
 	public static final int majorVersion = 0;
 	public static final int minorVersion = 2;
 	public static final int microVersion = 0;
-	
-	public static String getVersionString() {
+
+	public static String getVersionString () {
 		return "V " + majorVersion + "." + minorVersion + "." + microVersion;
 	}
-	
+
 	public static Project project;
 	public static FileHandle projectHandle;
 	public static GizmoHandler gizmoHandler;
-	public static AssetManager editorAssetManager = new AssetManager(new ResourceFileHandleResolver());	
+	public static AssetManager editorAssetManager = new AssetManager(new ResourceFileHandleResolver());
 	public static Inspector inspector;
 	public static SceneViewWidget mainSceneView;
 	public static AssetViewer assetViewer;
 	public static UpdaterWidget updateWidget;
-	
+
 	public static Array<GameObject> selectedObjects = new Array<GameObject>();
-	
-	public static void initialize() {
+
+	public static void initialize () {
 
 		final Table root = new Table();
 		root.setFillParent(true);
@@ -77,13 +77,13 @@ public class RavTechDK {
 
 		UpdateManager.loadCurrentVersions();
 		ZeroBraneUtil.initialize();
-		
+
 		UpdateManager.checkForUpdates();
 		RavTechDK.editorAssetManager.load("fonts/OpenSansBold.fnt", BitmapFont.class);
 		RavTechDK.editorAssetManager.finishLoading();
 		RavTech.ui.getStage().addActor(updateWidget = new UpdaterWidget());
 	}
-	
+
 	public static void setProject (final String projectRootPath) {
 		project = Project.load(projectHandle = new Lwjgl3FileHandle(new File(projectRootPath), FileType.Absolute));
 		RavTech.files.setResolver(new AbsoluteFileHandleResolver() {
@@ -112,6 +112,7 @@ public class RavTechDK {
 		window.setSize(1000, 300);
 		window.setPosition(2000, 0);
 		RavTech.ui.getStage().addActor(window);
+		loadScene(project.startScene);
 	}
 
 	/** Creates Project base directories and base files
@@ -137,23 +138,23 @@ public class RavTechDK {
 		projectHandle.child("plugins").mkdirs();
 		FileHandle textureHandle = assetHandle.child("textures");
 		textureHandle.mkdirs();
-		textureHandle.child("error.png").write(new Lwjgl3FileHandle(new File("resources/ui/icons/error.png"), FileType.Local).read(),
-			false);
+		textureHandle.child("error.png")
+			.write(new Lwjgl3FileHandle(new File("resources/ui/icons/error.png"), FileType.Local).read(), false);
 		project.save(projectHandle);
 	}
 
 	public static FileHandle getLocalFile (String path) {
-		return Gdx.files.absolute((System.getProperty("user.dir") + "/" + path));
+		return Gdx.files.absolute(System.getProperty("user.dir") + "/" + path);
 	}
-	
-	public static FileHandle getDownloadsFile(String name) {
+
+	public static FileHandle getDownloadsFile (String name) {
 		return getPluginsFile("downloads").child(name);
 	}
-	
-	public static FileHandle getPluginsFile(String name) {
+
+	public static FileHandle getPluginsFile (String name) {
 		return Gdx.files.absolute(System.getProperty("user.dir") + "/plugins/" + name);
 	}
-	
+
 	public static String getSystemExecutableEnding () {
 		return System.getProperty("os.name").toLowerCase().contains("windows") ? "exe" : "sh";
 	}
@@ -168,14 +169,14 @@ public class RavTechDK {
 
 	public static void loadScene (String path) {
 		Debug.log("Load", "[" + path + "]");
-		if(RavTech.files.isLoaded(RavTechDK.getCurrentScene()))
-		RavTech.files.getAssetManager().unload(RavTechDK.getCurrentScene());
+		if (RavTech.files.isLoaded(RavTechDK.getCurrentScene()))
+			RavTech.files.getAssetManager().unload(RavTechDK.getCurrentScene());
 		RavTech.files.loadAsset(path, Scene.class);
 		RavTech.files.finishLoading();
 		RavTech.currentScene.dispose();
 		RavTech.currentScene = RavTech.files.getAsset(path);
 	}
-	
+
 	/** Sets the currently selected objects
 	 * @param objects - the objects that have been selected */
 	public static void setSelectedObjects (Array<GameObject> objects) {
@@ -195,5 +196,5 @@ public class RavTechDK {
 		inspector.changed();
 		gizmoHandler.setupGizmos();
 	}
-	
+
 }

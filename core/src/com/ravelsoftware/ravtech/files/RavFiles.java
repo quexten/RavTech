@@ -6,7 +6,6 @@ import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
@@ -163,8 +162,7 @@ public class RavFiles {
 	}
 
 	public void setResolver (FileHandleResolver resolver) {
-		if(assetManager != null)
-			assetManager.dispose();
+		if (assetManager != null) assetManager.dispose();
 		assetManager = new AssetManager(resolver);
 		assetManager.setLoader(Scene.class, new SceneLoader(resolver));
 		assetManager.setLoader(Project.class, new ProjectLoader(resolver));

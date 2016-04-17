@@ -12,14 +12,14 @@ import com.badlogic.gdx.utils.reflect.Field;
 import com.kotcrab.vis.ui.widget.VisTextArea;
 
 public class ColoredTextArea extends VisTextArea {
-	
+
 	Array<Color> lineColors = new Array<Color>();
-	
-	public void log(Color color, String line) {
+
+	public void log (Color color, String line) {
 		lineColors.add(color);
 		this.setText(this.getText() + line);
 	}
-	
+
 	@Override
 	protected void drawText (Batch batch, BitmapFont font, float x, float y) {
 		IntArray linesBreak = null;
@@ -33,8 +33,8 @@ public class ColoredTextArea extends VisTextArea {
 		}
 		float offsetY = 0;
 		for (int i = getFirstLineShowing() * 2; i < (getFirstLineShowing() + getLinesShowing()) * 2
-			&& i < linesBreak.size; i += 2) {	
-			Color lineColor = lineColors.get((i / 2));
+			&& i < linesBreak.size; i += 2) {
+			Color lineColor = lineColors.get(i / 2);
 			font.setColor(new Color(lineColor.r, lineColor.g, lineColor.b, alpha));
 			font.draw(batch, displayText, x, y + offsetY, linesBreak.items[i], linesBreak.items[i + 1], 0, Align.left, false);
 			offsetY -= font.getLineHeight();

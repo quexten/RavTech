@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.Array;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.BoxCollider;
 import com.ravelsoftware.ravtech.dk.ui.utils.ColorUtils;
-import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 

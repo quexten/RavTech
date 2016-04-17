@@ -77,10 +77,10 @@ public class ComponentPanels {
 			public VisTable createTable (final GameComponent component) {
 				this.component = component;
 				VisTable table = new VisTable();
-				addFileSelector(table, "Path:", ((FontRenderer) component).path , new ChangeListener() {
+				addFileSelector(table, "Path:", ((FontRenderer)component).path, new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						((FontRenderer) component).setFont(((VisLabel)actor).getText().toString());
+						((FontRenderer)component).setFont(((VisLabel)actor).getText().toString());
 					}
 				}, "font");
 				addTextField(table, "text");
@@ -88,7 +88,7 @@ public class ComponentPanels {
 				addCheckBox(table, "flipped");
 				addSliderLabel(table, "xScale");
 				addSliderLabel(table, "yScale");
-				addColorPicker(table, "tint");				
+				addColorPicker(table, "tint");
 				return table;
 			}
 		});
@@ -166,8 +166,8 @@ public class ComponentPanels {
 						SpriteRenderer spriteRenderer = (SpriteRenderer)component.getParent()
 							.getComponentByType(ComponentType.SpriteRenderer);
 						if (spriteRenderer != null) {
-							((CircleCollider) component).setRadius(spriteRenderer.height / 2);
-							((CircleCollider) component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2,
+							((CircleCollider)component).setRadius(spriteRenderer.height / 2);
+							((CircleCollider)component).setPosition(-spriteRenderer.originX * spriteRenderer.width / 2,
 								-spriteRenderer.originY * spriteRenderer.height / 2);
 						}
 					}

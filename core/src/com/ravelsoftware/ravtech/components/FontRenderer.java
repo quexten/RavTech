@@ -22,7 +22,7 @@ public class FontRenderer extends Renderer {
 	public ComponentType getType () {
 		return ComponentType.FontRenderer;
 	}
-	
+
 	@Override
 	public String getName () {
 		return "FontRenderer";
@@ -161,7 +161,7 @@ public class FontRenderer extends Renderer {
 			this.yScale = Float.valueOf(String.valueOf(value));
 			break;
 		case 6:
-			this.tint = ((Color)value);
+			this.tint = (Color)value;
 			break;
 		}
 	}
@@ -206,7 +206,7 @@ public class FontRenderer extends Renderer {
 	}
 
 	public void setFont (String path) {
-		if(!RavTech.files.isLoaded(path)) {
+		if (!RavTech.files.isLoaded(path)) {
 			RavTech.files.loadAsset(path, BitmapFont.class);
 			RavTech.files.finishLoading();
 		}

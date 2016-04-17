@@ -38,8 +38,7 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public void finishedLoading () {
-		if (RavTech.files.getAssetManager().isLoaded(path))
-			this.scriptSource = RavTech.files.getAsset(path);
+		if (RavTech.files.getAssetManager().isLoaded(path)) this.scriptSource = RavTech.files.getAsset(path);
 		this.script = RavTech.scriptLoader.createScript(this.scriptSource, this.getParent());
 	}
 
@@ -99,17 +98,16 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 		if (scriptPath.startsWith("/")) scriptPath = scriptPath.substring(1);
 		this.path = scriptPath;
 		if (RavTech.files.getAssetManager().isLoaded(path)) RavTech.files.getAssetManager().unload(path);
-		RavTech.files.getAssetManager()
-			.load(new AssetDescriptor<String>(path, String.class, new AssetLoaderParameters<String>()));
+		RavTech.files.getAssetManager().load(new AssetDescriptor<String>(path, String.class, new AssetLoaderParameters<String>()));
 		RavTech.files.finishLoading();
 		this.finishedLoading();
 	}
-	
-	public void callFunction(String name, Object[] args) {
+
+	public void callFunction (String name, Object[] args) {
 		this.script.callFunction(name, args);
 	}
-	
-	public Object getVariable(String name) {
-		return this.script.getVariable(name);		
+
+	public Object getVariable (String name) {
+		return this.script.getVariable(name);
 	}
 }

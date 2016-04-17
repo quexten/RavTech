@@ -42,7 +42,7 @@ public class AssetFileWatcher {
 			@Override
 			public void run () {
 				AssetFileWatcher.registerWatchServices();
-				while (true) {
+				while (true)
 					try {
 						WatchKey watchKey = watchService.take();
 						List<WatchEvent<?>> pollEvents = watchKey.pollEvents();
@@ -52,24 +52,20 @@ public class AssetFileWatcher {
 							String directory = watchKeys.get(watchKey);
 							String relativeDirectory = directory.replace('\\', '/').replaceAll(rootPath, "");
 							relativeDirectory = relativeDirectory.length() < 8 ? "" : relativeDirectory.substring(8);
-							final String assetPath = (relativeDirectory.isEmpty() ? fileName : (relativeDirectory + "/" + fileName));
-							if (!fileName.isEmpty()) {
-								Gdx.app.postRunnable(new Runnable() {
-									@Override
-									public void run () {
-										if(!assetPath.endsWith(".scene"))
-											if (RavTech.files.isLoaded(assetPath)) 
-												RavTech.files.reloadAsset(assetPath);
-										RavTechDK.assetViewer.assetView.refresh();
-									}
-								});
-							}
+							final String assetPath = relativeDirectory.isEmpty() ? fileName : relativeDirectory + "/" + fileName;
+							if (!fileName.isEmpty()) Gdx.app.postRunnable(new Runnable() {
+								@Override
+								public void run () {
+									if (!assetPath.endsWith(".scene"))
+										if (RavTech.files.isLoaded(assetPath)) RavTech.files.reloadAsset(assetPath);
+									RavTechDK.assetViewer.assetView.refresh();
+								}
+							});
 						}
 						watchKey.reset();
 					} catch (Exception ex) {
 						ex.printStackTrace();
 					}
-				}
 			}
 		});
 		watchThread.start();

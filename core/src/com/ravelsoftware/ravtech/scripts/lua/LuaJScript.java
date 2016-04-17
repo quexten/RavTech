@@ -119,8 +119,8 @@ public class LuaJScript extends Script {
 
 		Debug.logError("Lua", "Script Error in line " + lineNumber + " - " + script.split("\n")[lineNumber - 1] + " - " + message);
 	}
-	
-	public void loadChunk(String source) {
+
+	public void loadChunk (String source) {
 		try {
 			chunk = globals.load(source);
 			chunk.call();
@@ -129,5 +129,5 @@ public class LuaJScript extends Script {
 			return;
 		}
 	}
-	
+
 }

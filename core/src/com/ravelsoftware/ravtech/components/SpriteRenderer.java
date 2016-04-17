@@ -81,7 +81,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 		batch.setColor(getColor());
 		if (texture != null) batch.draw(texture,
 			getParent().transform.getPosition().x - width / 2 * (getParent().transform.isFlippedX() ? 1 : -1)
-				- originX * width / 2 * (getParent().transform.isFlippedX() ? 1 : -1),				
+				- originX * width / 2 * (getParent().transform.isFlippedX() ? 1 : -1),
 			getParent().transform.getPosition().y - height / 2 * (getParent().transform.flippedY ? 1 : -1)
 				- originY * height / 2 * (getParent().transform.flippedY ? 1 : -1),
 			originX * width * (getParent().transform.isFlippedX() ? 1 : -1) / 2
@@ -125,8 +125,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 		json.writeValue("width", width);
 		json.writeValue("height", height);
 		json.writeValue("texture", texturePath);
-		if (regionName != null) 
-			json.writeValue(regionName);
+		if (regionName != null) json.writeValue(regionName);
 		json.writeValue("srcX", srcX);
 		json.writeValue("srcY", srcY);
 		json.writeValue("srcWidth", srcWidth);
@@ -188,8 +187,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 			break;
 		case 1:
 			String varString = String.valueOf(value);
-			if(varString.indexOf('.') > 0)
-				varString = varString.substring(0, varString.indexOf('.'));				
+			if (varString.indexOf('.') > 0) varString = varString.substring(0, varString.indexOf('.'));
 			this.sortingOrder = Integer.valueOf(varString);
 			break;
 		case 2:

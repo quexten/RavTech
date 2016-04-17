@@ -1,3 +1,4 @@
+
 package com.ravelsoftware.ravtech.dk.ui.editor.assetview;
 
 import com.badlogic.gdx.Gdx;
@@ -9,7 +10,6 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.FontRenderer;
 import com.ravelsoftware.ravtech.components.GameObject;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 
 public class FontPreviewPanel extends AssetPreviewPanel {
 
@@ -17,9 +17,9 @@ public class FontPreviewPanel extends AssetPreviewPanel {
 		super(assetPath);
 		RavTech.files.loadAsset(assetPath, BitmapFont.class);
 		RavTech.files.finishLoading();
-		
+
 		BitmapFont font = RavTech.files.getAsset(assetPath);
-		
+
 		VisLabel previewLabel = new VisLabel("Sample Text");
 		LabelStyle labelStyle = new LabelStyle();
 		labelStyle.background = previewLabel.getStyle().background;
@@ -36,8 +36,7 @@ public class FontPreviewPanel extends AssetPreviewPanel {
 
 	@Override
 	public void addToScene () {
-		Vector2 worldPosition = RavTechDK.mainSceneView.camera
-			.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		Vector2 worldPosition = RavTechDK.mainSceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		GameObject object = RavTech.currentScene.addGameObject(worldPosition.x, worldPosition.y);
 		FontRenderer renderer = new FontRenderer();
 		renderer.setFont(assetPath);

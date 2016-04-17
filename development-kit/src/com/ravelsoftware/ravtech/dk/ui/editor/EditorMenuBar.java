@@ -20,7 +20,6 @@ import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.Scene;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDKApplication;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.ui.packaging.BuildDialog;
 import com.ravelsoftware.ravtech.history.ChangeManager;
@@ -170,7 +169,7 @@ public class EditorMenuBar extends MenuBar {
 				entry.addListener(new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-					
+
 					}
 				});
 				menu.addItem(entry);
@@ -180,10 +179,10 @@ public class EditorMenuBar extends MenuBar {
 					public void changed (ChangeEvent event, Actor actor) {
 						Gdx.app.postRunnable(new Runnable() {
 							@Override
-							public void run() {
+							public void run () {
 								RavTech.ui.debugConsole.toggleVisible();
 							}
-						});						
+						});
 					}
 				});
 				menu.addItem(entry);
@@ -193,7 +192,7 @@ public class EditorMenuBar extends MenuBar {
 					public void changed (ChangeEvent event, Actor actor) {
 						Gdx.app.postRunnable(new Runnable() {
 							@Override
-							public void run() {
+							public void run () {
 								VisWindow window = new VisWindow("Scene");
 								window.addCloseButton();
 								window.setSize(320, 180);
@@ -202,7 +201,7 @@ public class EditorMenuBar extends MenuBar {
 								window.setVisible(true);
 								RavTech.ui.getStage().addActor(window);
 							}
-						});						
+						});
 					}
 				});
 				menu.addItem(entry);

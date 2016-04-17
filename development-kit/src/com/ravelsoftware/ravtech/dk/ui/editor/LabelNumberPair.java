@@ -20,7 +20,7 @@ public class LabelNumberPair extends LabelActorPair<Float> {
 				}
 
 				String text = ((VisTextField)LabelNumberPair.this.pairedComponent).getText();
-				if (text.isEmpty() || (!Pattern.matches("([0-9]*)\\.([0-9]*)", text) && !Pattern.matches("([0-9]*)", text))) return;
+				if (text.isEmpty() || !Pattern.matches("([0-9]*)\\.([0-9]*)", text) && !Pattern.matches("([0-9]*)", text)) return;
 				LabelNumberPair.this.dragValue = Float
 					.valueOf(String.valueOf(((VisTextField)LabelNumberPair.this.pairedComponent).getText()));
 				LabelNumberPair.this.draggedListener.run();

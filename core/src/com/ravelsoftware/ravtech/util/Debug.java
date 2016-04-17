@@ -11,11 +11,11 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.ravelsoftware.ravtech.RavTech;
 
 public class Debug {
-	
+
 	public static Color logColor = Color.BLACK;
 	public static Color errorColor = Color.valueOf("F4511E");
 	public static Color debugColor = Color.valueOf("2196F3");
-	
+
 	public static boolean debugPerformance = false;
 	public static boolean debugLogging = true;
 	public static Array<DebugShape> debugLineShapes = new Array<DebugShape>();

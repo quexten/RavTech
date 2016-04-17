@@ -112,21 +112,21 @@ public class AssetViewer extends VisTable {
 				final FileHandle fileHandle = files.get(i);
 				final String filePath = fileHandle.path();
 				AssetPreviewPanel panel = getPreviewPanelFor(fileHandle);
-				if(panel != null) {
+				if (panel != null) {
 					panel.addListener(new ClickListener() {
-	
+
 						public void clicked (InputEvent event, float x, float y) {
 							AssetView.this.setSelected(fileHandle.name());
 							if (this.getTapCount() > 1) if (fileHandle.isDirectory())
 								AssetView.this
 									.setDirectory(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
 							else {
-	
+
 							}
 						}
-	
+
 					});
-	
+
 					dragAndDrop.addSource(new Source(panel) {
 						public Payload dragStart (InputEvent event, float x, float y, int pointer) {
 							Payload payload = new Payload();
@@ -137,13 +137,13 @@ public class AssetViewer extends VisTable {
 							return payload;
 						}
 					});
-	
+
 					if (fileHandle.isDirectory()) dragAndDrop.addTarget(new Target(panel) {
 						@Override
 						public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
 							return true;
 						}
-	
+
 						@Override
 						public void drop (Source source, Payload payload, float x, float y, int pointer) {
 							FileHandle srcHandle = Gdx.files.absolute(String.valueOf(payload.getObject()));
@@ -152,7 +152,7 @@ public class AssetViewer extends VisTable {
 							AssetView.this.refresh();
 						}
 					});
-	
+
 					group.addActor(panel.pad(5));
 					previewPanels.put(fileHandle.name(), panel);
 				}
@@ -200,9 +200,8 @@ public class AssetViewer extends VisTable {
 						if (this.getTapCount() > 1) ZeroBraneUtil.openFile(new File(filePath));
 					}
 				});
-			} else if (extension.equals("fnt")) {
+			} else if (extension.equals("fnt"))
 				panel = new FontPreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
-			}
 			return panel;
 		}
 

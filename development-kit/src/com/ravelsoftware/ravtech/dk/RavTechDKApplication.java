@@ -1,13 +1,11 @@
 
 package com.ravelsoftware.ravtech.dk;
 
-import com.badlogic.gdx.Files.FileType;
-
 import java.io.File;
 
+import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
@@ -61,7 +59,7 @@ public class RavTechDKApplication extends RavTech {
 				new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
 			RavTechDK.setProject(preferences.getString("RavTechDK.project.path"));
 		}
-		
+
 		RavTechDK.mainSceneView.camera.drawGrid = true;
 	}
 
@@ -95,6 +93,5 @@ public class RavTechDKApplication extends RavTech {
 		});
 		RavTech.ui.getStage().addActor(window);
 	}
-	
-	
+
 }

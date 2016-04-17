@@ -57,7 +57,7 @@ public class AddComponentAction implements Runnable {
 					public void run () {
 						try {
 							GameComponent component = ClassReflection.newInstance(componentClass);
-							//add component
+							// add component
 							component.finishedLoading();
 						} catch (ReflectionException e) {
 							e.printStackTrace();
