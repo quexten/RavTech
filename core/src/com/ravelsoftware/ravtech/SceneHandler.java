@@ -50,7 +50,7 @@ public class SceneHandler {
 	}
 
 	public void load () {
-		shaderManager = new ShaderManager("shaders", RavTech.files.getAssetManager());
+		shaderManager = new ShaderManager("", RavTech.files.getAssetManager());
 		shaderManager.add("default", RavTech.files.getAssetHandle("shaders/default.vert"),
 			RavTech.files.getAssetHandle("shaders/default.frag"));
 		renderer = new SortedRenderer(shaderManager);

@@ -49,7 +49,7 @@ public class RavTech extends Game {
 	}
 
 	public RavTech (FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
-		files = new RavFiles(assetResolver);		
+		files = new RavFiles(assetResolver);
 		engineConfiguration = applicationConfig;
 	}
 
@@ -77,7 +77,7 @@ public class RavTech extends Game {
 
 		if (serializedCurrentScene != null)
 			files.loadState(serializedCurrentScene);
-		else {
+		else if (files.hasAsset(project.startScene)) {
 			files.loadAsset(project.startScene, Scene.class);
 			files.finishLoading();
 			RavTech.currentScene = files.getAsset(project.startScene);
@@ -103,7 +103,7 @@ public class RavTech extends Game {
 
 		for (int i = 0; i < HookApi.onRenderHooks.size; i++)
 			HookApi.onRenderHooks.get(i).run();
-		
+
 		ui.render();
 	}
 }

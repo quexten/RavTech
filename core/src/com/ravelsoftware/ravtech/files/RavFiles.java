@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.BitmapFontLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
@@ -23,11 +24,7 @@ public class RavFiles {
 	ObjectMap<String, Array<GameComponent>> componentDependencies = new ObjectMap<String, Array<GameComponent>>();
 
 	public RavFiles (FileHandleResolver assetResolver) {
-		assetManager = new AssetManager(assetResolver);
-		assetManager.setLoader(Scene.class, new SceneLoader(assetResolver));
-		assetManager.setLoader(Project.class, new ProjectLoader(assetResolver));
-		assetManager.setLoader(String.class, new StringLoader(assetResolver));
-		assetManager.setLoader(BitmapFont.class, new BitmapFontLoader(assetManager.getFileHandleResolver()));
+		this.setResolver(assetResolver);
 	}
 
 	/** @return - The AssetManager */
@@ -159,6 +156,20 @@ public class RavFiles {
 		if (componentDependencies.get(path) == null) return;
 		componentDependencies.get(path).removeValue(component, true);
 		if (componentDependencies.get(path).size == 0) componentDependencies.remove(path);
+	}
+
+	public boolean hasAsset (String path) {
+		return this.assetManager.containsAsset(path);
+	}
+
+	public void setResolver (FileHandleResolver resolver) {
+		if(assetManager != null)
+			assetManager.dispose();
+		assetManager = new AssetManager(resolver);
+		assetManager.setLoader(Scene.class, new SceneLoader(resolver));
+		assetManager.setLoader(Project.class, new ProjectLoader(resolver));
+		assetManager.setLoader(String.class, new StringLoader(resolver));
+		assetManager.setLoader(BitmapFont.class, new BitmapFontLoader(assetManager.getFileHandleResolver()));
 	}
 
 }

@@ -23,26 +23,12 @@ import com.ravelsoftware.ravtech.util.Debug;
 public class Launcher {
 
 	public static void main (String[] args) {
-		RavTech.isEditor = true;
-		final Preferences preferences = new Lwjgl3Preferences(
-			new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
-		RavTechDK.projectHandle = new Lwjgl3FileHandle(preferences.getString("RavTechDK.project.path"), FileType.Absolute);
-		RavTechDK.project = Project.load(RavTechDK.projectHandle);
-		AssetFileWatcher.set(RavTechDK.projectHandle);
-		
+		RavTech.isEditor = true;		
 		initializeEngine();
 	}
 
 	static void initializeEngine () {		
-		final RavTechDKApplication ravtech = new RavTechDKApplication(new AbsoluteFileHandleResolver() {
-			@Override
-			public FileHandle resolve (String fileName) {
-				fileName = fileName.replace('\\', '/');
-				String formattedWorkingDir = RavTechDK.projectHandle.child("assets").path();
-				String resolver = fileName.startsWith(formattedWorkingDir) ? fileName : formattedWorkingDir + "/" + fileName;
-				return Gdx.files.absolute(resolver);
-			}
-		}, RavTechDK.project);
+		final RavTechDKApplication ravtech = new RavTechDKApplication();
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setWindowedMode(1600, 900);

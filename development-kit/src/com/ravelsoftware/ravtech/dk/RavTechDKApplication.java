@@ -2,9 +2,15 @@
 package com.ravelsoftware.ravtech.dk;
 
 import com.badlogic.gdx.Files.FileType;
+
+import java.io.File;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.VisUI;
@@ -19,8 +25,8 @@ import com.ravelsoftware.ravtech.project.Project;
 
 public class RavTechDKApplication extends RavTech {
 
-	public RavTechDKApplication (AbsoluteFileHandleResolver absoluteFileHandleResolver, Project project) {
-		super(absoluteFileHandleResolver, project, new EngineConfiguration());
+	public RavTechDKApplication () {
+		super(new InternalFileHandleResolver(), new Project(), new EngineConfiguration());
 	}
 
 	@Override
@@ -50,8 +56,12 @@ public class RavTechDKApplication extends RavTech {
 			final ProjectSettingsWizard wizard = new ProjectSettingsWizard(project, true);
 			wizard.setSize(330, 330);
 			RavTech.ui.getStage().addActor(wizard);
+		} else {
+			final Preferences preferences = new Lwjgl3Preferences(
+				new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
+			RavTechDK.setProject(preferences.getString("RavTechDK.project.path"));
 		}
-
+		
 		RavTechDK.mainSceneView.camera.drawGrid = true;
 	}
 

@@ -6,6 +6,7 @@ import java.io.File;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -74,15 +75,6 @@ public class RavTechDK {
 		RavTech.ui.getStage().addActor(inspector = new Inspector());
 		RavTechDK.gizmoHandler = new GizmoHandler();
 
-		assetViewer = new AssetViewer();
-		VisWindow window = new VisWindow("AssetView");
-		window.add(assetViewer).grow();
-		window.setResizable(true);
-		window.setSize(1000, 300);
-		window.setPosition(2000, 0);
-		RavTech.ui.getStage().addActor(window);
-
-
 		UpdateManager.loadCurrentVersions();
 		ZeroBraneUtil.initialize();
 		
@@ -94,6 +86,15 @@ public class RavTechDK {
 	
 	public static void setProject (final String projectRootPath) {
 		project = Project.load(projectHandle = new Lwjgl3FileHandle(new File(projectRootPath), FileType.Absolute));
+		RavTech.files.setResolver(new AbsoluteFileHandleResolver() {
+			@Override
+			public FileHandle resolve (String fileName) {
+				fileName = fileName.replace('\\', '/');
+				String formattedWorkingDir = RavTechDK.projectHandle.child("assets").path();
+				String resolver = fileName.startsWith(formattedWorkingDir) ? fileName : formattedWorkingDir + "/" + fileName;
+				return Gdx.files.absolute(resolver);
+			}
+		});
 		// ui.ravtechDKFrame.setTitle(ui.ravtechDKFrame.getFullTitle());
 		// ui.ravtechDKFrame.view.setPath(projectRootPath);
 		Gdx.app.postRunnable(new Runnable() {
@@ -103,6 +104,14 @@ public class RavTechDK {
 				RavTech.settings.save();
 			}
 		});
+		assetViewer = new AssetViewer();
+		AssetFileWatcher.set(RavTechDK.projectHandle);
+		VisWindow window = new VisWindow("AssetView");
+		window.add(assetViewer).grow();
+		window.setResizable(true);
+		window.setSize(1000, 300);
+		window.setPosition(2000, 0);
+		RavTech.ui.getStage().addActor(window);
 	}
 
 	/** Creates Project base directories and base files
@@ -128,7 +137,7 @@ public class RavTechDK {
 		projectHandle.child("plugins").mkdirs();
 		FileHandle textureHandle = assetHandle.child("textures");
 		textureHandle.mkdirs();
-		textureHandle.child("error.png").write(new Lwjgl3FileHandle(new File("resources/icons/error.png"), FileType.Local).read(),
+		textureHandle.child("error.png").write(new Lwjgl3FileHandle(new File("resources/ui/icons/error.png"), FileType.Local).read(),
 			false);
 		project.save(projectHandle);
 	}
@@ -159,6 +168,7 @@ public class RavTechDK {
 
 	public static void loadScene (String path) {
 		Debug.log("Load", "[" + path + "]");
+		if(RavTech.files.isLoaded(RavTechDK.getCurrentScene()))
 		RavTech.files.getAssetManager().unload(RavTechDK.getCurrentScene());
 		RavTech.files.loadAsset(path, Scene.class);
 		RavTech.files.finishLoading();

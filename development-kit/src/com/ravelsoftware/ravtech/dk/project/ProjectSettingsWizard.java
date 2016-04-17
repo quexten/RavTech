@@ -52,7 +52,6 @@ public class ProjectSettingsWizard extends VisWindow {
 							creationPath = file.get(0).path();
 						}
 					});
-					fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
 					fileChooser.setSize(330, 330);
 					fileChooser.setSelectionMode(SelectionMode.DIRECTORIES);
 					event.getListenerActor().getStage().addActor(fileChooser);
