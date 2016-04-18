@@ -24,10 +24,10 @@ public class ConeLightGizmo extends Gizmo {
 	@Override
 	public void draw (ShapeRenderer renderer, boolean selected) {
 		renderer.setColor(selected && !raySelected ? Color.YELLOW : Color.CYAN);
-		this.drawCone(renderer);
+		drawCone(renderer);
 		renderer.setColor(selected && raySelected ? Color.YELLOW : Color.CYAN);
-		this.drawRay(renderer, coneLight.getConeDegree());
-		this.drawRay(renderer, -coneLight.getConeDegree());
+		drawRay(renderer, coneLight.getConeDegree());
+		drawRay(renderer, -coneLight.getConeDegree());
 	}
 
 	private void drawCone (ShapeRenderer renderer) {
@@ -71,7 +71,8 @@ public class ConeLightGizmo extends Gizmo {
 				? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, light.angle), worldPosition) : Float.MAX_VALUE;
 			float rayDst2 = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, -light.angle), worldPosition, 1)
 				? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, -light.angle), worldPosition) : Float.MAX_VALUE;
-			if (rayDst > rayDst2) rayDst = rayDst2;
+			if (rayDst > rayDst2)
+				rayDst = rayDst2;
 			if (coneDst < rayDst && coneDst < 1f) {
 				raySelected = false;
 				return coneDst;
@@ -89,7 +90,8 @@ public class ConeLightGizmo extends Gizmo {
 				float angle = worldPosition.cpy().sub(origin).angle();
 				float rotation = light.getParent().transform.getRotation();
 				angle = angle - rotation;
-				if (angle < 0) angle += 360;
+				if (angle < 0)
+					angle += 360;
 				angle = angle > 180 ? 180 - Math.abs(angle - 180) : angle;
 				light.setVariable(0, angle);
 			}

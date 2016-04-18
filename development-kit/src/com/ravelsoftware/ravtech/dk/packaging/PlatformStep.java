@@ -15,13 +15,13 @@ public class PlatformStep extends PackageStep {
 	public PlatformStep (BuildReporterDialog buildReporterDialog, Platform platform) {
 		super(buildReporterDialog);
 		this.platform = platform;
-		this.run = true;
+		run = true;
 	}
 
 	public PlatformStep (BuildReporterDialog buildReporterDialog, Platform platform, FileHandle destinationDir) {
 		this(buildReporterDialog, platform);
-		this.run = false;
-		this.directory = destinationDir;
+		run = false;
+		directory = destinationDir;
 	}
 
 	@Override
@@ -29,11 +29,12 @@ public class PlatformStep extends PackageStep {
 		buildReporterDialog.printerListeners.add(new PrinterListener() {
 			@Override
 			public void onPrint (String line) {
-				if (line.equals("BUILD SUCCESSFUL")) PlatformStep.this.executeNext();
+				if (line.equals("BUILD SUCCESSFUL"))
+					PlatformStep.this.executeNext();
 			}
 		});
 		if (run)
-			platform.run(this.buildReporterDialog);
+			platform.run(buildReporterDialog);
 		else
 			platform.build(directory, buildReporterDialog);
 	}

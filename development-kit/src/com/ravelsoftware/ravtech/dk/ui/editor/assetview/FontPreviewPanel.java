@@ -28,7 +28,7 @@ public class FontPreviewPanel extends AssetPreviewPanel {
 		previewLabel.setStyle(labelStyle);
 		previewLabel.setFontScale(0.2f, 0.2f);
 		VisLabel label = new VisLabel(assetPath.contains("/") ? assetPath.substring(assetPath.lastIndexOf('/') + 1) : assetPath);
-		this.setSize(100, 100);
+		setSize(100, 100);
 		add(previewLabel).grow().padTop(50).padBottom(50);
 		row();
 		add(label);

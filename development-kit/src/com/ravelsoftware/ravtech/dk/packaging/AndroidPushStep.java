@@ -18,9 +18,9 @@ public class AndroidPushStep extends PackageStep {
 
 	@Override
 	public void run () {
-		this.buildReporterDialog.log("Pushing Assets to " + externalPath);
+		buildReporterDialog.log("Pushing Assets to " + externalPath);
 		Debug.logError("Error", AdbManager.executeAdbCommand("push " + localPath + " " + externalPath));
-		this.buildReporterDialog.log("Finished Pushing Assets");
-		this.executeNext();
+		buildReporterDialog.log("Finished Pushing Assets");
+		executeNext();
 	}
 }

@@ -28,6 +28,6 @@ public class CopyDirectoryStep extends PackageStep {
 			buildReporterDialog.logError(e.getMessage());
 		}
 		buildReporterDialog.log("Copy Done!");
-		this.executeNext();
+		executeNext();
 	}
 }

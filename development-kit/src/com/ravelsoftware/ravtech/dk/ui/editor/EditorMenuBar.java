@@ -125,7 +125,7 @@ public class EditorMenuBar extends MenuBar {
 			}
 			{ // Export Project Entry
 			}
-			this.addMenu(menu);
+			addMenu(menu);
 		}
 		{ // Components Menu
 			menu = new Menu("Components");
@@ -145,7 +145,7 @@ public class EditorMenuBar extends MenuBar {
 				});
 				menu.addItem(entry);
 			}
-			this.addMenu(menu);
+			addMenu(menu);
 		}
 		{ // Window Menu
 			menu = new Menu("Project");
@@ -160,7 +160,7 @@ public class EditorMenuBar extends MenuBar {
 				});
 				menu.addItem(entry);
 			}
-			this.addMenu(menu);
+			addMenu(menu);
 		}
 		{ // Window Menu
 			menu = new Menu("Window");
@@ -206,7 +206,7 @@ public class EditorMenuBar extends MenuBar {
 				});
 				menu.addItem(entry);
 			}
-			this.addMenu(menu);
+			addMenu(menu);
 		}
 		{ // Help
 			menu = new Menu("Help");
@@ -233,7 +233,7 @@ public class EditorMenuBar extends MenuBar {
 				});
 				menu.addItem(entry);
 			}
-			this.addMenu(menu);
+			addMenu(menu);
 		}
 
 		final VisTextButton playButton = new VisTextButton("Run");
@@ -255,6 +255,6 @@ public class EditorMenuBar extends MenuBar {
 			}
 		});
 		playButton.setFocusBorderEnabled(false);
-		this.getTable().add(playButton);
+		getTable().add(playButton);
 	}
 }

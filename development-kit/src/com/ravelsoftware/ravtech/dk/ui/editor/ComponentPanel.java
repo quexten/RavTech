@@ -145,7 +145,8 @@ public abstract class ComponentPanel {
 			public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
 				String objectPath = String.valueOf(payload.getObject());
 				for (int i = 0; i < fileTypes.length; i++)
-					if (fileTypes[i].equals(objectPath.substring(objectPath.lastIndexOf(".") + 1))) return true;
+					if (fileTypes[i].equals(objectPath.substring(objectPath.lastIndexOf(".") + 1)))
+						return true;
 				return false;
 			}
 
@@ -172,7 +173,8 @@ public abstract class ComponentPanel {
 		textField.setTextFieldListener(new TextFieldListener() {
 			@Override
 			public void keyTyped (VisTextField textField, char key) {
-				if (key == '\n' || key == '\r') textField.focusLost();
+				if (key == '\n' || key == '\r')
+					textField.focusLost();
 			}
 		});
 		table.add(textField).growX();
@@ -195,6 +197,7 @@ public abstract class ComponentPanel {
 	}
 
 	public void updateValue (String value) {
-		if (this.valueChangedListeners.containsKey(value)) this.valueChangedListeners.get(value).run();
+		if (valueChangedListeners.containsKey(value))
+			valueChangedListeners.get(value).run();
 	}
 }

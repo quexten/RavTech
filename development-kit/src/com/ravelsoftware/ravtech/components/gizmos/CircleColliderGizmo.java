@@ -17,13 +17,13 @@ public class CircleColliderGizmo extends Gizmo {
 
 	public CircleColliderGizmo (CircleCollider circleCollider) {
 		this.circleCollider = circleCollider;
-		this.isExclusive = true;
+		isExclusive = true;
 	}
 
 	@Override
 	public void draw (ShapeRenderer renderer, boolean selected) {
 		renderer.setColor(selected ? ColorUtils.getSelectionColor() : ColorUtils.getGizmoColor(circleCollider));
-		Vector2 middlePosition = this.getMiddlePosition();
+		Vector2 middlePosition = getMiddlePosition();
 		renderer.circle(middlePosition.x, middlePosition.y, circleCollider.radius, 72);
 	}
 

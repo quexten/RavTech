@@ -20,6 +20,6 @@ public class CopyStep extends PackageStep {
 		buildReporterDialog.log("Copy from [" + srcDir.path() + "] to [" + dstDir.path() + "]");
 		srcDir.copyTo(dstDir);
 		buildReporterDialog.log("Copy Done!");
-		this.executeNext();
+		executeNext();
 	}
 }

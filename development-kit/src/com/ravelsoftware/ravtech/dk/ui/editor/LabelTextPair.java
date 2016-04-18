@@ -8,11 +8,12 @@ public class LabelTextPair extends LabelActorPair<String> {
 
 	public LabelTextPair (String labelText, String text) {
 		super(labelText, new VisTextField(text), false);
-		((VisTextField)this.pairedComponent).setFocusTraversal(false);
-		((VisTextField)this.pairedComponent).setTextFieldListener(new TextFieldListener() {
+		((VisTextField)pairedComponent).setFocusTraversal(false);
+		((VisTextField)pairedComponent).setTextFieldListener(new TextFieldListener() {
 			@Override
 			public void keyTyped (VisTextField textField, char key) {
-				if (key == '\n' || key == '\r') ((VisTextField)LabelTextPair.this.pairedComponent).focusLost();
+				if (key == '\n' || key == '\r')
+					((VisTextField)LabelTextPair.this.pairedComponent).focusLost();
 			}
 		});
 	}

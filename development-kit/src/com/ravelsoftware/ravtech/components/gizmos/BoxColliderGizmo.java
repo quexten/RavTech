@@ -28,14 +28,15 @@ public class BoxColliderGizmo extends Gizmo {
 
 	public BoxColliderGizmo (BoxCollider boxCollider) {
 		this.boxCollider = boxCollider;
-		this.isExclusive = true;
+		isExclusive = true;
 	}
 
 	@Override
 	public void draw (ShapeRenderer renderer, boolean selected) {
-		if (!canEdit) return;
+		if (!canEdit)
+			return;
 		renderer.setAutoShapeType(true);
-		renderer.setColor(ColorUtils.getGizmoColor(this.boxCollider));
+		renderer.setColor(ColorUtils.getGizmoColor(boxCollider));
 		float rotation = boxCollider.getParent().transform.getRotation();
 		Vector2 middlePosition = boxCollider.getParent().transform.getPosition()
 			.add(new Vector2(boxCollider.x, boxCollider.y).rotate(rotation));
@@ -150,7 +151,8 @@ public class BoxColliderGizmo extends Gizmo {
 					closestDst = positions.get(i).dst(mousePosition);
 					selectedPoint = i;
 				}
-			if (closestDst > camFactor) return -1f;
+			if (closestDst > camFactor)
+				return -1f;
 			break;
 		case EventType.MouseDown:
 			oldPosition = boxCollider.getParent().transform.getPosition()
@@ -165,47 +167,48 @@ public class BoxColliderGizmo extends Gizmo {
 			grabbedPoint = selectedPoint;
 			return -1f;
 		case EventType.MouseDrag:
-			if (isGrabbed) switch (grabbedPoint) {
-			case 0: // tl
-				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
-					mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false, false);
-				break;
-			case 1: // tr
-				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
-					mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false, true);
-				break;
-			case 2: // br
-				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
-					mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true, true);
-				break;
-			case 3: // bl
-				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
-					mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true, false);
-				break;
-			case 4: // t
-				changeHeight(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true);
-				break;
-			case 5: // r
-				changeWidth(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x, true);
-				break;
-			case 6: // b
-				changeHeight(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false);
-				break;
-			case 7: // l
-				changeWidth(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x, false);
-				break;
-			case 8:
-				Vector2 subPosition = mousePosition.sub(boxCollider.getParent().transform.getPosition());
-				boxCollider.x = subPosition.x / boxCollider.width * 2;
-				boxCollider.y = subPosition.y / boxCollider.height * 2;
-				break;
-			}
+			if (isGrabbed)
+				switch (grabbedPoint) {
+				case 0: // tl
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false, false);
+					break;
+				case 1: // tr
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false, true);
+					break;
+				case 2: // br
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true, true);
+					break;
+				case 3: // bl
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true, false);
+					break;
+				case 4: // t
+					changeHeight(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true);
+					break;
+				case 5: // r
+					changeWidth(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x, true);
+					break;
+				case 6: // b
+					changeHeight(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false);
+					break;
+				case 7: // l
+					changeWidth(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x, false);
+					break;
+				case 8:
+					Vector2 subPosition = mousePosition.sub(boxCollider.getParent().transform.getPosition());
+					boxCollider.x = subPosition.x / boxCollider.width * 2;
+					boxCollider.y = subPosition.y / boxCollider.height * 2;
+					break;
+				}
 			return -1f;
 		case EventType.MouseUp:
 			isGrabbed = false;
 			break;
 		}
-		return this.closestDst;
+		return closestDst;
 	}
 
 	private void changeWidth (float width, boolean changeRight) {

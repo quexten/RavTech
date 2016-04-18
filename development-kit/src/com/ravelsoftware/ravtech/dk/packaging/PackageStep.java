@@ -13,7 +13,8 @@ public abstract class PackageStep implements Runnable {
 	}
 
 	public void executeNext () {
-		if (nextStep != null) nextStep.run();
+		if (nextStep != null)
+			nextStep.run();
 	}
 
 	public PackageStep setNextStep (PackageStep nextStep) {

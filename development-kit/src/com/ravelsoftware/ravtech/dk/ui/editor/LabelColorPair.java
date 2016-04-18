@@ -11,7 +11,7 @@ public class LabelColorPair extends LabelActorPair<Color> {
 
 	@Override
 	Color getValue () {
-		return ((ColorPanel)this.pairedComponent).getColor();
+		return ((ColorPanel)pairedComponent).getColor();
 	}
 
 }

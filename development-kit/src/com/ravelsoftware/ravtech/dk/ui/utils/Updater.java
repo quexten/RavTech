@@ -16,12 +16,12 @@ public abstract class Updater {
 	}
 
 	public void setCurrentVersion (String version) {
-		this.currentVersion = version;
+		currentVersion = version;
 	}
 
 	/** @return the current Version of the Plugin */
 	public String currentVersion () {
-		return this.currentVersion;
+		return currentVersion;
 	}
 
 	/** Gets the Remote Version of the Plugin.
@@ -49,7 +49,7 @@ public abstract class Updater {
 
 	/** Gets the description of this Updater. */
 	public String getDescription () {
-		return this.description;
+		return description;
 	}
 
 	/** Sets the project page of this Updater.
@@ -62,7 +62,7 @@ public abstract class Updater {
 
 	/** Gets the project page of this Updater. */
 	public String getProjectPage () {
-		return this.projectPage;
+		return projectPage;
 	}
 
 	public Updater setUpdaterEntry (UpdaterEntry updaterEntry) {
@@ -71,7 +71,7 @@ public abstract class Updater {
 	}
 
 	public Updater addPostUpdateHook (Runnable runnable) {
-		this.postUpdateHook = runnable;
+		postUpdateHook = runnable;
 		return this;
 	}
 

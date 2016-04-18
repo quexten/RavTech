@@ -46,7 +46,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 
 	@Override
 	public void finishedLoading () {
-		this.updatePosition();
+		updatePosition();
 	}
 
 	@Override
@@ -63,12 +63,12 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	private void updatePosition () {
-		affine.setToTrnRotScl(this.position, this.rotation, this.scale);
+		affine.setToTrnRotScl(position, rotation, scale);
 		if (getParent().getParent() != null)
 			affine.preMul(getParent().getParent().transform.affine);
 
-		if (this.scale.x != 0 && this.scale.y != 0)
-			invertedAffine.setToTrnRotScl(this.position, this.rotation, this.scale).inv();
+		if (scale.x != 0 && scale.y != 0)
+			invertedAffine.setToTrnRotScl(position, rotation, scale).inv();
 
 		if (getParent().getParent() != null)
 			invertedAffine.preMul(getParent().getParent().transform.invertedAffine);
@@ -224,7 +224,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 		else if (variableId == 3)
 			setLocalScale((Float)value, scale.y);
 		else if (variableId == 4)
-			setLocalScale(scale.x, ((Float)value));
+			setLocalScale(scale.x, (Float)value);
 	}
 
 	@Override

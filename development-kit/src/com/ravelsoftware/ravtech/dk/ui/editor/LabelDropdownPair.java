@@ -8,14 +8,14 @@ public class LabelDropdownPair extends LabelActorPair<String> {
 	@SuppressWarnings("unchecked")
 	public LabelDropdownPair (String text, String[] options, String selectedOption) {
 		super(text, new VisSelectBox<String>(), false);
-		((VisSelectBox<String>)this.pairedComponent).setItems(options);
-		((VisSelectBox<String>)this.pairedComponent).setSelected(selectedOption);
+		((VisSelectBox<String>)pairedComponent).setItems(options);
+		((VisSelectBox<String>)pairedComponent).setSelected(selectedOption);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	String getValue () {
-		return ((VisSelectBox<String>)this.pairedComponent).getSelected();
+		return ((VisSelectBox<String>)pairedComponent).getSelected();
 	}
 
 }

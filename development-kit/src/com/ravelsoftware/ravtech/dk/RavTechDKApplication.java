@@ -34,7 +34,8 @@ public class RavTechDKApplication extends RavTech {
 		AdbManager.initializeAdb();
 
 		RavTech.sceneHandler.paused = true;
-		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
+		if (!VisUI.isLoaded())
+			VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 
 		RavTechDK.initialize();
 		HookApi.onRenderHooks.add(new Runnable() {

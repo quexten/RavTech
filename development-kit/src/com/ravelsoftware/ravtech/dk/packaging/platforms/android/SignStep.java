@@ -18,8 +18,8 @@ public class SignStep extends PackageStep {
 
 	@Override
 	public void run () {
-		this.buildReporterDialog.log("Signing...");
-		ApkManager.sign(this.buildReporterDialog,
+		buildReporterDialog.log("Signing...");
+		ApkManager.sign(buildReporterDialog,
 			new File(System.getProperty("user.dir") + "/builder/android/build/outputs/apk/android-release-unsigned.apk"),
 			credentials.keystoreFile, credentials.keystorePassword, credentials.aliasName, credentials.aliasPassword);
 		buildReporterDialog.printerListeners.add(new PrinterListener() {

@@ -27,14 +27,14 @@ public class AdbManager {
 
 			@Override
 			public void run () {
-				Debug.log("Line", this.line);
+				Debug.log("Line", line);
 			}
 
 		}, new Printer() {
 
 			@Override
 			public void run () {
-				Debug.log("Error", this.line);
+				Debug.log("Error", line);
 			}
 
 		});
@@ -44,7 +44,8 @@ public class AdbManager {
 	public static JadbDevice getDevice (String deviceId) {
 		try {
 			for (JadbDevice device : jadbConnection.getDevices())
-				if (device.getSerial().equals(deviceId)) return device;
+				if (device.getSerial().equals(deviceId))
+					return device;
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -70,7 +71,8 @@ public class AdbManager {
 				String line = deviceShellOutputLines[i];
 				int start = line.indexOf("model:") + "model:".length();
 				int end = line.indexOf("model:") + "model:".length() + line.substring(start).indexOf(' ');
-				if (end < 0) end = line.length();
+				if (end < 0)
+					end = line.length();
 				deviceNames.put(getDevice(line.substring(0, line.indexOf(' '))), line.substring(start, end));
 			}
 		}
@@ -89,7 +91,8 @@ public class AdbManager {
 					return;
 				}
 				onBoot = false;
-				if (initialized) return;
+				if (initialized)
+					return;
 				try {
 					jadbConnection = new JadbConnection();
 				} catch (IOException e) {

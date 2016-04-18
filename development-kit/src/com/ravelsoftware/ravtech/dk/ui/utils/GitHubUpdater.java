@@ -28,8 +28,8 @@ public class GitHubUpdater extends Updater {
 		super();
 		this.user = user;
 		this.archive = archive;
-		this.repositoryUrl = "https://codeload.github.com/" + user + "/" + archive + "/zip/";
-		this.versionUrl = "https://api.github.com/repos/" + user + "/" + archive + "/tags";
+		repositoryUrl = "https://codeload.github.com/" + user + "/" + archive + "/zip/";
+		versionUrl = "https://api.github.com/repos/" + user + "/" + archive + "/tags";
 	}
 
 	@Override
@@ -39,7 +39,7 @@ public class GitHubUpdater extends Updater {
 
 	@Override
 	public boolean isNewVersionAvalible () {
-		return Float.valueOf(getRemoteVersion() != null ? getRemoteVersion() : "0") > Float.valueOf(this.currentVersion);
+		return Float.valueOf(getRemoteVersion() != null ? getRemoteVersion() : "0") > Float.valueOf(currentVersion);
 	}
 
 	@Override
@@ -54,10 +54,12 @@ public class GitHubUpdater extends Updater {
 				RavTechDK.getDownloadsFile("").file());
 			RavTechDK.getDownloadsFile(archive + "-" + version).moveTo(RavTechDK.getPluginsFile(archive + "/"));
 			RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").delete();
-			this.currentVersion = version;
-			if (this.updaterEntry != null) this.updaterEntry.finishedUpdating();
+			currentVersion = version;
+			if (updaterEntry != null)
+				updaterEntry.finishedUpdating();
 			UpdateManager.saveCurrentVersions();
-			if (this.postUpdateHook != null) this.postUpdateHook.run();
+			if (postUpdateHook != null)
+				postUpdateHook.run();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -73,8 +75,9 @@ public class GitHubUpdater extends Updater {
 				int versionStart = httpResponseMessage.indexOf(':');
 				String versionName = httpResponseMessage.substring(versionStart + 2, versionStart + 10);
 				versionName = versionName.substring(0, versionName.indexOf('"'));
-				GitHubUpdater.this.remoteVersion = versionName;
-				if (GitHubUpdater.this.updaterEntry != null) GitHubUpdater.this.updaterEntry.gotRemoteVersion();
+				remoteVersion = versionName;
+				if (GitHubUpdater.this.updaterEntry != null)
+					GitHubUpdater.this.updaterEntry.gotRemoteVersion();
 			}
 
 			@Override
@@ -84,7 +87,7 @@ public class GitHubUpdater extends Updater {
 
 			@Override
 			public void cancelled () {
-				Debug.logDebug("GitHub", GitHubUpdater.this.archive + " - Failed Checking For Version.");
+				Debug.logDebug("GitHub", archive + " - Failed Checking For Version.");
 			}
 		});
 	}

@@ -182,11 +182,13 @@ public class RavTechDK {
 	public static void setSelectedObjects (Array<GameObject> objects) {
 		Array<GameObject> componentCountList = new Array<GameObject>();
 		for (int i = 0; i < selectedObjects.size; i++)
-			if (!componentCountList.contains(selectedObjects.get(i), true)) componentCountList.add(selectedObjects.get(i));
+			if (!componentCountList.contains(selectedObjects.get(i), true))
+				componentCountList.add(selectedObjects.get(i));
 		int lastObjectCount = componentCountList.size;
 		selectedObjects.clear();
 		selectedObjects.addAll(objects);
-		if (lastObjectCount != selectedObjects.size) RavTechDK.inspector.changed();
+		if (lastObjectCount != selectedObjects.size)
+			RavTechDK.inspector.changed();
 		RavTechDK.gizmoHandler.setupGizmos();
 	}
 

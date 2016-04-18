@@ -25,7 +25,7 @@ public abstract class AssetPreviewPanel extends VisTable {
 	}
 
 	public void setSelectionColor (Color color) {
-		this.selectionColor = color;
+		selectionColor = color;
 	}
 
 	@Override

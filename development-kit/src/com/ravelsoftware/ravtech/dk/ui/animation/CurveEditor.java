@@ -97,7 +97,8 @@ public class CurveEditor extends JFrame {
 					float lastX = 0, lastY = 0;
 					for (float i = 0; i <= 1.01; i += 0.04) {
 						float newY = curve.tween(0, 1, i);
-						if (i > 1f) newY = 1;
+						if (i > 1f)
+							newY = 1;
 						float newX = i;
 						g2.draw(new Line2D.Float(new Point(Math.round(lastX * getWidth()), Math.round(lastY * getHeight())),
 							new Point(Math.round(newX * getWidth()), Math.round(newY * getHeight()))));
@@ -175,7 +176,7 @@ public class CurveEditor extends JFrame {
 			}
 		});
 		GridBagConstraints constraints = new GridBagConstraints();
-		this.setLayout(new GridBagLayout());
+		setLayout(new GridBagLayout());
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.fill = GridBagConstraints.BOTH;
@@ -189,14 +190,16 @@ public class CurveEditor extends JFrame {
 			@Override
 			public void actionPerformed (ActionEvent evt) {
 				time += 0.008;
-				if (time > 1.5) time = 0;
+				if (time > 1.5)
+					time = 0;
 				graphPanel.repaint();
 			}
 		}).start();
 	}
 
 	private int getClosestPointIndex (int mouseX) {
-		if (points.length < 2) return 0;
+		if (points.length < 2)
+			return 0;
 		int closestIndex = 0;
 		int closestDst = 9999999;
 		for (int i = 0; i < points.length; i++) {
@@ -442,6 +445,6 @@ public class CurveEditor extends JFrame {
 		}
 		this.add(optionsPanel, constraints);
 		optionsPanel.revalidate();
-		this.currentOptionsPanel = optionsPanel;
+		currentOptionsPanel = optionsPanel;
 	}
 }

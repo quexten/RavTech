@@ -81,16 +81,14 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 		batch.setColor(getColor());
 		if (texture != null)
 			batch.draw(texture,
-				getParent().transform.getPosition().x - width / 2 * (getParent().transform.getLocalScale().x)
-					- originX * width / 2 * (getParent().transform.getLocalScale().x),
-				getParent().transform.getPosition().y - height / 2 * (getParent().transform.getLocalScale().y)
-					- originY * height / 2 * (getParent().transform.getLocalScale().y),
-				originX * width * (getParent().transform.getLocalScale().x) / 2
-					+ width * (getParent().transform.getLocalScale().x) / 2,
-				originY * height * (getParent().transform.getLocalScale().y) / 2
-					+ height * (getParent().transform.getLocalScale().y) / 2,
-				width * (getParent().transform.getLocalScale().x), height * (getParent().transform.getLocalScale().y),
-				(getParent().transform.getLocalScale().x) * 1, getParent().transform.getLocalScale().y * 1,
+				getParent().transform.getPosition().x - width / 2 * getParent().transform.getLocalScale().x
+					- originX * width / 2 * getParent().transform.getLocalScale().x,
+				getParent().transform.getPosition().y - height / 2 * getParent().transform.getLocalScale().y
+					- originY * height / 2 * getParent().transform.getLocalScale().y,
+				originX * width * getParent().transform.getLocalScale().x / 2 + width * getParent().transform.getLocalScale().x / 2,
+				originY * height * getParent().transform.getLocalScale().y / 2 + height * getParent().transform.getLocalScale().y / 2,
+				width * getParent().transform.getLocalScale().x, height * getParent().transform.getLocalScale().y,
+				getParent().transform.getLocalScale().x * 1, getParent().transform.getLocalScale().y * 1,
 				getParent().transform.getRotation(), srcX, srcY, srcWidth, srcHeight, false, false);
 		batch.setColor(Color.WHITE);
 	}

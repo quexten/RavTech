@@ -108,14 +108,15 @@ public class PolygonColliderGizmo extends Gizmo {
 			}
 			if (closestDst < 1) {
 				polygonCollider.vertecies.insert(selectedLine + 1, new Vector2(mousePosition));
-				this.grabbedPoint = polygonCollider.vertecies.get(selectedLine + 1);
+				grabbedPoint = polygonCollider.vertecies.get(selectedLine + 1);
 				isGrabbed = true;
 			}
 			return -1f;
 		case EventType.MouseDrag:
 			if (isGrabbed)
-				if (grabbedPoint != null) grabbedPoint.set(mousePosition.sub(polygonCollider.getParent().transform.getPosition())
-					.rotate(-polygonCollider.getParent().transform.getRotation()));
+				if (grabbedPoint != null)
+					grabbedPoint.set(mousePosition.sub(polygonCollider.getParent().transform.getPosition())
+						.rotate(-polygonCollider.getParent().transform.getRotation()));
 			return -1f;
 		case EventType.MouseUp:
 			if (isGrabbed) {

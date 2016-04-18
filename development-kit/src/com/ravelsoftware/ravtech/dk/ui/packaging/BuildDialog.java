@@ -37,20 +37,20 @@ public class BuildDialog extends VisWindow {
 	public BuildDialog () {
 		super("Build");
 		contentTable.setFillParent(true);
-		this.addActor(contentTable);
-		this.setSize(500, 350);
-		this.setVisible(true);
-		this.addCloseButton();
+		addActor(contentTable);
+		setSize(500, 350);
+		setVisible(true);
+		addCloseButton();
 		contentTable.add(createPlatformTable()).grow();
-		this.setResizable(true);
-		WindowStyle windowStyle = this.getStyle();
+		setResizable(true);
+		WindowStyle windowStyle = getStyle();
 		WindowStyle newWindowStyle = new WindowStyle();
 		newWindowStyle.background = windowStyle.background;
 		newWindowStyle.titleFont = windowStyle.titleFont;
 		newWindowStyle.titleFontColor = windowStyle.titleFontColor;
 		newWindowStyle.stageBackground = VisUI.getSkin().getDrawable("dialogDim");
-		this.setStyle(newWindowStyle);
-		this.centerWindow();
+		setStyle(newWindowStyle);
+		centerWindow();
 	}
 
 	public VisTable createPlatformTable () {
@@ -86,8 +86,10 @@ public class BuildDialog extends VisWindow {
 		buildAndRunButton.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				if (platformList.getSelected().equals(TargetPlatform.Android) && AdbManager.getDevices().size == 0) return;
-				if (platformList.getSelected().equals(TargetPlatform.Android) && AdbManager.getDevices().size > 1) return;
+				if (platformList.getSelected().equals(TargetPlatform.Android) && AdbManager.getDevices().size == 0)
+					return;
+				if (platformList.getSelected().equals(TargetPlatform.Android) && AdbManager.getDevices().size > 1)
+					return;
 				BuildDialog.this.build(platformList.getSelected(), true);
 			}
 		});

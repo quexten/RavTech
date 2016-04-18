@@ -19,12 +19,12 @@ public class KeyStoreManager {
 			new Printer() {
 				@Override
 				public void run () {
-					Debug.log("KeyStore", this.line);
+					Debug.log("KeyStore", line);
 				}
 			}, new Printer() {
 				@Override
 				public void run () {
-					Debug.logError("KeyStore-Error", this.line);
+					Debug.logError("KeyStore-Error", line);
 				}
 			});
 	}

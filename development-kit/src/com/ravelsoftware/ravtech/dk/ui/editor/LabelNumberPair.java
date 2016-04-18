@@ -10,8 +10,8 @@ public class LabelNumberPair extends LabelActorPair<Float> {
 
 	public LabelNumberPair (String labelText, float value) {
 		super(labelText, new VisTextField(String.valueOf(value)), true);
-		((VisTextField)this.pairedComponent).setFocusTraversal(false);
-		((VisTextField)this.pairedComponent).setTextFieldListener(new TextFieldListener() {
+		((VisTextField)pairedComponent).setFocusTraversal(false);
+		((VisTextField)pairedComponent).setTextFieldListener(new TextFieldListener() {
 			@Override
 			public void keyTyped (VisTextField textField, char key) {
 				if (key == '\n' || key == '\r') {
@@ -20,7 +20,8 @@ public class LabelNumberPair extends LabelActorPair<Float> {
 				}
 
 				String text = ((VisTextField)LabelNumberPair.this.pairedComponent).getText();
-				if (text.isEmpty() || !Pattern.matches("([0-9]*)\\.([0-9]*)", text) && !Pattern.matches("([0-9]*)", text)) return;
+				if (text.isEmpty() || !Pattern.matches("([0-9]*)\\.([0-9]*)", text) && !Pattern.matches("([0-9]*)", text))
+					return;
 				LabelNumberPair.this.dragValue = Float
 					.valueOf(String.valueOf(((VisTextField)LabelNumberPair.this.pairedComponent).getText()));
 				LabelNumberPair.this.draggedListener.run();
@@ -30,12 +31,12 @@ public class LabelNumberPair extends LabelActorPair<Float> {
 
 	@Override
 	Float getValue () {
-		return Float.valueOf(((VisTextField)this.pairedComponent).getText());
+		return Float.valueOf(((VisTextField)pairedComponent).getText());
 	}
 
 	void dragged (float x, float y) {
-		this.dragValue = this.oldValue + x / 100f;
-		((VisTextField)this.pairedComponent).setText(String.valueOf(this.dragValue));
+		dragValue = oldValue + x / 100f;
+		((VisTextField)pairedComponent).setText(String.valueOf(dragValue));
 	}
 
 }

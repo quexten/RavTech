@@ -53,14 +53,16 @@ public class AssetFileWatcher {
 							String relativeDirectory = directory.replace('\\', '/').replaceAll(rootPath, "");
 							relativeDirectory = relativeDirectory.length() < 8 ? "" : relativeDirectory.substring(8);
 							final String assetPath = relativeDirectory.isEmpty() ? fileName : relativeDirectory + "/" + fileName;
-							if (!fileName.isEmpty()) Gdx.app.postRunnable(new Runnable() {
-								@Override
-								public void run () {
-									if (!assetPath.endsWith(".scene"))
-										if (RavTech.files.isLoaded(assetPath)) RavTech.files.reloadAsset(assetPath);
-									RavTechDK.assetViewer.assetView.refresh();
-								}
-							});
+							if (!fileName.isEmpty())
+								Gdx.app.postRunnable(new Runnable() {
+									@Override
+									public void run () {
+										if (!assetPath.endsWith(".scene"))
+											if (RavTech.files.isLoaded(assetPath))
+												RavTech.files.reloadAsset(assetPath);
+										RavTechDK.assetViewer.assetView.refresh();
+									}
+								});
 						}
 						watchKey.reset();
 					} catch (Exception ex) {

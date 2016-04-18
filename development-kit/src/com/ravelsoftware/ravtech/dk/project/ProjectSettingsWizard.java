@@ -33,8 +33,8 @@ public class ProjectSettingsWizard extends VisWindow {
 		super("Project Settings");
 		this.project = project;
 		this.isCreation = isCreation;
-		this.setSize(330, 330);
-		this.addCloseButton();
+		setSize(330, 330);
+		addCloseButton();
 		System.out.println("project: " + project);
 
 		top();
@@ -92,7 +92,7 @@ public class ProjectSettingsWizard extends VisWindow {
 		add();
 		add(button);
 		row();
-		this.setModal(true);
+		setModal(true);
 	}
 
 	void addTextLabelPair (String name, String initialValue) {

@@ -48,7 +48,8 @@ public class Inspector extends VisWindow {
 	}
 
 	void rebuild () {
-		if (scrollPane != null) this.scroll = scrollPane.getScrollY();
+		if (scrollPane != null)
+			scroll = scrollPane.getScrollY();
 		clear();
 
 		contentTable = new VisTable();
@@ -123,8 +124,9 @@ public class Inspector extends VisWindow {
 	}
 
 	public void updateValue (GameComponent component, String valueName) {
-		for (int i = 0; i < this.componentPanels.size; i++)
-			if (this.componentPanels.get(i).component.equals(component)) this.componentPanels.get(i).updateValue(valueName);
+		for (int i = 0; i < componentPanels.size; i++)
+			if (componentPanels.get(i).component.equals(component))
+				componentPanels.get(i).updateValue(valueName);
 	}
 
 	public boolean hasChanged () {

@@ -28,7 +28,8 @@ public class Zipper {
 	}
 
 	void generateFileList (File node) {
-		if (node.isFile()) fileList.add(generateZipEntry(node.toString()));
+		if (node.isFile())
+			fileList.add(generateZipEntry(node.toString()));
 		if (node.isDirectory()) {
 			String[] subNote = node.list();
 			for (String filename : subNote)
@@ -66,7 +67,7 @@ public class Zipper {
 			zos = new ZipOutputStream(fos);
 			dialog.log("Zipping Resource Bundle");
 			FileInputStream in = null;
-			for (String file : this.fileList) {
+			for (String file : fileList) {
 				ZipEntry ze = new ZipEntry(file);
 				zos.putNextEntry(ze);
 				try {
@@ -102,7 +103,8 @@ public class Zipper {
 
 	private static void mkdirs (File outdir, String path) {
 		File d = new File(outdir, path);
-		if (!d.exists()) d.mkdirs();
+		if (!d.exists())
+			d.mkdirs();
 	}
 
 	private static String dirpart (String name) {
@@ -132,7 +134,8 @@ public class Zipper {
 				 * /foo/
 				 */
 				dir = dirpart(name);
-				if (dir != null) mkdirs(outdir, dir);
+				if (dir != null)
+					mkdirs(outdir, dir);
 				extractFile(zin, outdir, name);
 			}
 			zin.close();

@@ -38,7 +38,8 @@ public class SpriteRendererGizmo extends Gizmo {
 
 	@Override
 	public void draw (ShapeRenderer renderer, boolean selected) {
-		if (!canEdit) return;
+		if (!canEdit)
+			return;
 		renderer.setAutoShapeType(true);
 		renderer.setColor(Color.LIGHT_GRAY);
 		float rotation = spriteRenderer.getParent().transform.getRotation();
@@ -161,15 +162,16 @@ public class SpriteRendererGizmo extends Gizmo {
 					closestDst = positions.get(i).dst(mousePosition);
 					selectedPoint = i;
 				}
-			if (closestDst > camFactor) return -1f;
+			if (closestDst > camFactor)
+				return -1f;
 			break;
 		case EventType.MouseDown:
-			this.ppuX = spriteRenderer.srcWidth / spriteRenderer.width;
-			this.ppuY = spriteRenderer.srcHeight / spriteRenderer.height;
-			this.oldSrcWidth = spriteRenderer.srcWidth;
-			this.oldSrcHeight = spriteRenderer.srcHeight;
-			this.oldSrcX = spriteRenderer.srcX;
-			this.oldSrcY = spriteRenderer.srcY;
+			ppuX = spriteRenderer.srcWidth / spriteRenderer.width;
+			ppuY = spriteRenderer.srcHeight / spriteRenderer.height;
+			oldSrcWidth = spriteRenderer.srcWidth;
+			oldSrcHeight = spriteRenderer.srcHeight;
+			oldSrcX = spriteRenderer.srcX;
+			oldSrcY = spriteRenderer.srcY;
 			oldPosition = spriteRenderer.getParent().transform.getPosition().sub(
 				new Vector2(spriteRenderer.originX * (spriteRenderer.width / 2), spriteRenderer.originY * (spriteRenderer.height / 2))
 					.rotate(rotation));
@@ -184,47 +186,51 @@ public class SpriteRendererGizmo extends Gizmo {
 			grabbedPoint = selectedPoint;
 			return -1f;
 		case EventType.MouseDrag:
-			if (isGrabbed) switch (grabbedPoint) {
-			case 0: // tl
-				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x,
-					mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, false, false);
-				break;
-			case 1: // tr
-				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x,
-					mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, false, true);
-				break;
-			case 2: // br
-				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x,
-					mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, true, true);
-				break;
-			case 3: // bl
-				changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x,
-					mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, true, false);
-				break;
-			case 4: // t
-				changeHeight(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, true);
-				break;
-			case 5: // r
-				changeWidth(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x, true);
-				break;
-			case 6: // b
-				changeHeight(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, false);
-				break;
-			case 7: // l
-				changeWidth(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x, false);
-				break;
-			case 8:
-				Vector2 subPosition = mousePosition.sub(spriteRenderer.getParent().transform.getPosition());
-				spriteRenderer.originX = -subPosition.x / spriteRenderer.width * 2;
-				spriteRenderer.originY = -subPosition.y / spriteRenderer.height * 2;
-				break;
-			}
+			if (isGrabbed)
+				switch (grabbedPoint) {
+				case 0: // tl
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, false,
+						false);
+					break;
+				case 1: // tr
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, false,
+						true);
+					break;
+				case 2: // br
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, true, true);
+					break;
+				case 3: // bl
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, true,
+						false);
+					break;
+				case 4: // t
+					changeHeight(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, true);
+					break;
+				case 5: // r
+					changeWidth(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x, true);
+					break;
+				case 6: // b
+					changeHeight(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).y, false);
+					break;
+				case 7: // l
+					changeWidth(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x, false);
+					break;
+				case 8:
+					Vector2 subPosition = mousePosition.sub(spriteRenderer.getParent().transform.getPosition());
+					spriteRenderer.originX = -subPosition.x / spriteRenderer.width * 2;
+					spriteRenderer.originY = -subPosition.y / spriteRenderer.height * 2;
+					break;
+				}
 			return -1f;
 		case EventType.MouseUp:
 			isGrabbed = false;
 			break;
 		}
-		return this.closestDst;
+		return closestDst;
 	}
 
 	private void changeWidth (float width, boolean changeRight) {
@@ -239,7 +245,8 @@ public class SpriteRendererGizmo extends Gizmo {
 		spriteRenderer.width = width;
 		if (spriteRenderer.uWrap.equals(TextureWrap.Repeat)) {
 			spriteRenderer.srcWidth = (int)(ppuX * width);
-			if (!changeRight) spriteRenderer.srcX = this.oldSrcX + this.oldSrcWidth - spriteRenderer.srcWidth;
+			if (!changeRight)
+				spriteRenderer.srcX = oldSrcX + oldSrcWidth - spriteRenderer.srcWidth;
 		}
 	}
 
@@ -252,7 +259,8 @@ public class SpriteRendererGizmo extends Gizmo {
 		spriteRenderer.height = height;
 		if (spriteRenderer.vWrap.equals(TextureWrap.Repeat)) {
 			spriteRenderer.srcHeight = (int)(ppuY * height);
-			if (changeTop) spriteRenderer.srcY = this.oldSrcY + this.oldSrcHeight - spriteRenderer.srcHeight;
+			if (changeTop)
+				spriteRenderer.srcY = oldSrcY + oldSrcHeight - spriteRenderer.srcHeight;
 		}
 	}
 
@@ -270,11 +278,13 @@ public class SpriteRendererGizmo extends Gizmo {
 		spriteRenderer.height = height;
 		if (spriteRenderer.uWrap.equals(TextureWrap.Repeat)) {
 			spriteRenderer.srcWidth = (int)(ppuX * width);
-			if (!changeRight) spriteRenderer.srcX = this.oldSrcX + this.oldSrcWidth - spriteRenderer.srcWidth;
+			if (!changeRight)
+				spriteRenderer.srcX = oldSrcX + oldSrcWidth - spriteRenderer.srcWidth;
 		}
 		if (spriteRenderer.vWrap.equals(TextureWrap.Repeat)) {
 			spriteRenderer.srcHeight = (int)(ppuY * height);
-			if (changeTop) spriteRenderer.srcY = this.oldSrcY + this.oldSrcHeight - spriteRenderer.srcHeight;
+			if (changeTop)
+				spriteRenderer.srcY = oldSrcY + oldSrcHeight - spriteRenderer.srcHeight;
 		}
 	}
 

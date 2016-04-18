@@ -15,10 +15,10 @@ public class DeleteFileStep extends PackageStep {
 
 	@Override
 	public void run () {
-		this.buildReporterDialog.log("Deleting File " + file.path());
+		buildReporterDialog.log("Deleting File " + file.path());
 		file.delete();
-		this.buildReporterDialog.log("Deleting File " + file.path());
-		this.executeNext();
+		buildReporterDialog.log("Deleting File " + file.path());
+		executeNext();
 	}
 
 }

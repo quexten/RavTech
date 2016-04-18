@@ -35,7 +35,7 @@ public class GizmoHandler {
 		if (exclusiveGizmo == null) {
 			Array<GameObject> objects = RavTechDK.selectedObjects;
 			for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
-				//objects.addAll(RavTechDK.selectedObjects.get(i));
+				// objects.addAll(RavTechDK.selectedObjects.get(i));
 			}
 
 			for (int i = 0; i < objects.size; i++) {
@@ -79,9 +79,9 @@ public class GizmoHandler {
 				closestGizmo = exclusiveGizmo.input(x, y, 0, EventType.MouseMoved) > 0f ? exclusiveGizmo : null;
 			return closestGizmo != null;
 		case EventType.MouseDown:
-			this.draggedGizmo = closestGizmo;
-			if (this.draggedGizmo != null)
-				this.draggedGizmo.input(x, y, 0, EventType.MouseDown);
+			draggedGizmo = closestGizmo;
+			if (draggedGizmo != null)
+				draggedGizmo.input(x, y, 0, EventType.MouseDown);
 			else {
 				Transform transform = getTransformAtPoint(RavTech.currentScene.gameObjects);
 				if (transform != null) {
@@ -89,10 +89,10 @@ public class GizmoHandler {
 					objects.add(transform.getParent());
 					RavTechDK.setSelectedObjects(objects);
 					if (button == Buttons.LEFT) {
-						this.draggedGizmo = getGizmoFor(transform);
-						((TransformGizmo)this.draggedGizmo).moveGrab = true;
-						this.draggedGizmo.input(x, y, 0, EventType.MouseDown);
-						((TransformGizmo)this.draggedGizmo).moveGrab = false;
+						draggedGizmo = getGizmoFor(transform);
+						((TransformGizmo)draggedGizmo).moveGrab = true;
+						draggedGizmo.input(x, y, 0, EventType.MouseDown);
+						((TransformGizmo)draggedGizmo).moveGrab = false;
 					} else {
 					}
 				} else {
@@ -103,7 +103,7 @@ public class GizmoHandler {
 			}
 			return true;
 		case EventType.MouseUp:
-			if (this.draggedGizmo != null) {
+			if (draggedGizmo != null) {
 				closestGizmo = null;
 				draggedGizmo.input(x, y, 0, EventType.MouseUp);
 				draggedGizmo = null;
@@ -111,9 +111,9 @@ public class GizmoHandler {
 			}
 			return false;
 		case EventType.MouseDrag:
-			if (this.draggedGizmo != null)
-				this.draggedGizmo.input(x, y, button, EventType.MouseDrag);
-			return this.draggedGizmo != null;
+			if (draggedGizmo != null)
+				draggedGizmo.input(x, y, button, EventType.MouseDrag);
+			return draggedGizmo != null;
 		}
 		return false;
 	}
@@ -133,9 +133,8 @@ public class GizmoHandler {
 	public void setupGizmos () {
 		selectedObjectGizmoMap.clear();
 		Array<GameObject> objects = RavTechDK.selectedObjects;
-		for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
+		for (int i = 0; i < RavTechDK.selectedObjects.size; i++)
 			objects.addAll(RavTechDK.selectedObjects.get(i).getGameObjectsInChildren());
-		}
 
 		for (int i = 0; i < objects.size; i++) {
 			GameObject selectedObject = objects.get(i);

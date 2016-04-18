@@ -15,9 +15,9 @@ public class PackBundleStep extends PackageStep {
 
 	@Override
 	public void run () {
-		Zipper zipper = new Zipper(this.buildReporterDialog);
+		Zipper zipper = new Zipper(buildReporterDialog);
 		new File(System.getProperty("user.dir") + "/temp/").mkdir();
 		zipper.zipFolder(RavTechDK.projectHandle.child("assets").path(), System.getProperty("user.dir") + "/temp/build.ravpack");
-		this.executeNext();
+		executeNext();
 	}
 }

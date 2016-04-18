@@ -99,7 +99,8 @@ public class FileProcessor {
 	 * @param outputRoot May be null if there is no output from processing the files.
 	 * @return the processed files added with {@link #addProcessedFile(Entry)}. */
 	public ArrayList<Entry> process (File inputFile, File outputRoot) throws Exception {
-		if (!inputFile.exists()) throw new IllegalArgumentException("Input file does not exist: " + inputFile.getAbsolutePath());
+		if (!inputFile.exists())
+			throw new IllegalArgumentException("Input file does not exist: " + inputFile.getAbsolutePath());
 		if (inputFile.isFile())
 			return process(new File[] {inputFile}, outputRoot);
 		else
@@ -110,7 +111,8 @@ public class FileProcessor {
 	 * @param outputRoot May be null if there is no output from processing the files.
 	 * @return the processed files added with {@link #addProcessedFile(Entry)}. */
 	public ArrayList<Entry> process (File[] files, File outputRoot) throws Exception {
-		if (outputRoot == null) outputRoot = new File("");
+		if (outputRoot == null)
+			outputRoot = new File("");
 		outputFiles.clear();
 
 		LinkedHashMap<File, ArrayList<Entry>> dirToEntries = new LinkedHashMap<File, ArrayList<Entry>>();
@@ -119,7 +121,8 @@ public class FileProcessor {
 		ArrayList<Entry> allEntries = new ArrayList<Entry>();
 		for (java.util.Map.Entry<File, ArrayList<Entry>> mapEntry : dirToEntries.entrySet()) {
 			ArrayList<Entry> dirEntries = mapEntry.getValue();
-			if (comparator != null) Collections.sort(dirEntries, entryComparator);
+			if (comparator != null)
+				Collections.sort(dirEntries, entryComparator);
 
 			File inputDir = mapEntry.getKey();
 			File newOutputDir = null;
@@ -128,7 +131,8 @@ public class FileProcessor {
 			else if (!dirEntries.isEmpty()) //
 				newOutputDir = dirEntries.get(0).outputDir;
 			String outputName = inputDir.getName();
-			if (outputSuffix != null) outputName = outputName.replaceAll("(.*)\\..*", "$1") + outputSuffix;
+			if (outputSuffix != null)
+				outputName = outputName.replaceAll("(.*)\\..*", "$1") + outputSuffix;
 
 			Entry entry = new Entry();
 			entry.inputFile = mapEntry.getKey();
@@ -144,7 +148,8 @@ public class FileProcessor {
 			allEntries.addAll(dirEntries);
 		}
 
-		if (comparator != null) Collections.sort(allEntries, entryComparator);
+		if (comparator != null)
+			Collections.sort(allEntries, entryComparator);
 		for (Entry entry : allEntries)
 			try {
 				processFile(entry);
@@ -176,14 +181,17 @@ public class FileProcessor {
 							found = true;
 							continue;
 						}
-					if (!found) continue;
+					if (!found)
+						continue;
 				}
 
 				File dir = file.getParentFile();
-				if (inputFilter != null && !inputFilter.accept(dir, file.getName())) continue;
+				if (inputFilter != null && !inputFilter.accept(dir, file.getName()))
+					continue;
 
 				String outputName = file.getName();
-				if (outputSuffix != null) outputName = outputName.replaceAll("(.*)\\..*", "$1") + outputSuffix;
+				if (outputSuffix != null)
+					outputName = outputName.replaceAll("(.*)\\..*", "$1") + outputSuffix;
 
 				Entry entry = new Entry();
 				entry.depth = depth;

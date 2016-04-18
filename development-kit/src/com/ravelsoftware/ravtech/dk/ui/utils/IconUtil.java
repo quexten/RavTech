@@ -62,7 +62,8 @@ public class IconUtil {
 		// return IconUtil.getIcon("weather_snow");
 		else if (componentClass.isAssignableFrom(AudioEmitter.class))
 			return IconUtil.getIcon("sound");
-		else if (componentClass.isAssignableFrom(Animator.class)) return IconUtil.getIcon("timeline_marker");
+		else if (componentClass.isAssignableFrom(Animator.class))
+			return IconUtil.getIcon("timeline_marker");
 		return null;
 	}
 }

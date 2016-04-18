@@ -13,16 +13,16 @@ public class CreateFileStep extends PackageStep {
 
 	public CreateFileStep (BuildReporterDialog buildReporterDialog, File file, byte[] data) {
 		super(buildReporterDialog);
-		this.destinationFile = file;
+		destinationFile = file;
 		this.data = data;
 	}
 
 	@Override
 	public void run () {
-		this.buildReporterDialog.log("Creating File " + destinationFile.getAbsolutePath());
+		buildReporterDialog.log("Creating File " + destinationFile.getAbsolutePath());
 		Gdx.files.absolute(destinationFile.getAbsolutePath()).writeBytes(data, false);
-		this.buildReporterDialog.log("Created File " + destinationFile.getAbsolutePath());
-		this.executeNext();
+		buildReporterDialog.log("Created File " + destinationFile.getAbsolutePath());
+		executeNext();
 	}
 
 }

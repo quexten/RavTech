@@ -45,7 +45,7 @@ public class SceneViewWidget extends Widget {
 		camera = main ? RavTech.sceneHandler.worldCamera : RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
 		camera.zoom = 0.05f;
 
-		this.addListener(new InputListener() {
+		addListener(new InputListener() {
 			public boolean mouseMoved (InputEvent event, float x, float y) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
 				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseMoved);
@@ -53,7 +53,7 @@ public class SceneViewWidget extends Widget {
 			}
 		});
 
-		this.addListener(new ClickListener() {
+		addListener(new ClickListener() {
 
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -83,14 +83,15 @@ public class SceneViewWidget extends Widget {
 			@Override
 			public void drag (InputEvent event, float x, float y, int pointer) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				if (RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseDrag)) return;
+				if (RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseDrag))
+					return;
 				selectionEnd.set(camera.unproject(new Vector2(x, getHeight() - y)));
 				RavTechDK.setSelectedObjects(
 					RavTech.currentScene.getGameObjectsIn(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y));
 			}
 
 		};
-		this.addListener(leftListener);
+		addListener(leftListener);
 
 		DragListener rightListener = new DragListener() {
 
@@ -109,7 +110,7 @@ public class SceneViewWidget extends Widget {
 		};
 		rightListener.setTapSquareSize(0);
 		rightListener.setButton(Buttons.RIGHT);
-		this.addListener(rightListener);
+		addListener(rightListener);
 
 		InputListener scrollListener = new InputListener() {
 
@@ -119,7 +120,8 @@ public class SceneViewWidget extends Widget {
 				float lastzoom = camera.zoom;
 				Vector2 lastposition = new Vector2(camera.position.x, camera.position.y);
 				targetZoom += amount * camera.zoom * 0.5;
-				if (targetZoom < 0) targetZoom = 0.0001f;
+				if (targetZoom < 0)
+					targetZoom = 0.0001f;
 				Vector3 worldPos = camera.unproject(new Vector3(x, getHeight() - y, 0), 0, 0, camera.getResolution().x,
 					camera.getResolution().y);
 				targetPosition = new Vector2(worldPos.x, worldPos.y);
@@ -128,9 +130,9 @@ public class SceneViewWidget extends Widget {
 			}
 
 		};
-		this.addListener(scrollListener);
+		addListener(scrollListener);
 
-		this.addListener(new InputListener() {
+		addListener(new InputListener() {
 
 			public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
 				SceneViewWidget.this.getStage().setScrollFocus(SceneViewWidget.this);
@@ -138,12 +140,15 @@ public class SceneViewWidget extends Widget {
 			}
 
 		});
-		this.addListener(new InputListener() {
+		addListener(new InputListener() {
 			public boolean keyDown (InputEvent event, int keycode) {
-				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C) new CopyAction().run();
-				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V) new PasteAction().run();
+				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C)
+					new CopyAction().run();
+				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V)
+					new PasteAction().run();
 
-				if (keycode == Keys.FORWARD_DEL) new DeleteAction().run();
+				if (keycode == Keys.FORWARD_DEL)
+					new DeleteAction().run();
 
 				if (keycode == Keys.F5) {
 					Array<String> assetNames = RavTech.files.getAssetManager().getAssetNames();
@@ -172,19 +177,23 @@ public class SceneViewWidget extends Widget {
 	}
 
 	public void resize () {
-		if (!(getWidth() > 0 && getHeight() > 0)) return;
+		if (!(getWidth() > 0 && getHeight() > 0))
+			return;
 		Debug.logDebug("setToOrtho", getWidth() + "|" + getHeight());
-		this.camera.setToOrtho(false, getWidth(), getHeight());
-		this.camera.update();
-		this.camera.setResolution((int)getWidth(), (int)getHeight());
+		camera.setToOrtho(false, getWidth(), getHeight());
+		camera.update();
+		camera.setResolution((int)getWidth(), (int)getHeight());
 	}
 
 	@Override
 	public void draw (Batch batch, float alpha) {
 		super.draw(batch, alpha);
-		if (hasToLerpZoom) camera.zoom += 0.16f * (targetZoom - camera.zoom);
-		if (hasToLerpPosition) camera.position.lerp(new Vector3(targetPosition.x, targetPosition.y, 0), 0.16f);
-		if (Math.abs(targetZoom - camera.zoom) < 0.00001f) hasToLerpZoom = hasToLerpPosition = false;
+		if (hasToLerpZoom)
+			camera.zoom += 0.16f * (targetZoom - camera.zoom);
+		if (hasToLerpPosition)
+			camera.position.lerp(new Vector3(targetPosition.x, targetPosition.y, 0), 0.16f);
+		if (Math.abs(targetZoom - camera.zoom) < 0.00001f)
+			hasToLerpZoom = hasToLerpPosition = false;
 		batch.setColor(Color.WHITE);
 		batch.disableBlending();
 		((SpriteBatch)batch).draw(camera.getCameraBufferTexture(), 0, getHeight(), getWidth(), -getHeight());

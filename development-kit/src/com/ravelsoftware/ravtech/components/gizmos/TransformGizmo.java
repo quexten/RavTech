@@ -66,66 +66,68 @@ public class TransformGizmo extends Gizmo {
 		else
 			selectedaxis = grabbedAxis;
 
-		if (moveGrab) selectedaxis = xyaxis;
+		if (moveGrab)
+			selectedaxis = xyaxis;
 		if (selectedaxis != 0) {
 			switch (eventtype) {
 			case EventType.MouseDown:
 				grabPosition = transform.getPosition().cpy().sub(worldPosition);
-				oldX = this.transform.getLocalPosition().cpy().x;
-				oldY = this.transform.getLocalPosition().cpy().y;
-				oldRotation = this.transform.getLocalRotation();
-				this.isGrabbed = true;
-				this.grabbedAxis = selectedaxis;
+				oldX = transform.getLocalPosition().cpy().x;
+				oldY = transform.getLocalPosition().cpy().y;
+				oldRotation = transform.getLocalRotation();
+				isGrabbed = true;
+				grabbedAxis = selectedaxis;
 				break;
 			case EventType.MouseDrag:
-				if (!isGrabbed) return currentDst;
+				if (!isGrabbed)
+					return currentDst;
 				Vector2 currentposition = transform.getPosition();
 				Vector2 mouseposition = worldPosition;
 				if (grabPosition != null && (grabbedAxis == xaxis || grabbedAxis == yaxis)) {
-					this.transform
-						.setPosition(new Vector2(selectedaxis == xaxis ? mouseposition.x + grabPosition.x : currentposition.x,
-							selectedaxis == yaxis ? mouseposition.y + grabPosition.y : currentposition.y));
+					transform.setPosition(new Vector2(selectedaxis == xaxis ? mouseposition.x + grabPosition.x : currentposition.x,
+						selectedaxis == yaxis ? mouseposition.y + grabPosition.y : currentposition.y));
 					ModifyChangeable changeable = grabbedAxis == xaxis
-						? new ModifyChangeable(this.transform, "", "x", oldX, this.transform.getLocalPosition().cpy().x)
-						: new ModifyChangeable(this.transform, "", "y", oldY, this.transform.getLocalPosition().cpy().y);
+						? new ModifyChangeable(transform, "", "x", oldX, transform.getLocalPosition().cpy().x)
+						: new ModifyChangeable(transform, "", "y", oldY, transform.getLocalPosition().cpy().y);
 					changeable.isDummy = true;
 					ChangeManager.addChangeable(changeable);
 				} else if (grabbedAxis == raxis) {
 					transform.setRotation(mouseposition.sub(transform.getPosition().cpy()).angle());
-					ModifyChangeable changeable = new ModifyChangeable(this.transform, "", "rotation", oldRotation, this.transform
+					ModifyChangeable changeable = new ModifyChangeable(transform, "", "rotation", oldRotation, transform
 						.getLocalRotation()
 						+ (transform.getParent().getParent() != null ? transform.getParent().getParent().transform.getRotation() : 0));
 					changeable.isDummy = true;
 					ChangeManager.addChangeable(changeable);
 				} else if (grabPosition != null && grabbedAxis == xyaxis) {
-					this.transform.setPosition(mouseposition.x + grabPosition.x, mouseposition.y + grabPosition.y);
-					ModifyChangeable changeableX = new ModifyChangeable(this.transform, "", "x", oldX,
-						this.transform.getLocalPosition().cpy().x);
+					transform.setPosition(mouseposition.x + grabPosition.x, mouseposition.y + grabPosition.y);
+					ModifyChangeable changeableX = new ModifyChangeable(transform, "", "x", oldX,
+						transform.getLocalPosition().cpy().x);
 					changeableX.isDummy = true;
 					ChangeManager.addChangeable(changeableX);
-					ModifyChangeable changeableY = new ModifyChangeable(this.transform, "", "y", oldY,
-						this.transform.getLocalPosition().cpy().y);
+					ModifyChangeable changeableY = new ModifyChangeable(transform, "", "y", oldY,
+						transform.getLocalPosition().cpy().y);
 					changeableY.isDummy = true;
 					ChangeManager.addChangeable(changeableY);
 				}
 				break;
 			case EventType.MouseUp:
-				this.isGrabbed = false;
+				isGrabbed = false;
 				ModifyChangeable changeable = null;
 				if (grabPosition != null && grabbedAxis == xaxis || grabbedAxis == xyaxis) {
-					changeable = new ModifyChangeable(this.transform, "Set Transform X:" + this.transform.getLocalPosition().cpy().x,
-						"x", oldX, this.transform.getLocalPosition().cpy().x);
+					changeable = new ModifyChangeable(transform, "Set Transform X:" + transform.getLocalPosition().cpy().x, "x", oldX,
+						transform.getLocalPosition().cpy().x);
 					ChangeManager.addChangeable(changeable);
 				}
 				if (grabPosition != null && grabbedAxis == yaxis || grabbedAxis == xyaxis) {
-					changeable = new ModifyChangeable(this.transform, "Set Transform Y:" + this.transform.getLocalPosition().cpy().y,
-						"y", oldY, this.transform.getLocalPosition().cpy().y);
-					if (grabbedAxis == xyaxis) changeable.previousConnected = true;
+					changeable = new ModifyChangeable(transform, "Set Transform Y:" + transform.getLocalPosition().cpy().y, "y", oldY,
+						transform.getLocalPosition().cpy().y);
+					if (grabbedAxis == xyaxis)
+						changeable.previousConnected = true;
 					ChangeManager.addChangeable(changeable);
 				}
 				if (grabbedAxis == raxis) {
-					changeable = new ModifyChangeable(this.transform, "Set Transform Rotation:" + this.transform.getLocalRotation(),
-						"rotation", oldRotation, this.transform.getLocalRotation());
+					changeable = new ModifyChangeable(transform, "Set Transform Rotation:" + transform.getLocalRotation(), "rotation",
+						oldRotation, transform.getLocalRotation());
 					ChangeManager.addChangeable(changeable);
 				}
 				grabbedAxis = 0;
@@ -164,9 +166,9 @@ public class TransformGizmo extends Gizmo {
 			selectedaxis = yaxis;
 			currentDst = yaxisdst;
 		}
-		if (worldPosition.dst(this.transform.getPosition().cpy()) < 0.3f * 20f * zoom) {
+		if (worldPosition.dst(transform.getPosition().cpy()) < 0.3f * 20f * zoom) {
 			selectedaxis = xyaxis;
-			currentDst = worldPosition.dst(this.transform.getPosition().cpy());
+			currentDst = worldPosition.dst(transform.getPosition().cpy());
 		}
 		return selectedaxis;
 	}

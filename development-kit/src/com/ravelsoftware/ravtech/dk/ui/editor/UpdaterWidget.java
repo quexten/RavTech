@@ -24,7 +24,7 @@ public class UpdaterWidget extends VisWindow {
 	public UpdaterWidget () {
 		super("Updater");
 
-		this.align(Align.top);
+		align(Align.top);
 
 		VisTable items = new VisTable();
 

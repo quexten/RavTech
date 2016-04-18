@@ -19,7 +19,8 @@ public class ProcessExecutor {
 		InputStream in = process.getInputStream();
 		while (true) {
 			int r = in.read(buffer);
-			if (r <= 0) break;
+			if (r <= 0)
+				break;
 			System.out.write(buffer, 0, r);
 		}
 		process.waitFor();

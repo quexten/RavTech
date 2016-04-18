@@ -34,7 +34,7 @@ public class ApkPreparationStep extends PackageStep {
 				Gdx.files.absolute(System.getProperty("user.dir") + "/build-templates/android/strings.xml").readString()
 					.replaceAll("APP_NAME", RavTechDK.project.appName).getBytes()));
 		firstStep.run();
-		this.executeNext();
+		executeNext();
 	}
 
 	FileHandle getIcon (String name) {
