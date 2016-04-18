@@ -32,15 +32,22 @@ public class GizmoHandler {
 	/** Renders the currently active gizmos
 	 * @param renderer - the shaperenderer to render the gizmos with */
 	public void render (ShapeRenderer renderer) {
-		if (exclusiveGizmo == null)
+		if (exclusiveGizmo == null) {
+			Array<GameObject> objects = RavTechDK.selectedObjects;
 			for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
-				GameObject object = RavTechDK.selectedObjects.get(i);
-				if (object != null) for (int n = 0; n < object.getComponents().size; n++) {
-					Gizmo gizmo = getGizmoFor(object.getComponents().get(n));
-					if (gizmo != null) gizmo.draw(renderer, gizmo == closestGizmo);
-				}
+				//objects.addAll(RavTechDK.selectedObjects.get(i));
 			}
-		else
+
+			for (int i = 0; i < objects.size; i++) {
+				GameObject object = objects.get(i);
+				if (object != null)
+					for (int n = 0; n < object.getComponents().size; n++) {
+						Gizmo gizmo = getGizmoFor(object.getComponents().get(n));
+						if (gizmo != null)
+							gizmo.draw(renderer, gizmo == closestGizmo);
+					}
+			}
+		} else
 			exclusiveGizmo.draw(renderer, exclusiveGizmo == closestGizmo);
 	}
 
@@ -104,7 +111,8 @@ public class GizmoHandler {
 			}
 			return false;
 		case EventType.MouseDrag:
-			if (this.draggedGizmo != null) this.draggedGizmo.input(x, y, button, EventType.MouseDrag);
+			if (this.draggedGizmo != null)
+				this.draggedGizmo.input(x, y, button, EventType.MouseDrag);
 			return this.draggedGizmo != null;
 		}
 		return false;
@@ -115,7 +123,8 @@ public class GizmoHandler {
 		Entries<GameComponent, Gizmo> iterator = selectedObjectGizmoMap.iterator();
 		while (iterator.hasNext()) {
 			Entry<GameComponent, Gizmo> entry = iterator.next();
-			if (entry.key == component) return entry.value;
+			if (entry.key == component)
+				return entry.value;
 		}
 		return null;
 	}
@@ -123,14 +132,21 @@ public class GizmoHandler {
 	/** Sets up gizmos for the currently selected list of objects */
 	public void setupGizmos () {
 		selectedObjectGizmoMap.clear();
+		Array<GameObject> objects = RavTechDK.selectedObjects;
 		for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
-			GameObject selectedObject = RavTechDK.selectedObjects.get(i);
-			if (selectedObject != null) for (int n = 0; n < selectedObject.getComponents().size; n++) {
-				GameComponent iteratedComponent = selectedObject.getComponents().get(n);
-				Gizmo gizmo = null;
-				gizmo = createGizmoFor(iteratedComponent);
-				if (gizmo != null) selectedObjectGizmoMap.put(iteratedComponent, gizmo);
-			}
+			objects.addAll(RavTechDK.selectedObjects.get(i).getGameObjectsInChildren());
+		}
+
+		for (int i = 0; i < objects.size; i++) {
+			GameObject selectedObject = objects.get(i);
+			if (selectedObject != null)
+				for (int n = 0; n < selectedObject.getComponents().size; n++) {
+					GameComponent iteratedComponent = selectedObject.getComponents().get(n);
+					Gizmo gizmo = null;
+					gizmo = createGizmoFor(iteratedComponent);
+					if (gizmo != null)
+						selectedObjectGizmoMap.put(iteratedComponent, gizmo);
+				}
 		}
 	}
 
@@ -150,7 +166,8 @@ public class GizmoHandler {
 			gizmo = new ConeLightGizmo((Light)component);
 		else if (iteratedComponentClass.equals(PolygonCollider.class))
 			gizmo = new PolygonColliderGizmo((PolygonCollider)component);
-		else if (iteratedComponentClass.equals(SpriteRenderer.class)) gizmo = new SpriteRendererGizmo((SpriteRenderer)component);
+		else if (iteratedComponentClass.equals(SpriteRenderer.class))
+			gizmo = new SpriteRendererGizmo((SpriteRenderer)component);
 		return gizmo;
 	}
 

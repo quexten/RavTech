@@ -35,7 +35,7 @@ public class Light extends Renderer implements Json.Serializable {
 		light.setDirection(getParent().transform.getRotation());
 		if (!light.getColor().equals(color))
 			light.setColor(color);
-		light.setDistance(distance * Math.abs(getParent().transform.flippedX ? 1 : -1));
+		light.setDistance(distance);
 		if (light instanceof ConeLight)
 			((ConeLight)light).setConeDegree(angle);
 	}

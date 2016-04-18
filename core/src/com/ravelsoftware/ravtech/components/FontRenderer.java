@@ -51,7 +51,7 @@ public class FontRenderer extends Renderer {
 	}
 
 	@Override
-	public void load (Array<AssetDescriptor> dependencies) {
+	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 		dependencies.add(new AssetDescriptor<BitmapFont>(path, BitmapFont.class));
 		RavTech.files.addDependency(path, this);
 	}

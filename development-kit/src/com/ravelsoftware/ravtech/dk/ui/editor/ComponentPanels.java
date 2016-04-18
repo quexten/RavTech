@@ -42,6 +42,8 @@ public class ComponentPanels {
 				addSliderLabel(table, "x");
 				addSliderLabel(table, "y");
 				addSliderLabel(table, "rotation");
+				addSliderLabel(table, "scaleX");
+				addSliderLabel(table, "scaleY");
 				return table;
 			}
 		});
