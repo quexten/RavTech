@@ -23,7 +23,7 @@ public class RavFiles {
 	ObjectMap<String, Array<GameComponent>> componentDependencies = new ObjectMap<String, Array<GameComponent>>();
 
 	public RavFiles (FileHandleResolver assetResolver) {
-		this.setResolver(assetResolver);
+		setResolver(assetResolver);
 	}
 
 	/** @return - The AssetManager */
@@ -58,7 +58,8 @@ public class RavFiles {
 	 * @param finish - whether to wait for the asset to finish loading */
 	public <T> void loadAsset (String path, Class<T> assetType, boolean finish) {
 		assetManager.load(path, assetType);
-		if (finish) assetManager.finishLoadingAsset(path);
+		if (finish)
+			assetManager.finishLoadingAsset(path);
 	}
 
 	/** Starts loading the file
@@ -79,12 +80,12 @@ public class RavFiles {
 	/** Reloads the specified asset
 	 * @param fileName - the file name of the asset */
 	public void reloadAsset (String path) {
-		Class<?> type = this.getAssetManager().getAssetType(path);
-		this.getAssetManager().setReferenceCount(path, 1);
-		this.getAssetManager().unload(path);
-		this.getAssetManager().load(path, type);
-		this.finishLoading();
-		Array<GameComponent> dependentComponents = this.getDependentComponents(path);
+		Class<?> type = getAssetManager().getAssetType(path);
+		getAssetManager().setReferenceCount(path, 1);
+		getAssetManager().unload(path);
+		getAssetManager().load(path, type);
+		finishLoading();
+		Array<GameComponent> dependentComponents = getDependentComponents(path);
 		for (int i = 0; i < dependentComponents.size; i++)
 			dependentComponents.get(i).finishedLoading();
 	}
@@ -146,23 +147,27 @@ public class RavFiles {
 
 	public void addDependency (String path, GameComponent component) {
 		Debug.logDebug("AddDependency", path);
-		if (!componentDependencies.containsKey(path)) componentDependencies.put(path, new Array<GameComponent>());
+		if (!componentDependencies.containsKey(path))
+			componentDependencies.put(path, new Array<GameComponent>());
 		componentDependencies.get(path).add(component);
 	}
 
 	public void removeDependency (String path, GameComponent component) {
 		Debug.logDebug("RemoveDependency", path);
-		if (componentDependencies.get(path) == null) return;
+		if (componentDependencies.get(path) == null)
+			return;
 		componentDependencies.get(path).removeValue(component, true);
-		if (componentDependencies.get(path).size == 0) componentDependencies.remove(path);
+		if (componentDependencies.get(path).size == 0)
+			componentDependencies.remove(path);
 	}
 
 	public boolean hasAsset (String path) {
-		return this.assetManager.containsAsset(path);
+		return assetManager.containsAsset(path);
 	}
 
 	public void setResolver (FileHandleResolver resolver) {
-		if (assetManager != null) assetManager.dispose();
+		if (assetManager != null)
+			assetManager.dispose();
 		assetManager = new AssetManager(resolver);
 		assetManager.setLoader(Scene.class, new SceneLoader(resolver));
 		assetManager.setLoader(Project.class, new ProjectLoader(resolver));

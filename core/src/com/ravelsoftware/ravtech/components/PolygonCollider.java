@@ -27,21 +27,21 @@ public class PolygonCollider extends Box2dCollider {
 
 	@Override
 	public void apply () {
-		Body body = ((Rigidbody)this.getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
+		Body body = ((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
 		FixtureDef fixtureDef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		fixture.setDensity(1);
 		fixture.setDensity(density);
 		shape.set((Vector2[])vertecies.toArray(Vector2.class));
 		fixtureDef.density = 4;
-		fixtureDef.friction = this.friction;
-		fixtureDef.isSensor = this.isSensor;
-		fixtureDef.restitution = this.restitution;
+		fixtureDef.friction = friction;
+		fixtureDef.isSensor = isSensor;
+		fixtureDef.restitution = restitution;
 		fixtureDef.shape = shape;
 		if (fixtures.size > 0) {
 			dispose();
 			fixtures.clear();
-			((Rigidbody)this.getParent().getComponentByType(ComponentType.Rigidbody)).apply();
+			((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).apply();
 			rebuildAll();
 			return;
 		}
@@ -62,7 +62,8 @@ public class PolygonCollider extends Box2dCollider {
 		super.dispose();
 		UserData userData = new UserData();
 		userData.isFlaggedForDelete = true;
-		if (fixtures.size > 0) fixtures.get(0).setUserData(userData);
+		if (fixtures.size > 0)
+			fixtures.get(0).setUserData(userData);
 	}
 
 	@Override
@@ -86,7 +87,8 @@ public class PolygonCollider extends Box2dCollider {
 
 	@Override
 	public void setVariable (int variableID, Object value) {
-		if (variableID <= 6) super.setVariable(variableID, value);
+		if (variableID <= 6)
+			super.setVariable(variableID, value);
 	}
 
 	@Override
@@ -111,7 +113,7 @@ public class PolygonCollider extends Box2dCollider {
 
 	@Override
 	public String getName () {
-		return this.getType().toString();
+		return getType().toString();
 	}
 
 	@SuppressWarnings("rawtypes")

@@ -64,7 +64,8 @@ public class RavTech extends Game {
 
 		// Serializes current Scene for later restore after context loss
 		final String serializedCurrentScene = input != null ? files.storeState() : null;
-		if (input != null) sceneHandler.dispose();
+		if (input != null)
+			sceneHandler.dispose();
 		input = new RavInput();
 		ui = new RavUI();
 		settings = new RavSettings();
@@ -83,18 +84,20 @@ public class RavTech extends Game {
 			RavTech.currentScene = files.getAsset(project.startScene);
 		}
 
-		this.setScreen(new PlayScreen());
+		setScreen(new PlayScreen());
 		sceneHandler.paused = true;
 		sceneHandler.update(0);
 		sceneHandler.paused = false;
-		if (Gdx.app.getType() != ApplicationType.WebGL && !isEditor) sceneHandler.initScripts();
+		if (Gdx.app.getType() != ApplicationType.WebGL && !isEditor)
+			sceneHandler.initScripts();
 	}
 
 	@Override
 	public void render () {
 		if (Gdx.app.getType() == ApplicationType.WebGL && !WebGLScriptManager.areLoaded())
 			return;
-		else if (!WebGLScriptManager.initialized) WebGLScriptManager.initialize();
+		else if (!WebGLScriptManager.initialized)
+			WebGLScriptManager.initialize();
 
 		for (int i = 0; i < HookApi.onUpdateHooks.size; i++)
 			HookApi.onUpdateHooks.get(i).run();

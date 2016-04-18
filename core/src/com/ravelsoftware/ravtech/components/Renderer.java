@@ -45,9 +45,12 @@ public abstract class Renderer extends GameComponent implements Json.Serializabl
 
 	@Override
 	public void read (Json json, JsonValue jsonData) {
-		if (jsonData.has("sortingLayerName")) this.sortingLayerName = jsonData.getString("sortingLayerName");
-		if (jsonData.has("sortingOrder")) this.sortingOrder = jsonData.getInt("sortingOrder");
-		if (jsonData.has("enabled")) this.enabled = jsonData.getBoolean("enabled");
+		if (jsonData.has("sortingLayerName"))
+			sortingLayerName = jsonData.getString("sortingLayerName");
+		if (jsonData.has("sortingOrder"))
+			sortingOrder = jsonData.getInt("sortingOrder");
+		if (jsonData.has("enabled"))
+			enabled = jsonData.getBoolean("enabled");
 	}
 
 	@Override

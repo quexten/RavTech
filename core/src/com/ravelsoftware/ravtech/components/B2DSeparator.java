@@ -103,20 +103,24 @@ public class B2DSeparator {
 					if (!fl) {
 						d = det(verticesVec[i].x, verticesVec[i].y, verticesVec[i2].x, verticesVec[i2].y, verticesVec[j].x,
 							verticesVec[j].y);
-						if (d > 0) fl = true;
+						if (d > 0)
+							fl = true;
 					}
 					if (j != i3) {
 						j2 = j < n - 1 ? j + 1 : 0;
 						if (hitSegment(verticesVec[i].x, verticesVec[i].y, verticesVec[i2].x, verticesVec[i2].y, verticesVec[j].x,
-							verticesVec[j].y, verticesVec[j2].x, verticesVec[j2].y) != null) ret = 1;
+							verticesVec[j].y, verticesVec[j2].x, verticesVec[j2].y) != null)
+							ret = 1;
 					}
 				}
-			if (!fl) fl2 = true;
+			if (!fl)
+				fl2 = true;
 		}
-		if (fl2) if (ret == 1)
-			ret = 3;
-		else
-			ret = 2;
+		if (fl2)
+			if (ret == 1)
+				ret = 3;
+			else
+				ret = 2;
 		return ret;
 	}
 
@@ -164,23 +168,28 @@ public class B2DSeparator {
 								}
 							}
 						}
-					if (minLen == Float.MAX_VALUE) err();
+					if (minLen == Float.MAX_VALUE)
+						err();
 					vec1 = new ArrayList<Vector2>();
 					vec2 = new ArrayList<Vector2>();
 					j1 = h;
 					j2 = k;
 					v1 = vec.get(j1);
 					v2 = vec.get(j2);
-					if (!pointsMatch(hitV.x, hitV.y, v2.x, v2.y)) vec1.add(hitV);
-					if (!pointsMatch(hitV.x, hitV.y, v1.x, v1.y)) vec2.add(hitV);
+					if (!pointsMatch(hitV.x, hitV.y, v2.x, v2.y))
+						vec1.add(hitV);
+					if (!pointsMatch(hitV.x, hitV.y, v1.x, v1.y))
+						vec2.add(hitV);
 					h = -1;
 					k = i1;
 					while (true) {
 						if (k != j2)
 							vec1.add(vec.get(k));
 						else {
-							if (h < 0 || h >= n) err();
-							if (!isOnSegment(v2.x, v2.y, vec.get(h).x, vec.get(h).y, p1.x, p1.y)) vec1.add(vec.get(k));
+							if (h < 0 || h >= n)
+								err();
+							if (!isOnSegment(v2.x, v2.y, vec.get(h).x, vec.get(h).y, p1.x, p1.y))
+								vec1.add(vec.get(k));
 							break;
 						}
 						h = k;
@@ -196,8 +205,10 @@ public class B2DSeparator {
 						if (k != j1)
 							vec2.add(vec.get(k));
 						else {
-							if (h < 0 || h >= n) err();
-							if (k == j1 && !isOnSegment(v1.x, v1.y, vec.get(h).x, vec.get(h).y, p2.x, p2.y)) vec2.add(vec.get(k));
+							if (h < 0 || h >= n)
+								err();
+							if (k == j1 && !isOnSegment(v1.x, v1.y, vec.get(h).x, vec.get(h).y, p2.x, p2.y))
+								vec2.add(vec.get(k));
 							break;
 						}
 						h = k;
@@ -229,7 +240,8 @@ public class B2DSeparator {
 		float px = x1 + a * t3, py = y1 + a * t4;
 		boolean b1 = isOnSegment(x2, y2, x1, y1, px, py);
 		boolean b2 = isOnSegment(px, py, x3, y3, x4, y4);
-		if (b1 && b2) return new Vector2(px, py);
+		if (b1 && b2)
+			return new Vector2(px, py);
 		return null;
 	}
 
@@ -239,7 +251,8 @@ public class B2DSeparator {
 		float px = x1 + a * t3, py = y1 + a * t4;
 		boolean b1 = isOnSegment(px, py, x1, y1, x2, y2);
 		boolean b2 = isOnSegment(px, py, x3, y3, x4, y4);
-		if (b1 && b2) return new Vector2(px, py);
+		if (b1 && b2)
+			return new Vector2(px, py);
 		return null;
 	}
 

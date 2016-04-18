@@ -27,8 +27,10 @@ public class Animation implements Json.Serializable {
 
 	public void setTime (int time) {
 		currentTime = time;
-		if (currentTime > getLength()) currentTime = currentTime - getLength();
-		if (currentTime < 0) currentTime = getLength();
+		if (currentTime > getLength())
+			currentTime = currentTime - getLength();
+		if (currentTime < 0)
+			currentTime = getLength();
 		for (int i = 0; i < timelines.size; i++)
 			timelines.get(i).update(currentTime);
 	}
@@ -39,7 +41,8 @@ public class Animation implements Json.Serializable {
 
 	public Timeline getTimeline (GameComponent gameComponent, int id) {
 		for (int i = 0; i < timelines.size; i++)
-			if (timelines.get(i).component == gameComponent && timelines.get(i).variableId == id) return timelines.get(i);
+			if (timelines.get(i).component == gameComponent && timelines.get(i).variableId == id)
+				return timelines.get(i);
 		return null;
 	}
 
@@ -61,9 +64,10 @@ public class Animation implements Json.Serializable {
 			timeline.animator = animator;
 			timeline.read(json, jsonData.get("timelines").get(i));
 			timeline.animation = this;
-			this.timelines.add(timeline);
+			timelines.add(timeline);
 		}
-		if (jsonData.has("animationLength")) setLength(jsonData.getInt("animationLength"));
+		if (jsonData.has("animationLength"))
+			setLength(jsonData.getInt("animationLength"));
 	}
 
 	public void setLength (Integer valueOf) {

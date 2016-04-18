@@ -31,7 +31,8 @@ public class RemoveChangeable extends Changeable {
 		GameObject component = (GameObject)GameObjectTraverseUtil.gameComponentFromPath(pathToComponent);
 		JsonValue jsonData = new JsonReader().parse(gameComponent);
 		componentType = jsonData.getString("componenttype");
-		if (componentType.equals("GameObject")) componentType = jsonData.getString("name");
+		if (componentType.equals("GameObject"))
+			componentType = jsonData.getString("name");
 		/*
 		 *
 		 * for(GameComponent tempComponent: component.getComponents())

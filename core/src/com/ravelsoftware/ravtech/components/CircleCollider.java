@@ -50,28 +50,28 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 
 	@Override
 	public void apply () {
-		Body body = ((Rigidbody)this.getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
+		Body body = ((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
 		FixtureDef fixtureDef = new FixtureDef();
 		CircleShape shape = new CircleShape();
 		shape.setPosition(new Vector2(x, y));
-		shape.setRadius(this.radius);
-		fixtureDef.density = this.density;
-		fixtureDef.friction = this.friction;
-		fixtureDef.isSensor = this.isSensor;
-		fixtureDef.restitution = this.restitution;
+		shape.setRadius(radius);
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		fixtureDef.isSensor = isSensor;
+		fixtureDef.restitution = restitution;
 		fixtureDef.shape = shape;
 		if (fixture != null) {
 			dispose();
 			fixture = null;
-			((Rigidbody)this.getParent().getComponentByType(ComponentType.Rigidbody)).apply();
+			((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).apply();
 			rebuildAll();
-			this.getParent().transform.setRotation(this.getParent().transform.getRotation());
+			getParent().transform.setRotation(getParent().transform.getRotation());
 			return;
 		}
 		fixture = body.createFixture(fixtureDef);
 		fixture.setFilterData(filter);
 		UserData userdata = new UserData();
-		userdata.component = (Rigidbody)this.getParent().getComponentByName("Rigidbody");
+		userdata.component = (Rigidbody)getParent().getComponentByName("Rigidbody");
 		fixture.setUserData(userdata);
 	}
 
@@ -81,7 +81,8 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 
 	@Override
 	public void finishedLoading () {
-		if (this.getParent().getComponentByType(ComponentType.Rigidbody) == null) this.getParent().addComponent(new Rigidbody());
+		if (getParent().getComponentByType(ComponentType.Rigidbody) == null)
+			getParent().addComponent(new Rigidbody());
 		apply();
 	}
 
@@ -110,7 +111,8 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 
 	@Override
 	public void setVariable (int variableID, Object value) {
-		if (variableID <= 6) super.setVariable(variableID, value);
+		if (variableID <= 6)
+			super.setVariable(variableID, value);
 		String valueString = String.valueOf(value);
 		switch (variableID) {
 		case 7:
@@ -126,7 +128,8 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 	@Override
 	public int getVariableId (String variableName) {
 		int superId = super.getVariableId(variableName);
-		if (superId != -1) return superId;
+		if (superId != -1)
+			return superId;
 		switch (variableName) {
 		case "x":
 			return 7;

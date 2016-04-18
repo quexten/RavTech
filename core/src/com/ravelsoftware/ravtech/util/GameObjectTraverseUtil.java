@@ -32,7 +32,8 @@ public class GameObjectTraverseUtil {
 			GameComponent tempComponent = components.get(n);
 			if (tempComponent != component && tempComponent.getName().equals(component.getName()))
 				i++;
-			else if (tempComponent == component) break;
+			else if (tempComponent == component)
+				break;
 		}
 		return i;
 	}
@@ -55,7 +56,8 @@ public class GameObjectTraverseUtil {
 		for (GameComponent tempComponent : components)
 			if (tempComponent.getName().equals(name) && n != i)
 				i++;
-			else if (tempComponent.getName().equals(name) && n == i) return tempComponent;
+			else if (tempComponent.getName().equals(name) && n == i)
+				return tempComponent;
 		return null;
 	}
 
@@ -67,12 +69,14 @@ public class GameObjectTraverseUtil {
 	}
 
 	public static GameComponent gameComponentFromPath (String path) {
-		if (path == null) return null;
+		if (path == null)
+			return null;
 		String[] pathNodes = path.split("/");
 		if (pathNodes.length > 1) {
 			pathNodes = copyOfRange(pathNodes, 1, pathNodes.length);
 			GameComponent currentObject = getComponentByID(null, pathNodes[0]);
-			if (pathNodes.length == 1) return currentObject;
+			if (pathNodes.length == 1)
+				return currentObject;
 			for (int i = 1; i < pathNodes.length; i++)
 				currentObject = getComponentByID((GameObject)currentObject, pathNodes[i]);
 			return currentObject;

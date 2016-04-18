@@ -38,16 +38,16 @@ public class Animator extends GameComponent implements Json.Serializable {
 		currentAnimation.update(Gdx.graphics.getDeltaTime() * speed);
 		if (currentAnimation.getTime() + Math.round(Gdx.graphics.getDeltaTime() * speed * 1000) > currentAnimation.getLength())
 			if (onCompleteAnimation != null) {
-			setAnimation(onCompleteAnimation);
-			onCompleteAnimation = null;
-		}
+				setAnimation(onCompleteAnimation);
+				onCompleteAnimation = null;
+			}
 	}
 
 	public void setAnimation (String animation) {
 		currentAnimation = animations.get("Default");
-		this.update();
+		update();
 		currentAnimation = animations.get(animation);
-		this.update();
+		update();
 	}
 
 	public void setOnCompleteAnimation (String animation) {
@@ -70,7 +70,7 @@ public class Animator extends GameComponent implements Json.Serializable {
 			JsonValue animationValue = jsonData.get("animations").get(i);
 			Animation animation = new Animation();
 			animation.animator = this;
-			this.animations.put(animationValue.name, animation);
+			animations.put(animationValue.name, animation);
 			animation.read(json, animationValue);
 		}
 		if (animations.size == 0) {

@@ -16,11 +16,11 @@ public abstract class GameComponent implements Json.Serializable, VariableAccess
 
 	public abstract String getName ();
 
-	public GameComponent (GameObject parent) {
-		setParent(parent);
+	public GameComponent () {
 	}
 
-	public GameComponent () {
+	public GameComponent (GameObject parent) {
+		setParent(parent);
 	}
 
 	/** Queues up the dependencies */
@@ -57,7 +57,8 @@ public abstract class GameComponent implements Json.Serializable, VariableAccess
 		GameObject parent = getParent();
 		while (parent != null) {
 			for (int i = 0; i < parent.getComponents().size; i++)
-				if (parent.getComponents().get(i) == parent) return true;
+				if (parent.getComponents().get(i) == parent)
+					return true;
 			parent = parent.getParent();
 		}
 		return false;
@@ -70,4 +71,5 @@ public abstract class GameComponent implements Json.Serializable, VariableAccess
 	@Override
 	public void read (Json json, JsonValue jsonData) {
 	}
+
 }

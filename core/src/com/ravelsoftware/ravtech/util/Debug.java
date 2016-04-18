@@ -75,6 +75,7 @@ public class Debug {
 	}
 
 	public static void endTimer (String name) {
-		if (debugPerformance) Debug.log(name, map.get(name, 0L));
+		if (debugPerformance)
+			Debug.log(name, map.get(name, 0L));
 	}
 }

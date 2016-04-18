@@ -16,7 +16,7 @@ public class ModifyChangeable extends Changeable {
 
 	public ModifyChangeable (GameComponent component, String changeLabel, String variableName, Object oldValue, Object newValue) {
 		super(component, changeLabel);
-		this.variableID = component.getVariableId(variableName);
+		variableID = component.getVariableId(variableName);
 		this.newValue = newValue;
 		this.oldValue = oldValue;
 		redo();

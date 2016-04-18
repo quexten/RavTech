@@ -61,16 +61,16 @@ public class AudioEmitter extends GameComponent implements Json.Serializable {
 
 	public void setClip (String path) {
 		path = path.replaceAll("\\\\", "/");
-		this.filePath = path;
-		RavTech.files.loadAsset(this.filePath, Sound.class);
+		filePath = path;
+		RavTech.files.loadAsset(filePath, Sound.class);
 	}
 
 	public void setPitch (float pitch) {
-		((Sound)RavTech.files.getAsset(this.filePath)).setPitch(id, pitch);
+		((Sound)RavTech.files.getAsset(filePath)).setPitch(id, pitch);
 	}
 
 	public void play () {
-		id = ((Sound)RavTech.files.getAsset(this.filePath)).play();
+		id = ((Sound)RavTech.files.getAsset(filePath)).play();
 	}
 
 	@Override

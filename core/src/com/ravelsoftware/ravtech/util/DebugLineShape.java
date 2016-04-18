@@ -19,7 +19,7 @@ public class DebugLineShape extends DebugShape {
 	public DebugLineShape (Vector2 start, float direction, Color color) {
 		super(color);
 		this.start = start;
-		this.end = start.add(
+		end = start.add(
 			new Vector2(MathUtils.cos(direction * MathUtils.degreesToRadians), MathUtils.sin(direction * MathUtils.degreesToRadians))
 				.scl(Float.MAX_VALUE));
 	}

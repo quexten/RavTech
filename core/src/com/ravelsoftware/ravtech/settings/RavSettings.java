@@ -27,9 +27,11 @@ public class RavSettings {
 	}
 
 	public void setValue (String key, Object value) {
-		if (valueListeners.get(key) != null) valueListeners.get(key).settingChanged(getValue(key), value);
+		if (valueListeners.get(key) != null)
+			valueListeners.get(key).settingChanged(getValue(key), value);
 		values.put(key, value);
-		if (preferences == null) return;
+		if (preferences == null)
+			return;
 		if (value instanceof Boolean)
 			preferences.putBoolean(key, Boolean.valueOf(String.valueOf(value)));
 		else if (value instanceof String)
@@ -38,7 +40,8 @@ public class RavSettings {
 			preferences.putInteger(key, Integer.valueOf(String.valueOf(value)));
 		else if (value instanceof Float)
 			preferences.putFloat(key, Float.valueOf(String.valueOf(value)));
-		else if (value instanceof Double) preferences.putFloat(key, Float.valueOf(String.valueOf(value)));
+		else if (value instanceof Double)
+			preferences.putFloat(key, Float.valueOf(String.valueOf(value)));
 	}
 
 	public Object getValue (String key) {
@@ -55,7 +58,8 @@ public class RavSettings {
 
 	public int getInt (String key) {
 		String value = String.valueOf(values.get(key));
-		if (value.endsWith(".0")) value = value.substring(0, value.length() - 2);
+		if (value.endsWith(".0"))
+			value = value.substring(0, value.length() - 2);
 		return Integer.valueOf(value);
 	}
 
@@ -77,7 +81,8 @@ public class RavSettings {
 
 	public void load () {
 		Preferences preferences = Gdx.app.getPreferences(RavTech.isEditor ? "RavTech" : RavTech.project.appName);
-		if (preferences == null) return;
+		if (preferences == null)
+			return;
 		this.preferences = preferences;
 		Map<String, ?> preferenceMap = preferences.get();
 		Iterator<String> keyIterator = preferenceMap.keySet().iterator();

@@ -52,13 +52,13 @@ public class FontRenderer extends Renderer {
 
 	@Override
 	public void load (Array<AssetDescriptor> dependencies) {
-		dependencies.add(new AssetDescriptor<BitmapFont>(this.path, BitmapFont.class));
-		RavTech.files.addDependency(this.path, this);
+		dependencies.add(new AssetDescriptor<BitmapFont>(path, BitmapFont.class));
+		RavTech.files.addDependency(path, this);
 	}
 
 	@Override
 	public void finishedLoading () {
-		this.font = RavTech.files.getAsset(this.path);
+		font = RavTech.files.getAsset(path);
 		font.getCache().addText(text, 0, 0);
 		font.getData().setScale(0.05f);
 		font.setUseIntegerPositions(false);
@@ -78,7 +78,7 @@ public class FontRenderer extends Renderer {
 		fontMatrix.trn(position.x, position.y, 0);
 		batch.setTransformMatrix(fontMatrix);
 
-		font.setColor(this.tint);
+		font.setColor(tint);
 		font.getData().setScale(0.05f * xScale, 0.05f * yScale);
 		GlyphLayout layout = font.draw(batch, text, centered ? -xOffset / 2 : 0, centered ? yOffset / 2 : 0);
 		xOffset = layout.width;
@@ -105,12 +105,12 @@ public class FontRenderer extends Renderer {
 	/** Sets the Tint
 	 * @param color - the tint */
 	public void setColor (Color color) {
-		this.tint = color;
+		tint = color;
 	}
 
 	/** Gets the Tint */
 	public Color getColor () {
-		return this.tint;
+		return tint;
 	}
 
 	@Override
@@ -130,38 +130,45 @@ public class FontRenderer extends Renderer {
 	@Override
 	public void read (Json json, JsonValue jsonData) {
 		super.read(json, jsonData);
-		if (jsonData.has("path")) this.path = jsonData.getString("path");
-		if (jsonData.has("text")) text = jsonData.getString("text");
-		if (jsonData.has("centerText")) centered = jsonData.getBoolean("centerText");
-		if (jsonData.has("flipped")) flipped = jsonData.getBoolean("flipped");
-		if (jsonData.has("xScale")) xScale = jsonData.getFloat("xScale");
-		if (jsonData.has("yScale")) yScale = jsonData.getFloat("yScale");
-		if (jsonData.has("tint")) tint = JsonUtil.readColorFromJson(jsonData, "tint");
+		if (jsonData.has("path"))
+			path = jsonData.getString("path");
+		if (jsonData.has("text"))
+			text = jsonData.getString("text");
+		if (jsonData.has("centerText"))
+			centered = jsonData.getBoolean("centerText");
+		if (jsonData.has("flipped"))
+			flipped = jsonData.getBoolean("flipped");
+		if (jsonData.has("xScale"))
+			xScale = jsonData.getFloat("xScale");
+		if (jsonData.has("yScale"))
+			yScale = jsonData.getFloat("yScale");
+		if (jsonData.has("tint"))
+			tint = JsonUtil.readColorFromJson(jsonData, "tint");
 	}
 
 	@Override
 	public void setVariable (int variableID, Object value) {
 		switch (variableID) {
 		case 0:
-			this.path = String.valueOf(value);
+			path = String.valueOf(value);
 			break;
 		case 1:
-			this.text = String.valueOf(value);
+			text = String.valueOf(value);
 			break;
 		case 2:
-			this.centered = Boolean.valueOf(String.valueOf(value));
+			centered = Boolean.valueOf(String.valueOf(value));
 			break;
 		case 3:
-			this.flipped = Boolean.valueOf(String.valueOf(value));
+			flipped = Boolean.valueOf(String.valueOf(value));
 			break;
 		case 4:
-			this.xScale = Float.valueOf(String.valueOf(value));
+			xScale = Float.valueOf(String.valueOf(value));
 			break;
 		case 5:
-			this.yScale = Float.valueOf(String.valueOf(value));
+			yScale = Float.valueOf(String.valueOf(value));
 			break;
 		case 6:
-			this.tint = (Color)value;
+			tint = (Color)value;
 			break;
 		}
 	}
@@ -170,7 +177,8 @@ public class FontRenderer extends Renderer {
 	public int getVariableId (String variableName) {
 		String[] variables = getVariableNames();
 		for (int i = 0; i < variables.length; i++)
-			if (variables[i].equals(variableName)) return i;
+			if (variables[i].equals(variableName))
+				return i;
 		return -1;
 	}
 
@@ -178,19 +186,19 @@ public class FontRenderer extends Renderer {
 	public Object getVariable (int variableID) {
 		switch (variableID) {
 		case 0:
-			return this.path;
+			return path;
 		case 1:
-			return this.text;
+			return text;
 		case 2:
-			return this.centered;
+			return centered;
 		case 3:
-			return this.flipped;
+			return flipped;
 		case 4:
-			return this.xScale;
+			return xScale;
 		case 5:
-			return this.yScale;
+			return yScale;
 		case 6:
-			return this.tint;
+			return tint;
 		}
 		return null;
 	}
@@ -202,7 +210,7 @@ public class FontRenderer extends Renderer {
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {this.path, this.text, this.centered, this.flipped, this.xScale, this.yScale, this.tint};
+		return new Object[] {path, text, centered, flipped, xScale, yScale, tint};
 	}
 
 	public void setFont (String path) {
@@ -211,7 +219,7 @@ public class FontRenderer extends Renderer {
 			RavTech.files.finishLoading();
 		}
 		this.path = path;
-		this.finishedLoading();
+		finishedLoading();
 	}
 
 }

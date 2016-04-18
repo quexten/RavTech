@@ -87,7 +87,7 @@ public class Curve {
 	 * @param type the curve type
 	 * @param subCurve the sub curve. Can be <code>null</code> */
 	public Curve (Type type, Curve subCurve) {
-		this.setType(type);
+		setType(type);
 		this.subCurve = subCurve;
 	}
 
@@ -95,14 +95,15 @@ public class Curve {
 	 * @param type the curve type.
 	 * @throws SpriterException if the type is <code>null</code> */
 	public void setType (Type type) {
-		if (type == null) throw new SpriterException("The type of a curve cannot be null!");
+		if (type == null)
+			throw new SpriterException("The type of a curve cannot be null!");
 		this.type = type;
 	}
 
 	/** Returns the type of this curve.
 	 * @return the curve type */
 	public Type getType () {
-		return this.type;
+		return type;
 	}
 
 	private float lastCubicSolution = 0f;
@@ -147,11 +148,11 @@ public class Curve {
 	 * @param t the weight which lies between 0.0 and 1.0
 	 * @param target the target point to save the result in */
 	public void tweenPoint (Vector2 a, Vector2 b, float t, Vector2 target) {
-		target.set(this.tween(a.x, b.x, t), this.tween(a.y, b.y, t));
+		target.set(tween(a.x, b.x, t), tween(a.y, b.y, t));
 	}
 
 	private float tweenSub (float a, float b, float t) {
-		if (this.subCurve != null)
+		if (subCurve != null)
 			return subCurve.tween(a, b, t);
 		else
 			return t;
@@ -165,9 +166,11 @@ public class Curve {
 	 * @return tweened angle */
 	public float tweenAngle (float a, float b, float t, int spin) {
 		if (spin > 0) {
-			if (b - a < 0) b += 360;
+			if (b - a < 0)
+				b += 360;
 		} else if (spin < 0) {
-			if (b - a > 0) b -= 360;
+			if (b - a > 0)
+				b -= 360;
 		} else
 			return a;
 		return tween(a, b, t);
@@ -215,7 +218,7 @@ public class Curve {
 		public float c1, c2, c3, c4;
 
 		public Constraints (float c1, float c2, float c3, float c4) {
-			this.set(c1, c2, c3, c4);
+			set(c1, c2, c3, c4);
 		}
 
 		public void set (float c1, float c2, float c3, float c4) {

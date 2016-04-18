@@ -30,13 +30,13 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	float rotation;
 
 	public Transform (GameObject parent) {
-		this.setParent(parent);
+		setParent(parent);
 	}
 
 	public Transform (GameObject parent, float x, float y, float rot) {
 		this(parent);
 		this.setLocalPosition(x, y);
-		this.setLocalRotation(rot);
+		setLocalRotation(rot);
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 
 	@Override
 	public void draw (SpriteBatch batch) {
-		this.updatePosition();
+		updatePosition();
 	}
 
 	@Override
@@ -101,7 +101,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	 * @param x - the x component of the position
 	 * @param y - the y component of the position */
 	public void setLocalPosition (float x, float y) {
-		this.position.set(x, y);
+		position.set(x, y);
 		updatePosition();
 		for (GameComponent component : getParent().getComponentsInChildren(ComponentType.Rigidbody))
 			((Rigidbody)component).getBody().setTransform(component.getParent().transform.getPosition(),
@@ -140,8 +140,9 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 		this.rotation = rotation;
 		for (int i = 0; i < getParent().getComponents().size; i++) {
 			GameComponent component = getParent().getComponents().get(i);
-			if (component instanceof Rigidbody) ((Rigidbody)component).getBody()
-				.setTransform(((Rigidbody)component).getBody().getPosition(), (float)Math.toRadians(rotation));
+			if (component instanceof Rigidbody)
+				((Rigidbody)component).getBody().setTransform(((Rigidbody)component).getBody().getPosition(),
+					(float)Math.toRadians(rotation));
 		}
 	}
 
@@ -167,7 +168,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	public boolean isFlippedX () {
-		return this.getParent().getParent() == null ? flippedX : this.getParent().getParent().transform.isFlippedX() != flippedX;
+		return getParent().getParent() == null ? flippedX : getParent().getParent().transform.isFlippedX() != flippedX;
 	}
 
 	public boolean isFlippedY () {
@@ -178,14 +179,14 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	 * @param target - the point the transform is rotated towards */
 	public void rotateTo (Vector2 toPoint) {
 		Vector2 temp = getPosition().sub(toPoint);
-		this.setRotation((float)Math.toDegrees(Math.atan2(temp.y, temp.x)) + 180);
+		setRotation((float)Math.toDegrees(Math.atan2(temp.y, temp.x)) + 180);
 	}
 
 	/** gets absolute position derrived from coordinates in local coordinate system from transform
 	 * @param localPosition - the position in the local coordinate system
 	 * @return - the absolute position of the specified point */
 	public Vector2 getPosition (Vector2 localPosition) {
-		return localPosition.rotate(this.getRotation()).add(this.getPosition());
+		return localPosition.rotate(getRotation()).add(this.getPosition());
 	}
 
 	@Override
@@ -200,7 +201,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	@Override
 	public void read (Json json, JsonValue jsonData) {
 		this.setLocalPosition(jsonData.has("x") ? jsonData.getFloat("x") : 0, jsonData.has("y") ? jsonData.getFloat("y") : 0);
-		this.setLocalRotation(
+		setLocalRotation(
 			jsonData.has("rot") ? jsonData.getFloat("rot") : jsonData.has("rotation") ? jsonData.getFloat("rotation") : 0);
 		setFlippedX(jsonData.has("flippedX") ? jsonData.getBoolean("flippedX") : false);
 		setFlippedY(jsonData.has("flippedY") ? jsonData.getBoolean("flippedY") : false);
@@ -221,7 +222,8 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 			setLocalRotation((Float)value);
 		else if (variableId == 3)
 			setFlippedX(Boolean.valueOf(String.valueOf(value)));
-		else if (variableId == 4) setFlippedY(Boolean.valueOf(String.valueOf(value)));
+		else if (variableId == 4)
+			setFlippedY(Boolean.valueOf(String.valueOf(value)));
 	}
 
 	@Override

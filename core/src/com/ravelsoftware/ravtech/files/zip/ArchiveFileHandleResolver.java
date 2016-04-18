@@ -9,7 +9,7 @@ public class ArchiveFileHandleResolver implements FileHandleResolver {
 	FileHandle archiveHandle;
 
 	public ArchiveFileHandleResolver (FileHandle archiveFileHandle) {
-		this.archiveHandle = archiveFileHandle;
+		archiveHandle = archiveFileHandle;
 	}
 
 	@Override

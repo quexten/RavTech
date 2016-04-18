@@ -24,7 +24,8 @@ public class TextFileLoader extends SynchronousAssetLoader<String, TextFileLoade
 	public String load (AssetManager assetManager, String fileName, FileHandle file, TextFileParameter parameter) {
 		String result = null;
 		FileHandle fh = resolve(fileName);
-		if (fh.exists()) result = fh.readString("utf-8");
+		if (fh.exists())
+			result = fh.readString("utf-8");
 		return result;
 	}
 

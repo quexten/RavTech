@@ -65,8 +65,10 @@ public class Calculator {
 	 * @param d
 	 * @return the solution of the cubic function if it belongs [0, 1], {@link #NO_SOLUTION} otherwise. */
 	public static float solveCubic (float a, float b, float c, float d) {
-		if (a == 0) return solveQuadratic(b, c, d);
-		if (d == 0) return 0f;
+		if (a == 0)
+			return solveQuadratic(b, c, d);
+		if (d == 0)
+			return 0f;
 		b /= a;
 		c /= a;
 		d /= a;
@@ -82,24 +84,30 @@ public class Calculator {
 			float t = r - sqrtDisc;
 			t = t < 0 ? -cubicRoot(-t) : cubicRoot(t);
 			float result = -term1 + s + t;
-			if (result >= 0 && result <= 1) return result;
+			if (result >= 0 && result <= 1)
+				return result;
 		} else if (disc == 0) {
 			float r13 = r < 0 ? -cubicRoot(-r) : cubicRoot(r);
 			float result = -term1 + 2f * r13;
-			if (result >= 0 && result <= 1) return result;
+			if (result >= 0 && result <= 1)
+				return result;
 			result = -(r13 + term1);
-			if (result >= 0 && result <= 1) return result;
+			if (result >= 0 && result <= 1)
+				return result;
 		} else {
 			q = -q;
 			float dum1 = q * q * q;
 			dum1 = acos(r / sqrt(dum1));
 			float r13 = 2f * sqrt(q);
 			float result = -term1 + r13 * cos(dum1 / 3f);
-			if (result >= 0 && result <= 1) return result;
+			if (result >= 0 && result <= 1)
+				return result;
 			result = -term1 + r13 * cos((dum1 + 2f * PI) / 3f);
-			if (result >= 0 && result <= 1) return result;
+			if (result >= 0 && result <= 1)
+				return result;
 			result = -term1 + r13 * cos((dum1 + 4f * PI) / 3f);
-			if (result >= 0 && result <= 1) return result;
+			if (result >= 0 && result <= 1)
+				return result;
 		}
 		return NO_SOLUTION;
 	}
@@ -115,9 +123,11 @@ public class Calculator {
 		float fourAC = 4 * a * c;
 		float sqrt = sqrt(squaredB - fourAC);
 		float result = (-b + sqrt) / twoA;
-		if (result >= 0 && result <= 1) return result;
+		if (result >= 0 && result <= 1)
+			return result;
 		result = (-b - sqrt) / twoA;
-		if (result >= 0 && result <= 1) return result;
+		if (result >= 0 && result <= 1)
+			return result;
 		return NO_SOLUTION;
 	}
 

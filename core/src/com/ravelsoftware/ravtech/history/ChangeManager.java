@@ -32,15 +32,20 @@ public class ChangeManager {
 	}
 
 	public static void redo () {
-		if (canRedo()) changeables.get(currentChangeable).redo();
-		if (currentChangeable < changeables.size) currentChangeable++;
-		if (currentChangeable < changeables.size - 1 && changeables.get(currentChangeable + 1).previousConnected) redo();
+		if (canRedo())
+			changeables.get(currentChangeable).redo();
+		if (currentChangeable < changeables.size)
+			currentChangeable++;
+		if (currentChangeable < changeables.size - 1 && changeables.get(currentChangeable + 1).previousConnected)
+			redo();
 	}
 
 	public static void undo () {
-		if (currentChangeable > 0) currentChangeable--;
+		if (currentChangeable > 0)
+			currentChangeable--;
 		changeables.get(currentChangeable).undo();
-		if (changeables.get(currentChangeable).previousConnected) undo();
+		if (changeables.get(currentChangeable).previousConnected)
+			undo();
 	}
 
 	public static boolean canUndo () {

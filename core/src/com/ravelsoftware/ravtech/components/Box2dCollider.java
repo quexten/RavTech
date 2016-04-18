@@ -18,15 +18,15 @@ public abstract class Box2dCollider extends GameComponent implements Json.Serial
 	public boolean canEdit = false;
 
 	public Box2dCollider () {
-		this.filter = new Filter();
+		filter = new Filter();
 	}
 
 	/** adds the Collider to the rigidbody */
 	public abstract void apply ();
 
 	public void rebuildAll () {
-		for (int i = 0; i < this.getParent().getComponents().size; i++) {
-			GameComponent component = this.getParent().getComponents().get(i);
+		for (int i = 0; i < getParent().getComponents().size; i++) {
+			GameComponent component = getParent().getComponents().get(i);
 			if (component instanceof Box2dCollider) {
 				Box2dCollider collider = (Box2dCollider)component;
 				collider.fixture = null;
@@ -40,23 +40,24 @@ public abstract class Box2dCollider extends GameComponent implements Json.Serial
 	public void dispose () {
 		UserData userData = new UserData();
 		userData.isFlaggedForDelete = true;
-		if (fixture != null) fixture.setUserData(userData);
+		if (fixture != null)
+			fixture.setUserData(userData);
 	}
 
 	public float getDensity () {
-		return this.density;
+		return density;
 	}
 
 	public float getFriction () {
-		return this.friction;
+		return friction;
 	}
 
 	public boolean isSensor () {
-		return this.isSensor;
+		return isSensor;
 	}
 
 	public float getRestitution () {
-		return this.restitution;
+		return restitution;
 	}
 
 	@Override
@@ -75,7 +76,8 @@ public abstract class Box2dCollider extends GameComponent implements Json.Serial
 	@Override
 	public void read (Json json, JsonValue jsonData) {
 		density = jsonData.getFloat("density");
-		if (filter != null) filter = new Filter();
+		if (filter != null)
+			filter = new Filter();
 		if (jsonData.has("filter")) {
 			JsonValue colordata = jsonData.getChild("filter");
 			boolean hasnext = true;
@@ -84,7 +86,8 @@ public abstract class Box2dCollider extends GameComponent implements Json.Serial
 					filter.categoryBits = colordata.asShort();
 				else if (colordata.name().equals("maskBits"))
 					filter.maskBits = colordata.asShort();
-				else if (colordata.name().equals("groupIndex")) filter.groupIndex = colordata.asShort();
+				else if (colordata.name().equals("groupIndex"))
+					filter.groupIndex = colordata.asShort();
 				colordata = colordata.next();
 				hasnext = colordata != null;
 			}
@@ -145,7 +148,7 @@ public abstract class Box2dCollider extends GameComponent implements Json.Serial
 
 	@Override
 	public Object getVariable (int variableID) {
-		return this.getValiables()[variableID];
+		return getValiables()[variableID];
 	}
 
 	@Override

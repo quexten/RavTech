@@ -20,7 +20,8 @@ public class ArchiveFileHandle extends FileHandle {
 	public ArchiveFileHandle (FileHandle zipfilehandle, String filePath, boolean init) {
 		super(filePath, FileType.Classpath);
 		this.zipfilehandle = zipfilehandle;
-		if (filePath.startsWith("/")) filePath = filePath.substring(1);
+		if (filePath.startsWith("/"))
+			filePath = filePath.substring(1);
 		if (init) {
 			ZipInputStream stream = new ZipInputStream(zipfilehandle.read());
 			try {

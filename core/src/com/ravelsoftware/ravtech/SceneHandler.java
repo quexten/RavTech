@@ -68,8 +68,10 @@ public class SceneHandler {
 				UserData fixtureDataA = (UserData)fixtureA.getUserData();
 				UserData fixtureDataB = (UserData)fixtureB.getUserData();
 				if (fixtureDataA != null && fixtureDataB != null) {
-					if (fixtureDataA.component != null) fixtureDataA.component.onCollisionEnter(fixtureB);
-					if (fixtureDataB.component != null) fixtureDataB.component.onCollisionEnter(fixtureA);
+					if (fixtureDataA.component != null)
+						fixtureDataA.component.onCollisionEnter(fixtureB);
+					if (fixtureDataB.component != null)
+						fixtureDataB.component.onCollisionEnter(fixtureA);
 				}
 			}
 
@@ -80,8 +82,10 @@ public class SceneHandler {
 				UserData fixtureDataA = (UserData)fixtureA.getUserData();
 				UserData fixtureDataB = (UserData)fixtureB.getUserData();
 				if (fixtureDataA != null && fixtureDataB != null) {
-					if (fixtureDataA.component != null) fixtureDataA.component.onCollisionExit(fixtureB);
-					if (fixtureDataB.component != null) fixtureDataB.component.onCollisionExit(fixtureA);
+					if (fixtureDataA.component != null)
+						fixtureDataA.component.onCollisionExit(fixtureB);
+					if (fixtureDataB.component != null)
+						fixtureDataB.component.onCollisionExit(fixtureA);
 				}
 				contact.setEnabled(false);
 			}
@@ -115,8 +119,9 @@ public class SceneHandler {
 			box2DWorld.step(delta, 8, 3);
 		Debug.endTimer("box2dUpdateTime");
 		Debug.startTimer("updateTime");
-		if (!paused) for (int i = 0; i < RavTech.currentScene.gameObjects.size; i++)
-			RavTech.currentScene.gameObjects.get(i).update();
+		if (!paused)
+			for (int i = 0; i < RavTech.currentScene.gameObjects.size; i++)
+				RavTech.currentScene.gameObjects.get(i).update();
 		Debug.endTimer("updateTime");
 		removeBox2DBodies();
 	}
@@ -159,7 +164,7 @@ public class SceneHandler {
 			// lightHandler.setCombinedMatrix(worldCamera);
 			// lightHandler.updateAndRender();
 		}
-		this.cameraManager.render(spriteBatch);
+		cameraManager.render(spriteBatch);
 		/*
 		 * Array<Renderer> renderers = new Array<Renderer>(); for (int n = 0; n < RavTech.currentScene.gameObjects.size; n++) {
 		 * GameObject object = RavTech.currentScene.gameObjects.get(n); object.transform.draw(spriteBatch); Array<GameComponent>
@@ -177,7 +182,8 @@ public class SceneHandler {
 
 	public void resize (int width, int height) {
 		// if (shaderManager != null) shaderManager.resize(width, height, true);
-		if (worldCamera == null) return;
+		if (worldCamera == null)
+			return;
 		for (int i = 0; i < HookApi.onResizeHooks.size; i++)
 			HookApi.onResizeHooks.get(i).run();
 		worldCamera.setResolution(width, height);
@@ -209,7 +215,8 @@ public class SceneHandler {
 			GameComponent component = objects.get(i);
 			if (component instanceof ScriptComponent)
 				((ScriptComponent)component).script.init();
-			else if (component instanceof GameObject) initScripts(((GameObject)component).getComponents());
+			else if (component instanceof GameObject)
+				initScripts(((GameObject)component).getComponents());
 		}
 	}
 
@@ -247,7 +254,8 @@ public class SceneHandler {
 			GameComponent component = objects.get(i);
 			if (component instanceof ScriptComponent)
 				((ScriptComponent)component).setScript(((ScriptComponent)component).path);
-			else if (component instanceof GameObject) reloadScripts(((GameObject)component).getComponents());
+			else if (component instanceof GameObject)
+				reloadScripts(((GameObject)component).getComponents());
 		}
 	}
 }

@@ -31,8 +31,8 @@ public class Camera extends OrthographicCamera {
 	public Camera (int width, int height) {
 		super(width, height);
 		camId++;
-		cameraBufferName = this.cameraBufferName + camId;
-		cameraPingPongBufferName = this.cameraPingPongBufferName + camId;
+		cameraBufferName = cameraBufferName + camId;
+		cameraPingPongBufferName = cameraPingPongBufferName + camId;
 		lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
 		setResolution(width, height);
 	}
@@ -91,11 +91,11 @@ public class Camera extends OrthographicCamera {
 	}
 
 	public Texture getCameraBufferTexture () {
-		return this.cameraBuffer.getColorBufferTexture();
+		return cameraBuffer.getColorBufferTexture();
 	}
 
 	public Vector2 getResolution () {
-		return new Vector2(this.resolutionX, this.resolutionY);
+		return new Vector2(resolutionX, resolutionY);
 	}
 
 	@Override

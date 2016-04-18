@@ -38,13 +38,14 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public void finishedLoading () {
-		if (RavTech.files.getAssetManager().isLoaded(path)) this.scriptSource = RavTech.files.getAsset(path);
-		this.script = RavTech.scriptLoader.createScript(this.scriptSource, this.getParent());
+		if (RavTech.files.getAssetManager().isLoaded(path))
+			scriptSource = RavTech.files.getAsset(path);
+		script = RavTech.scriptLoader.createScript(scriptSource, getParent());
 	}
 
 	@Override
 	public void update () {
-		this.script.update();
+		script.update();
 	}
 
 	@Override
@@ -53,12 +54,13 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public void dispose () {
-		RavTech.files.removeDependency(this.path, this);
+		RavTech.files.removeDependency(path, this);
 	}
 
 	@Override
 	public void setVariable (int variableID, Object value) {
-		if (variableID == 0) this.setScript(String.valueOf(value));
+		if (variableID == 0)
+			setScript(String.valueOf(value));
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public Object getVariable (int variableID) {
-		return variableID == 0 ? this.path : null;
+		return variableID == 0 ? path : null;
 	}
 
 	@Override
@@ -90,24 +92,26 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 	@Override
 	public void read (Json json, JsonValue jsonData) {
 		super.read(json, jsonData);
-		this.path = jsonData.getString("path");
+		path = jsonData.getString("path");
 	}
 
 	public void setScript (String scriptPath) {
 		RavTech.files.addDependency(scriptPath, this);
-		if (scriptPath.startsWith("/")) scriptPath = scriptPath.substring(1);
-		this.path = scriptPath;
-		if (RavTech.files.getAssetManager().isLoaded(path)) RavTech.files.getAssetManager().unload(path);
+		if (scriptPath.startsWith("/"))
+			scriptPath = scriptPath.substring(1);
+		path = scriptPath;
+		if (RavTech.files.getAssetManager().isLoaded(path))
+			RavTech.files.getAssetManager().unload(path);
 		RavTech.files.getAssetManager().load(new AssetDescriptor<String>(path, String.class, new AssetLoaderParameters<String>()));
 		RavTech.files.finishLoading();
-		this.finishedLoading();
+		finishedLoading();
 	}
 
 	public void callFunction (String name, Object[] args) {
-		this.script.callFunction(name, args);
+		script.callFunction(name, args);
 	}
 
 	public Object getVariable (String name) {
-		return this.script.getVariable(name);
+		return script.getVariable(name);
 	}
 }

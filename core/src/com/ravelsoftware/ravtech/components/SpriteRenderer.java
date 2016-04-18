@@ -45,7 +45,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	public SpriteRenderer () {
 		this("textures/error.png", 2, 2);
 		Array<AssetDescriptor> dependencies = new Array<AssetDescriptor>();
-		this.load(dependencies);
+		load(dependencies);
 		RavTech.files.loadAssets(dependencies);
 		RavTech.files.finishLoading();
 	}
@@ -59,17 +59,17 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 
 	@Override
 	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
-		dependencies.add(new AssetDescriptor<Texture>(this.texturePath, Texture.class));
+		dependencies.add(new AssetDescriptor<Texture>(texturePath, Texture.class));
 		RavTech.files.addDependency(texturePath, this);
 	}
 
 	@Override
 	public void finishedLoading () {
-		this.texture = RavTech.files.getAsset(texturePath);
+		texture = RavTech.files.getAsset(texturePath);
 		srcX = 0;
 		srcY = 0;
-		srcWidth = this.texture.getWidth();
-		srcHeight = this.texture.getHeight();
+		srcWidth = texture.getWidth();
+		srcHeight = texture.getHeight();
 	}
 
 	@Override
@@ -79,18 +79,19 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	@Override
 	public void draw (SpriteBatch batch) {
 		batch.setColor(getColor());
-		if (texture != null) batch.draw(texture,
-			getParent().transform.getPosition().x - width / 2 * (getParent().transform.isFlippedX() ? 1 : -1)
-				- originX * width / 2 * (getParent().transform.isFlippedX() ? 1 : -1),
-			getParent().transform.getPosition().y - height / 2 * (getParent().transform.flippedY ? 1 : -1)
-				- originY * height / 2 * (getParent().transform.flippedY ? 1 : -1),
-			originX * width * (getParent().transform.isFlippedX() ? 1 : -1) / 2
-				+ width * (getParent().transform.isFlippedX() ? 1 : -1) / 2,
-			originY * height * (getParent().transform.flippedY ? 1 : -1) / 2
-				+ height * (getParent().transform.flippedY ? 1 : -1) / 2,
-			width * (getParent().transform.isFlippedX() ? 1 : -1), height * (getParent().transform.flippedY ? 1 : -1),
-			(getParent().transform.isFlippedX() ? 1 : -1) * 1, getParent().transform.isFlippedX() ? 1 : -1 * 1,
-			getParent().transform.getRotation(), srcX, srcY, srcWidth, srcHeight, false, false);
+		if (texture != null)
+			batch.draw(texture,
+				getParent().transform.getPosition().x - width / 2 * (getParent().transform.isFlippedX() ? 1 : -1)
+					- originX * width / 2 * (getParent().transform.isFlippedX() ? 1 : -1),
+				getParent().transform.getPosition().y - height / 2 * (getParent().transform.flippedY ? 1 : -1)
+					- originY * height / 2 * (getParent().transform.flippedY ? 1 : -1),
+				originX * width * (getParent().transform.isFlippedX() ? 1 : -1) / 2
+					+ width * (getParent().transform.isFlippedX() ? 1 : -1) / 2,
+				originY * height * (getParent().transform.flippedY ? 1 : -1) / 2
+					+ height * (getParent().transform.flippedY ? 1 : -1) / 2,
+				width * (getParent().transform.isFlippedX() ? 1 : -1), height * (getParent().transform.flippedY ? 1 : -1),
+				(getParent().transform.isFlippedX() ? 1 : -1) * 1, getParent().transform.isFlippedX() ? 1 : -1 * 1,
+				getParent().transform.getRotation(), srcX, srcY, srcWidth, srcHeight, false, false);
 		batch.setColor(Color.WHITE);
 	}
 
@@ -125,7 +126,8 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 		json.writeValue("width", width);
 		json.writeValue("height", height);
 		json.writeValue("texture", texturePath);
-		if (regionName != null) json.writeValue(regionName);
+		if (regionName != null)
+			json.writeValue(regionName);
 		json.writeValue("srcX", srcX);
 		json.writeValue("srcY", srcY);
 		json.writeValue("srcWidth", srcWidth);
@@ -144,23 +146,32 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	@Override
 	public void read (Json json, JsonValue jsonData) {
 		super.read(json, jsonData);
-		if (jsonData.has("width")) this.width = jsonData.getFloat("width");
-		if (jsonData.has("height")) this.height = jsonData.getFloat("height");
-		if (jsonData.has("texture")) this.texturePath = jsonData.getString("texture");
+		if (jsonData.has("width"))
+			width = jsonData.getFloat("width");
+		if (jsonData.has("height"))
+			height = jsonData.getFloat("height");
+		if (jsonData.has("texture"))
+			texturePath = jsonData.getString("texture");
 		if (jsonData.has("srcX")) {
-			this.useCustomSrc = true;
-			this.srcX = jsonData.getInt("srcX");
+			useCustomSrc = true;
+			srcX = jsonData.getInt("srcX");
 		}
-		if (jsonData.has("srcY")) this.srcY = jsonData.getInt("srcY");
-		if (jsonData.has("srcWidth")) this.srcWidth = jsonData.getInt("srcWidth");
-		if (jsonData.has("srcHeight")) this.srcHeight = jsonData.getInt("srcHeight");
-		if (jsonData.has("originX")) this.originX = jsonData.getFloat("originX");
-		if (jsonData.has("originY")) this.originY = jsonData.getFloat("originY");
+		if (jsonData.has("srcY"))
+			srcY = jsonData.getInt("srcY");
+		if (jsonData.has("srcWidth"))
+			srcWidth = jsonData.getInt("srcWidth");
+		if (jsonData.has("srcHeight"))
+			srcHeight = jsonData.getInt("srcHeight");
+		if (jsonData.has("originX"))
+			originX = jsonData.getFloat("originX");
+		if (jsonData.has("originY"))
+			originY = jsonData.getFloat("originY");
 		if (jsonData.has("minFilter"))
-			this.minFilter = jsonData.getString("minFilter").equals("Linear") ? TextureFilter.Linear : TextureFilter.Nearest;
+			minFilter = jsonData.getString("minFilter").equals("Linear") ? TextureFilter.Linear : TextureFilter.Nearest;
 		if (jsonData.has("magFilter"))
-			this.magFilter = jsonData.getString("magFilter").equals("Linear") ? TextureFilter.Linear : TextureFilter.Nearest;
-		if (jsonData.has("tint")) setColor(JsonUtil.readColorFromJson(jsonData, "tint"));
+			magFilter = jsonData.getString("magFilter").equals("Linear") ? TextureFilter.Linear : TextureFilter.Nearest;
+		if (jsonData.has("tint"))
+			setColor(JsonUtil.readColorFromJson(jsonData, "tint"));
 		if (jsonData.has("uWrap")) {
 			String uWrapStrings = jsonData.getString("uWrap");
 			uWrap = uWrapStrings.equals("ClampToEdge") ? TextureWrap.ClampToEdge
@@ -183,12 +194,13 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	public void setVariable (int variableId, Object value) {
 		switch (variableId) {
 		case 0:
-			this.sortingLayerName = String.valueOf(value);
+			sortingLayerName = String.valueOf(value);
 			break;
 		case 1:
 			String varString = String.valueOf(value);
-			if (varString.indexOf('.') > 0) varString = varString.substring(0, varString.indexOf('.'));
-			this.sortingOrder = Integer.valueOf(varString);
+			if (varString.indexOf('.') > 0)
+				varString = varString.substring(0, varString.indexOf('.'));
+			sortingOrder = Integer.valueOf(varString);
 			break;
 		case 2:
 			width = Float.valueOf(String.valueOf(value.toString()));
@@ -204,19 +216,19 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 			break;
 		case 6:
 			srcX = Math.round(Float.valueOf(value.toString()));
-			this.useCustomSrc = true;
+			useCustomSrc = true;
 			break;
 		case 7:
 			srcY = Math.round(Float.valueOf(value.toString()));
-			this.useCustomSrc = true;
+			useCustomSrc = true;
 			break;
 		case 8:
 			srcWidth = Math.round(Float.valueOf(value.toString()));
-			this.useCustomSrc = true;
+			useCustomSrc = true;
 			break;
 		case 9:
 			srcHeight = Math.round(Float.valueOf(value.toString()));
-			this.useCustomSrc = true;
+			useCustomSrc = true;
 			break;
 		case 10:
 			originX = Float.valueOf(value.toString());
@@ -225,8 +237,9 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 			originY = Float.valueOf(value.toString());
 			break;
 		case 12:
-			if (value instanceof String) value = value.equals("Linear") ? TextureFilter.Linear
-				: value.equals("Nearest") ? TextureFilter.Nearest : TextureFilter.MipMap;
+			if (value instanceof String)
+				value = value.equals("Linear") ? TextureFilter.Linear
+					: value.equals("Nearest") ? TextureFilter.Nearest : TextureFilter.MipMap;
 			minFilter = (TextureFilter)value;
 			Gdx.app.postRunnable(new Runnable() {
 				@Override
@@ -236,8 +249,9 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 			});
 			break;
 		case 13:
-			if (value instanceof String) value = value.equals("Linear") ? TextureFilter.Linear
-				: value.equals("Nearest") ? TextureFilter.Nearest : TextureFilter.MipMap;
+			if (value instanceof String)
+				value = value.equals("Linear") ? TextureFilter.Linear
+					: value.equals("Nearest") ? TextureFilter.Nearest : TextureFilter.MipMap;
 			magFilter = (TextureFilter)value;
 			Gdx.app.postRunnable(new Runnable() {
 
@@ -251,8 +265,9 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 			color = (Color)value;
 			break;
 		case 15:
-			if (value instanceof String) value = value.equals("ClampToEdge") ? TextureWrap.ClampToEdge
-				: value.equals("Repeat") ? TextureWrap.Repeat : TextureWrap.MirroredRepeat;
+			if (value instanceof String)
+				value = value.equals("ClampToEdge") ? TextureWrap.ClampToEdge
+					: value.equals("Repeat") ? TextureWrap.Repeat : TextureWrap.MirroredRepeat;
 			uWrap = (TextureWrap)value;
 			Gdx.app.postRunnable(new Runnable() {
 
@@ -263,8 +278,9 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 			});
 			break;
 		case 16:
-			if (value instanceof String) value = value.equals("ClampToEdge") ? TextureWrap.ClampToEdge
-				: value.equals("Repeat") ? TextureWrap.Repeat : TextureWrap.MirroredRepeat;
+			if (value instanceof String)
+				value = value.equals("ClampToEdge") ? TextureWrap.ClampToEdge
+					: value.equals("Repeat") ? TextureWrap.Repeat : TextureWrap.MirroredRepeat;
 			vWrap = (TextureWrap)value;
 			Gdx.app.postRunnable(new Runnable() {
 
@@ -281,7 +297,8 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	public int getVariableId (String variableName) {
 		String[] variables = getVariableNames();
 		for (int i = 0; i < variables.length; i++)
-			if (variables[i].equals(variableName)) return i;
+			if (variables[i].equals(variableName))
+				return i;
 		return -1;
 	}
 
@@ -289,17 +306,17 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	public Object getVariable (int variableID) {
 		switch (variableID) {
 		case 0:
-			return this.sortingLayerName;
+			return sortingLayerName;
 		case 1:
-			return this.sortingOrder;
+			return sortingOrder;
 		case 2:
 			return width;
 		case 3:
 			return height;
 		case 4:
-			return this.texturePath;
+			return texturePath;
 		case 5:
-			return this.texturePath;
+			return texturePath;
 		case 6:
 			return srcX;
 		case 7:

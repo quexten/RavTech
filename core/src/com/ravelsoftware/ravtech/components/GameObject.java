@@ -15,6 +15,10 @@ import com.ravelsoftware.ravtech.util.PrefabManager;
 
 public class GameObject extends GameComponent implements Json.Serializable {
 
+	String name = "";
+	public Transform transform;
+	private Array<GameComponent> components;
+
 	@Override
 	public ComponentType getType () {
 		return ComponentType.GameObject;
@@ -22,24 +26,17 @@ public class GameObject extends GameComponent implements Json.Serializable {
 
 	@Override
 	public String getName () {
-		return this.name;
+		return name;
 	}
-
-	String name = "";
-	public Transform transform;
-	private Array<GameComponent> components;
-	boolean isPrefab;
-	String prefabPath;
 
 	public GameObject () {
 		this(0, 0);
 	}
 
 	public GameObject (float x, float y) {
-		this.components = new Array<GameComponent>();
-		Transform transformcomponent = new Transform(this, x, y, 0);
-		this.addComponent(transformcomponent);
-		this.transform = transformcomponent;
+		components = new Array<GameComponent>();
+		transform = new Transform(this, x, y, 0);
+		addComponent(transform);
 	}
 
 	@Override
@@ -64,7 +61,8 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	public void draw (SpriteBatch batch) {
 		for (int i = 0; i < components.size; i++) {
 			GameComponent component = components.get(i);
-			if (!(component instanceof Renderer)) component.draw(batch);
+			if (!(component instanceof Renderer))
+				component.draw(batch);
 		}
 	}
 
@@ -78,7 +76,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	public void destroy () {
 		dispose();
 		if (getParent() != null)
-			this.getParent().components.removeValue(this, true);
+			getParent().components.removeValue(this, true);
 		else
 			RavTech.currentScene.gameObjects.removeValue(this, true);
 	}
@@ -96,7 +94,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 		for (int i = 0; i < components.size; i++) {
 			GameComponent component = components.get(i);
 			json.writeObjectStart();
-			json.writeValue("componenttype", component.getType());
+			json.writeValue("componentType", component.getType());
 			component.write(json);
 			json.writeObjectEnd();
 		}
@@ -105,7 +103,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 
 	@Override
 	public void read (Json json, JsonValue jsonData) {
-		this.name = jsonData.getString("name");
+		name = jsonData.getString("name");
 		for (int i = 0; i < jsonData.get("components").size; i++)
 			readValue(json, jsonData.get("components").get(i));
 	}
@@ -114,7 +112,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 		String classname = currententry.get("componentType").asString();
 		GameComponent component = null;
 		if (classname.equals("Transform")) {
-			this.transform.read(json, currententry);
+			transform.read(json, currententry);
 			return;
 		}
 		if (classname.equals("SpriteRenderer"))
@@ -134,10 +132,11 @@ public class GameObject extends GameComponent implements Json.Serializable {
 			component = new GameObject();
 		else if (classname.equals("CircleCollider"))
 			component = new CircleCollider();
-		else if (classname.equals("FontRenderer")) component = new FontRenderer();
+		else if (classname.equals("FontRenderer"))
+			component = new FontRenderer();
 
 		if (!classname.equals("Transform")) {
-			this.addComponent(component);
+			addComponent(component);
 			component.read(json, currententry);
 		}
 	}
@@ -156,7 +155,8 @@ public class GameObject extends GameComponent implements Json.Serializable {
 		RavTech.currentScene.addGameObject(object);
 		object.transform.setPosition(position.x, position.y);
 		object.transform.setRotation(rotation);
-		if (!RavTech.sceneHandler.paused && initScripts) RavTech.sceneHandler.initScripts(object.getComponents());
+		if (!RavTech.sceneHandler.paused && initScripts)
+			RavTech.sceneHandler.initScripts(object.getComponents());
 		return null;
 	}
 
@@ -186,7 +186,8 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	public Array<GameComponent> getComponentsByName (String name) {
 		Array<GameComponent> tempComponents = new Array<GameComponent>();
 		for (GameComponent component : components)
-			if (component.getName().equals(name)) tempComponents.add(component);
+			if (component.getName().equals(name))
+				tempComponents.add(component);
 		return tempComponents;
 	}
 
@@ -203,14 +204,16 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	public Array<GameComponent> getComponentsByType (ComponentType type) {
 		Array<GameComponent> tempComponents = new Array<GameComponent>();
 		for (GameComponent component : components)
-			if (component.getType().equals(type)) tempComponents.add(component);
+			if (component.getType().equals(type))
+				tempComponents.add(component);
 		return tempComponents;
 	}
 
 	public Array<GameObject> getGameObjectsInChildren () {
 		Array<GameObject> components = new Array<GameObject>();
 		for (GameComponent component : this.components)
-			if (component.getType().equals(this.getType())) components.add((GameObject)component);
+			if (component.getType().equals(getType()))
+				components.add((GameObject)component);
 		return components;
 	}
 
@@ -222,7 +225,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 			GameComponent component = this.components.get(i);
 			if (component.getType().equals(string) || string.equals("Renderer") && component instanceof Renderer)
 				components.add(component);
-			else if (component.getType().equals(this.getType()))
+			else if (component.getType().equals(getType()))
 				components.addAll(((GameObject)component).getComponentsInChildren(string));
 		}
 		return components;
@@ -235,23 +238,24 @@ public class GameObject extends GameComponent implements Json.Serializable {
 			for (int i = 0; i < types.length; i++)
 				if (component.getType().equals(types[i]) || types[i].equals(ComponentType.Renderer) && component instanceof Renderer)
 					components.add(component);
-			if (component.getType().equals(this.getType()))
+			if (component.getType().equals(getType()))
 				components.addAll(((GameObject)component).getComponentsInChildren(types));
 		}
 		return components;
 	}
 
 	public void removeComponent (GameComponent component) {
-		Animator animator = (Animator)this.getComponentByType(ComponentType.Animator);
-		if (component instanceof GameObject) if (animator != null) {
-			Entries<String, Animation> iter = animator.animations.iterator();
-			while (iter.hasNext()) {
-				Entry<String, Animation> next = iter.next();
-				for (int i = 0; i < next.value.timelines.size; i++)
-					if (next.value.timelines.get(i).component.isDescendantOf((GameObject)component))
-						next.value.timelines.removeIndex(i);
+		Animator animator = (Animator)getComponentByType(ComponentType.Animator);
+		if (component instanceof GameObject)
+			if (animator != null) {
+				Entries<String, Animation> iter = animator.animations.iterator();
+				while (iter.hasNext()) {
+					Entry<String, Animation> next = iter.next();
+					for (int i = 0; i < next.value.timelines.size; i++)
+						if (next.value.timelines.get(i).component.isDescendantOf((GameObject)component))
+							next.value.timelines.removeIndex(i);
+				}
 			}
-		}
 		component.dispose();
 		components.removeValue(component, true);
 	}

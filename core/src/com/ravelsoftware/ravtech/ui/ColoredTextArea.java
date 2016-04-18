@@ -17,7 +17,7 @@ public class ColoredTextArea extends VisTextArea {
 
 	public void log (Color color, String line) {
 		lineColors.add(color);
-		this.setText(this.getText() + line);
+		setText(getText() + line);
 	}
 
 	@Override

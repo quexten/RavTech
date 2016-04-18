@@ -57,30 +57,31 @@ public class Rigidbody extends GameComponent implements Json.Serializable {
 
 	public void apply () {
 		BodyDef bodyDef = new BodyDef();
-		bodyDef.position.set(this.getParent().transform.getPosition());
-		bodyDef.angle = (float)Math.toRadians(this.getParent().transform.getRotation());
-		if (this.body != null) {
-			bodyDef.angularDamping = this.body.getAngularDamping();
-			bodyDef.bullet = this.body.isBullet();
+		bodyDef.position.set(getParent().transform.getPosition());
+		bodyDef.angle = (float)Math.toRadians(getParent().transform.getRotation());
+		if (body != null) {
+			bodyDef.angularDamping = body.getAngularDamping();
+			bodyDef.bullet = body.isBullet();
 			bodyDef.fixedRotation = false;
-			bodyDef.gravityScale = this.body.getGravityScale();
-			bodyDef.linearDamping = this.body.getLinearDamping();
-			bodyDef.type = this.getBody().getType();
-			((UserData)this.body.getUserData()).isFlaggedForDelete = true;
+			bodyDef.gravityScale = body.getGravityScale();
+			bodyDef.linearDamping = body.getLinearDamping();
+			bodyDef.type = getBody().getType();
+			((UserData)body.getUserData()).isFlaggedForDelete = true;
 		}
-		this.body = RavTech.sceneHandler.box2DWorld.createBody(bodyDef);
-		this.body.setUserData(new UserData());
+		body = RavTech.sceneHandler.box2DWorld.createBody(bodyDef);
+		body.setUserData(new UserData());
 	}
 
 	public void onCollisionEnter (Fixture other) {
-		if (!RavTech.sceneHandler.paused) for (int i = 0; i < getParent().getComponents().size; i++) {
-			// call onCollisionEnter on scripts
-		}
+		if (!RavTech.sceneHandler.paused)
+			for (int i = 0; i < getParent().getComponents().size; i++) {
+				// call onCollisionEnter on scripts
+			}
 	}
 
 	public void onCollisionExit (Fixture other) {
-		if (this.getParent().getComponentByType(ComponentType.ScriptComponent) != null)
-			((ScriptComponent)this.getParent().getComponentByType(ComponentType.ScriptComponent)).callFunction("onCollisionExit",
+		if (getParent().getComponentByType(ComponentType.ScriptComponent) != null)
+			((ScriptComponent)getParent().getComponentByType(ComponentType.ScriptComponent)).callFunction("onCollisionExit",
 				new Object[] {other});
 	}
 
@@ -91,7 +92,7 @@ public class Rigidbody extends GameComponent implements Json.Serializable {
 	@Override
 	public void write (Json json) {
 		super.write(json);
-		String[] variables = this.getVariableNames();
+		String[] variables = getVariableNames();
 		for (int i = 0; i < variables.length; i++)
 			json.writeValue(variables[i], getVariable(i));
 	}
@@ -99,9 +100,10 @@ public class Rigidbody extends GameComponent implements Json.Serializable {
 	@Override
 	public void read (Json json, JsonValue jsonData) {
 		super.read(json, jsonData);
-		String[] variables = this.getVariableNames();
+		String[] variables = getVariableNames();
 		for (int i = 0; i < variables.length; i++)
-			if (jsonData.has(variables[i])) setVariable(i, jsonData.getString(variables[i]));
+			if (jsonData.has(variables[i]))
+				setVariable(i, jsonData.getString(variables[i]));
 	}
 
 	@Override

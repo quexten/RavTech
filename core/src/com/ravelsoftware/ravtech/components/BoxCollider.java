@@ -29,8 +29,8 @@ public class BoxCollider extends Box2dCollider {
 	public float angle;
 
 	public BoxCollider () {
-		this.width = 0.01f;
-		this.height = 0.01f;
+		width = 0.01f;
+		height = 0.01f;
 	}
 
 	public BoxCollider (float width, float height) {
@@ -44,7 +44,8 @@ public class BoxCollider extends Box2dCollider {
 
 	@Override
 	public void finishedLoading () {
-		if (this.getParent().getComponentByType(ComponentType.Rigidbody) == null) this.getParent().addComponent(new Rigidbody());
+		if (getParent().getComponentByType(ComponentType.Rigidbody) == null)
+			getParent().addComponent(new Rigidbody());
 		apply();
 	}
 
@@ -91,26 +92,26 @@ public class BoxCollider extends Box2dCollider {
 
 	@Override
 	public void apply () {
-		Body body = ((Rigidbody)this.getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
+		Body body = ((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
 		FixtureDef fixtureDef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(width / 2, height / 2, new Vector2(x, y), (float)Math.toRadians(angle));
-		fixtureDef.density = this.density;
-		fixtureDef.friction = this.friction;
-		fixtureDef.isSensor = this.isSensor;
-		fixtureDef.restitution = this.restitution;
+		fixtureDef.density = density;
+		fixtureDef.friction = friction;
+		fixtureDef.isSensor = isSensor;
+		fixtureDef.restitution = restitution;
 		fixtureDef.shape = shape;
 		if (fixture != null) {
 			dispose();
 			fixture = null;
-			((Rigidbody)this.getParent().getComponentByType(ComponentType.Rigidbody)).apply();
+			((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).apply();
 			rebuildAll();
 			return;
 		}
 		fixture = body.createFixture(fixtureDef);
 		fixture.setFilterData(filter);
 		UserData userdata = new UserData();
-		userdata.component = (Rigidbody)this.getParent().getComponentByType(ComponentType.Rigidbody);
+		userdata.component = (Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody);
 		fixture.setUserData(userdata);
 	}
 
@@ -137,7 +138,8 @@ public class BoxCollider extends Box2dCollider {
 
 	@Override
 	public void setVariable (int variableID, Object value) {
-		if (variableID <= 6) super.setVariable(variableID, value);
+		if (variableID <= 6)
+			super.setVariable(variableID, value);
 		String valueString = String.valueOf(value);
 		switch (variableID) {
 		case 7:
@@ -183,7 +185,8 @@ public class BoxCollider extends Box2dCollider {
 
 	@Override
 	public Object getVariable (int variableID) {
-		if (variableID <= 6) return super.getVariable(variableID);
+		if (variableID <= 6)
+			return super.getVariable(variableID);
 		switch (variableID) {
 		case 7:
 			return x;

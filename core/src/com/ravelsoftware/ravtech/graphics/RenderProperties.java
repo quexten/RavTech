@@ -40,7 +40,7 @@ public class RenderProperties implements Serializable {
 			sortingLayers.add(json.fromJson(SortingLayer.class, currentLayerValue.toString()));
 			currentLayerValue = currentLayerValue.next();
 		}
-		this.backgroundColor = JsonUtil.readColorFromJson(jsonData, "backgroundColor");
-		this.ambientLightColor = JsonUtil.readColorFromJson(jsonData, "ambientLightColor");
+		backgroundColor = JsonUtil.readColorFromJson(jsonData, "backgroundColor");
+		ambientLightColor = JsonUtil.readColorFromJson(jsonData, "ambientLightColor");
 	}
 }

@@ -15,13 +15,15 @@ public class RavUI {
 	public DebugConsole debugConsole;
 
 	public RavUI () {
-		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.internal("mdpi/uiskin.json"));
+		if (!VisUI.isLoaded())
+			VisUI.load(Gdx.files.internal("mdpi/uiskin.json"));
 		debugConsole = new DebugConsole();
 		Gdx.input.setInputProcessor(screenStage);
 		screenStage.addListener(new InputListener() {
 			@Override
 			public boolean keyDown (InputEvent event, int key) {
-				if (key == Keys.F1) debugConsole.toggleVisible();
+				if (key == Keys.F1)
+					debugConsole.toggleVisible();
 				return false;
 			}
 		});

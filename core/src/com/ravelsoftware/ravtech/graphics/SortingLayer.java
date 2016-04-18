@@ -6,7 +6,7 @@ public class SortingLayer {
 	public String name;
 
 	public SortingLayer (String layerName) {
-		this.name = layerName;
+		name = layerName;
 	}
 
 	public SortingLayer () {

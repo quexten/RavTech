@@ -21,7 +21,7 @@ public class Light extends Renderer implements Json.Serializable {
 
 	@Override
 	public String getName () {
-		return this.getType().toString();
+		return getType().toString();
 	}
 
 	public box2dLight.Light light;
@@ -33,9 +33,11 @@ public class Light extends Renderer implements Json.Serializable {
 	public void draw (SpriteBatch batch) {
 		light.setPosition(getParent().transform.getPosition().x, getParent().transform.getPosition().y);
 		light.setDirection(getParent().transform.getRotation());
-		if (!light.getColor().equals(color)) light.setColor(color);
+		if (!light.getColor().equals(color))
+			light.setColor(color);
 		light.setDistance(distance * Math.abs(getParent().transform.flippedX ? 1 : -1));
-		if (light instanceof ConeLight) ((ConeLight)light).setConeDegree(angle);
+		if (light instanceof ConeLight)
+			((ConeLight)light).setConeDegree(angle);
 	}
 
 	@Override
@@ -44,9 +46,9 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	public Light () {
-		this.color = Color.YELLOW;
-		this.distance = 50;
-		this.angle = 45;
+		color = Color.YELLOW;
+		distance = 50;
+		angle = 45;
 	}
 
 	@Override
@@ -65,8 +67,8 @@ public class Light extends Renderer implements Json.Serializable {
 	public void read (Json json, JsonValue jsonData) {
 		Color color = JsonUtil.readColorFromJson(jsonData, "color");
 		this.color = color;
-		this.distance = jsonData.getFloat("distance");
-		this.angle = jsonData.getFloat("angle");
+		distance = jsonData.getFloat("distance");
+		angle = jsonData.getFloat("angle");
 	}
 
 	@Override
@@ -128,9 +130,9 @@ public class Light extends Renderer implements Json.Serializable {
 		light = new box2dLight.ConeLight(RavTech.sceneHandler.lightHandler, 60, Color.YELLOW, 50,
 			getParent().transform.getPosition().x, getParent().transform.getPosition().y, getParent().transform.getRotation(), 45);
 		light.setPosition(0, 0);
-		light.setColor(this.color);
-		light.setDistance(this.distance);
-		((ConeLight)light).setConeDegree(this.angle);
+		light.setColor(color);
+		light.setDistance(distance);
+		((ConeLight)light).setConeDegree(angle);
 	}
 
 	@Override

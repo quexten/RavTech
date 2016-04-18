@@ -29,7 +29,8 @@ public class DebugConsole extends VisWindow {
 		textField.setTextFieldListener(new TextFieldListener() {
 			@Override
 			public void keyTyped (VisTextField textField, char c) {
-				if (script == null) script = (LuaJScript)RavTech.scriptLoader.createScript("", null);
+				if (script == null)
+					script = (LuaJScript)RavTech.scriptLoader.createScript("", null);
 
 				if (c == '\n' || c == '\r') {
 					script.loadChunk("function init() \n " + textField.getText() + "\n end");
@@ -39,10 +40,10 @@ public class DebugConsole extends VisWindow {
 			}
 		});
 		this.add(scrollPane).grow();
-		this.row();
+		row();
 		this.add(textField).growX();
-		this.setSize(600, 300);
-		this.addCloseButton();
+		setSize(600, 300);
+		addCloseButton();
 		this.fadeOut(0);
 	}
 
@@ -59,10 +60,10 @@ public class DebugConsole extends VisWindow {
 	}
 
 	public void toggleVisible () {
-		if (getZIndex() != getParent().getChildren().size - 1 || !isVisible() || !this.visible) {
+		if (getZIndex() != getParent().getChildren().size - 1 || !isVisible() || !visible) {
 			toFront();
 			this.fadeIn();
-			this.visible = true;
+			visible = true;
 		} else {
 			toBack();
 			this.fadeOut();

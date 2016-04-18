@@ -30,12 +30,14 @@ public class Timeline implements Json.Serializable {
 	public Timeline (GameComponent component, int varId) {
 		this.component = component;
 		variableId = varId;
-		if (component instanceof Transform && variableId == 2) variableType = VAR_TYPE_ANGLE;
+		if (component instanceof Transform && variableId == 2)
+			variableType = VAR_TYPE_ANGLE;
 	}
 
 	public void update (int time) {
 		currentTime = time;
-		if (getCurrentKey() != null && getNextKey() != null) getCurrentKey().update(getNextKey().time, currentTime);
+		if (getCurrentKey() != null && getNextKey() != null)
+			getCurrentKey().update(getNextKey().time, currentTime);
 	}
 
 	public void addKey (Key key) {
@@ -57,14 +59,17 @@ public class Timeline implements Json.Serializable {
 
 	public Key getNextKey () {
 		for (int i = 0; i < keys.size; i++)
-			if (keys.get(i).time >= currentTime) return keys.get(i);
+			if (keys.get(i).time >= currentTime)
+				return keys.get(i);
 		return keys.get(0);
 	}
 
 	public Key getCurrentKey () {
-		if (currentTime == 0) return keys.first();
+		if (currentTime == 0)
+			return keys.first();
 		for (int i = 0; i < keys.size; i++)
-			if (keys.get(i).time >= currentTime) return i > 0 ? keys.get(i - 1) : keys.get(keys.size - 1);
+			if (keys.get(i).time >= currentTime)
+				return i > 0 ? keys.get(i - 1) : keys.get(keys.size - 1);
 		return keys.get(keys.size - 1);
 	}
 
@@ -106,8 +111,10 @@ public class Timeline implements Json.Serializable {
 						String componentPath = jsonData.getString("component");
 						String ownPath = GameObjectTraverseUtil.pathFromGameComponent(animator.getParent());
 						component = GameObjectTraverseUtil.gameComponentFromPath(ownPath + componentPath);
-						if (component == null) Timeline.this.animation.timelines.removeValue(Timeline.this, true);
-						if (component instanceof Transform && variableId == 2) variableType = VAR_TYPE_ANGLE;
+						if (component == null)
+							animation.timelines.removeValue(Timeline.this, true);
+						if (component instanceof Transform && variableId == 2)
+							variableType = VAR_TYPE_ANGLE;
 						update(0);
 					}
 				});
@@ -125,7 +132,8 @@ public class Timeline implements Json.Serializable {
 
 	public Key getLastKey () {
 		for (int i = keys.size - 1; i >= 0; i--)
-			if (keys.get(i).time <= currentTime) return keys.get(i);
+			if (keys.get(i).time <= currentTime)
+				return keys.get(i);
 		return keys.get(0);
 	}
 }

@@ -31,9 +31,9 @@ public class BufferedProcessor extends Processor {
 	public BufferedProcessor (ShaderManager sm, int w, int h, Format format, boolean hasDepth, boolean saveBytes) {
 		super(sm, w, h, format, hasDepth, saveBytes);
 		if (format == null) // this is a float format
-			this.fbo2 = new FloatFrameBuffer(width, height, hasDepth);
+			fbo2 = new FloatFrameBuffer(width, height, hasDepth);
 		else
-			this.fbo2 = new FrameBuffer(format, width, height, hasDepth);
+			fbo2 = new FrameBuffer(format, width, height, hasDepth);
 	}
 
 	protected void swapBuffers () {
@@ -52,7 +52,8 @@ public class BufferedProcessor extends Processor {
 		program.setUniformf("u_viewport", width, height);
 		addUniforms(program);
 		quad.render(program, GL20.GL_TRIANGLES);
-		if (saveBytes) data = getFrameBufferPixels(0, 0, width, height, false, data);
+		if (saveBytes)
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		program.end();
 		fbo.end();
 		swapBuffers();
@@ -66,7 +67,8 @@ public class BufferedProcessor extends Processor {
 		sm.setUniformf("u_viewport", width, height);
 		addUniforms(sm.getCurrent());
 		quad.render(sm.getCurrent(), GL20.GL_TRIANGLES);
-		if (saveBytes) data = getFrameBufferPixels(0, 0, width, height, false, data);
+		if (saveBytes)
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		sm.end();
 		fbo.end();
 		swapBuffers();
@@ -83,7 +85,8 @@ public class BufferedProcessor extends Processor {
 
 	@Override
 	public Color getValue (int x, int y) {
-		if (saveBytes) return super.getValue(x, y);
+		if (saveBytes)
+			return super.getValue(x, y);
 		fbo.begin();
 		sm.begin("processor");
 		fbo2.getColorBufferTexture().bind(ShaderManager.FRAMEBUFFER_TEXTURE_ID);
@@ -107,7 +110,8 @@ public class BufferedProcessor extends Processor {
 		fbo.begin();
 		Gdx.gl20.glClearColor(col.r, col.g, col.b, col.a);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if (saveBytes) data = getFrameBufferPixels(0, 0, width, height, false, data);
+		if (saveBytes)
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		fbo.end();
 		fbo2.begin();
 		Gdx.gl20.glClearColor(col.r, col.g, col.b, col.a);

@@ -98,7 +98,8 @@ public class ShaderManager {
 	public void createFB (String fbIdn, Format format, int fbWidth, int fbHeight, boolean hasDepth) {
 		FrameBuffer fb = frameBuffers.get(fbIdn);
 		if (fb == null || fb.getWidth() != fbWidth || fb.getHeight() != fbHeight) {
-			if (fb != null) fb.dispose();
+			if (fb != null)
+				fb.dispose();
 			fb = new FrameBuffer(Format.RGBA8888, fbWidth, fbHeight, hasDepth);
 		}
 		frameBuffers.put(fbIdn, fb);
@@ -129,7 +130,8 @@ public class ShaderManager {
 
 	/** Creates a quad which spans entire screen, used for rendering of framebuffers. */
 	private void createScreenQuad () {
-		if (screenQuad != null) return;
+		if (screenQuad != null)
+			return;
 		screenQuad = new Mesh(true, 4, 6, new VertexAttribute(Usage.Position, 3, "a_position"),
 			new VertexAttribute(Usage.ColorUnpacked, 4, "a_color"), new VertexAttribute(Usage.TextureCoordinates, 2, "a_texCoords"));
 		Vector3 vec0 = new Vector3(0, 0, 0);
@@ -149,8 +151,9 @@ public class ShaderManager {
 	 * @param shadIdn - a shader with this identifier must be loaded earlier
 	 * @return this ShaderProgram for chaining */
 	public ShaderProgram begin (String shadIdn) {
-		if (currentShader != null) throw new IllegalArgumentException(
-			"Previous shader '" + currentShaderIdn + "' not finished! Call end() before another begin().");
+		if (currentShader != null)
+			throw new IllegalArgumentException(
+				"Previous shader '" + currentShaderIdn + "' not finished! Call end() before another begin().");
 		ShaderProgram res = get(shadIdn);
 		if (res != null) {
 			currentShader = res;
@@ -175,7 +178,8 @@ public class ShaderManager {
 	 * @param fb - framebuffer to render to
 	 * @param clearColor - clear color for this framebuffer */
 	private void beginFB (FrameBuffer fb, Color clearColor) {
-		if (fb == null) throw new IllegalArgumentException("FrameBuffer must not be null!");
+		if (fb == null)
+			throw new IllegalArgumentException("FrameBuffer must not be null!");
 		fb.begin();
 		Gdx.graphics.getGL20().glViewport(0, 0, fb.getWidth(), fb.getHeight());
 		Gdx.graphics.getGL20().glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
@@ -200,13 +204,15 @@ public class ShaderManager {
 	}
 
 	private void endFB (FrameBuffer fb) {
-		if (fb == null) throw new IllegalArgumentException("FrameBuffer must not be null!");
+		if (fb == null)
+			throw new IllegalArgumentException("FrameBuffer must not be null!");
 		fb.end();
 	}
 
 	/** Call this to finish rendering into current framebuffer. */
 	public void endFB () {
-		if (openedFrameBuffers.size == 0) throw new IllegalArgumentException("No framebuffers to end!");
+		if (openedFrameBuffers.size == 0)
+			throw new IllegalArgumentException("No framebuffers to end!");
 		endFB(frameBuffers.get(openedFrameBuffers.pop()));
 	}
 
@@ -231,7 +237,8 @@ public class ShaderManager {
 	 * @param textureId - which texture number should be used */
 	public void renderFB (String fbIdn, Mesh out, String textureUniformName, int textureId) {
 		FrameBuffer fb = frameBuffers.get(fbIdn);
-		if (fb != null) renderFB(fb, out, textureUniformName, textureId);
+		if (fb != null)
+			renderFB(fb, out, textureUniformName, textureId);
 	}
 
 	/** Renders given framebuffer onto given Mesh.
@@ -309,7 +316,8 @@ public class ShaderManager {
 	 * @return */
 	public FrameBuffer getFB (String fbIdn) {
 		FrameBuffer fb = frameBuffers.get(fbIdn);
-		if (fb != null) return fb;
+		if (fb != null)
+			return fb;
 		return null;
 	}
 
@@ -318,7 +326,8 @@ public class ShaderManager {
 	 * @return */
 	public Texture getFBTexture (String fbIdn) {
 		FrameBuffer fb = frameBuffers.get(fbIdn);
-		if (fb != null) return fb.getColorBufferTexture();
+		if (fb != null)
+			return fb.getColorBufferTexture();
 		return null;
 	}
 
@@ -380,7 +389,7 @@ public class ShaderManager {
 	}
 
 	public void setAssetManager (AssetManager amm) {
-		this.am = amm;
+		am = amm;
 	}
 
 	/** Add new shader to ShaderManager
@@ -409,7 +418,8 @@ public class ShaderManager {
 				fragPath = fh2.path();
 			}
 		}
-		if (frag == null || vert == null) return;
+		if (frag == null || vert == null)
+			return;
 		frag = appendGLESPrecisions(frag);
 		vert = appendGLESPrecisions(vert);
 		sourcesVert.put(key, vert);
@@ -446,7 +456,8 @@ public class ShaderManager {
 		fh2 = fixPath(fh2);
 		vert = fh.readString("utf-8");
 		frag = fh2.readString("utf-8");
-		if (init(key, vert, frag)) shaderPaths.put(key, fh.path() + ";" + fh2.path());
+		if (init(key, vert, frag))
+			shaderPaths.put(key, fh.path() + ";" + fh2.path());
 	}
 
 	/** Adds new shader to ShaderManager.
@@ -480,10 +491,14 @@ public class ShaderManager {
 			fragFh = Gdx.files.classpath(SHADER_CLASSPATH + "/" + baseFragPath);
 			fragPath = fragFh.path();
 		}
-		if (!vertFh.exists()) throw new GdxRuntimeException("ShaderManager: shader '" + vertPath + "' does not exist!");
-		if (!fragFh.exists()) throw new GdxRuntimeException("ShaderManager: shader '" + fragPath + "' does not exist!");
-		if (am.isLoaded(vertPath)) am.unload(vertPath);
-		if (am.isLoaded(fragPath)) am.unload(fragPath);
+		if (!vertFh.exists())
+			throw new GdxRuntimeException("ShaderManager: shader '" + vertPath + "' does not exist!");
+		if (!fragFh.exists())
+			throw new GdxRuntimeException("ShaderManager: shader '" + fragPath + "' does not exist!");
+		if (am.isLoaded(vertPath))
+			am.unload(vertPath);
+		if (am.isLoaded(fragPath))
+			am.unload(fragPath);
 		am.load(vertPath, String.class);
 		am.load(fragPath, String.class);
 		// TODO dirty...
@@ -492,7 +507,8 @@ public class ShaderManager {
 		// Gdx.app.log("ShaderManager", am.getProgress() + ", " + am.getLoadedAssets() + "/" + am.getQueuedAssets());
 		String vert = am.get(vertPath, String.class);
 		String frag = am.get(fragPath, String.class);
-		if (init(key, vert, frag)) shaderPaths.put(key, baseVertPath + ";" + baseFragPath);
+		if (init(key, vert, frag))
+			shaderPaths.put(key, baseVertPath + ";" + baseFragPath);
 	}
 
 	/** Adds GLES specifics (if needed) and compiles shaders.
@@ -501,7 +517,8 @@ public class ShaderManager {
 	 * @param frag - fragment shader source
 	 * @return whether the shaders compiled correctly */
 	protected boolean init (String key, String vert, String frag) {
-		if (frag == null || vert == null) return false;
+		if (frag == null || vert == null)
+			return false;
 		frag = appendGLESPrecisions(frag);
 		vert = appendGLESPrecisions(vert);
 		sourcesVert.put(key, vert);
@@ -522,15 +539,20 @@ public class ShaderManager {
 	}
 
 	private FileHandle fixPath (FileHandle fh) {
-		if (fh == null) return null;
-		if (!fh.exists()) fh = Gdx.files.internal(shaderDir + "/" + fh.path());
-		if (!fh.exists()) throw new GdxRuntimeException("Shader not found: " + fh.path());
+		if (fh == null)
+			return null;
+		if (!fh.exists())
+			fh = Gdx.files.internal(shaderDir + "/" + fh.path());
+		if (!fh.exists())
+			throw new GdxRuntimeException("Shader not found: " + fh.path());
 		return fh;
 	}
 
 	private String appendGLESPrecisions (String shader, String prec) {
-		if (shader == null) return null;
-		if (Gdx.app.getType() == ApplicationType.Desktop || Gdx.app.getType() == ApplicationType.Applet) return shader;
+		if (shader == null)
+			return null;
+		if (Gdx.app.getType() == ApplicationType.Desktop || Gdx.app.getType() == ApplicationType.Applet)
+			return shader;
 		String tmp = "#ifdef GL_ES\n " + "precision " + prec + " float;\n" + "precision " + prec + " int;\n" +
 			// "precision " + prec + " vec2;\n" +
 			// "precision " + prec + " vec3;\n" +
@@ -550,14 +572,16 @@ public class ShaderManager {
 	 * @param name - shader identifier
 	 * @return requested shader */
 	public ShaderProgram get (String name) {
-		if (shaders.containsKey(name)) return shaders.get(name);
+		if (shaders.containsKey(name))
+			return shaders.get(name);
 		throw new GdxRuntimeException("No shader named '" + name + "' in ShaderManager!");
 	}
 
 	/** Returns current shader from ShaderManager.
 	 * @return requested shader */
 	public ShaderProgram getCurrent () {
-		if (currentShader != null) return currentShader;
+		if (currentShader != null)
+			return currentShader;
 		throw new GdxRuntimeException("No current shader set in ShaderManager!");
 	}
 
@@ -565,7 +589,8 @@ public class ShaderManager {
 	 * @param name - shader identifier
 	 * @return vertex shader source */
 	public String getSourceVert (String name) {
-		if (sourcesVert.containsKey(name)) return sourcesVert.get(name);
+		if (sourcesVert.containsKey(name))
+			return sourcesVert.get(name);
 		return null;
 	}
 
@@ -573,7 +598,8 @@ public class ShaderManager {
 	 * @param name - shader identifier
 	 * @return fragment shader source */
 	public String getSourceFrag (String name) {
-		if (sourcesFrag.containsKey(name)) return sourcesFrag.get(name);
+		if (sourcesFrag.containsKey(name))
+			return sourcesFrag.get(name);
 		return null;
 	}
 

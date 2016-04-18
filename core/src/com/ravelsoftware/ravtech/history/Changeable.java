@@ -13,7 +13,8 @@ public class Changeable {
 	String changeLabel;
 
 	public Changeable (GameComponent component, String changeLabel) {
-		if (component != null) this.pathToComponent = GameObjectTraverseUtil.pathFromGameComponent(component);
+		if (component != null)
+			pathToComponent = GameObjectTraverseUtil.pathFromGameComponent(component);
 		this.changeLabel = changeLabel;
 	}
 

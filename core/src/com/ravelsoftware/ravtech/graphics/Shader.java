@@ -49,6 +49,6 @@ public class Shader {
 	}
 
 	public void setPasses (Array<String> programs) {
-		this.passes = programs;
+		passes = programs;
 	}
 }

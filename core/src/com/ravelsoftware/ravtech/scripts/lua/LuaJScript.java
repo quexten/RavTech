@@ -50,7 +50,7 @@ public class LuaJScript extends Script {
 
 	@Override
 	public void init () {
-		loadChunk(this.script);
+		loadChunk(script);
 		invokeFunction("init");
 	}
 
@@ -77,7 +77,8 @@ public class LuaJScript extends Script {
 	@Override
 	public Object callFunction (String name, Object[] args) {
 		LuaValue function = globals.get(name);
-		if (function == LuaValue.NIL) return LuaValue.NIL;
+		if (function == LuaValue.NIL)
+			return LuaValue.NIL;
 		LuaValue returnValue = null;
 		switch (args.length) {
 		case 0:

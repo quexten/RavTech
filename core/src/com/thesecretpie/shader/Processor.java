@@ -54,16 +54,17 @@ public class Processor {
 
 	public Processor (ShaderManager sm, int w, int h, Format format, boolean hasDepth, boolean saveBytes) {
 		this.sm = sm;
-		this.width = w;
-		this.height = h;
-		this.size = new Vector2(w, h);
+		width = w;
+		height = h;
+		size = new Vector2(w, h);
 		this.format = format;
 		if (format == null) // this is a float format
-			this.fbo = new FloatFrameBuffer(width, height, hasDepth);
+			fbo = new FloatFrameBuffer(width, height, hasDepth);
 		else
-			this.fbo = new FrameBuffer(format, width, height, hasDepth);
+			fbo = new FrameBuffer(format, width, height, hasDepth);
 		this.saveBytes = saveBytes;
-		if (saveBytes) data = ByteBuffer.allocateDirect(width * height * 4);
+		if (saveBytes)
+			data = ByteBuffer.allocateDirect(width * height * 4);
 		createQuad();
 	}
 
@@ -123,7 +124,8 @@ public class Processor {
 	}
 
 	protected void addUniformsArray (ShaderProgram program, String key, Object[] values) {
-		if (values == null || values.length == 0) return;
+		if (values == null || values.length == 0)
+			return;
 		Object val = values[0];
 		String cls = val.getClass().getName();
 		if (cls.equals("java.lang.Integer"))
@@ -169,7 +171,8 @@ public class Processor {
 		program.setUniformf("u_viewport", width, height);
 		addUniforms(program);
 		quad.render(program, GL20.GL_TRIANGLES);
-		if (saveBytes) data = getFrameBufferPixels(0, 0, width, height, false, data);
+		if (saveBytes)
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		program.end();
 		fbo.end();
 	}
@@ -181,7 +184,8 @@ public class Processor {
 		sm.setUniformf("u_viewport", width, height);
 		addUniforms(sm.getCurrent());
 		quad.render(sm.getCurrent(), GL20.GL_TRIANGLES);
-		if (saveBytes) data = getFrameBufferPixels(0, 0, width, height, false, data);
+		if (saveBytes)
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		sm.end();
 		fbo.end();
 	}
@@ -194,7 +198,8 @@ public class Processor {
 		sm.setUniformf("u_viewport", width, height);
 		addUniforms(sm.getCurrent());
 		quad.render(sm.getCurrent(), GL20.GL_TRIANGLES);
-		if (saveBytes) data = getFrameBufferPixels(0, 0, width, height, false, data);
+		if (saveBytes)
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		sm.end();
 		fbo.end();
 	}
@@ -331,7 +336,8 @@ public class Processor {
 		Gdx.gl.glPixelStorei(GL20.GL_PACK_ALIGNMENT, 1);
 		// final ByteBuffer pixels = BufferUtils.newByteBuffer(w * h * 4);
 		final int numBytes = w * h * 4;
-		if (lines == null || lines.capacity() == 0) lines = ByteBuffer.allocateDirect(numBytes);
+		if (lines == null || lines.capacity() == 0)
+			lines = ByteBuffer.allocateDirect(numBytes);
 		lines.position(0);
 		Gdx.gl.glReadPixels(x, y, w, h, GL20.GL_RGBA, GL20.GL_UNSIGNED_BYTE, lines);
 		// TODO - make it work
@@ -348,7 +354,8 @@ public class Processor {
 	}
 
 	private void createQuad () {
-		if (quad != null) return;
+		if (quad != null)
+			return;
 		quad = new Mesh(true, 4, 6, new VertexAttribute(Usage.Position, 3, "a_position"),
 			new VertexAttribute(Usage.ColorUnpacked, 4, "a_color"), new VertexAttribute(Usage.TextureCoordinates, 2, "a_texCoords"));
 		quad.setVertices(new float[] {-1, -1, 0, 1, 1, 1, 1, 0, 0, 1, -1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, -1, 1, 0,
@@ -379,7 +386,8 @@ public class Processor {
 		fbo.begin();
 		Gdx.gl20.glClearColor(col.r, col.g, col.b, col.a);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		if (saveBytes) data = getFrameBufferPixels(0, 0, width, height, false, data);
+		if (saveBytes)
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		fbo.end();
 	}
 }

@@ -20,7 +20,7 @@ public class Key implements Json.Serializable {
 	public Key (int time, Object value, Timeline line, Curve curve) {
 		this.time = time;
 		this.value = value;
-		this.timeline = line;
+		timeline = line;
 		this.curve = curve;
 	}
 
@@ -29,7 +29,8 @@ public class Key implements Json.Serializable {
 	 * @param currentTime - current time of animation in milliseconds */
 	public void update (int nextKeyTime, int currentTime) {
 		float percentage;
-		if (timeline.animator == null) return;
+		if (timeline.animator == null)
+			return;
 		if (time < nextKeyTime)
 			percentage = (float)(currentTime - time) / (float)(nextKeyTime - time);
 		else
@@ -38,19 +39,23 @@ public class Key implements Json.Serializable {
 	}
 
 	void tweenValue (Object obj, float percentage) {
-		if (value instanceof Float) if (timeline.component != null) timeline.component.setVariable(timeline.variableId,
-			timeline.variableType == Timeline.VAR_TYPE_FLOAT
-				? curve.tween((Float)value, (Float)timeline.getNextKey().value, percentage)
-				: curve.tweenAngle((Float)value, (Float)timeline.getNextKey().value, percentage));
+		if (value instanceof Float)
+			if (timeline.component != null)
+				timeline.component.setVariable(timeline.variableId,
+					timeline.variableType == Timeline.VAR_TYPE_FLOAT
+						? curve.tween((Float)value, (Float)timeline.getNextKey().value, percentage)
+						: curve.tweenAngle((Float)value, (Float)timeline.getNextKey().value, percentage));
 		if (obj instanceof Color) {
 			Color tempCol = ((Color)obj).cpy();
 			tempCol.r = curve.tween(((Color)obj).r, ((Color)timeline.getNextKey().value).r, percentage);
 			tempCol.g = curve.tween(((Color)obj).g, ((Color)timeline.getNextKey().value).g, percentage);
 			tempCol.b = curve.tween(((Color)obj).b, ((Color)timeline.getNextKey().value).b, percentage);
 			tempCol.a = curve.tween(((Color)obj).a, ((Color)timeline.getNextKey().value).a, percentage);
-			if (timeline.component != null) timeline.component.setVariable(timeline.variableId, tempCol);
+			if (timeline.component != null)
+				timeline.component.setVariable(timeline.variableId, tempCol);
 		}
-		if (value instanceof Integer) timeline.component.setVariable(timeline.variableId, value);
+		if (value instanceof Integer)
+			timeline.component.setVariable(timeline.variableId, value);
 	}
 
 	public String toString () {
@@ -66,7 +71,8 @@ public class Key implements Json.Serializable {
 
 	@Override
 	public void read (Json json, JsonValue jsonData) {
-		if (jsonData.has("time")) time = jsonData.getInt("time");
+		if (jsonData.has("time"))
+			time = jsonData.getInt("time");
 		if (jsonData.get("value").isNumber())
 			value = jsonData.getFloat("value");
 		else
@@ -80,6 +86,7 @@ public class Key implements Json.Serializable {
 		c4 = constraintsValue.getInt("c4");
 		curve = new Curve();
 		curve.constraints.set(c1, c2, c3, c4);
-		if (curveValue.has("type")) curve.setType(json.readValue(Type.class, curveValue.get("type")));
+		if (curveValue.has("type"))
+			curve.setType(json.readValue(Type.class, curveValue.get("type")));
 	}
 }

@@ -64,7 +64,8 @@ public class Scene {
 		for (GameObject object : gameObjects) {
 			float objectX = object.transform.getPosition().x;
 			float objectY = object.transform.getPosition().y;
-			if (lx < objectX && objectX < hx && ly < objectY && objectY < hy) objects.add(object);
+			if (lx < objectX && objectX < hx && ly < objectY && objectY < hy)
+				objects.add(object);
 		}
 		return objects;
 	}
@@ -88,7 +89,8 @@ public class Scene {
 	public Array<GameObject> getObjectsByName (String name) {
 		Array<GameObject> tempComponents = new Array<GameObject>();
 		for (GameObject component : gameObjects)
-			if (component.getName().equals(name)) tempComponents.add(component);
+			if (component.getName().equals(name))
+				tempComponents.add(component);
 		return tempComponents;
 	}
 
