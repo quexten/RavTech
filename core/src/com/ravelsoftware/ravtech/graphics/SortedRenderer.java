@@ -79,7 +79,7 @@ public class SortedRenderer {
 							shapeRenderer.end();
 							shapeRenderer.begin(ShapeType.Line);
 							Color redColor = lineColor;
-							Color greenColor = new Color(0.9f, 0.9f, 0.9f, 1.0f);
+							Color greenColor = new Color(0.6f, 0.6f, 0.6f, 1.0f);
 							Color blueColor = new Color(0.8f, 0.8f, 0.8f, 1.0f);
 							if (times < 0.5f) {
 								for (float w = (int)(worldCamera.position.x - camWidth / 2) - 1; w < worldCamera.position.x

@@ -120,8 +120,7 @@ public class SceneViewWidget extends Widget {
 				float lastzoom = camera.zoom;
 				Vector2 lastposition = new Vector2(camera.position.x, camera.position.y);
 				targetZoom += amount * camera.zoom * 0.5;
-				if (targetZoom < 0)
-					targetZoom = 0.0001f;
+				targetZoom = Math.min(Math.max(0.0001f, targetZoom), 1);
 				Vector3 worldPos = camera.unproject(new Vector3(x, getHeight() - y, 0), 0, 0, camera.getResolution().x,
 					camera.getResolution().y);
 				targetPosition = new Vector2(worldPos.x, worldPos.y);
