@@ -21,6 +21,8 @@ public class UpdateManager {
 
 	@SuppressWarnings("unchecked")
 	public static void loadCurrentVersions () {
+		if(!RavTechDK.getLocalFile("versions.json").exists())
+			RavTechDK.getLocalFile("versions.json").writeString("{}", false);
 		versions = new Json().fromJson(ObjectMap.class, RavTechDK.getLocalFile("versions.json").readString());
 		Debug.log("Loaded Udpate file", versions);
 	}

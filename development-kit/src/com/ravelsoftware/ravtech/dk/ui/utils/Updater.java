@@ -5,7 +5,7 @@ import com.ravelsoftware.ravtech.dk.ui.editor.UpdaterWidget.UpdaterEntry;
 
 public abstract class Updater {
 
-	String currentVersion;
+	String currentVersion = "0";
 	String description = "";
 	String projectPage = "";
 

@@ -8,8 +8,10 @@ import com.badlogic.gdx.files.FileHandle;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.AndroidPlatform;
+import com.ravelsoftware.ravtech.dk.packaging.platforms.BuildOptions;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.DesktopPlatform;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.WebGLPlatform;
+import com.ravelsoftware.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.android.AlignStep;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.android.SignStep;
@@ -29,17 +31,31 @@ public class Packager {
 	 * @param userData
 	 * @param destinationDir - the destination, meaning the path the package is saved at */
 	public static void dist (BuildReporterDialog buildReporterDialog, TargetPlatform targetPlatform, Object userData,
-		FileHandle destinationDir) {
+		FileHandle destinationDir, BuildOptions options) {
+		RavTechDK.getLocalFile("builder/android/assets/config.json").writeString("{ \"title\": \"" + RavTech.project.appName
+			+ "\",\n\"useAssetBundle\": " + String.valueOf(options.assetType == BuildOptions.AssetType.External) + "\n}", false);
 		RavTechDK.saveScene(RavTech.files.getAssetHandle(RavTechDK.getCurrentScene()));
 		RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
-		PackageStep firstStep = new PackBundleStep(buildReporterDialog);
+
+		PackageStep firstStep;
+		if (options.assetType == AssetType.External)
+			firstStep = new PackBundleStep(buildReporterDialog);
+		else {
+			firstStep = new CopyDirectoryStep(buildReporterDialog, RavTechDK.projectHandle.child("assets").file(),
+				RavTechDK.getLocalFile("/builder/android/assets/").file());
+		}
+		
+		PackageStep localFirstStep = firstStep;
+		
 		// Builds the packaging chain
 		switch (targetPlatform) {
-		case Android:
-			firstStep
-				.setNextStep(new CopyStep(buildReporterDialog,
-					Gdx.files.absolute(System.getProperty("user.dir") + "/temp/build.ravpack"), destinationDir.child("extension.obb")))
-				.setNextStep(new ApkPreparationStep(buildReporterDialog))
+		case Android:			
+			if (options.assetType == AssetType.External)
+				localFirstStep = localFirstStep.setNextStep(
+					new CopyStep(buildReporterDialog, Gdx.files.absolute(System.getProperty("user.dir") + "/temp/build.ravpack"),
+						destinationDir.child("extension.obb")));
+
+			localFirstStep.setNextStep(new ApkPreparationStep(buildReporterDialog))
 				.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(), destinationDir.child("build.apk")))
 				.setNextStep(new SignStep(buildReporterDialog, (KeyStoreCredentials)userData))
 				.setNextStep(new AlignStep(buildReporterDialog))
@@ -50,16 +66,17 @@ public class Packager {
 				.setNextStep(new DeleteFileStep(buildReporterDialog, RavTechDK.projectHandle.child("assets").child("project.json")));
 			break;
 		case Desktop:
-			firstStep
-				.setNextStep(
+			if (options.assetType == AssetType.External)
+				localFirstStep = localFirstStep.setNextStep(
 					new CopyStep(buildReporterDialog, Gdx.files.absolute(System.getProperty("user.dir") + "/temp/build.ravpack"),
-						destinationDir.child("assets.ravpack")))
+						destinationDir.child("assets.ravpack")));
+
+			localFirstStep
 				.setNextStep(new PlatformStep(buildReporterDialog, new DesktopPlatform(), destinationDir.child("build.jar")))
 				.setNextStep(new CopyStep(buildReporterDialog,
 					Gdx.files.absolute(System.getProperty("user.dir") + "/builder/desktop/build/libs/desktop-1.0.jar"),
 					destinationDir.child("build.jar")))
 				.setNextStep(new DeleteFileStep(buildReporterDialog, RavTechDK.projectHandle.child("assets").child("project.json")));
-
 			break;
 		case Linux:
 			break;

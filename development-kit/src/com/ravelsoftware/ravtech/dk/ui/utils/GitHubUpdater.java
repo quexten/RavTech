@@ -39,6 +39,8 @@ public class GitHubUpdater extends Updater {
 
 	@Override
 	public boolean isNewVersionAvalible () {
+		if(currentVersion == null)
+			return true;
 		return Float.valueOf(getRemoteVersion() != null ? getRemoteVersion() : "0") > Float.valueOf(currentVersion);
 	}
 

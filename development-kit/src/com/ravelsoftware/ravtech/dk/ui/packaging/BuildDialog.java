@@ -14,6 +14,7 @@ import com.kotcrab.vis.ui.VisUI;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisList;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
+import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
@@ -26,6 +27,8 @@ import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.adb.AdbManager;
 import com.ravelsoftware.ravtech.dk.packaging.Packager;
 import com.ravelsoftware.ravtech.dk.packaging.Packager.TargetPlatform;
+import com.ravelsoftware.ravtech.dk.packaging.platforms.BuildOptions;
+import com.ravelsoftware.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
 import com.ravelsoftware.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
 
 import se.vidstige.jadb.JadbDevice;
@@ -66,6 +69,13 @@ public class BuildDialog extends VisWindow {
 		contentTable.padTop(28).padLeft(20);
 		contentTable.add(platformList).grow();
 
+		final VisTable optionsTable = new VisTable();
+		optionsTable.add(new VisLabel("AssetType"));
+		final VisSelectBox<String> dropDown = new VisSelectBox<String>();
+		dropDown.setItems("Internal", "External");
+		optionsTable.add(dropDown);
+		contentTable.add(optionsTable).grow();
+		
 		VisTable bottomTable = new VisTable();
 
 		VisTextButton buildButton = new VisTextButton("Build");
@@ -74,10 +84,12 @@ public class BuildDialog extends VisWindow {
 			public void changed (ChangeEvent event, Actor actor) {
 				if (platformList.getSelected().equals(TargetPlatform.Android)) {
 					BuildDialog.this.contentTable.clear();
-					BuildDialog.this.contentTable.add(createApkOptionsTable()).grow();
+					BuildDialog.this.contentTable.add(createApkOptionsTable(
+						new BuildOptions((dropDown.getSelectedIndex() == 0) ? AssetType.Internal : AssetType.External))).grow();
 					return;
 				}
-				BuildDialog.this.build(platformList.getSelected(), false);
+				BuildDialog.this.build(platformList.getSelected(), false,
+					new BuildOptions((dropDown.getSelectedIndex() == 0) ? AssetType.Internal : AssetType.External));
 			}
 		});
 		bottomTable.add(buildButton);
@@ -90,7 +102,8 @@ public class BuildDialog extends VisWindow {
 					return;
 				if (platformList.getSelected().equals(TargetPlatform.Android) && AdbManager.getDevices().size > 1)
 					return;
-				BuildDialog.this.build(platformList.getSelected(), true);
+				BuildDialog.this.build(platformList.getSelected(), true,
+					new BuildOptions((dropDown.getSelectedIndex() == 0) ? AssetType.Internal : AssetType.External));
 			}
 		});
 		bottomTable.add(buildAndRunButton);
@@ -100,7 +113,7 @@ public class BuildDialog extends VisWindow {
 		return contentTable;
 	}
 
-	public VisTable createApkOptionsTable () {
+	public VisTable createApkOptionsTable (final BuildOptions buildOptions) {
 		VisTable optionsTable = new VisTable();
 		optionsTable.setFillParent(true);
 
@@ -165,7 +178,7 @@ public class BuildDialog extends VisWindow {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				BuildDialog.this.build(TargetPlatform.Android, false, new KeyStoreCredentials(new File(keystorePathField.getText()),
-					keystorePasswordField.getText(), aliasField.getText(), aliasPasswordField.getText()));
+					keystorePasswordField.getText(), aliasField.getText(), aliasPasswordField.getText()), buildOptions);
 			}
 		});
 		bottomTable.add(buildButton).align(Align.bottomRight);
@@ -176,7 +189,7 @@ public class BuildDialog extends VisWindow {
 		return optionsTable;
 	}
 
-	public void build (TargetPlatform targetPlatform, boolean run, Object userData) {
+	public void build (TargetPlatform targetPlatform, boolean run, Object userData, BuildOptions options) {
 		BuildReporterDialog buildDialog = new BuildReporterDialog();
 		contentTable.clearChildren();
 		VisScrollPane scrollPane = new VisScrollPane(buildDialog);
@@ -198,11 +211,12 @@ public class BuildDialog extends VisWindow {
 		if (run)
 			Packager.run(buildDialog, targetPlatform, "");
 		else
-			Packager.dist(buildDialog, targetPlatform, userData, getDistFileHandle(targetPlatform));
+			Packager.dist(buildDialog, targetPlatform, userData, getDistFileHandle(targetPlatform),
+				new BuildOptions(AssetType.Internal));
 	}
 
-	public void build (TargetPlatform targetPlatform, boolean run) {
-		this.build(targetPlatform, run, null);
+	public void build (TargetPlatform targetPlatform, boolean run, BuildOptions buildOptions) {
+		this.build(targetPlatform, run, null, buildOptions);
 	}
 
 	FileHandle getDistFileHandle (TargetPlatform platform) {
