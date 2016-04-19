@@ -45,6 +45,7 @@ public class LuaJScript extends Script {
 		values.put("RavTech", RavTech.class);
 		values.put("Settings", RavTech.settings);
 		values.put("Camera", RavTech.sceneHandler.worldCamera);
+		values.put("Box2DWorld", RavTech.sceneHandler.box2DWorld);
 		setEnviroment(values);
 	}
 

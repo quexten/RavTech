@@ -28,7 +28,7 @@ public class ZeroBraneUtil {
 
 	public static void openFile (File file) {
 		ProcessBuilder b = new ProcessBuilder(
-			RavTechDK.getLocalFile("/zbstudio/zbstudio." + RavTechDK.getSystemExecutableEnding()).path(),
+			RavTechDK.getPluginsFile("ZeroBraneStudio/zbstudio." + RavTechDK.getSystemExecutableEnding()).path(),
 			RavTechDK.projectHandle.child("assets").path(), file.getPath());
 		try {
 			b.start();
