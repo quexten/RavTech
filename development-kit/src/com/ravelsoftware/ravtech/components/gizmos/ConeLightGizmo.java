@@ -38,9 +38,9 @@ public class ConeLightGizmo extends Gizmo {
 			float offset = coneLight.getConeDegree() * 2 * (i / (indexcount - 1f) - 0.5f);
 			Vector2 endpoint = new Vector2(
 				origin.x + (float)Math.cos(Math.toRadians(light.getParent().transform.getRotation() + offset))
-					* coneLight.getDistance() * 0.5f,
+					* coneLight.getDistance(),
 				origin.y + (float)Math.sin(Math.toRadians(light.getParent().transform.getRotation() + offset))
-					* coneLight.getDistance() * 0.5f);
+					* coneLight.getDistance());
 			indicies[2 * i] = endpoint.x;
 			indicies[2 * i + 1] = endpoint.y;
 		}
@@ -54,10 +54,8 @@ public class ConeLightGizmo extends Gizmo {
 
 	private Vector2 getRayEndpoint (Vector2 origin, float degrees) {
 		return new Vector2(
-			origin.x + (float)Math.cos(Math.toRadians(light.getParent().transform.getRotation() + degrees)) * coneLight.getDistance()
-				* 0.5f,
-			origin.y + (float)Math.sin(Math.toRadians(light.getParent().transform.getRotation() + degrees)) * coneLight.getDistance()
-				* 0.5f);
+			origin.x + (float)Math.cos(Math.toRadians(light.getParent().transform.getRotation() + degrees)) * coneLight.getDistance(),
+			origin.y + (float)Math.sin(Math.toRadians(light.getParent().transform.getRotation() + degrees)) * coneLight.getDistance());
 	}
 
 	@Override
@@ -66,7 +64,7 @@ public class ConeLightGizmo extends Gizmo {
 		Vector2 worldPosition = new Vector2(x, y);
 		switch (eventType) {
 		case EventType.MouseMoved:
-			float coneDst = Math.abs(origin.dst(worldPosition) - coneLight.getDistance() / 2f);
+			float coneDst = Math.abs(origin.dst(worldPosition) - coneLight.getDistance());
 			float rayDst = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, light.angle), worldPosition, 1)
 				? GeometryUtils.dstFromLine(origin, getRayEndpoint(origin, light.angle), worldPosition) : Float.MAX_VALUE;
 			float rayDst2 = GeometryUtils.isInBoundingBox(origin, getRayEndpoint(origin, -light.angle), worldPosition, 1)
@@ -85,7 +83,7 @@ public class ConeLightGizmo extends Gizmo {
 			break;
 		case EventType.MouseDrag:
 			if (!raySelected)
-				light.setVariable(1, origin.dst(worldPosition) * 2);
+				light.setVariable(1, origin.dst(worldPosition));
 			else {
 				float angle = worldPosition.cpy().sub(origin).angle();
 				float rotation = light.getParent().transform.getRotation();

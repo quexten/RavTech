@@ -46,7 +46,7 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	public Light () {
-		color = Color.YELLOW;
+		color = Color.YELLOW.cpy();
 		distance = 50;
 		angle = 45;
 	}
