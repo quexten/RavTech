@@ -104,6 +104,10 @@ public class SortedRenderer {
 								shapeRenderer.setColor(Math.abs(h) % 10 < 0.01f ? redColor : blueColor);
 								shapeRenderer.line(worldCamera.position.x + camWidth / 2, h, worldCamera.position.x - camWidth / 2, h);
 							}
+							shapeRenderer.setColor(Color.RED);
+							shapeRenderer.line(worldCamera.position.x + camWidth / 2, 0, worldCamera.position.x - camWidth / 2, 0);
+							shapeRenderer.setColor(Color.GREEN);
+							shapeRenderer.line(0, worldCamera.position.y + camWidth / 2, 0, worldCamera.position.y - camWidth / 2);
 							shapeRenderer.end();
 						}
 					});
