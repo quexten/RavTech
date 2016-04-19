@@ -43,7 +43,7 @@ public class SpriteRendererGizmo extends Gizmo {
 		renderer.setAutoShapeType(true);
 		renderer.setColor(Color.LIGHT_GRAY);
 		float rotation = spriteRenderer.getParent().transform.getRotation();
-		Vector2 middlePosition = spriteRenderer.getParent().transform.getPosition().sub(
+		Vector2 middlePosition = spriteRenderer.getParent().transform.getPosition().cpy().sub(
 			new Vector2(spriteRenderer.originX * (spriteRenderer.width / 2), spriteRenderer.originY * (spriteRenderer.height / 2))
 				.rotate(rotation));
 		Vector2 tl = middlePosition.cpy().sub(new Vector2(spriteRenderer.width / 2, spriteRenderer.height / 2).rotate(+rotation));
@@ -112,7 +112,7 @@ public class SpriteRendererGizmo extends Gizmo {
 	@Override
 	public float input (float x, float y, int button, int eventType) {
 		float rotation = spriteRenderer.getParent().transform.getRotation();
-		Vector2 middlePosition = spriteRenderer.getParent().transform.getPosition().sub(
+		Vector2 middlePosition = spriteRenderer.getParent().transform.getPosition().cpy().sub(
 			new Vector2(spriteRenderer.originX * (spriteRenderer.width / 2), spriteRenderer.originY * (spriteRenderer.height / 2))
 				.rotate(rotation));
 		Vector2 mousePosition = new Vector2(x, y);
@@ -172,14 +172,14 @@ public class SpriteRendererGizmo extends Gizmo {
 			oldSrcHeight = spriteRenderer.srcHeight;
 			oldSrcX = spriteRenderer.srcX;
 			oldSrcY = spriteRenderer.srcY;
-			oldPosition = spriteRenderer.getParent().transform.getPosition().sub(
+			oldPosition = spriteRenderer.getParent().transform.getPosition().cpy().sub(
 				new Vector2(spriteRenderer.originX * (spriteRenderer.width / 2), spriteRenderer.originY * (spriteRenderer.height / 2))
 					.rotate(rotation));
 			middlePosition = oldPosition;
-			oldPosition = spriteRenderer.getParent().transform.getPosition().sub(
+			oldPosition = spriteRenderer.getParent().transform.getPosition().cpy().sub(
 				new Vector2(spriteRenderer.originX * (spriteRenderer.width / 2), spriteRenderer.originY * (spriteRenderer.height / 2))
 					.rotate(rotation));
-			trueOldPosition = spriteRenderer.getParent().transform.getPosition().sub(
+			trueOldPosition = spriteRenderer.getParent().transform.getPosition().cpy().sub(
 				new Vector2(spriteRenderer.originX * spriteRenderer.width, spriteRenderer.originY * spriteRenderer.height).rotate(0));
 			oldBounds = new Vector2(spriteRenderer.width, spriteRenderer.height);
 			isGrabbed = true;
@@ -220,7 +220,7 @@ public class SpriteRendererGizmo extends Gizmo {
 					changeWidth(mousePosition.sub(oldPosition).rotate(-spriteRenderer.getParent().transform.getRotation()).x, false);
 					break;
 				case 8:
-					Vector2 subPosition = mousePosition.sub(spriteRenderer.getParent().transform.getPosition());
+					Vector2 subPosition = mousePosition.sub(spriteRenderer.getParent().transform.getPosition().cpy());
 					spriteRenderer.originX = -subPosition.x / spriteRenderer.width * 2;
 					spriteRenderer.originY = -subPosition.y / spriteRenderer.height * 2;
 					break;
@@ -236,9 +236,9 @@ public class SpriteRendererGizmo extends Gizmo {
 	private void changeWidth (float width, boolean changeRight) {
 		width = (changeRight ? 1f : -1f) * (width - oldBounds.x * 0.5f) + oldBounds.x * (changeRight ? 1 : 0);
 		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0);
-		spriteRenderer.originX = -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition()).x
+		spriteRenderer.originX = -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition().cpy()).x
 			/ width;
-		spriteRenderer.originY = spriteRenderer.originY; // -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition()).y
+		spriteRenderer.originY = spriteRenderer.originY; // -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition().cpy()).y
 																			// /
 																			// (spriteRenderer.height
 																			// );
@@ -254,7 +254,7 @@ public class SpriteRendererGizmo extends Gizmo {
 		height = (changeTop ? 1 : -1f) * (height - oldBounds.y * 0.5f) + oldBounds.y * (changeTop ? 1 : 0);
 		Vector2 addPosition = new Vector2(0, changeTop ? height + -oldBounds.y : oldBounds.y - height);
 		spriteRenderer.originX = spriteRenderer.originX;
-		spriteRenderer.originY = -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition()).y
+		spriteRenderer.originY = -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition().cpy()).y
 			/ height;
 		spriteRenderer.height = height;
 		if (spriteRenderer.vWrap.equals(TextureWrap.Repeat)) {
@@ -267,8 +267,8 @@ public class SpriteRendererGizmo extends Gizmo {
 	private void changeBounds (float width, float height, boolean changeRight, boolean changeTop) {
 		width = (changeRight ? 1f : -1f) * (width - oldBounds.x * 0.5f) + oldBounds.x * (changeRight ? 1 : 0);
 		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0);
-		spriteRenderer.originX = -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition()).x;
-		spriteRenderer.originY = trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition()).y;
+		spriteRenderer.originX = -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition().cpy()).x;
+		spriteRenderer.originY = trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition().cpy()).y;
 		height = (changeTop ? 1 : -1f) * (height - oldBounds.y * 0.5f) + oldBounds.y * (changeTop ? 1 : 0);
 		Vector2 addPosition2 = new Vector2(0, changeTop ? height + -oldBounds.y : oldBounds.y - height);
 		Vector2 newPosition = new Vector2(spriteRenderer.originX, spriteRenderer.originY);
@@ -291,7 +291,7 @@ public class SpriteRendererGizmo extends Gizmo {
 	@Override
 	public boolean isInBoundingBox (Vector2 coord) {
 		float rotation = spriteRenderer.getParent().transform.getRotation();
-		Vector2 middlePosition = spriteRenderer.getParent().transform.getPosition().sub(
+		Vector2 middlePosition = spriteRenderer.getParent().transform.getPosition().cpy().sub(
 			new Vector2(spriteRenderer.originX * (spriteRenderer.width / 2), spriteRenderer.originY * (spriteRenderer.height / 2))
 				.rotate(rotation));
 		Vector2 bl = middlePosition.cpy().sub(new Vector2(spriteRenderer.width / 2, spriteRenderer.height / 2).rotate(+rotation));
