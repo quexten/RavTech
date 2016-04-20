@@ -25,6 +25,7 @@ public class Launcher {
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setWindowedMode(1600, 900);
+		config.useVsync(false);
 		config.setTitle("RavTech Development Kit Version " + RavTechDK.getVersionString());
 		config.setWindowListener(new Lwjgl3WindowListener() {
 			@Override

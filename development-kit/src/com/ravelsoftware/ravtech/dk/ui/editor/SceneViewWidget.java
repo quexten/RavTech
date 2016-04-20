@@ -92,6 +92,7 @@ public class SceneViewWidget extends Widget {
 
 		};
 		addListener(leftListener);
+		leftListener.setTapSquareSize(0);
 
 		DragListener rightListener = new DragListener() {
 
@@ -183,16 +184,21 @@ public class SceneViewWidget extends Widget {
 		camera.update();
 		camera.setResolution((int)getWidth(), (int)getHeight());
 	}
-
+	
 	@Override
-	public void draw (Batch batch, float alpha) {
-		super.draw(batch, alpha);
+	public void act(float delta) {
 		if (hasToLerpZoom)
 			camera.zoom += 0.16f * (targetZoom - camera.zoom);
 		if (hasToLerpPosition)
 			camera.position.lerp(new Vector3(targetPosition.x, targetPosition.y, 0), 0.16f);
 		if (Math.abs(targetZoom - camera.zoom) < 0.00001f)
 			hasToLerpZoom = hasToLerpPosition = false;
+	}
+	
+	@Override
+	public void draw (Batch batch, float alpha) {
+		super.draw(batch, alpha);
+		
 		batch.setColor(Color.WHITE);
 		batch.disableBlending();
 		((SpriteBatch)batch).draw(camera.getCameraBufferTexture(), 0, getHeight(), getWidth(), -getHeight());

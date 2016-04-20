@@ -22,7 +22,10 @@ import com.ravelsoftware.ravtech.dk.ui.editor.SceneViewWidget;
 import com.ravelsoftware.ravtech.project.Project;
 
 public class RavTechDKApplication extends RavTech {
-
+	
+	public float step = 1f / 60f;
+	public float accumulator = 0;
+	
 	public RavTechDKApplication () {
 		super(new InternalFileHandleResolver(), new Project(), new EngineConfiguration());
 	}
@@ -63,12 +66,20 @@ public class RavTechDKApplication extends RavTech {
 
 		RavTechDK.mainSceneView.camera.drawGrid = true;
 	}
-
+	
 	@Override
-	public void render () {
-		RavTech.ui.getStage().act();
+	public void render () {		
+		accumulator += Gdx.graphics.getDeltaTime();
+		while (accumulator > step) {
+			accumulator -= step;
+			RavTech.ui.getStage().act(step);
+		}
+		
 		RavTech.sceneHandler.render();
 		RavTech.ui.getStage().draw();
+		RavTech.shapeRenderer.begin();
+		RavTech.shapeRenderer.circle(RavTech.input.getWorldPosition().x, RavTech.input.getWorldPosition().y, 2);
+		RavTech.shapeRenderer.end();
 	}
 
 	public void resize (int width, int height) {
