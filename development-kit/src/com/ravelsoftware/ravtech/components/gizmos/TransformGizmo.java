@@ -15,8 +15,7 @@ public class TransformGizmo extends Gizmo {
 
 	Transform transform;
 	private float oldX, oldY;
-	private float oldRotation;
-	private static int xaxis = 1, yaxis = 2, raxis = 3, xyaxis = 4;
+	private static int xaxis = 1, yaxis = 2, xyaxis = 3;
 	private Vector2 grabPosition = null;
 	private boolean isGrabbed = false;
 	private int grabbedAxis = 0;
@@ -33,9 +32,6 @@ public class TransformGizmo extends Gizmo {
 		float zoom = RavTech.sceneHandler.worldCamera.zoom;
 		Vector2 endpoint_x = new Vector2(transform.getPosition().cpy().add(new Vector2(50f * zoom, 0)));
 		Vector2 endpoint_y = new Vector2(transform.getPosition().cpy().add(new Vector2(0, 50f * zoom)));
-		Vector2 endpoint_r = new Vector2(
-			transform.getPosition().cpy().add(new Vector2((float)Math.cos(Math.toRadians(transform.getRotation())) * 30f * zoom,
-				(float)Math.sin(Math.toRadians(transform.getRotation())) * 30f * zoom)));
 		renderer.setColor(selectedaxis != xaxis && selectedaxis != xyaxis || !selected ? Color.RED : Color.YELLOW);
 		renderer.line(transform.getPosition(), endpoint_x);
 		renderer.line(endpoint_x, new Vector2(endpoint_x.x - (float)Math.cos(Math.toRadians(25)) * 0.2f * 50 * zoom,
@@ -47,15 +43,7 @@ public class TransformGizmo extends Gizmo {
 		renderer.line(endpoint_y, new Vector2(endpoint_y.x - (float)Math.cos(Math.toRadians(115)) * 0.2f * 50 * zoom,
 			endpoint_y.y - (float)Math.sin(Math.toRadians(115)) * 0.2f * 50 * zoom));
 		renderer.line(endpoint_y, new Vector2(endpoint_y.x - (float)Math.cos(Math.toRadians(65)) * 0.2f * 50 * zoom,
-			endpoint_y.y - (float)Math.sin(Math.toRadians(65)) * 0.2f * 50 * zoom));
-		renderer.setColor(selectedaxis != raxis || !selected ? Color.BLUE : Color.YELLOW);
-		renderer.line(transform.getPosition(), endpoint_r);
-		renderer.line(endpoint_r,
-			new Vector2(endpoint_r.x - (float)Math.cos(Math.toRadians(transform.getRotation() + 25)) * 0.2f * 50 * zoom,
-				endpoint_r.y - (float)Math.sin(Math.toRadians(transform.getRotation() + 25)) * 0.2f * 50 * zoom));
-		renderer.line(endpoint_r,
-			new Vector2(endpoint_r.x - (float)Math.cos(Math.toRadians(transform.getRotation() - 25)) * 0.2f * 50 * zoom,
-				endpoint_r.y - (float)Math.sin(Math.toRadians(transform.getRotation() - 25)) * 0.2f * 50 * zoom));
+			endpoint_y.y - (float)Math.sin(Math.toRadians(65)) * 0.2f * 50 * zoom));	
 	}
 
 	@Override
@@ -73,8 +61,7 @@ public class TransformGizmo extends Gizmo {
 			case EventType.MouseDown:
 				grabPosition = transform.getPosition().cpy().sub(worldPosition);
 				oldX = transform.getLocalPosition().cpy().x;
-				oldY = transform.getLocalPosition().cpy().y;
-				oldRotation = transform.getLocalRotation();
+				oldY = transform.getLocalPosition().cpy().y;				
 				isGrabbed = true;
 				grabbedAxis = selectedaxis;
 				break;
@@ -89,13 +76,6 @@ public class TransformGizmo extends Gizmo {
 					ModifyChangeable changeable = grabbedAxis == xaxis
 						? new ModifyChangeable(transform, "", "x", oldX, transform.getLocalPosition().cpy().x)
 						: new ModifyChangeable(transform, "", "y", oldY, transform.getLocalPosition().cpy().y);
-					changeable.isDummy = true;
-					ChangeManager.addChangeable(changeable);
-				} else if (grabbedAxis == raxis) {
-					transform.setRotation(mouseposition.sub(transform.getPosition().cpy()).angle());
-					ModifyChangeable changeable = new ModifyChangeable(transform, "", "rotation", oldRotation, transform
-						.getLocalRotation()
-						+ (transform.getParent().getParent() != null ? transform.getParent().getParent().transform.getRotation() : 0));
 					changeable.isDummy = true;
 					ChangeManager.addChangeable(changeable);
 				} else if (grabPosition != null && grabbedAxis == xyaxis) {
@@ -124,12 +104,7 @@ public class TransformGizmo extends Gizmo {
 					if (grabbedAxis == xyaxis)
 						changeable.previousConnected = true;
 					ChangeManager.addChangeable(changeable);
-				}
-				if (grabbedAxis == raxis) {
-					changeable = new ModifyChangeable(transform, "Set Transform Rotation:" + transform.getLocalRotation(), "rotation",
-						oldRotation, transform.getLocalRotation());
-					ChangeManager.addChangeable(changeable);
-				}
+				}				
 				grabbedAxis = 0;
 				break;
 			}
@@ -144,22 +119,13 @@ public class TransformGizmo extends Gizmo {
 		int selectedaxis = 0;
 		Vector2 endpoint_x = new Vector2(transform.getPosition().cpy().add(new Vector2(50 * zoom, 0)));
 		Vector2 endpoint_y = new Vector2(transform.getPosition().cpy().add(new Vector2(0, 50 * zoom)));
-		Vector2 endpoint_r = new Vector2(
-			transform.getPosition().cpy().add(new Vector2((float)Math.cos(Math.toRadians(transform.getRotation())) * 30f * zoom,
-				(float)Math.sin(Math.toRadians(transform.getRotation())) * 30f * zoom)));
 		float xaxisdst = GeometryUtils.dstFromLine(transform.getPosition().cpy(), endpoint_x, worldPosition);
 		boolean ispointnearxaxis = GeometryUtils.isPointNearLine(transform.getPosition().cpy(), endpoint_x, worldPosition,
 			selectiondst);
 		float yaxisdst = GeometryUtils.dstFromLine(transform.getPosition().cpy(), endpoint_y, worldPosition);
 		boolean ispointnearyaxis = GeometryUtils.isPointNearLine(transform.getPosition().cpy(), endpoint_y, worldPosition,
 			selectiondst);
-		float raxisdst = GeometryUtils.dstFromLine(transform.getPosition().cpy(), endpoint_r, worldPosition);
-		boolean ispointnearraxis = GeometryUtils.isPointNearLine(transform.getPosition().cpy(), endpoint_r, worldPosition,
-			selectiondst);
-		if (ispointnearraxis && raxisdst <= xaxisdst && raxisdst <= yaxisdst) {
-			selectedaxis = raxis;
-			currentDst = raxisdst;
-		} else if (ispointnearxaxis && xaxisdst <= yaxisdst && xaxisdst <= raxisdst) {
+		if (ispointnearxaxis && xaxisdst <= yaxisdst) {
 			selectedaxis = xaxis;
 			currentDst = xaxisdst;
 		} else if (ispointnearyaxis) {
