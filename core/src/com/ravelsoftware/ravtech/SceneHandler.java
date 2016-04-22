@@ -144,10 +144,7 @@ public class SceneHandler {
 		Color clearColor = RavTech.currentScene.renderProperties.backgroundColor;
 		Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		// TODO Uncomment everything
-		// for (MouseButtonState state : RavTech.input.mouseButtonStates)
-		// state.update();
-		// Prevent False game speed
+		
 		int targetFramerate = RavTech.settings.getInt("targetFramerate");
 
 		if (Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / targetFramerate) > 2) {
@@ -160,24 +157,11 @@ public class SceneHandler {
 			update(step);
 		SpriteBatch spriteBatch = RavTech.spriteBatch;
 		ShapeRenderer shapeRenderer = RavTech.shapeRenderer;
-		if (RavTech.settings.getBoolean("useLights")) {
-			// lightHandler.setCombinedMatrix(worldCamera);
-			// lightHandler.updateAndRender();
-		}
 		cameraManager.render(spriteBatch);
-		/*
-		 * Array<Renderer> renderers = new Array<Renderer>(); for (int n = 0; n < RavTech.currentScene.gameObjects.size; n++) {
-		 * GameObject object = RavTech.currentScene.gameObjects.get(n); object.transform.draw(spriteBatch); Array<GameComponent>
-		 * components = object.getComponentsInChildren(ComponentType.SpriteRenderer, ComponentType.Renderer); for (int i = 0; i <
-		 * components.size; i++) renderers.add((Renderer)components.get(i)); } for (int i = 0; i < renderers.size; i++)
-		 * renderers.get(i).draw(spriteBatch);
-		 */
-		// lightHandler.setCombinedMatrix(worldCamera);
-		// lightHandler.updateAndRender();
+		
 		shapeRenderer.begin(ShapeType.Line);
 		Debug.render(shapeRenderer);
 		shapeRenderer.end();
-		// if (RavTech.settings.getBoolean("renderDebug")) box2DRenderer.render(box2DWorld, worldCamera.combined);
 	}
 
 	public void resize (int width, int height) {

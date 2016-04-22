@@ -1,11 +1,8 @@
 
 package com.ravelsoftware.ravtech.components.gizmos;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -14,7 +11,7 @@ import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 
-public class SpriteRendererGizmo extends Gizmo {
+public class SpriteRendererGizmo extends Gizmo<SpriteRenderer> {
 
 	SpriteRenderer spriteRenderer;
 	boolean isGrabbed = false;
@@ -33,14 +30,14 @@ public class SpriteRendererGizmo extends Gizmo {
 	int selectedPoint;
 
 	public SpriteRendererGizmo (SpriteRenderer spriteRenderer) {
+		super(spriteRenderer);
 		this.spriteRenderer = spriteRenderer;
 	}
 
 	@Override
-	public void draw (ShapeRenderer renderer, boolean selected) {
+	public void draw (PolygonShapeRenderer renderer, boolean selected) {
 		if (!canEdit)
 			return;
-		renderer.setAutoShapeType(true);
 		renderer.setColor(Color.LIGHT_GRAY);
 		float rotation = spriteRenderer.getParent().transform.getRotation();
 		Vector2 middlePosition = spriteRenderer.getParent().transform.getPosition().cpy().sub(
@@ -66,10 +63,9 @@ public class SpriteRendererGizmo extends Gizmo {
 		renderer.line(tr, br);
 		renderer.line(br, bl);
 		renderer.line(bl, tl);
-		renderer.end();
-		renderer.begin(ShapeType.Line);
+		//renderer.begin(ShapeType.Line);
 		if (selected) {
-			Gdx.gl.glLineWidth(4);
+			renderer.setThickness(4);
 			renderer.setColor(Color.YELLOW);
 		}
 		switch (selectedPoint) {
@@ -103,10 +99,8 @@ public class SpriteRendererGizmo extends Gizmo {
 			break;
 		}
 		renderer.setColor(Color.GRAY);
-		renderer.end();
-		renderer.begin(ShapeType.Line);
-		Gdx.gl.glLineWidth(1);
-		renderer.setColor(Color.GRAY);
+		//renderer.begin(ShapeType.Line);
+		renderer.setThickness(1);
 	}
 
 	@Override
@@ -298,4 +292,5 @@ public class SpriteRendererGizmo extends Gizmo {
 		Vector2 tr = middlePosition.cpy().add(new Vector2(spriteRenderer.width / 2, spriteRenderer.height / 2).rotate(+rotation));
 		return GeometryUtils.isInBoundingBox(bl, tr, coord, 0);
 	}
+
 }

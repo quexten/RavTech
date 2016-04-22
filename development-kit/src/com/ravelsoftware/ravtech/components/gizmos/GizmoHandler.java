@@ -3,7 +3,11 @@ package com.ravelsoftware.ravtech.components.gizmos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.DelaunayTriangulator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
@@ -20,6 +24,7 @@ import com.ravelsoftware.ravtech.components.PolygonCollider;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.graphics.Camera;
 import com.ravelsoftware.ravtech.util.EventType;
 
 public class GizmoHandler {
@@ -29,9 +34,20 @@ public class GizmoHandler {
 	Gizmo closestGizmo;
 	Gizmo exclusiveGizmo;
 
+	Camera camera;
+	PolygonShapeRenderer renderer;
+	static final DelaunayTriangulator triangulator = new DelaunayTriangulator();
+	public static final Texture whiteTexture = new Texture(RavTechDK.getLocalFile("resources/ui/icons/white.png"));
+
+	public GizmoHandler (Camera camera) {
+		this.camera = camera;
+		this.renderer = new PolygonShapeRenderer(camera);
+	}
+
 	/** Renders the currently active gizmos
 	 * @param renderer - the shaperenderer to render the gizmos with */
-	public void render (ShapeRenderer renderer) {
+	public void render () {
+		renderer.begin();
 		if (exclusiveGizmo == null) {
 			Array<GameObject> objects = RavTechDK.selectedObjects;
 			for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
@@ -49,6 +65,7 @@ public class GizmoHandler {
 			}
 		} else
 			exclusiveGizmo.draw(renderer, exclusiveGizmo == closestGizmo);
+		renderer.end();
 	}
 
 	/** Inputs the given input to all gizmos and returns whether the input has been consumed
@@ -59,61 +76,59 @@ public class GizmoHandler {
 	 * @return - Whether the event has been consumed */
 	public boolean input (float x, float y, int button, int eventType) {
 		switch (eventType) {
-		case EventType.MouseMoved:
-			if (exclusiveGizmo == null) {
-				Values<Gizmo> values = selectedObjectGizmoMap.values();
-				Gizmo closestGizmo = null;
-				float closestDst = Float.MAX_VALUE;
-				while (values.hasNext) {
-					Gizmo giz = values.next();
-					float gizDst = giz.input(x, y, 0, EventType.MouseMoved);
-					if (gizDst > 0 && gizDst < closestDst
-						&& Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f * RavTech.sceneHandler.worldCamera.zoom
-						&& !giz.isExclusive) {
-						closestDst = gizDst;
-						closestGizmo = giz;
+			case EventType.MouseMoved:
+				if (exclusiveGizmo == null) {
+					Values<Gizmo> values = selectedObjectGizmoMap.values();
+					Gizmo closestGizmo = null;
+					float closestDst = Float.MAX_VALUE;
+					while (values.hasNext) {
+						Gizmo giz = values.next();
+						float gizDst = giz.input(x, y, 0, EventType.MouseMoved);
+						if (gizDst > 0 && gizDst < closestDst
+							&& Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f * RavTech.sceneHandler.worldCamera.zoom
+							&& !giz.isExclusive) {
+							closestDst = gizDst;
+							closestGizmo = giz;
+						}
 					}
-				}
-				this.closestGizmo = closestGizmo;
-			} else
-				closestGizmo = exclusiveGizmo.input(x, y, 0, EventType.MouseMoved) > 0f ? exclusiveGizmo : null;
-			return closestGizmo != null;
-		case EventType.MouseDown:
-			draggedGizmo = closestGizmo;
-			if (draggedGizmo != null)
-				draggedGizmo.input(x, y, 0, EventType.MouseDown);
-			else {
-				Transform transform = getTransformAtPoint(RavTech.currentScene.gameObjects);
-				if (transform != null) {
-					Array<GameObject> objects = new Array<GameObject>();
-					objects.add(transform.getParent());
-					RavTechDK.setSelectedObjects(objects);
-					if (button == Buttons.LEFT) {
-						draggedGizmo = getGizmoFor(transform);
-						((TransformGizmo)draggedGizmo).moveGrab = true;
-						draggedGizmo.input(x, y, 0, EventType.MouseDown);
-						((TransformGizmo)draggedGizmo).moveGrab = false;
+					this.closestGizmo = closestGizmo;
+				} else
+					closestGizmo = exclusiveGizmo.input(x, y, 0, EventType.MouseMoved) > 0f ? exclusiveGizmo : null;
+				return closestGizmo != null;
+			case EventType.MouseDown:
+				draggedGizmo = closestGizmo;
+				if (draggedGizmo != null)
+					draggedGizmo.input(x, y, 0, EventType.MouseDown);
+				else {
+					Transform transform = getTransformAtPoint(RavTech.currentScene.gameObjects);
+					if (transform != null) {
+						Array<GameObject> objects = new Array<GameObject>();
+						objects.add(transform.getParent());
+						RavTechDK.setSelectedObjects(objects);
+						if (button == Buttons.LEFT) {
+							draggedGizmo = getGizmoFor(transform);
+							draggedGizmo.input(x, y, 0, EventType.MouseDown);
+						} else {
+						}
 					} else {
+						selectedObjectGizmoMap.clear();
+						RavTechDK.selectedObjects.clear();
+						setExclusiveGizmo(null);
 					}
-				} else {
-					selectedObjectGizmoMap.clear();
-					RavTechDK.selectedObjects.clear();
-					setExclusiveGizmo(null);
 				}
-			}
-			return true;
-		case EventType.MouseUp:
-			if (draggedGizmo != null) {
-				closestGizmo = null;
-				draggedGizmo.input(x, y, 0, EventType.MouseUp);
-				draggedGizmo = null;
 				return true;
-			}
-			return false;
-		case EventType.MouseDrag:
-			if (draggedGizmo != null)
-				draggedGizmo.input(x, y, button, EventType.MouseDrag);
-			return draggedGizmo != null;
+			case EventType.MouseUp:
+				if (draggedGizmo != null) {
+					closestGizmo = null;
+					draggedGizmo.input(x, y, 0, EventType.MouseUp);
+					draggedGizmo = null;
+					return true;
+				}
+				return false;
+			case EventType.MouseDrag:
+				if (draggedGizmo != null)
+					draggedGizmo.input(x, y, button, EventType.MouseDrag);
+				return draggedGizmo != null;
 		}
 		return false;
 	}
@@ -202,4 +217,31 @@ public class GizmoHandler {
 		return transform;
 	}
 
+	static PolygonRegion createCircleRegion (float degrees) {
+		final int steps = Math.abs((int) degrees);
+		if(steps  < 3) {
+			return new PolygonRegion(new TextureRegion(whiteTexture), new float[0], new short[0]);
+		}
+		
+		float[] vertecies = new float[steps * 2];		
+		vertecies[0] = 0;
+		vertecies[1] = 0;
+		
+		for (int i = 2; i < (vertecies.length); i += 2) {
+			float subDegrees = degrees * ((float)i - 2) / (vertecies.length - 4);
+			vertecies[i] = (float)Math.cos(Math.toRadians(subDegrees));
+			vertecies[i + 1] = (float)Math.sin(Math.toRadians(subDegrees));
+		}
+				
+		short[] triangles = new short[(steps - 2) * 3];		
+		
+		for (int i = 0; i < (steps - 2) * 3; i += 3) {
+			triangles[i] = 0;
+			triangles[i + 1] = (short)((i / 3) + 1);
+			triangles[i + 2] = (short)((i / 3) + 2);
+		}
+
+		return new PolygonRegion(new TextureRegion(whiteTexture), vertecies, triangles);
+	}
+	
 }

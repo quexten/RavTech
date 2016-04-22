@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.VisUI;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.dk.RavTechDK.EditingMode;
 import com.ravelsoftware.ravtech.dk.actions.CopyAction;
 import com.ravelsoftware.ravtech.dk.actions.DeleteAction;
 import com.ravelsoftware.ravtech.dk.actions.PasteAction;
@@ -155,13 +156,13 @@ public class SceneViewWidget extends Widget {
 					for (int i = 0; i < assetNames.size; i++)
 						RavTech.files.reloadAsset(assetNames.get(i));
 				}
+				if (keycode == Keys.W) {
+					RavTechDK.setEditingMode(EditingMode.Move);
+				}
+				if (keycode == Keys.E) {
+					RavTechDK.setEditingMode(EditingMode.Rotate);
+				}
 
-				if (keycode == Keys.F2) {
-					// Debug.log("isNewVersionAvalible", updater.isNewVersionAvalible());
-				}
-				if (keycode == Keys.F3) {
-					// updater.update("1.30");
-				}
 				return false;
 			}
 		});
@@ -184,9 +185,9 @@ public class SceneViewWidget extends Widget {
 		camera.update();
 		camera.setResolution((int)getWidth(), (int)getHeight());
 	}
-	
+
 	@Override
-	public void act(float delta) {
+	public void act (float delta) {
 		if (hasToLerpZoom)
 			camera.zoom += 0.16f * (targetZoom - camera.zoom);
 		if (hasToLerpPosition)
@@ -194,11 +195,11 @@ public class SceneViewWidget extends Widget {
 		if (Math.abs(targetZoom - camera.zoom) < 0.00001f)
 			hasToLerpZoom = hasToLerpPosition = false;
 	}
-	
+
 	@Override
 	public void draw (Batch batch, float alpha) {
 		super.draw(batch, alpha);
-		
+
 		batch.setColor(Color.WHITE);
 		batch.disableBlending();
 		((SpriteBatch)batch).draw(camera.getCameraBufferTexture(), 0, getHeight(), getWidth(), -getHeight());

@@ -10,27 +10,28 @@ import com.ravelsoftware.ravtech.util.GeometryUtils;
 
 import box2dLight.ConeLight;
 
-public class ConeLightGizmo extends Gizmo {
+public class ConeLightGizmo extends Gizmo<Light> {
 
 	Light light;
 	ConeLight coneLight;
 	boolean raySelected;
 
 	public ConeLightGizmo (Light light) {
+		super(light);
 		this.light = light;
 		coneLight = (ConeLight)light.light;
 	}
 
 	@Override
-	public void draw (ShapeRenderer renderer, boolean selected) {
+	public void draw (PolygonShapeRenderer renderer, boolean selected) {
 		renderer.setColor(selected && !raySelected ? Color.YELLOW : Color.CYAN);
 		drawCone(renderer);
 		renderer.setColor(selected && raySelected ? Color.YELLOW : Color.CYAN);
-		drawRay(renderer, coneLight.getConeDegree());
-		drawRay(renderer, -coneLight.getConeDegree());
+		//drawRay(renderer, coneLight.getConeDegree());
+		//drawRay(renderer, -coneLight.getConeDegree());
 	}
 
-	private void drawCone (ShapeRenderer renderer) {
+	private void drawCone (PolygonShapeRenderer renderer) {
 		Vector2 origin = new Vector2(light.getParent().transform.getPosition().x, light.getParent().transform.getPosition().y);
 		int indexcount = 360;
 		float[] indicies = new float[indexcount * 2];
@@ -104,4 +105,5 @@ public class ConeLightGizmo extends Gizmo {
 	public boolean isInBoundingBox (Vector2 coord) {
 		return false;
 	}
+
 }

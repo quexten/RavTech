@@ -50,9 +50,11 @@ public class RavTechDK {
 	public static UpdaterWidget updateWidget;
 
 	public static Array<GameObject> selectedObjects = new Array<GameObject>();
+	
+	public enum EditingMode {Move, Rotate, Scale, Other};
+	private static EditingMode currentEditingMode = EditingMode.Move;
 
 	public static void initialize () {
-
 		final Table root = new Table();
 		root.setFillParent(true);
 		RavTech.ui.getStage().addActor(root);
@@ -73,7 +75,7 @@ public class RavTechDK {
 		});
 
 		RavTech.ui.getStage().addActor(inspector = new Inspector());
-		RavTechDK.gizmoHandler = new GizmoHandler();
+		RavTechDK.gizmoHandler = new GizmoHandler(mainSceneView.camera);
 
 		UpdateManager.loadCurrentVersions();
 		ZeroBraneUtil.initialize();
@@ -197,6 +199,14 @@ public class RavTechDK {
 		selectedObjects.addAll(objects);
 		inspector.changed();
 		gizmoHandler.setupGizmos();
+	}
+	
+	public static void setEditingMode(EditingMode editingMode) {
+		currentEditingMode = editingMode;
+	}
+	
+	public static EditingMode getEditingMode() {
+		return currentEditingMode;
 	}
 
 }

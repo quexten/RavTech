@@ -44,10 +44,7 @@ public class RavTechDKApplication extends RavTech {
 		HookApi.onRenderHooks.add(new Runnable() {
 			@Override
 			public void run () {
-				RavTech.shapeRenderer.begin();
-				RavTech.shapeRenderer.setProjectionMatrix(RavTech.sceneHandler.worldCamera.combined);
-				RavTechDK.gizmoHandler.render(RavTech.shapeRenderer);
-				RavTech.shapeRenderer.end();
+				RavTechDK.gizmoHandler.render();
 			}
 		});
 

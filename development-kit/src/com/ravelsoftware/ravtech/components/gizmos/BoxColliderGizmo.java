@@ -14,9 +14,8 @@ import com.ravelsoftware.ravtech.dk.ui.utils.ColorUtils;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 
-public class BoxColliderGizmo extends Gizmo {
+public class BoxColliderGizmo extends Gizmo<BoxCollider> {
 
-	BoxCollider boxCollider;
 	boolean isGrabbed = false;
 	int grabbedPoint = 0;
 	Vector2 oldPosition;
@@ -26,24 +25,23 @@ public class BoxColliderGizmo extends Gizmo {
 	float closestDst;
 	int selectedPoint;
 
-	public BoxColliderGizmo (BoxCollider boxCollider) {
-		this.boxCollider = boxCollider;
+	public BoxColliderGizmo (BoxCollider component) {
+		super(component);
 		isExclusive = true;
 	}
 
 	@Override
-	public void draw (ShapeRenderer renderer, boolean selected) {
+	public void draw (PolygonShapeRenderer renderer, boolean selected) {
 		if (!canEdit)
 			return;
-		renderer.setAutoShapeType(true);
-		renderer.setColor(ColorUtils.getGizmoColor(boxCollider));
-		float rotation = boxCollider.getParent().transform.getRotation();
-		Vector2 middlePosition = boxCollider.getParent().transform.getPosition().cpy()
-			.add(new Vector2(boxCollider.x, boxCollider.y).rotate(rotation));
-		Vector2 tl = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
-		Vector2 tr = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
-		Vector2 br = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
-		Vector2 bl = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
+		renderer.setColor(ColorUtils.getGizmoColor(component));
+		float rotation = component.getParent().transform.getRotation();
+		Vector2 middlePosition = component.getParent().transform.getPosition().cpy()
+			.add(new Vector2(component.x, component.y).rotate(rotation));
+		Vector2 tl = middlePosition.cpy().add(new Vector2(component.width / 2, component.height / 2).rotate(+rotation));
+		Vector2 tr = middlePosition.cpy().add(new Vector2(component.width / 2, -component.height / 2).rotate(+rotation));
+		Vector2 br = middlePosition.cpy().sub(new Vector2(component.width / 2, component.height / 2).rotate(+rotation));
+		Vector2 bl = middlePosition.cpy().sub(new Vector2(component.width / 2, -component.height / 2).rotate(+rotation));
 		// tl
 		Vector2 tlb = tl.cpy().interpolate(bl, 0.25f, Interpolation.linear);
 		Vector2 tlr = tl.cpy().interpolate(tr, 0.25f, Interpolation.linear);
@@ -60,10 +58,8 @@ public class BoxColliderGizmo extends Gizmo {
 		renderer.line(tr, br);
 		renderer.line(br, bl);
 		renderer.line(bl, tl);
-		renderer.end();
-		renderer.begin(ShapeType.Line);
 		if (selected) {
-			Gdx.gl.glLineWidth(4);
+			renderer.setThickness(4);
 			renderer.setColor(Color.YELLOW);
 		}
 		switch (selectedPoint) {
@@ -97,24 +93,22 @@ public class BoxColliderGizmo extends Gizmo {
 			break;
 		}
 		renderer.setColor(Color.GRAY);
-		renderer.end();
-		renderer.begin(ShapeType.Line);
-		Gdx.gl.glLineWidth(1);
+		renderer.setThickness(1);
 		renderer.setColor(Color.GRAY);
 	}
 
 	@Override
 	public float input (float x, float y, int button, int eventType) {
-		float rotation = boxCollider.getParent().transform.getRotation();
-		Vector2 middlePosition = boxCollider.getParent().transform.getPosition().cpy()
-			.sub(new Vector2(-boxCollider.x, -boxCollider.y).rotate(rotation));
+		float rotation = component.getParent().transform.getRotation();
+		Vector2 middlePosition = component.getParent().transform.getPosition().cpy()
+			.sub(new Vector2(-component.x, -component.y).rotate(rotation));
 		Vector2 mousePosition = new Vector2(x, y);
 		switch (eventType) {
 		case EventType.MouseMoved:
-			Vector2 tl = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
-			Vector2 tr = middlePosition.cpy().sub(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
-			Vector2 br = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, boxCollider.height / 2).rotate(+rotation));
-			Vector2 bl = middlePosition.cpy().add(new Vector2(boxCollider.width / 2, -boxCollider.height / 2).rotate(+rotation));
+			Vector2 tl = middlePosition.cpy().sub(new Vector2(component.width / 2, component.height / 2).rotate(+rotation));
+			Vector2 tr = middlePosition.cpy().sub(new Vector2(component.width / 2, -component.height / 2).rotate(+rotation));
+			Vector2 br = middlePosition.cpy().add(new Vector2(component.width / 2, component.height / 2).rotate(+rotation));
+			Vector2 bl = middlePosition.cpy().add(new Vector2(component.width / 2, -component.height / 2).rotate(+rotation));
 			closestDst = Float.MAX_VALUE;
 			Array<Vector2> positions = new Array<Vector2>();
 			positions.add(tl);
@@ -155,14 +149,14 @@ public class BoxColliderGizmo extends Gizmo {
 				return -1f;
 			break;
 		case EventType.MouseDown:
-			oldPosition = boxCollider.getParent().transform.getPosition().cpy()
-				.sub(new Vector2(-boxCollider.x * 2, -boxCollider.y * 2).rotate(rotation));
+			oldPosition = component.getParent().transform.getPosition().cpy()
+				.sub(new Vector2(-component.x * 2, -component.y * 2).rotate(rotation));
 			middlePosition = oldPosition;
-			oldPosition = boxCollider.getParent().transform.getPosition().cpy()
-				.sub(new Vector2(-boxCollider.x, -boxCollider.y).rotate(rotation));
-			trueOldPosition = boxCollider.getParent().transform.getPosition().cpy()
-				.sub(new Vector2(-boxCollider.x * 2, -boxCollider.y * 2).rotate(0));
-			oldBounds = new Vector2(boxCollider.width, boxCollider.height);
+			oldPosition = component.getParent().transform.getPosition().cpy()
+				.sub(new Vector2(-component.x, -component.y).rotate(rotation));
+			trueOldPosition = component.getParent().transform.getPosition().cpy()
+				.sub(new Vector2(-component.x * 2, -component.y * 2).rotate(0));
+			oldBounds = new Vector2(component.width, component.height);
 			isGrabbed = true;
 			grabbedPoint = selectedPoint;
 			return -1f;
@@ -170,37 +164,37 @@ public class BoxColliderGizmo extends Gizmo {
 			if (isGrabbed)
 				switch (grabbedPoint) {
 				case 0: // tl
-					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
-						mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false, false);
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-component.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-component.getParent().transform.getRotation()).y, false, false);
 					break;
 				case 1: // tr
-					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
-						mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false, true);
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-component.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-component.getParent().transform.getRotation()).y, false, true);
 					break;
 				case 2: // br
-					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
-						mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true, true);
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-component.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-component.getParent().transform.getRotation()).y, true, true);
 					break;
 				case 3: // bl
-					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x,
-						mousePosition.cpy().sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true, false);
+					changeBounds(mousePosition.cpy().sub(oldPosition).rotate(-component.getParent().transform.getRotation()).x,
+						mousePosition.cpy().sub(oldPosition).rotate(-component.getParent().transform.getRotation()).y, true, false);
 					break;
 				case 4: // t
-					changeHeight(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, true);
+					changeHeight(mousePosition.sub(oldPosition).rotate(-component.getParent().transform.getRotation()).y, true);
 					break;
 				case 5: // r
-					changeWidth(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x, true);
+					changeWidth(mousePosition.sub(oldPosition).rotate(-component.getParent().transform.getRotation()).x, true);
 					break;
 				case 6: // b
-					changeHeight(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).y, false);
+					changeHeight(mousePosition.sub(oldPosition).rotate(-component.getParent().transform.getRotation()).y, false);
 					break;
 				case 7: // l
-					changeWidth(mousePosition.sub(oldPosition).rotate(-boxCollider.getParent().transform.getRotation()).x, false);
+					changeWidth(mousePosition.sub(oldPosition).rotate(-component.getParent().transform.getRotation()).x, false);
 					break;
 				case 8:
-					Vector2 subPosition = mousePosition.sub(boxCollider.getParent().transform.getPosition().cpy());
-					boxCollider.x = subPosition.x / boxCollider.width * 2;
-					boxCollider.y = subPosition.y / boxCollider.height * 2;
+					Vector2 subPosition = mousePosition.sub(component.getParent().transform.getPosition().cpy());
+					component.x = subPosition.x / component.width * 2;
+					component.y = subPosition.y / component.height * 2;
 					break;
 				}
 			return -1f;
@@ -214,29 +208,29 @@ public class BoxColliderGizmo extends Gizmo {
 	private void changeWidth (float width, boolean changeRight) {
 		width = (changeRight ? 1f : -1f) * (width - oldBounds.x * 0.5f) + oldBounds.x * (changeRight ? 1 : 0);
 		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0);
-		boxCollider.x = trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition().cpy()).x / 2;
-		boxCollider.width = width;
+		component.x = trueOldPosition.cpy().add(addPosition).sub(component.getParent().transform.getPosition().cpy()).x / 2;
+		component.width = width;
 	}
 
 	private void changeHeight (float height, boolean changeTop) {
 		height = (changeTop ? 1 : -1f) * (height - oldBounds.y * 0.5f) + oldBounds.y * (changeTop ? 1 : 0);
 		Vector2 addPosition = new Vector2(0, changeTop ? height + -oldBounds.y : oldBounds.y - height);
-		boxCollider.y = trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition().cpy()).y / 2;
-		boxCollider.height = height;
+		component.y = trueOldPosition.cpy().add(addPosition).sub(component.getParent().transform.getPosition().cpy()).y / 2;
+		component.height = height;
 	}
 
 	private void changeBounds (float width, float height, boolean changeRight, boolean changeTop) {
 		width = (changeRight ? 1f : -1f) * (width - oldBounds.x * 0.5f) + oldBounds.x * (changeRight ? 1 : 0);
 		Vector2 addPosition = new Vector2(changeRight ? width + -oldBounds.x : oldBounds.x - width, 0);
-		boxCollider.x = trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition().cpy()).x;
-		boxCollider.y = -trueOldPosition.cpy().add(addPosition).sub(boxCollider.getParent().transform.getPosition().cpy()).y;
+		component.x = trueOldPosition.cpy().add(addPosition).sub(component.getParent().transform.getPosition().cpy()).x;
+		component.y = -trueOldPosition.cpy().add(addPosition).sub(component.getParent().transform.getPosition().cpy()).y;
 		height = (changeTop ? 1 : -1f) * (height - oldBounds.y * 0.5f) + oldBounds.y * (changeTop ? 1 : 0);
 		Vector2 addPosition2 = new Vector2(0, changeTop ? height + -oldBounds.y : oldBounds.y - height);
-		Vector2 newPosition = new Vector2(-boxCollider.x, -boxCollider.y);
-		boxCollider.x = -newPosition.cpy().add(addPosition2).x / 2;
-		boxCollider.y = newPosition.cpy().add(addPosition2).y / 2;
-		boxCollider.width = width;
-		boxCollider.height = height;
+		Vector2 newPosition = new Vector2(-component.x, -component.y);
+		component.x = -newPosition.cpy().add(addPosition2).x / 2;
+		component.y = newPosition.cpy().add(addPosition2).y / 2;
+		component.width = width;
+		component.height = height;
 	}
 
 	@Override

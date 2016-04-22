@@ -72,7 +72,7 @@ public class Camera extends OrthographicCamera {
 		lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
 		if (RavTech.sceneHandler.shaderManager != null && renderToFramebuffer && width > 0 && height > 0) {
 
-			float downSample = 1f;
+			float downSample = 0.5f;
 			RavTech.sceneHandler.shaderManager.createFB(cameraBufferName, (int)(resolutionX / downSample),
 				(int)(resolutionY / downSample));
 			RavTech.sceneHandler.shaderManager.createFB(cameraPingPongBufferName, (int)(resolutionX / downSample),
