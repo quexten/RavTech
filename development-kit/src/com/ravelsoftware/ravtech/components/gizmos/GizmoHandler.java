@@ -6,7 +6,6 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.DelaunayTriangulator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -24,15 +23,16 @@ import com.ravelsoftware.ravtech.components.PolygonCollider;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.ravelsoftware.ravtech.dk.RavTechDK.EditingMode;
 import com.ravelsoftware.ravtech.graphics.Camera;
 import com.ravelsoftware.ravtech.util.EventType;
 
 public class GizmoHandler {
 
-	ObjectMap<GameComponent, Gizmo> selectedObjectGizmoMap = new ObjectMap<GameComponent, Gizmo>();
-	Gizmo draggedGizmo;
-	Gizmo closestGizmo;
-	Gizmo exclusiveGizmo;
+	ObjectMap<GameComponent, Gizmo<? extends GameComponent>> selectedObjectGizmoMap = new ObjectMap<GameComponent, Gizmo<? extends GameComponent>>();
+	Gizmo<? extends GameComponent> draggedGizmo;
+	Gizmo<? extends GameComponent> closestGizmo;
+	Gizmo<? extends GameComponent> exclusiveGizmo;
 
 	Camera camera;
 	PolygonShapeRenderer renderer;
@@ -59,7 +59,7 @@ public class GizmoHandler {
 				GameObject object = objects.get(i);
 				if (object != null)
 					for (int n = 0; n < object.getComponents().size; n++) {
-						Gizmo gizmo = getGizmoFor(
+						Gizmo<? extends GameComponent> gizmo = getGizmoFor(
 							object.getComponents().get(n));
 						if (gizmo != null)
 							gizmo.draw(renderer, gizmo == closestGizmo);
@@ -82,11 +82,11 @@ public class GizmoHandler {
 		switch (eventType) {
 			case EventType.MouseMoved:
 				if (exclusiveGizmo == null) {
-					Values<Gizmo> values = selectedObjectGizmoMap.values();
-					Gizmo closestGizmo = null;
+					Values<Gizmo<? extends GameComponent>> values = selectedObjectGizmoMap.values();
+					Gizmo<? extends GameComponent> closestGizmo = null;
 					float closestDst = Float.MAX_VALUE;
 					while (values.hasNext) {
-						Gizmo giz = values.next();
+						Gizmo<? extends GameComponent> giz = values.next();
 						float gizDst = giz.input(x, y, 0,
 							EventType.MouseMoved);
 						if (gizDst > 0 && gizDst < closestDst
@@ -116,6 +116,8 @@ public class GizmoHandler {
 						RavTechDK.setSelectedObjects(objects);
 						if (button == Buttons.LEFT) {
 							draggedGizmo = getGizmoFor(transform);
+							((TransformGizmo) draggedGizmo).selectedAxis = TransformGizmo.AXIS_XY;
+							RavTechDK.setEditingMode(EditingMode.Move);
 							draggedGizmo.input(x, y, 0, EventType.MouseDown);
 						} else {
 						}
@@ -143,11 +145,11 @@ public class GizmoHandler {
 	}
 
 	/** Gets the gizmo for a specified component in the list of currently selected GameObjects */
-	public Gizmo getGizmoFor (GameComponent component) {
-		Entries<GameComponent, Gizmo> iterator = selectedObjectGizmoMap
+	public Gizmo<? extends GameComponent> getGizmoFor (GameComponent component) {
+		Entries<GameComponent, Gizmo<? extends GameComponent>> iterator = selectedObjectGizmoMap
 			.iterator();
 		while (iterator.hasNext()) {
-			Entry<GameComponent, Gizmo> entry = iterator.next();
+			Entry<GameComponent, Gizmo<? extends GameComponent>> entry = iterator.next();
 			if (entry.key == component)
 				return entry.value;
 		}
@@ -169,7 +171,7 @@ public class GizmoHandler {
 					.getComponents().size; n++) {
 					GameComponent iteratedComponent = selectedObject
 						.getComponents().get(n);
-					Gizmo gizmo = null;
+					Gizmo<? extends GameComponent> gizmo = null;
 					gizmo = createGizmoFor(iteratedComponent);
 					if (gizmo != null)
 						selectedObjectGizmoMap.put(iteratedComponent,
@@ -181,10 +183,10 @@ public class GizmoHandler {
 	/** Creates gizmo for a specified component
 	 * @param component - the component to create a gizmo for
 	 * @return Returns the created gizmo */
-	public Gizmo createGizmoFor (GameComponent component) {
+	public Gizmo<? extends GameComponent> createGizmoFor (GameComponent component) {
 		Class<? extends GameComponent> iteratedComponentClass = component
 			.getClass();
-		Gizmo gizmo = null;
+		Gizmo<? extends GameComponent> gizmo = null;
 		if (iteratedComponentClass.equals(Transform.class))
 			gizmo = new TransformGizmo((Transform)component);
 		else if (iteratedComponentClass.equals(BoxCollider.class))
@@ -221,7 +223,7 @@ public class GizmoHandler {
 					break;
 				}
 			} else {
-				Gizmo gizmo = RavTechDK.gizmoHandler
+				Gizmo<? extends GameComponent> gizmo = RavTechDK.gizmoHandler
 					.createGizmoFor(objects.get(i));
 				if (gizmo != null) {
 					boolean isIn = gizmo

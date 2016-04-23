@@ -10,21 +10,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDK.EditingMode;
-import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 
 public class TransformGizmo extends Gizmo<Transform> {
 
 	// Move / Scale
-	private static int AXIS_X = 1, AXIS_Y = 2,
-		AXIS_XY = AXIS_X | AXIS_Y;
+	private static int AXIS_X = 1, AXIS_Y = 2;
+
+	static int AXIS_XY = AXIS_X | AXIS_Y;
 
 	// Rotation
 	private static int AXIS_ROTATION = 1, RING = 2;
 
-	private int selectedAxis = 2;
+	int selectedAxis = 2;
 
 	private Vector2 grabOffset = new Vector2();
 	private float oldRotation;
