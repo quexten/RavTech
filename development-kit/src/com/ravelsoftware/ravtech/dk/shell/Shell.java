@@ -16,13 +16,18 @@ public class Shell {
 	 * @param directory the directory to execute the command in
 	 * @param command the command
 	 * @return the output of the command executed */
-	public static String executeCommand (File directory, String command) {
+	public static String executeCommand (File directory,
+		String command) {
 		Process process;
 		StringBuilder stringBuilder = new StringBuilder();
 		try {
-			process = Runtime.getRuntime().exec(directory.getPath() + System.getProperty("file.separator") + command, null,
-				directory);
-			InputStreamReader in = new InputStreamReader(process.getInputStream());
+			process = Runtime.getRuntime()
+				.exec(
+					directory.getPath()
+						+ System.getProperty("file.separator") + command,
+					null, directory);
+			InputStreamReader in = new InputStreamReader(
+				process.getInputStream());
 			BufferedReader reader = new BufferedReader(in);
 			String line;
 			while ((line = reader.readLine()) != null)
@@ -39,15 +44,19 @@ public class Shell {
 	 * @param command the command
 	 * @param logPrinter the printer for regular logging
 	 * @param errorPrinter the printer for error logging */
-	public static void executeCommand (File directory, String command, Printer logPrinter, Printer errorPrinter) {
+	public static void executeCommand (File directory, String command,
+		Printer logPrinter, Printer errorPrinter) {
 		String[] commands = command.split(" ");
-		commands[0] = directory.getPath() + System.getProperty("file.separator") + commands[0];
+		commands[0] = directory.getPath()
+			+ System.getProperty("file.separator") + commands[0];
 		ProcessBuilder builder = new ProcessBuilder(commands);
 		builder.directory(directory);
 		try {
 			final Process process = builder.start();
-			new StreamGobbler(process.getInputStream(), logPrinter).start();
-			new StreamGobbler(process.getErrorStream(), errorPrinter).start();
+			new StreamGobbler(process.getInputStream(), logPrinter)
+				.start();
+			new StreamGobbler(process.getErrorStream(), errorPrinter)
+				.start();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

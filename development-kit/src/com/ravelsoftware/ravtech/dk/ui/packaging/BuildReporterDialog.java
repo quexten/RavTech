@@ -31,12 +31,14 @@ public class BuildReporterDialog extends VisTable {
 	}
 
 	public void logError (String message) {
-		textArea.setText(textArea.getText() + "[Error]" + message + "\n");
+		textArea
+			.setText(textArea.getText() + "[Error]" + message + "\n");
 	}
 
 	@Override
 	public float getPrefHeight () {
-		return textArea.getLines() * VisUI.getSkin().getFont("default-font").getLineHeight();
+		return textArea.getLines()
+			* VisUI.getSkin().getFont("default-font").getLineHeight();
 	}
 
 }

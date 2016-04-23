@@ -33,12 +33,14 @@ public class Camera extends OrthographicCamera {
 		camId++;
 		cameraBufferName = cameraBufferName + camId;
 		cameraPingPongBufferName = cameraPingPongBufferName + camId;
-		lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
+		lightMap = RavTech.sceneHandler.lightHandler
+			.createLightMap(width, height);
 		setResolution(width, height);
 	}
 
 	public float getRotation () { // converts from -180|180 to 0|359
-		float camAngle = -(float)Math.atan2(up.x, up.y) * MathUtils.radiansToDegrees + 180;
+		float camAngle = -(float)Math.atan2(up.x, up.y)
+			* MathUtils.radiansToDegrees + 180;
 		return camAngle;
 	}
 
@@ -57,7 +59,8 @@ public class Camera extends OrthographicCamera {
 		RavTech.sceneHandler.renderer.render(spriteBatch, this);
 		int passes = 0;
 		for (int i = 0; i < shaders.size; i++) {
-			shaders.get(i).applyPasses(spriteBatch, passes % 2 == 0 ? cameraBuffer : cameraPingPongBuffer,
+			shaders.get(i).applyPasses(spriteBatch,
+				passes % 2 == 0 ? cameraBuffer : cameraPingPongBuffer,
 				passes % 2 == 1 ? cameraBuffer : cameraPingPongBuffer);
 			passes += shaders.get(i).getShaderPassCount();
 		}
@@ -69,24 +72,34 @@ public class Camera extends OrthographicCamera {
 		resolutionX = width;
 		resolutionY = height;
 		lightMap.dispose();
-		lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
-		if (RavTech.sceneHandler.shaderManager != null && renderToFramebuffer && width > 0 && height > 0) {
+		lightMap = RavTech.sceneHandler.lightHandler
+			.createLightMap(width, height);
+		if (RavTech.sceneHandler.shaderManager != null
+			&& renderToFramebuffer && width > 0 && height > 0) {
 
 			float downSample = 0.5f;
-			RavTech.sceneHandler.shaderManager.createFB(cameraBufferName, (int)(resolutionX / downSample),
+			RavTech.sceneHandler.shaderManager.createFB(cameraBufferName,
+				(int)(resolutionX / downSample),
 				(int)(resolutionY / downSample));
-			RavTech.sceneHandler.shaderManager.createFB(cameraPingPongBufferName, (int)(resolutionX / downSample),
+			RavTech.sceneHandler.shaderManager.createFB(
+				cameraPingPongBufferName, (int)(resolutionX / downSample),
 				(int)(resolutionY / downSample));
-			cameraBuffer = RavTech.sceneHandler.shaderManager.getFB(cameraBufferName);
-			cameraPingPongBuffer = RavTech.sceneHandler.shaderManager.getFB(cameraPingPongBufferName);
+			cameraBuffer = RavTech.sceneHandler.shaderManager
+				.getFB(cameraBufferName);
+			cameraPingPongBuffer = RavTech.sceneHandler.shaderManager
+				.getFB(cameraPingPongBufferName);
 			shaders.clear();
 		}
 	}
 
 	public void dispose () {
-		if (RavTech.sceneHandler.shaderManager != null && RavTech.sceneHandler.shaderManager.getFB(cameraBufferName) != null) {
-			RavTech.sceneHandler.shaderManager.disposeFB(cameraBufferName);
-			RavTech.sceneHandler.shaderManager.disposeFB(cameraPingPongBufferName);
+		if (RavTech.sceneHandler.shaderManager != null
+			&& RavTech.sceneHandler.shaderManager
+				.getFB(cameraBufferName) != null) {
+			RavTech.sceneHandler.shaderManager
+				.disposeFB(cameraBufferName);
+			RavTech.sceneHandler.shaderManager
+				.disposeFB(cameraPingPongBufferName);
 		}
 	}
 
@@ -99,7 +112,8 @@ public class Camera extends OrthographicCamera {
 	}
 
 	@Override
-	public Vector3 unproject (Vector3 screenCoords, float viewportX, float viewportY, float viewportWidth, float viewportHeight) {
+	public Vector3 unproject (Vector3 screenCoords, float viewportX,
+		float viewportY, float viewportWidth, float viewportHeight) {
 		float x = screenCoords.x, y = screenCoords.y;
 		x = x - viewportX;
 		y = viewportHeight - y - 1;
@@ -117,7 +131,8 @@ public class Camera extends OrthographicCamera {
 	}
 
 	public Vector2 unproject (Vector2 screenCoords) {
-		Vector3 unprojection = unproject(new Vector3(screenCoords.x, screenCoords.y, 0));
+		Vector3 unprojection = unproject(
+			new Vector3(screenCoords.x, screenCoords.y, 0));
 		return screenCoords.set(unprojection.x, unprojection.y);
 	}
 

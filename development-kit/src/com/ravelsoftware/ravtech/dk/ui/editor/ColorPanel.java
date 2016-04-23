@@ -18,6 +18,7 @@ public class ColorPanel extends Widget {
 	@Override
 	public void draw (Batch batch, float alpha) {
 		batch.setColor(backgroundColor);
-		batch.draw(RavTech.sceneHandler.renderer.ambientTexture, this.getX(), this.getY(), getWidth(), getHeight());
+		batch.draw(RavTech.sceneHandler.renderer.ambientTexture,
+			this.getX(), this.getY(), getWidth(), getHeight());
 	}
 }

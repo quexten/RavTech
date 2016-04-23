@@ -43,12 +43,14 @@ public class RavTech extends Game {
 
 	public static ScriptLoader scriptLoader;
 
-	public RavTech (FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
+	public RavTech (FileHandleResolver assetResolver, Project project,
+		EngineConfiguration applicationConfig) {
 		this(assetResolver, applicationConfig);
 		RavTech.project = project;
 	}
 
-	public RavTech (FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
+	public RavTech (FileHandleResolver assetResolver,
+		EngineConfiguration applicationConfig) {
 		files = new RavFiles(assetResolver);
 		engineConfiguration = applicationConfig;
 	}
@@ -63,7 +65,8 @@ public class RavTech extends Game {
 		}
 
 		// Serializes current Scene for later restore after context loss
-		final String serializedCurrentScene = input != null ? files.storeState() : null;
+		final String serializedCurrentScene = input != null
+			? files.storeState() : null;
 		if (input != null)
 			sceneHandler.dispose();
 		input = new RavInput();
@@ -94,7 +97,8 @@ public class RavTech extends Game {
 
 	@Override
 	public void render () {
-		if (Gdx.app.getType() == ApplicationType.WebGL && !WebGLScriptManager.areLoaded())
+		if (Gdx.app.getType() == ApplicationType.WebGL
+			&& !WebGLScriptManager.areLoaded())
 			return;
 		else if (!WebGLScriptManager.initialized)
 			WebGLScriptManager.initialize();

@@ -13,7 +13,8 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.animation.Animation;
 import com.ravelsoftware.ravtech.util.PrefabManager;
 
-public class GameObject extends GameComponent implements Json.Serializable {
+public class GameObject extends GameComponent
+	implements Json.Serializable {
 
 	String name = "";
 	public Transform transform;
@@ -40,7 +41,8 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	}
 
 	@Override
-	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+	public void load (
+		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 		for (int i = 0; i < components.size; i++)
 			components.get(i).load(dependencies);
 	}
@@ -116,7 +118,9 @@ public class GameObject extends GameComponent implements Json.Serializable {
 			return;
 		}
 		if (classname.equals("SpriteRenderer"))
-			component = new SpriteRenderer(currententry.getString("texture"), currententry.getFloat("width"),
+			component = new SpriteRenderer(
+				currententry.getString("texture"),
+				currententry.getFloat("width"),
 				currententry.getFloat("height"));
 		else if (classname.equals("Rigidbody"))
 			component = new Rigidbody();
@@ -141,7 +145,8 @@ public class GameObject extends GameComponent implements Json.Serializable {
 		}
 	}
 
-	public static GameObject Instantiate (String prefabpath, Vector2 position, float rotation) {
+	public static GameObject Instantiate (String prefabpath,
+		Vector2 position, float rotation) {
 		return Instantiate(prefabpath, position, rotation, true);
 	}
 
@@ -150,7 +155,8 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	 * @param position - position of the Instantiated prefab
 	 * @param rotation - rotation of the Instantiated prefab
 	 * @return the instance of the prefab */
-	public static GameObject Instantiate (String prefabPath, Vector2 position, float rotation, boolean initScripts) {
+	public static GameObject Instantiate (String prefabPath,
+		Vector2 position, float rotation, boolean initScripts) {
 		GameObject object = PrefabManager.getPrefab(prefabPath);
 		RavTech.currentScene.addGameObject(object);
 		object.transform.setPosition(position.x, position.y);
@@ -201,7 +207,8 @@ public class GameObject extends GameComponent implements Json.Serializable {
 		return tempcomp;
 	}
 
-	public Array<GameComponent> getComponentsByType (ComponentType type) {
+	public Array<GameComponent> getComponentsByType (
+		ComponentType type) {
 		Array<GameComponent> tempComponents = new Array<GameComponent>();
 		for (GameComponent component : components)
 			if (component.getType().equals(type))
@@ -219,40 +226,51 @@ public class GameObject extends GameComponent implements Json.Serializable {
 
 	/** @param string - type of component to return
 	 * @return all components of the specified type in the gameobject or any of it's children. */
-	public Array<GameComponent> getComponentsInChildren (String string) {
+	public Array<GameComponent> getComponentsInChildren (
+		String string) {
 		Array<GameComponent> components = new Array<GameComponent>();
 		for (int i = 0; i < this.components.size; i++) {
 			GameComponent component = this.components.get(i);
-			if (component.getType().equals(string) || string.equals("Renderer") && component instanceof Renderer)
+			if (component.getType().equals(string)
+				|| string.equals("Renderer")
+					&& component instanceof Renderer)
 				components.add(component);
 			else if (component.getType().equals(getType()))
-				components.addAll(((GameObject)component).getComponentsInChildren(string));
+				components.addAll(((GameObject)component)
+					.getComponentsInChildren(string));
 		}
 		return components;
 	}
 
-	public Array<GameComponent> getComponentsInChildren (ComponentType... types) {
+	public Array<GameComponent> getComponentsInChildren (
+		ComponentType... types) {
 		Array<GameComponent> components = new Array<GameComponent>();
 		for (int n = 0; n < this.components.size; n++) {
 			GameComponent component = this.components.get(n);
 			for (int i = 0; i < types.length; i++)
-				if (component.getType().equals(types[i]) || types[i].equals(ComponentType.Renderer) && component instanceof Renderer)
+				if (component.getType().equals(types[i])
+					|| types[i].equals(ComponentType.Renderer)
+						&& component instanceof Renderer)
 					components.add(component);
 			if (component.getType().equals(getType()))
-				components.addAll(((GameObject)component).getComponentsInChildren(types));
+				components.addAll(((GameObject)component)
+					.getComponentsInChildren(types));
 		}
 		return components;
 	}
 
 	public void removeComponent (GameComponent component) {
-		Animator animator = (Animator)getComponentByType(ComponentType.Animator);
+		Animator animator = (Animator)getComponentByType(
+			ComponentType.Animator);
 		if (component instanceof GameObject)
 			if (animator != null) {
-				Entries<String, Animation> iter = animator.animations.iterator();
+				Entries<String, Animation> iter = animator.animations
+					.iterator();
 				while (iter.hasNext()) {
 					Entry<String, Animation> next = iter.next();
 					for (int i = 0; i < next.value.timelines.size; i++)
-						if (next.value.timelines.get(i).component.isDescendantOf((GameObject)component))
+						if (next.value.timelines.get(i).component
+							.isDescendantOf((GameObject)component))
 							next.value.timelines.removeIndex(i);
 				}
 			}

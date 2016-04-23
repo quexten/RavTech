@@ -14,7 +14,9 @@ public class ModifyChangeable extends Changeable {
 		super(null, null);
 	}
 
-	public ModifyChangeable (GameComponent component, String changeLabel, String variableName, Object oldValue, Object newValue) {
+	public ModifyChangeable (GameComponent component,
+		String changeLabel, String variableName, Object oldValue,
+		Object newValue) {
 		super(component, changeLabel);
 		variableID = component.getVariableId(variableName);
 		this.newValue = newValue;
@@ -24,12 +26,14 @@ public class ModifyChangeable extends Changeable {
 
 	@Override
 	public void redo () {
-		GameObjectTraverseUtil.gameComponentFromPath(pathToComponent).setVariable(variableID, newValue);
+		GameObjectTraverseUtil.gameComponentFromPath(pathToComponent)
+			.setVariable(variableID, newValue);
 	}
 
 	@Override
 	public void undo () {
-		GameObjectTraverseUtil.gameComponentFromPath(pathToComponent).setVariable(variableID, oldValue);
+		GameObjectTraverseUtil.gameComponentFromPath(pathToComponent)
+			.setVariable(variableID, oldValue);
 	}
 
 	@Override

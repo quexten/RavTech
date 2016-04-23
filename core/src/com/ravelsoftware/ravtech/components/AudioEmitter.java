@@ -9,7 +9,8 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.ravelsoftware.ravtech.RavTech;
 
-public class AudioEmitter extends GameComponent implements Json.Serializable {
+public class AudioEmitter extends GameComponent
+	implements Json.Serializable {
 
 	public ComponentType getType () {
 		return ComponentType.AudioEmitter;
@@ -31,7 +32,8 @@ public class AudioEmitter extends GameComponent implements Json.Serializable {
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void load (Array<AssetDescriptor> dependencies) {
-		AssetDescriptor<Sound> assetDescriptor = new AssetDescriptor<Sound>(RavTech.files.getAssetHandle(filePath), Sound.class);
+		AssetDescriptor<Sound> assetDescriptor = new AssetDescriptor<Sound>(
+			RavTech.files.getAssetHandle(filePath), Sound.class);
 		dependencies.add(assetDescriptor);
 	}
 

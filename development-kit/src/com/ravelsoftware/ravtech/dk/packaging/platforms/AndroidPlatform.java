@@ -16,8 +16,10 @@ public class AndroidPlatform implements Platform {
 	}
 
 	@Override
-	public boolean build (FileHandle buildPath, BuildReporterDialog buildReporterDialog) {
-		GradleInvoker.Invoke(buildReporterDialog, "assembleRelease --stacktrace");
+	public boolean build (FileHandle buildPath,
+		BuildReporterDialog buildReporterDialog) {
+		GradleInvoker.Invoke(buildReporterDialog,
+			"assembleRelease --stacktrace");
 		buildReporterDialog.setVisible(true);
 		return false;
 	}
@@ -25,10 +27,12 @@ public class AndroidPlatform implements Platform {
 	@Override
 	public boolean run (BuildReporterDialog buildReporterDialog) {
 		if (deviceIdentifier.length() == 0)
-			GradleInvoker.Invoke(buildReporterDialog, "android:installDebug android:run --stacktrace");
+			GradleInvoker.Invoke(buildReporterDialog,
+				"android:installDebug android:run --stacktrace");
 		else
 			GradleInvoker.Invoke(buildReporterDialog,
-				"android:installDebug android:run -Pargs=" + deviceIdentifier + " --stacktrace");
+				"android:installDebug android:run -Pargs="
+					+ deviceIdentifier + " --stacktrace");
 		return false;
 	}
 }

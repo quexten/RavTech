@@ -14,14 +14,16 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 
 /** @author Przemek Müller Loads text files using AssetManager. */
-public class TextFileLoader extends SynchronousAssetLoader<String, TextFileLoader.TextFileParameter> {
+public class TextFileLoader extends
+	SynchronousAssetLoader<String, TextFileLoader.TextFileParameter> {
 
 	public TextFileLoader (FileHandleResolver resolver) {
 		super(resolver);
 	}
 
 	@Override
-	public String load (AssetManager assetManager, String fileName, FileHandle file, TextFileParameter parameter) {
+	public String load (AssetManager assetManager, String fileName,
+		FileHandle file, TextFileParameter parameter) {
 		String result = null;
 		FileHandle fh = resolve(fileName);
 		if (fh.exists())
@@ -31,10 +33,12 @@ public class TextFileLoader extends SynchronousAssetLoader<String, TextFileLoade
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, TextFileParameter parameter) {
+	public Array<AssetDescriptor> getDependencies (String fileName,
+		FileHandle file, TextFileParameter parameter) {
 		return null;
 	}
 
-	static public class TextFileParameter extends AssetLoaderParameters<String> {
+	static public class TextFileParameter
+		extends AssetLoaderParameters<String> {
 	}
 }

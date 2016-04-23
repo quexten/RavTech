@@ -36,8 +36,11 @@ public abstract class ComponentPanel {
 	public void addSliderLabel (VisTable table, String variableName) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
-		final LabelNumberPair label = new LabelNumberPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
-			Float.valueOf(String.valueOf(component.getVariable(component.getVariableId(variable)))));
+		final LabelNumberPair label = new LabelNumberPair(
+			variable.substring(0, 1).toUpperCase()
+				+ variable.substring(1) + ":",
+			Float.valueOf(String.valueOf(component
+				.getVariable(component.getVariableId(variable)))));
 		table.add(label.label).padLeft(6).growX();
 		table.add(label.pairedComponent).growX();
 		table.setFillParent(true);
@@ -46,29 +49,36 @@ public abstract class ComponentPanel {
 		label.releasedListener = new Runnable() {
 			@Override
 			public void run () {
-				new ModifyChangeable(gameComponent, "", variable, 0, label.dragValue).redo();
+				new ModifyChangeable(gameComponent, "", variable, 0,
+					label.dragValue).redo();
 			}
 		};
 		label.draggedListener = new Runnable() {
 			@Override
 			public void run () {
-				ChangeManager
-					.addChangeable(new ModifyChangeable(gameComponent, "Set " + variable, variable, label.oldValue, label.dragValue));
+				ChangeManager.addChangeable(
+					new ModifyChangeable(gameComponent, "Set " + variable,
+						variable, label.oldValue, label.dragValue));
 			}
 		};
 		valueChangedListeners.put(variableName, new Runnable() {
 			@Override
 			public void run () {
-				label.label.setText(String.valueOf(component.getVariable(component.getVariableId(variable))));
+				label.label.setText(String.valueOf(component
+					.getVariable(component.getVariableId(variable))));
 			}
 		});
 	}
 
-	public void addDropdown (VisTable table, String variableName, String[] options) {
+	public void addDropdown (VisTable table, String variableName,
+		String[] options) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
-		final LabelDropdownPair label = new LabelDropdownPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
-			options, String.valueOf(gameComponent.getVariable(gameComponent.getVariableId(variableName))));
+		final LabelDropdownPair label = new LabelDropdownPair(
+			variable.substring(0, 1).toUpperCase()
+				+ variable.substring(1) + ":",
+			options, String.valueOf(gameComponent
+				.getVariable(gameComponent.getVariableId(variableName))));
 		table.add(label.label).padLeft(6).growX();
 		table.add(label.pairedComponent).growX();
 		table.setFillParent(true);
@@ -78,8 +88,10 @@ public abstract class ComponentPanel {
 			@SuppressWarnings("unchecked")
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				gameComponent.setVariable(gameComponent.getVariableId(variable),
-					((VisSelectBox<String>)label.pairedComponent).getSelected());
+				gameComponent.setVariable(
+					gameComponent.getVariableId(variable),
+					((VisSelectBox<String>)label.pairedComponent)
+						.getSelected());
 			}
 		});
 	}
@@ -87,8 +99,11 @@ public abstract class ComponentPanel {
 	public void addColorPicker (VisTable table, String variableName) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
-		final LabelColorPair label = new LabelColorPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
-			(Color)component.getVariable(component.getVariableId(variable)));
+		final LabelColorPair label = new LabelColorPair(
+			variable.substring(0, 1).toUpperCase()
+				+ variable.substring(1) + ":",
+			(Color)component
+				.getVariable(component.getVariableId(variable)));
 		table.add(label.label).padLeft(6).growX();
 		table.add(label.pairedComponent).expand().height(20).growX();
 		table.setFillParent(true);
@@ -100,18 +115,23 @@ public abstract class ComponentPanel {
 				picker.setListener(new ColorPickerListener() {
 					@Override
 					public void canceled (Color oldColor) {
-						((ColorPanel)label.pairedComponent).backgroundColor.set(oldColor);
-						gameComponent.setVariable(gameComponent.getVariableId(variable), oldColor);
+						((ColorPanel)label.pairedComponent).backgroundColor
+							.set(oldColor);
+						gameComponent.setVariable(
+							gameComponent.getVariableId(variable), oldColor);
 					}
 
 					@Override
 					public void changed (Color newColor) {
-						((ColorPanel)label.pairedComponent).backgroundColor.set(newColor);
-						gameComponent.setVariable(gameComponent.getVariableId(variable), newColor);
+						((ColorPanel)label.pairedComponent).backgroundColor
+							.set(newColor);
+						gameComponent.setVariable(
+							gameComponent.getVariableId(variable), newColor);
 					}
 
 					@Override
-					public void reset (Color previousColor, Color newColor) {
+					public void reset (Color previousColor,
+						Color newColor) {
 					}
 
 					@Override
@@ -124,7 +144,8 @@ public abstract class ComponentPanel {
 		});
 	}
 
-	public void addButton (VisTable table, String text, String title, ChangeListener listener) {
+	public void addButton (VisTable table, String text, String title,
+		ChangeListener listener) {
 		table.add(new VisLabel(text));
 		VisTextButton button = new VisTextButton(title);
 		button.addListener(listener);
@@ -132,7 +153,8 @@ public abstract class ComponentPanel {
 		table.row();
 	}
 
-	public void addFileSelector (VisTable table, String text, String initialPath, final ChangeListener listener,
+	public void addFileSelector (VisTable table, String text,
+		String initialPath, final ChangeListener listener,
 		final String... fileTypes) {
 		table.add(new VisLabel(text)).expandX().growX().padLeft(5);
 		final VisLabel fileLabel = new VisLabel(initialPath);
@@ -140,33 +162,47 @@ public abstract class ComponentPanel {
 		table.add(padTable).expandX().growX().height(20);
 		padTable.add(fileLabel).growX().fillX();
 		table.row();
-		RavTechDK.assetViewer.dragAndDrop.addTarget(new Target(padTable) {
-			@Override
-			public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
-				String objectPath = String.valueOf(payload.getObject());
-				for (int i = 0; i < fileTypes.length; i++)
-					if (fileTypes[i].equals(objectPath.substring(objectPath.lastIndexOf(".") + 1)))
-						return true;
-				return false;
-			}
+		RavTechDK.assetViewer.dragAndDrop
+			.addTarget(new Target(padTable) {
+				@Override
+				public boolean drag (Source source, Payload payload,
+					float x, float y, int pointer) {
+					String objectPath = String
+						.valueOf(payload.getObject());
+					for (int i = 0; i < fileTypes.length; i++)
+						if (fileTypes[i].equals(objectPath
+							.substring(objectPath.lastIndexOf(".") + 1)))
+							return true;
+					return false;
+				}
 
-			@Override
-			public void drop (Source source, Payload payload, float x, float y, int pointer) {
-				fileLabel.setText(String.valueOf(payload.getObject()).replace(RavTechDK.projectHandle.path() + "/assets/", ""));
-				listener.changed(new ChangeEvent(), fileLabel);
-			}
-		});
+				@Override
+				public void drop (Source source, Payload payload, float x,
+					float y, int pointer) {
+					fileLabel.setText(
+						String.valueOf(payload.getObject()).replace(
+							RavTechDK.projectHandle.path() + "/assets/",
+							""));
+					listener.changed(new ChangeEvent(), fileLabel);
+				}
+			});
 	}
 
-	public void addTextField (VisTable table, final String variableName) {
-		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX()
-			.padLeft(5);
+	public void addTextField (VisTable table,
+		final String variableName) {
+		table
+			.add(new VisLabel(variableName.substring(0, 1).toUpperCase()
+				+ variableName.substring(1) + ":"))
+			.expandX().growX().padLeft(5);
 		final VisTextField textField = new VisTextField(
-			String.valueOf(component.getVariable(component.getVariableId(variableName))));
+			String.valueOf(component
+				.getVariable(component.getVariableId(variableName))));
 		textField.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				component.setVariable(component.getVariableId(variableName), textField.getText());
+				component.setVariable(
+					component.getVariableId(variableName),
+					textField.getText());
 			}
 		});
 		textField.setFocusTraversal(false);
@@ -181,15 +217,21 @@ public abstract class ComponentPanel {
 		table.row();
 	}
 
-	public void addCheckBox (VisTable table, final String variableName) {
-		table.add(new VisLabel(variableName.substring(0, 1).toUpperCase() + variableName.substring(1) + ":")).expandX().growX()
-			.padLeft(5);
+	public void addCheckBox (VisTable table,
+		final String variableName) {
+		table
+			.add(new VisLabel(variableName.substring(0, 1).toUpperCase()
+				+ variableName.substring(1) + ":"))
+			.expandX().growX().padLeft(5);
 		final VisCheckBox checkBox = new VisCheckBox("",
-			Boolean.valueOf(String.valueOf(component.getVariable(component.getVariableId(variableName)))));
+			Boolean.valueOf(String.valueOf(component
+				.getVariable(component.getVariableId(variableName)))));
 		checkBox.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				component.setVariable(component.getVariableId(variableName), checkBox.isChecked());
+				component.setVariable(
+					component.getVariableId(variableName),
+					checkBox.isChecked());
 			}
 		});
 		table.add(checkBox).align(Align.right);

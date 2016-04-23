@@ -44,7 +44,8 @@ public class AddComponentAction implements Runnable {
 		menu.show(invoker, 0, invoker.getHeight());
 	}
 
-	public void addPopupMenuComponent (JPopupMenu menu, final Class<? extends GameComponent> componentClass) {
+	public void addPopupMenuComponent (JPopupMenu menu,
+		final Class<? extends GameComponent> componentClass) {
 		JMenuItem item = new JMenuItem(componentClass.getSimpleName());
 		item.setIcon(IconUtil.getIconByComponentClass(componentClass));
 		item.addActionListener(new ActionListener() {
@@ -56,7 +57,8 @@ public class AddComponentAction implements Runnable {
 					@Override
 					public void run () {
 						try {
-							GameComponent component = ClassReflection.newInstance(componentClass);
+							GameComponent component = ClassReflection
+								.newInstance(componentClass);
 							// add component
 							component.finishedLoading();
 						} catch (ReflectionException e) {

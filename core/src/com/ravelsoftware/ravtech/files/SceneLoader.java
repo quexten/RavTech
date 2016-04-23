@@ -11,7 +11,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.ravelsoftware.ravtech.Scene;
 
-public class SceneLoader extends AsynchronousAssetLoader<Scene, AssetLoaderParameters<Scene>> {
+public class SceneLoader extends
+	AsynchronousAssetLoader<Scene, AssetLoaderParameters<Scene>> {
 
 	Scene scene;
 
@@ -21,7 +22,8 @@ public class SceneLoader extends AsynchronousAssetLoader<Scene, AssetLoaderParam
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
+	public Array<AssetDescriptor> getDependencies (String fileName,
+		FileHandle file, AssetLoaderParameters<Scene> parameter) {
 		scene = new Json().fromJson(Scene.class, file.readString());
 		Array<AssetDescriptor> assetDependencies = new Array<AssetDescriptor>();
 		for (int i = 0; i < scene.gameObjects.size; i++)
@@ -30,11 +32,13 @@ public class SceneLoader extends AsynchronousAssetLoader<Scene, AssetLoaderParam
 	}
 
 	@Override
-	public void loadAsync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
+	public void loadAsync (AssetManager manager, String fileName,
+		FileHandle file, AssetLoaderParameters<Scene> parameter) {
 	}
 
 	@Override
-	public Scene loadSync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Scene> parameter) {
+	public Scene loadSync (AssetManager manager, String fileName,
+		FileHandle file, AssetLoaderParameters<Scene> parameter) {
 		for (int i = 0; i < scene.gameObjects.size; i++)
 			scene.gameObjects.get(i).finishedLoading();
 		return scene;

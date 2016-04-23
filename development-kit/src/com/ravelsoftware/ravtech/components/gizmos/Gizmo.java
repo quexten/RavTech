@@ -7,20 +7,21 @@ import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.GameComponent;
 
 public abstract class Gizmo<T extends GameComponent> {
-	
+
 	public T component;
-	
+
 	/** Describes whether the Gizmo needs Exclusive rights to be edited, or will be editable in general selection mode */
 	public boolean isExclusive = false;
-	
-	public Gizmo(T component) {
+
+	public Gizmo (T component) {
 		this.component = component;
 	}
-	
+
 	/** Draws the gizmo
 	 * @param batch - the polygon batch
 	 * @param selected - whether the gizmo is selected */
-	public abstract void draw (PolygonShapeRenderer batch, boolean selected);
+	public abstract void draw (PolygonShapeRenderer batch,
+		boolean selected);
 
 	/** Handles the given mouse input
 	 * @param x - the x coordinate in world coordinate space
@@ -28,15 +29,16 @@ public abstract class Gizmo<T extends GameComponent> {
 	 * @param button - the mouse button the event was performed with (e.g Left / Right / Middle)
 	 * @param eventType - the type of the event (MouseDown, MouseDrag, MouseUp)
 	 * @return returns the distance to the component, < 0 if not handled */
-	public abstract float input (float x, float y, int button, int eventType);
+	public abstract float input (float x, float y, int button,
+		int eventType);
 
 	/** Checks whether the given coordinate is within the bounding box (drag area) of the gizmo
 	 * @param coord - the coordinate to check
 	 * @return Whether the coordinate is in the bounding box. */
 	public abstract boolean isInBoundingBox (Vector2 coord);
-	
-	protected float getZoom() {
+
+	protected float getZoom () {
 		return RavTech.sceneHandler.worldCamera.zoom;
 	}
-	
+
 }

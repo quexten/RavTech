@@ -31,7 +31,8 @@ public class Light extends Renderer implements Json.Serializable {
 
 	@Override
 	public void draw (SpriteBatch batch) {
-		light.setPosition(getParent().transform.getPosition().x, getParent().transform.getPosition().y);
+		light.setPosition(getParent().transform.getPosition().x,
+			getParent().transform.getPosition().y);
 		light.setDirection(getParent().transform.getRotation());
 		if (!light.getColor().equals(color))
 			light.setColor(color);
@@ -79,15 +80,15 @@ public class Light extends Renderer implements Json.Serializable {
 	@Override
 	public void setVariable (int variableID, Object value) {
 		switch (variableID) {
-		case 0:
-			angle = (Float)value;
-			break;
-		case 1:
-			distance = (Float)value;
-			break;
-		case 2:
-			color = (Color)value;
-			break;
+			case 0:
+				angle = (Float)value;
+				break;
+			case 1:
+				distance = (Float)value;
+				break;
+			case 2:
+				color = (Color)value;
+				break;
 		}
 	}
 
@@ -106,12 +107,12 @@ public class Light extends Renderer implements Json.Serializable {
 	@Override
 	public Object getVariable (int variableID) {
 		switch (variableID) {
-		case 0:
-			return angle;
-		case 1:
-			return distance;
-		case 2:
-			return color;
+			case 0:
+				return angle;
+			case 1:
+				return distance;
+			case 2:
+				return color;
 		}
 		return null;
 	}
@@ -122,13 +123,17 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	@Override
-	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+	public void load (
+		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 	}
 
 	@Override
 	public void finishedLoading () {
-		light = new box2dLight.ConeLight(RavTech.sceneHandler.lightHandler, 60, Color.YELLOW, 50,
-			getParent().transform.getPosition().x, getParent().transform.getPosition().y, getParent().transform.getRotation(), 45);
+		light = new box2dLight.ConeLight(
+			RavTech.sceneHandler.lightHandler, 60, Color.YELLOW, 50,
+			getParent().transform.getPosition().x,
+			getParent().transform.getPosition().y,
+			getParent().transform.getRotation(), 45);
 		light.setPosition(0, 0);
 		light.setColor(color);
 		light.setDistance(distance);

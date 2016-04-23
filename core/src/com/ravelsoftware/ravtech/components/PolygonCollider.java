@@ -27,7 +27,8 @@ public class PolygonCollider extends Box2dCollider {
 
 	@Override
 	public void apply () {
-		Body body = ((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
+		Body body = ((Rigidbody)getParent()
+			.getComponentByType(ComponentType.Rigidbody)).getBody();
 		FixtureDef fixtureDef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
 		fixture.setDensity(1);
@@ -41,11 +42,13 @@ public class PolygonCollider extends Box2dCollider {
 		if (fixtures.size > 0) {
 			dispose();
 			fixtures.clear();
-			((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).apply();
+			((Rigidbody)getParent()
+				.getComponentByType(ComponentType.Rigidbody)).apply();
 			rebuildAll();
 			return;
 		}
-		B2DSeparator.separate(body, fixtureDef, (Vector2[])vertecies.toArray(Vector2.class), this);
+		B2DSeparator.separate(body, fixtureDef,
+			(Vector2[])vertecies.toArray(Vector2.class), this);
 		fixture = body.createFixture(fixtureDef);
 		fixture.setFilterData(filter);
 	}
@@ -79,7 +82,9 @@ public class PolygonCollider extends Box2dCollider {
 		JsonValue next = jsonData.get("vertecies").child;
 		while (next != null) {
 			// this.overrideVariables.put(next.name, next.asString());
-			vertecies.add(new Vector2(next.has("x") ? next.getFloat("x") : 0, next.has("y") ? next.getFloat("y") : 0));
+			vertecies
+				.add(new Vector2(next.has("x") ? next.getFloat("x") : 0,
+					next.has("y") ? next.getFloat("y") : 0));
 			next = next.next();
 		}
 		apply();

@@ -9,7 +9,8 @@ public class CopyStep extends PackageStep {
 	FileHandle dstDir;
 	FileHandle srcDir;
 
-	public CopyStep (BuildReporterDialog buildReporterDialog, FileHandle srcDir, FileHandle dstDir) {
+	public CopyStep (BuildReporterDialog buildReporterDialog,
+		FileHandle srcDir, FileHandle dstDir) {
 		super(buildReporterDialog);
 		this.srcDir = srcDir;
 		this.dstDir = dstDir;
@@ -17,7 +18,8 @@ public class CopyStep extends PackageStep {
 
 	@Override
 	public void run () {
-		buildReporterDialog.log("Copy from [" + srcDir.path() + "] to [" + dstDir.path() + "]");
+		buildReporterDialog.log("Copy from [" + srcDir.path() + "] to ["
+			+ dstDir.path() + "]");
 		srcDir.copyTo(dstDir);
 		buildReporterDialog.log("Copy Done!");
 		executeNext();

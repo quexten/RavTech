@@ -14,7 +14,8 @@ public class TouchDebugController implements GestureListener {
 	// Camera camera = RavTech.sceneHandler.worldCamera;
 	Sound sound;
 
-	public boolean touchDown (float x, float y, int pointer, int button) {
+	public boolean touchDown (float x, float y, int pointer,
+		int button) {
 		flinging = false;
 		// initialScale = camera.zoom;
 		return false;
@@ -22,19 +23,23 @@ public class TouchDebugController implements GestureListener {
 
 	@Override
 	public boolean tap (float x, float y, int count, int button) {
-		Gdx.app.log("GestureDetectorTest", "tap at " + x + ", " + y + ", count: " + count);
+		Gdx.app.log("GestureDetectorTest",
+			"tap at " + x + ", " + y + ", count: " + count);
 		return false;
 	}
 
 	@Override
 	public boolean longPress (float x, float y) {
-		Gdx.app.log("GestureDetectorTest", "long press at " + x + ", " + y);
+		Gdx.app.log("GestureDetectorTest",
+			"long press at " + x + ", " + y);
 		return false;
 	}
 
 	@Override
-	public boolean fling (float velocityX, float velocityY, int button) {
-		Gdx.app.log("GestureDetectorTest", "fling " + velocityX + ", " + velocityY);
+	public boolean fling (float velocityX, float velocityY,
+		int button) {
+		Gdx.app.log("GestureDetectorTest",
+			"fling " + velocityX + ", " + velocityY);
 		flinging = true;
 		// velX = camera.zoom * velocityX * 0.5f;
 		// velY = camera.zoom * velocityY * 0.5f;
@@ -49,20 +54,25 @@ public class TouchDebugController implements GestureListener {
 	}
 
 	@Override
-	public boolean panStop (float x, float y, int pointer, int button) {
-		Gdx.app.log("GestureDetectorTest", "pan stop at " + x + ", " + y);
+	public boolean panStop (float x, float y, int pointer,
+		int button) {
+		Gdx.app.log("GestureDetectorTest",
+			"pan stop at " + x + ", " + y);
 		return false;
 	}
 
 	@Override
-	public boolean zoom (float originalDistance, float currentDistance) {
+	public boolean zoom (float originalDistance,
+		float currentDistance) {
 		// camera.zoom = initialScale * ratio;
 		// System.out.println(camera.zoom);
 		return false;
 	}
 
 	@Override
-	public boolean pinch (Vector2 initialFirstPointer, Vector2 initialSecondPointer, Vector2 firstPointer, Vector2 secondPointer) {
+	public boolean pinch (Vector2 initialFirstPointer,
+		Vector2 initialSecondPointer, Vector2 firstPointer,
+		Vector2 secondPointer) {
 		return false;
 	}
 

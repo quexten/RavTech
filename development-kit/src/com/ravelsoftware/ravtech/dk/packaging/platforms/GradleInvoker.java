@@ -9,9 +9,12 @@ import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler.Printer;
 
 public class GradleInvoker {
 
-	public static void Invoke (final BuildReporterDialog buildReporterDialog, String command) {
+	public static void Invoke (
+		final BuildReporterDialog buildReporterDialog, String command) {
 		String fileSeparator = System.getProperty("file.separator");
-		Shell.executeCommand(new File(System.getProperty("user.dir") + fileSeparator + "builder" + fileSeparator),
+		Shell.executeCommand(
+			new File(System.getProperty("user.dir") + fileSeparator
+				+ "builder" + fileSeparator),
 			"gradlew.bat " + command + " --stacktrace", new Printer() {
 
 				@Override
@@ -29,7 +32,9 @@ public class GradleInvoker {
 
 	public static void Invoke (final String command) {
 		String fileSeparator = System.getProperty("file.separator");
-		Shell.executeCommand(new File(System.getProperty("user.dir") + fileSeparator + "builder" + fileSeparator),
+		Shell.executeCommand(
+			new File(System.getProperty("user.dir") + fileSeparator
+				+ "builder" + fileSeparator),
 			"gradlew.bat " + command + " --stacktrace");
 	}
 }

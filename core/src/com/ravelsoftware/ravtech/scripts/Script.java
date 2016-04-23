@@ -9,7 +9,8 @@ public abstract class Script {
 
 	public abstract void update ();
 
-	public abstract void setEnviroment (ObjectMap<String, Object> values);
+	public abstract void setEnviroment (
+		ObjectMap<String, Object> values);
 
 	public abstract boolean isLoaded ();
 

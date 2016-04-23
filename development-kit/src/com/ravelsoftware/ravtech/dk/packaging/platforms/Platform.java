@@ -10,7 +10,8 @@ public interface Platform {
 	 *
 	 * @param buildReporterDialog the BuildReporterDialog to pipe the console log into
 	 * @return wether the build has been started */
-	boolean build (FileHandle directory, BuildReporterDialog buildReporterDialog);
+	boolean build (FileHandle directory,
+		BuildReporterDialog buildReporterDialog);
 
 	/** runs the Project
 	 *

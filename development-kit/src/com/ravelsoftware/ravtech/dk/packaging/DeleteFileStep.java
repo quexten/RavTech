@@ -8,7 +8,8 @@ public class DeleteFileStep extends PackageStep {
 
 	FileHandle file;
 
-	public DeleteFileStep (BuildReporterDialog buildReporterDialog, FileHandle file) {
+	public DeleteFileStep (BuildReporterDialog buildReporterDialog,
+		FileHandle file) {
 		super(buildReporterDialog);
 		this.file = file;
 	}

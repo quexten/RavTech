@@ -6,7 +6,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
-public abstract class Box2dCollider extends GameComponent implements Json.Serializable {
+public abstract class Box2dCollider extends GameComponent
+	implements Json.Serializable {
 
 	float density = 1;
 	Filter filter;
@@ -101,47 +102,47 @@ public abstract class Box2dCollider extends GameComponent implements Json.Serial
 	public void setVariable (int variableID, Object value) {
 		String valueString = String.valueOf(value);
 		switch (variableID) {
-		case 0:
-			density = Float.valueOf(valueString);
-			break;
-		case 1:
-			filter.categoryBits = Short.valueOf(valueString);
-			break;
-		case 2:
-			filter.maskBits = Short.valueOf(valueString);
-			break;
-		case 3:
-			filter.groupIndex = Short.valueOf(valueString);
-			break;
-		case 4:
-			friction = Float.valueOf(valueString);
-			break;
-		case 5:
-			isSensor = Boolean.valueOf(valueString);
-			break;
-		case 6:
-			restitution = Float.valueOf(valueString);
-			break;
+			case 0:
+				density = Float.valueOf(valueString);
+				break;
+			case 1:
+				filter.categoryBits = Short.valueOf(valueString);
+				break;
+			case 2:
+				filter.maskBits = Short.valueOf(valueString);
+				break;
+			case 3:
+				filter.groupIndex = Short.valueOf(valueString);
+				break;
+			case 4:
+				friction = Float.valueOf(valueString);
+				break;
+			case 5:
+				isSensor = Boolean.valueOf(valueString);
+				break;
+			case 6:
+				restitution = Float.valueOf(valueString);
+				break;
 		}
 	}
 
 	@Override
 	public int getVariableId (String variableName) {
 		switch (variableName) {
-		case "density":
-			return 0;
-		case "categoryBits":
-			return 1;
-		case "maskBits":
-			return 2;
-		case "groupIndex":
-			return 3;
-		case "friction":
-			return 4;
-		case "isSensor":
-			return 5;
-		case "restitution":
-			return 6;
+			case "density":
+				return 0;
+			case "categoryBits":
+				return 1;
+			case "maskBits":
+				return 2;
+			case "groupIndex":
+				return 3;
+			case "friction":
+				return 4;
+			case "isSensor":
+				return 5;
+			case "restitution":
+				return 6;
 		}
 		return -1;
 	}
@@ -153,11 +154,14 @@ public abstract class Box2dCollider extends GameComponent implements Json.Serial
 
 	@Override
 	public String[] getVariableNames () {
-		return new String[] {"density", "categoryBits", "maskBits", "groupIndex", "friction", "isSensor", "restitution"};
+		return new String[] {"density", "categoryBits", "maskBits",
+			"groupIndex", "friction", "isSensor", "restitution"};
 	}
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {density, filter.categoryBits, filter.maskBits, filter.maskBits, friction, isSensor, restitution};
+		return new Object[] {density, filter.categoryBits,
+			filter.maskBits, filter.maskBits, friction, isSensor,
+			restitution};
 	}
 }

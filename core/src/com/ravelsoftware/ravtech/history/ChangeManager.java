@@ -22,7 +22,8 @@ public class ChangeManager {
 				changeables.add(changeable);
 				currentChangeable = changeables.size;
 			} else {
-				changeables.removeRange(currentChangeable, changeables.size - 1);
+				changeables.removeRange(currentChangeable,
+					changeables.size - 1);
 				changeables.add(changeable);
 				currentChangeable++;
 			}
@@ -36,7 +37,8 @@ public class ChangeManager {
 			changeables.get(currentChangeable).redo();
 		if (currentChangeable < changeables.size)
 			currentChangeable++;
-		if (currentChangeable < changeables.size - 1 && changeables.get(currentChangeable + 1).previousConnected)
+		if (currentChangeable < changeables.size - 1
+			&& changeables.get(currentChangeable + 1).previousConnected)
 			redo();
 	}
 
@@ -56,7 +58,8 @@ public class ChangeManager {
 		return currentChangeable != changeables.size;
 	}
 
-	public static void addChangeableListener (ChangeListener listener) {
+	public static void addChangeableListener (
+		ChangeListener listener) {
 		changeListeners.add(listener);
 	}
 }

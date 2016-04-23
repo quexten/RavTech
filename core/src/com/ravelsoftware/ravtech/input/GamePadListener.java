@@ -41,29 +41,34 @@ public class GamePadListener implements ControllerListener {
 	}
 
 	@Override
-	public boolean axisMoved (Controller controller, int axisCode, float value) {
+	public boolean axisMoved (Controller controller, int axisCode,
+		float value) {
 		// RavTech.input.controllerStates.get(indexFor(controller)).axisValues.put(axisCode, value);
 		return false;
 	}
 
 	@Override
-	public boolean povMoved (Controller controller, int povCode, PovDirection value) {
+	public boolean povMoved (Controller controller, int povCode,
+		PovDirection value) {
 		// RavTech.input.controllerStates.get(indexFor(controller)).povDirection = value;
 		return false;
 	}
 
 	@Override
-	public boolean xSliderMoved (Controller controller, int sliderCode, boolean value) {
+	public boolean xSliderMoved (Controller controller, int sliderCode,
+		boolean value) {
 		return false;
 	}
 
 	@Override
-	public boolean ySliderMoved (Controller controller, int sliderCode, boolean value) {
+	public boolean ySliderMoved (Controller controller, int sliderCode,
+		boolean value) {
 		return false;
 	}
 
 	@Override
-	public boolean accelerometerMoved (Controller controller, int accelerometerCode, Vector3 value) {
+	public boolean accelerometerMoved (Controller controller,
+		int accelerometerCode, Vector3 value) {
 		return false;
 	}
 }

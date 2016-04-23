@@ -47,7 +47,8 @@ public class Zipper {
 			generateFileList(file);
 	}
 
-	public void zipFolder (String SourceFolderPath, String OutputFilePath) {
+	public void zipFolder (String SourceFolderPath,
+		String OutputFilePath) {
 		outputZipFile = OutputFilePath;
 		sourceFolder = SourceFolderPath;
 		genFileListForFolderContents(new File(sourceFolder));
@@ -60,7 +61,8 @@ public class Zipper {
 		ZipOutputStream zos = null;
 		try {
 			try {
-				sourceFolder.substring(sourceFolder.lastIndexOf("\\") + 1, sourceFolder.length());
+				sourceFolder.substring(sourceFolder.lastIndexOf("\\") + 1,
+					sourceFolder.length());
 			} catch (Exception e) {
 			}
 			fos = new FileOutputStream(zipFile);
@@ -92,9 +94,11 @@ public class Zipper {
 		dialog.log("Finished Zipping Resource Bundle");
 	}
 
-	private static void extractFile (ZipInputStream in, File outdir, String name) throws IOException {
+	private static void extractFile (ZipInputStream in, File outdir,
+		String name) throws IOException {
 		byte[] buffer = new byte[BUFFER_SIZE];
-		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(new File(outdir, name)));
+		BufferedOutputStream out = new BufferedOutputStream(
+			new FileOutputStream(new File(outdir, name)));
 		int count = -1;
 		while ((count = in.read(buffer)) != -1)
 			out.write(buffer, 0, count);
@@ -120,7 +124,8 @@ public class Zipper {
 		System.out.println("zipfile: " + zipfile);
 		System.out.println("outdir: " + outdir);
 		try {
-			ZipInputStream zin = new ZipInputStream(new FileInputStream(zipfile));
+			ZipInputStream zin = new ZipInputStream(
+				new FileInputStream(zipfile));
 			ZipEntry entry;
 			String name, dir;
 			while ((entry = zin.getNextEntry()) != null) {

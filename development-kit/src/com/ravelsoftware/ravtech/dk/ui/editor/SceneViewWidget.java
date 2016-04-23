@@ -43,13 +43,17 @@ public class SceneViewWidget extends Widget {
 	boolean renderGrid;
 
 	public SceneViewWidget (boolean main) {
-		camera = main ? RavTech.sceneHandler.worldCamera : RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
+		camera = main ? RavTech.sceneHandler.worldCamera
+			: RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
 		camera.zoom = 0.05f;
 
 		addListener(new InputListener() {
-			public boolean mouseMoved (InputEvent event, float x, float y) {
-				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseMoved);
+			public boolean mouseMoved (InputEvent event, float x,
+				float y) {
+				Vector2 unprojectedPosition = camera
+					.unproject(new Vector2(x, getHeight() - y));
+				RavTechDK.gizmoHandler.input(unprojectedPosition.x,
+					unprojectedPosition.y, 0, EventType.MouseMoved);
 				return false;
 			}
 		});
@@ -57,24 +61,32 @@ public class SceneViewWidget extends Widget {
 		addListener(new ClickListener() {
 
 			@Override
-			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseDown);
+			public boolean touchDown (InputEvent event, float x, float y,
+				int pointer, int button) {
+				Vector2 unprojectedPosition = camera
+					.unproject(new Vector2(x, getHeight() - y));
+				RavTechDK.gizmoHandler.input(unprojectedPosition.x,
+					unprojectedPosition.y, button, EventType.MouseDown);
 				if (button == Buttons.RIGHT)
-					dragAnchorPosition = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
+					dragAnchorPosition = new Vector2(unprojectedPosition.x,
+						unprojectedPosition.y);
 				else if (button == Buttons.LEFT) {
 					isDragging = true;
-					selectionStart.set(camera.unproject(new Vector2(x, getHeight() - y)));
+					selectionStart.set(
+						camera.unproject(new Vector2(x, getHeight() - y)));
 					selectionEnd.set(selectionStart);
 				}
 				return true;
 			}
 
 			@Override
-			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
+			public void touchUp (InputEvent event, float x, float y,
+				int pointer, int button) {
+				Vector2 unprojectedPosition = camera
+					.unproject(new Vector2(x, getHeight() - y));
 				isDragging = false;
-				if (!RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp))
+				if (!RavTechDK.gizmoHandler.input(unprojectedPosition.x,
+					unprojectedPosition.y, button, EventType.MouseUp))
 					RavTechDK.inspector.changed();
 			}
 		});
@@ -82,13 +94,18 @@ public class SceneViewWidget extends Widget {
 		DragListener leftListener = new DragListener() {
 
 			@Override
-			public void drag (InputEvent event, float x, float y, int pointer) {
-				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				if (RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseDrag))
+			public void drag (InputEvent event, float x, float y,
+				int pointer) {
+				Vector2 unprojectedPosition = camera
+					.unproject(new Vector2(x, getHeight() - y));
+				if (RavTechDK.gizmoHandler.input(unprojectedPosition.x,
+					unprojectedPosition.y, 0, EventType.MouseDrag))
 					return;
-				selectionEnd.set(camera.unproject(new Vector2(x, getHeight() - y)));
+				selectionEnd.set(
+					camera.unproject(new Vector2(x, getHeight() - y)));
 				RavTechDK.setSelectedObjects(
-					RavTech.currentScene.getGameObjectsIn(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y));
+					RavTech.currentScene.getGameObjectsIn(selectionStart.x,
+						selectionStart.y, selectionEnd.x, selectionEnd.y));
 			}
 
 		};
@@ -98,12 +115,16 @@ public class SceneViewWidget extends Widget {
 		DragListener rightListener = new DragListener() {
 
 			@Override
-			public void drag (InputEvent event, float x, float y, int pointer) {
+			public void drag (InputEvent event, float x, float y,
+				int pointer) {
 				int screenCenterWidth = (int)getWidth();
 				int screenCenterHeight = (int)getHeight();
-				float screenDiffX = screenCenterWidth - x - screenCenterWidth / 2f;
-				float screenDiffY = screenCenterHeight - y - screenCenterHeight / 2f;
-				camera.position.set(dragAnchorPosition.x + screenDiffX * camera.zoom,
+				float screenDiffX = screenCenterWidth - x
+					- screenCenterWidth / 2f;
+				float screenDiffY = screenCenterHeight - y
+					- screenCenterHeight / 2f;
+				camera.position.set(
+					dragAnchorPosition.x + screenDiffX * camera.zoom,
 					dragAnchorPosition.y + screenDiffY * camera.zoom, 0);
 				camera.update();
 				hasToLerpPosition = false;
@@ -117,16 +138,20 @@ public class SceneViewWidget extends Widget {
 		InputListener scrollListener = new InputListener() {
 
 			@Override
-			public boolean scrolled (InputEvent event, float x, float y, int amount) {
+			public boolean scrolled (InputEvent event, float x, float y,
+				int amount) {
 				hasToLerpZoom = hasToLerpPosition = true;
 				float lastzoom = camera.zoom;
-				Vector2 lastposition = new Vector2(camera.position.x, camera.position.y);
+				Vector2 lastposition = new Vector2(camera.position.x,
+					camera.position.y);
 				targetZoom += amount * camera.zoom * 0.5;
 				targetZoom = Math.min(Math.max(0.0001f, targetZoom), 1);
-				Vector3 worldPos = camera.unproject(new Vector3(x, getHeight() - y, 0), 0, 0, camera.getResolution().x,
-					camera.getResolution().y);
+				Vector3 worldPos = camera.unproject(
+					new Vector3(x, getHeight() - y, 0), 0, 0,
+					camera.getResolution().x, camera.getResolution().y);
 				targetPosition = new Vector2(worldPos.x, worldPos.y);
-				targetPosition = targetPosition.add(lastposition.sub(targetPosition).scl(targetZoom / lastzoom));
+				targetPosition = targetPosition.add(lastposition
+					.sub(targetPosition).scl(targetZoom / lastzoom));
 				return false;
 			}
 
@@ -135,24 +160,30 @@ public class SceneViewWidget extends Widget {
 
 		addListener(new InputListener() {
 
-			public void enter (InputEvent event, float x, float y, int pointer, Actor fromActor) {
-				SceneViewWidget.this.getStage().setScrollFocus(SceneViewWidget.this);
-				SceneViewWidget.this.getStage().setKeyboardFocus(SceneViewWidget.this);
+			public void enter (InputEvent event, float x, float y,
+				int pointer, Actor fromActor) {
+				SceneViewWidget.this.getStage()
+					.setScrollFocus(SceneViewWidget.this);
+				SceneViewWidget.this.getStage()
+					.setKeyboardFocus(SceneViewWidget.this);
 			}
 
 		});
 		addListener(new InputListener() {
 			public boolean keyDown (InputEvent event, int keycode) {
-				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C)
+				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT)
+					&& keycode == Keys.C)
 					new CopyAction().run();
-				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V)
+				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT)
+					&& keycode == Keys.V)
 					new PasteAction().run();
 
 				if (keycode == Keys.FORWARD_DEL)
 					new DeleteAction().run();
 
 				if (keycode == Keys.F5) {
-					Array<String> assetNames = RavTech.files.getAssetManager().getAssetNames();
+					Array<String> assetNames = RavTech.files
+						.getAssetManager().getAssetNames();
 					for (int i = 0; i < assetNames.size; i++)
 						RavTech.files.reloadAsset(assetNames.get(i));
 				}
@@ -193,7 +224,9 @@ public class SceneViewWidget extends Widget {
 		if (hasToLerpZoom)
 			camera.zoom += 0.16f * (targetZoom - camera.zoom);
 		if (hasToLerpPosition)
-			camera.position.lerp(new Vector3(targetPosition.x, targetPosition.y, 0), 0.16f);
+			camera.position.lerp(
+				new Vector3(targetPosition.x, targetPosition.y, 0),
+				0.16f);
 		if (Math.abs(targetZoom - camera.zoom) < 0.00001f)
 			hasToLerpZoom = hasToLerpPosition = false;
 	}
@@ -204,17 +237,21 @@ public class SceneViewWidget extends Widget {
 
 		batch.setColor(Color.WHITE);
 		batch.disableBlending();
-		((SpriteBatch)batch).draw(camera.getCameraBufferTexture(), 0, getHeight(), getWidth(), -getHeight());
+		((SpriteBatch)batch).draw(camera.getCameraBufferTexture(), 0,
+			getHeight(), getWidth(), -getHeight());
 		batch.enableBlending();
 
 		if (isDragging) {
-			Vector3 selectionStartProjection = camera.project(new Vector3(selectionStart.x, selectionStart.y, 0), 0, 0, getWidth(),
-				getHeight());
-			Vector3 selectionEndProjection = camera.project(new Vector3(selectionEnd.x, selectionEnd.y, 0), 0, 0, getWidth(),
-				getHeight());
+			Vector3 selectionStartProjection = camera.project(
+				new Vector3(selectionStart.x, selectionStart.y, 0), 0, 0,
+				getWidth(), getHeight());
+			Vector3 selectionEndProjection = camera.project(
+				new Vector3(selectionEnd.x, selectionEnd.y, 0), 0, 0,
+				getWidth(), getHeight());
 			selectionEndProjection.sub(selectionStartProjection);
 			batch.setColor(new Color(1, 1, 1, 0.5f));
-			batch.draw(VisUI.getSkin().getRegion("window-bg"), selectionStartProjection.x, selectionStartProjection.y,
+			batch.draw(VisUI.getSkin().getRegion("window-bg"),
+				selectionStartProjection.x, selectionStartProjection.y,
 				selectionEndProjection.x, selectionEndProjection.y);
 		}
 	}

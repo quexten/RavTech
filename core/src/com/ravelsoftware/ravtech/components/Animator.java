@@ -11,7 +11,8 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.ravelsoftware.ravtech.animation.Animation;
 import com.ravelsoftware.ravtech.animation.Timeline;
 
-public class Animator extends GameComponent implements Json.Serializable {
+public class Animator extends GameComponent
+	implements Json.Serializable {
 
 	@Override
 	public ComponentType getType () {
@@ -36,7 +37,9 @@ public class Animator extends GameComponent implements Json.Serializable {
 	@Override
 	public void update () {
 		currentAnimation.update(Gdx.graphics.getDeltaTime() * speed);
-		if (currentAnimation.getTime() + Math.round(Gdx.graphics.getDeltaTime() * speed * 1000) > currentAnimation.getLength())
+		if (currentAnimation.getTime()
+			+ Math.round(Gdx.graphics.getDeltaTime() * speed
+				* 1000) > currentAnimation.getLength())
 			if (onCompleteAnimation != null) {
 				setAnimation(onCompleteAnimation);
 				onCompleteAnimation = null;
@@ -61,7 +64,8 @@ public class Animator extends GameComponent implements Json.Serializable {
 	@Override
 	public void write (Json json) {
 		json.writeValue("animations", animations);
-		json.writeValue("currentAnimation", animations.findKey(currentAnimation, true));
+		json.writeValue("currentAnimation",
+			animations.findKey(currentAnimation, true));
 	}
 
 	@Override
@@ -84,7 +88,8 @@ public class Animator extends GameComponent implements Json.Serializable {
 	@Override
 	public String toString () {
 		String returnString = "Animation: {\n";
-		returnString += "Timelines.size = " + currentAnimation.timelines.size;
+		returnString += "Timelines.size = "
+			+ currentAnimation.timelines.size;
 		for (Timeline timeline : currentAnimation.timelines) {
 			returnString += "TimeLine: {";
 			for (int i = 0; i < timeline.keys.size; i++)

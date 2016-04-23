@@ -17,31 +17,32 @@ public class OpenFileAction implements Runnable {
 
 	@Override
 	public void run () {
-		switch (file.getName().substring(file.getName().lastIndexOf('.'), file.getName().length())) {
-		case ".scene":
-			break;
-		case ".lua":
-			ZeroBraneUtil.openFile(file);
-			break;
-		case ".particle":
-			new Thread() {
+		switch (file.getName().substring(
+			file.getName().lastIndexOf('.'), file.getName().length())) {
+			case ".scene":
+				break;
+			case ".lua":
+				ZeroBraneUtil.openFile(file);
+				break;
+			case ".particle":
+				new Thread() {
 
-				@Override
-				public void run () {
-					try {
-					} catch (Exception ex) {
-						ex.printStackTrace();
+					@Override
+					public void run () {
+						try {
+						} catch (Exception ex) {
+							ex.printStackTrace();
+						}
 					}
+				}.start();
+				break;
+			default:
+				try {
+					Desktop.getDesktop().open(file);
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			}.start();
-			break;
-		default:
-			try {
-				Desktop.getDesktop().open(file);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			break;
+				break;
 		}
 	}
 }

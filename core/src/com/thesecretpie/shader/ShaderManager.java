@@ -58,14 +58,16 @@ public class ShaderManager {
 		this(shaderDir, am, true);
 	}
 
-	public ShaderManager (String shaderDir, AssetManager am, boolean addProcessors) {
+	public ShaderManager (String shaderDir, AssetManager am,
+		boolean addProcessors) {
 		shaders = new ObjectMap<String, ShaderProgram>();
 		shaderPaths = new ObjectMap<String, String>();
 		sourcesVert = new ObjectMap<String, String>();
 		sourcesFrag = new ObjectMap<String, String>();
 		frameBuffers = new ObjectMap<String, FrameBuffer>();
 		openedFrameBuffers = new Array<String>(true, MAX_FRAMEBUFFERS);
-		screenCamera = new OrthographicCamera(Gdx.graphics.getWidth() + 2, Gdx.graphics.getHeight() + 2);
+		screenCamera = new OrthographicCamera(
+			Gdx.graphics.getWidth() + 2, Gdx.graphics.getHeight() + 2);
 		createScreenQuad();
 		screenCamera.translate(0, -1);
 		screenCamera.update();
@@ -73,8 +75,10 @@ public class ShaderManager {
 		setAssetManager(am);
 		// add("empty", "empty.vert", "empty.frag");
 		// add("default", "default.vert", "default.frag");
-		if (addProcessors && (Gdx.app.getType() == ApplicationType.Desktop || Gdx.app.getType() == ApplicationType.Applet
-			|| Gdx.app.getType() == ApplicationType.WebGL)) {
+		if (addProcessors
+			&& (Gdx.app.getType() == ApplicationType.Desktop
+				|| Gdx.app.getType() == ApplicationType.Applet
+				|| Gdx.app.getType() == ApplicationType.WebGL)) {
 			/*
 			 * add("processor", "processor.vert", "processor.frag"); add("processor_blur", "processor.vert", "processor_blur.frag");
 			 * add("copy", "processor.vert", "copy.frag"); add("processor_draw", "processor.vert", "processor_draw.frag");
@@ -95,12 +99,15 @@ public class ShaderManager {
 	 * @param fbWidth - desired width
 	 * @param fbHeight - desired height
 	 * @param hasDepth - whether to attach depth buffer */
-	public void createFB (String fbIdn, Format format, int fbWidth, int fbHeight, boolean hasDepth) {
+	public void createFB (String fbIdn, Format format, int fbWidth,
+		int fbHeight, boolean hasDepth) {
 		FrameBuffer fb = frameBuffers.get(fbIdn);
-		if (fb == null || fb.getWidth() != fbWidth || fb.getHeight() != fbHeight) {
+		if (fb == null || fb.getWidth() != fbWidth
+			|| fb.getHeight() != fbHeight) {
 			if (fb != null)
 				fb.dispose();
-			fb = new FrameBuffer(Format.RGBA8888, fbWidth, fbHeight, hasDepth);
+			fb = new FrameBuffer(Format.RGBA8888, fbWidth, fbHeight,
+				hasDepth);
 		}
 		frameBuffers.put(fbIdn, fb);
 	}
@@ -110,7 +117,8 @@ public class ShaderManager {
 	 * @param format - pixel format of this framebuffer
 	 * @param fbWidth - desired width
 	 * @param fbHeight - desired height */
-	public void createFB (String fbIdn, Format format, int fbWidth, int fbHeight) {
+	public void createFB (String fbIdn, Format format, int fbWidth,
+		int fbHeight) {
 		createFB(fbIdn, format, fbWidth, fbHeight, false);
 	}
 
@@ -125,21 +133,27 @@ public class ShaderManager {
 	/** Creates a new Framebuffer with given params, screen resolution, pixel format of RGBA8888 and no depth buffer.
 	 * @param fbIdn - this framebuffer's identifier */
 	public void createFB (String fbIdn) {
-		createFB(fbIdn, Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		createFB(fbIdn, Format.RGBA8888, Gdx.graphics.getWidth(),
+			Gdx.graphics.getHeight());
 	}
 
 	/** Creates a quad which spans entire screen, used for rendering of framebuffers. */
 	private void createScreenQuad () {
 		if (screenQuad != null)
 			return;
-		screenQuad = new Mesh(true, 4, 6, new VertexAttribute(Usage.Position, 3, "a_position"),
-			new VertexAttribute(Usage.ColorUnpacked, 4, "a_color"), new VertexAttribute(Usage.TextureCoordinates, 2, "a_texCoords"));
+		screenQuad = new Mesh(true, 4, 6,
+			new VertexAttribute(Usage.Position, 3, "a_position"),
+			new VertexAttribute(Usage.ColorUnpacked, 4, "a_color"),
+			new VertexAttribute(Usage.TextureCoordinates, 2,
+				"a_texCoords"));
 		Vector3 vec0 = new Vector3(0, 0, 0);
 		screenCamera.unproject(vec0);
-		Vector3 vec1 = new Vector3(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0);
+		Vector3 vec1 = new Vector3(Gdx.graphics.getWidth(),
+			Gdx.graphics.getHeight(), 0);
 		screenCamera.unproject(vec1);
-		screenQuad.setVertices(new float[] {vec0.x, vec0.y, 0, 1, 1, 1, 1, 0, 1, vec1.x, vec0.y, 0, 1, 1, 1, 1, 1, 1, vec1.x,
-			vec1.y, 0, 1, 1, 1, 1, 1, 0, vec0.x, vec1.y, 0, 1, 1, 1, 1, 0, 0});
+		screenQuad.setVertices(new float[] {vec0.x, vec0.y, 0, 1, 1, 1,
+			1, 0, 1, vec1.x, vec0.y, 0, 1, 1, 1, 1, 1, 1, vec1.x, vec1.y,
+			0, 1, 1, 1, 1, 1, 0, vec0.x, vec1.y, 0, 1, 1, 1, 1, 0, 0});
 		screenQuad.setIndices(new short[] {0, 1, 2, 2, 3, 0});
 	}
 
@@ -152,8 +166,9 @@ public class ShaderManager {
 	 * @return this ShaderProgram for chaining */
 	public ShaderProgram begin (String shadIdn) {
 		if (currentShader != null)
-			throw new IllegalArgumentException(
-				"Previous shader '" + currentShaderIdn + "' not finished! Call end() before another begin().");
+			throw new IllegalArgumentException("Previous shader '"
+				+ currentShaderIdn
+				+ "' not finished! Call end() before another begin().");
 		ShaderProgram res = get(shadIdn);
 		if (res != null) {
 			currentShader = res;
@@ -161,7 +176,8 @@ public class ShaderManager {
 			currentTextureId = 0;
 			res.begin();
 		} else
-			throw new IllegalArgumentException("Shader '" + shadIdn + "' not found!");
+			throw new IllegalArgumentException(
+				"Shader '" + shadIdn + "' not found!");
 		return res;
 	}
 
@@ -179,14 +195,19 @@ public class ShaderManager {
 	 * @param clearColor - clear color for this framebuffer */
 	private void beginFB (FrameBuffer fb, Color clearColor) {
 		if (fb == null)
-			throw new IllegalArgumentException("FrameBuffer must not be null!");
+			throw new IllegalArgumentException(
+				"FrameBuffer must not be null!");
 		fb.begin();
-		Gdx.graphics.getGL20().glViewport(0, 0, fb.getWidth(), fb.getHeight());
-		Gdx.graphics.getGL20().glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
-		Gdx.graphics.getGL20().glClear(GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
+		Gdx.graphics.getGL20().glViewport(0, 0, fb.getWidth(),
+			fb.getHeight());
+		Gdx.graphics.getGL20().glClearColor(clearColor.r, clearColor.g,
+			clearColor.b, clearColor.a);
+		Gdx.graphics.getGL20().glClear(
+			GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT);
 		Gdx.graphics.getGL20().glEnable(GL20.GL_TEXTURE_2D);
 		Gdx.graphics.getGL20().glEnable(GL20.GL_BLEND);
-		Gdx.graphics.getGL20().glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		Gdx.graphics.getGL20().glBlendFunc(GL20.GL_SRC_ALPHA,
+			GL20.GL_ONE_MINUS_SRC_ALPHA);
 	}
 
 	/** Call this to start rendering to given framebuffer.
@@ -205,14 +226,16 @@ public class ShaderManager {
 
 	private void endFB (FrameBuffer fb) {
 		if (fb == null)
-			throw new IllegalArgumentException("FrameBuffer must not be null!");
+			throw new IllegalArgumentException(
+				"FrameBuffer must not be null!");
 		fb.end();
 	}
 
 	/** Call this to finish rendering into current framebuffer. */
 	public void endFB () {
 		if (openedFrameBuffers.size == 0)
-			throw new IllegalArgumentException("No framebuffers to end!");
+			throw new IllegalArgumentException(
+				"No framebuffers to end!");
 		endFB(frameBuffers.get(openedFrameBuffers.pop()));
 	}
 
@@ -221,10 +244,12 @@ public class ShaderManager {
 	 * @param out - a Mesh to render the framebuffer to
 	 * @param textureUniformName - the name of the texture2d uniform parameter in the fragment shader
 	 * @param textureId - which texture number should be used */
-	public void renderFB (FrameBuffer fb, Mesh out, String textureUniformName, int textureId) {
+	public void renderFB (FrameBuffer fb, Mesh out,
+		String textureUniformName, int textureId) {
 		if (fb != null) {
 			fb.getColorBufferTexture().bind(textureId);
-			getCurrent().setUniformMatrix("u_worldView", screenCamera.combined);
+			getCurrent().setUniformMatrix("u_worldView",
+				screenCamera.combined);
 			getCurrent().setUniformi(textureUniformName, textureId);
 			out.render(getCurrent(), GL20.GL_TRIANGLES);
 		}
@@ -235,7 +260,8 @@ public class ShaderManager {
 	 * @param out - a Mesh to render the framebuffer to
 	 * @param textureUniformName - the name of the texture2d uniform parameter in the fragment shader
 	 * @param textureId - which texture number should be used */
-	public void renderFB (String fbIdn, Mesh out, String textureUniformName, int textureId) {
+	public void renderFB (String fbIdn, Mesh out,
+		String textureUniformName, int textureId) {
 		FrameBuffer fb = frameBuffers.get(fbIdn);
 		if (fb != null)
 			renderFB(fb, out, textureUniformName, textureId);
@@ -259,7 +285,8 @@ public class ShaderManager {
 	 * @param fb - FrameBuffer
 	 * @param textureUniformName - the name of the texture2d uniform parameter in the fragment shader
 	 * @param textureId - which texture number should be used */
-	public void renderFB (FrameBuffer fb, String textureUniformName, int textureId) {
+	public void renderFB (FrameBuffer fb, String textureUniformName,
+		int textureId) {
 		renderFB(fb, screenQuad, textureUniformName, textureId);
 	}
 
@@ -267,7 +294,8 @@ public class ShaderManager {
 	 * @param fbIdn
 	 * @param textureUniformName - the name of the texture2d uniform parameter in the fragment shader
 	 * @param textureId - which texture number should be used */
-	public void renderFB (String fbIdn, String textureUniformName, int textureId) {
+	public void renderFB (String fbIdn, String textureUniformName,
+		int textureId) {
 		renderFB(fbIdn, screenQuad, textureUniformName, textureId);
 	}
 
@@ -280,7 +308,8 @@ public class ShaderManager {
 	/** Renders given framebuffer into entire screen.
 	 * @param fbIdn */
 	public void renderFB (String fbIdn) {
-		renderFB(fbIdn, screenQuad, "u_texture", FRAMEBUFFER_TEXTURE_ID);
+		renderFB(fbIdn, screenQuad, "u_texture",
+			FRAMEBUFFER_TEXTURE_ID);
 	}
 
 	/** Renders given framebuffer into entire screen using default shader.
@@ -295,13 +324,15 @@ public class ShaderManager {
 	 * @param fbIdn */
 	public void renderFBDefault (String fbIdn) {
 		begin("default");
-		renderFB(fbIdn, screenQuad, "u_texture", FRAMEBUFFER_TEXTURE_ID);
+		renderFB(fbIdn, screenQuad, "u_texture",
+			FRAMEBUFFER_TEXTURE_ID);
 		end();
 	}
 
 	/** @return are we rendering to a framebuffer now? */
 	public boolean isRenderingToFB () {
-		return currentShader != null && frameBuffers.containsKey(currentShaderIdn);
+		return currentShader != null
+			&& frameBuffers.containsKey(currentShaderIdn);
 	}
 
 	/** Sets given framebuffer.
@@ -340,7 +371,8 @@ public class ShaderManager {
 	 * @param width - new screen width
 	 * @param height - new screen height
 	 * @param resizeFramebuffers - whether all of the framebuffers should be recreated to match new screen size */
-	public void resize (int width, int height, boolean resizeFramebuffers) {
+	public void resize (int width, int height,
+		boolean resizeFramebuffers) {
 		// ?????
 		if (resizeFramebuffers) {
 			Keys<String> keys = frameBuffers.keys();
@@ -349,12 +381,14 @@ public class ShaderManager {
 				FrameBuffer fb = frameBuffers.get(key);
 				int oldWidth = fb.getWidth();
 				int oldHeight = fb.getHeight();
-				Format format = fb.getColorBufferTexture().getTextureData().getFormat();
+				Format format = fb.getColorBufferTexture()
+					.getTextureData().getFormat();
 				fb.dispose();
 				frameBuffers.put(key, null);
 				float factorX = 1f * width / screenCamera.viewportWidth;
 				float factorY = 1f * height / screenCamera.viewportHeight;
-				createFB(key, format, (int)(factorX * oldWidth), (int)(factorY * oldHeight));
+				createFB(key, format, (int)(factorX * oldWidth),
+					(int)(factorY * oldHeight));
 				// System.out.println("Recreated FB '" + key + "' from " + oldWidth + "x" + oldHeight + " to " +
 				// frameBuffers.get(key).getWidth() + "x" + frameBuffers.get(key).getHeight());
 			}
@@ -403,7 +437,8 @@ public class ShaderManager {
 			fh = fixPath(fh);
 			frag = fh.readString("utf-8");
 			fragPath = fh.path();
-			FileHandle fh2 = Gdx.files.internal(fh.parent().path() + "/" + key + ".vert");
+			FileHandle fh2 = Gdx.files
+				.internal(fh.parent().path() + "/" + key + ".vert");
 			if (fh2.exists()) {
 				vert = fh2.readString("utf-8");
 				vertPath = fh2.path();
@@ -412,7 +447,8 @@ public class ShaderManager {
 			fh = fixPath(fh);
 			vert = fh.readString("utf-8");
 			vertPath = fh.path();
-			FileHandle fh2 = Gdx.files.internal(fh.parent().path() + "/" + key + ".frag");
+			FileHandle fh2 = Gdx.files
+				.internal(fh.parent().path() + "/" + key + ".frag");
 			if (fh2.exists()) {
 				frag = fh2.readString("utf-8");
 				fragPath = fh2.path();
@@ -426,12 +462,18 @@ public class ShaderManager {
 		sourcesFrag.put(key, frag);
 		ShaderProgram sp = new ShaderProgram(vert, frag);
 		if (!sp.isCompiled()) {
-			Gdx.app.log("ShaderManager", "Error while loading shader '" + key + "':\n" + sp.getLog());
-			Gdx.app.log("ShaderManager", "--------------------------------");
-			Gdx.app.log("ShaderManager", "Vertex shader source: \n" + vert);
-			Gdx.app.log("ShaderManager", "--------------------------------");
-			Gdx.app.log("ShaderManager", "Fragment shader source: \n" + frag);
-			Gdx.app.log("ShaderManager", "--------------------------------");
+			Gdx.app.log("ShaderManager", "Error while loading shader '"
+				+ key + "':\n" + sp.getLog());
+			Gdx.app.log("ShaderManager",
+				"--------------------------------");
+			Gdx.app.log("ShaderManager",
+				"Vertex shader source: \n" + vert);
+			Gdx.app.log("ShaderManager",
+				"--------------------------------");
+			Gdx.app.log("ShaderManager",
+				"Fragment shader source: \n" + frag);
+			Gdx.app.log("ShaderManager",
+				"--------------------------------");
 			return;
 		}
 		shaders.put(key, sp);
@@ -468,7 +510,8 @@ public class ShaderManager {
 		if (am != null)
 			add(am, key, vertPath, fragPath);
 		else
-			add(key, Gdx.files.internal(vertPath), Gdx.files.internal(fragPath));
+			add(key, Gdx.files.internal(vertPath),
+				Gdx.files.internal(fragPath));
 	}
 
 	/** Adds new shader to ShaderManager, loads it using AssetManager.
@@ -476,25 +519,31 @@ public class ShaderManager {
 	 * @param key - shader identifier
 	 * @param baseVertPath - path to vertex shader source
 	 * @param baseFragPath - path to fragment shader source */
-	public void add (AssetManager am, String key, String baseVertPath, String baseFragPath) {
-		am.setLoader(String.class, new TextFileLoader(new InternalFileHandleResolver()));
+	public void add (AssetManager am, String key, String baseVertPath,
+		String baseFragPath) {
+		am.setLoader(String.class,
+			new TextFileLoader(new InternalFileHandleResolver()));
 		FileHandle vertFh = null, fragFh = null;
 		String vertPath = shaderDir + "/" + baseVertPath;
 		vertFh = Gdx.files.internal(vertPath);
 		if (!vertFh.exists()) {
-			vertFh = Gdx.files.classpath(SHADER_CLASSPATH + "/" + baseVertPath);
+			vertFh = Gdx.files
+				.classpath(SHADER_CLASSPATH + "/" + baseVertPath);
 			vertPath = vertFh.path();
 		}
 		String fragPath = shaderDir + "/" + baseFragPath;
 		fragFh = Gdx.files.internal(fragPath);
 		if (!fragFh.exists()) {
-			fragFh = Gdx.files.classpath(SHADER_CLASSPATH + "/" + baseFragPath);
+			fragFh = Gdx.files
+				.classpath(SHADER_CLASSPATH + "/" + baseFragPath);
 			fragPath = fragFh.path();
 		}
 		if (!vertFh.exists())
-			throw new GdxRuntimeException("ShaderManager: shader '" + vertPath + "' does not exist!");
+			throw new GdxRuntimeException("ShaderManager: shader '"
+				+ vertPath + "' does not exist!");
 		if (!fragFh.exists())
-			throw new GdxRuntimeException("ShaderManager: shader '" + fragPath + "' does not exist!");
+			throw new GdxRuntimeException("ShaderManager: shader '"
+				+ fragPath + "' does not exist!");
 		if (am.isLoaded(vertPath))
 			am.unload(vertPath);
 		if (am.isLoaded(fragPath))
@@ -525,12 +574,18 @@ public class ShaderManager {
 		sourcesFrag.put(key, frag);
 		ShaderProgram sp = new ShaderProgram(vert, frag);
 		if (!sp.isCompiled()) {
-			Gdx.app.log("ShaderManager", "Error while loading shader '" + key + "':\n" + sp.getLog());
-			Gdx.app.log("ShaderManager", "--------------------------------");
-			Gdx.app.log("ShaderManager", "Vertex shader source: \n" + vert);
-			Gdx.app.log("ShaderManager", "--------------------------------");
-			Gdx.app.log("ShaderManager", "Fragment shader source: \n" + frag);
-			Gdx.app.log("ShaderManager", "--------------------------------");
+			Gdx.app.log("ShaderManager", "Error while loading shader '"
+				+ key + "':\n" + sp.getLog());
+			Gdx.app.log("ShaderManager",
+				"--------------------------------");
+			Gdx.app.log("ShaderManager",
+				"Vertex shader source: \n" + vert);
+			Gdx.app.log("ShaderManager",
+				"--------------------------------");
+			Gdx.app.log("ShaderManager",
+				"Fragment shader source: \n" + frag);
+			Gdx.app.log("ShaderManager",
+				"--------------------------------");
 			return false;
 		}
 		shaders.put(key, sp);
@@ -544,16 +599,19 @@ public class ShaderManager {
 		if (!fh.exists())
 			fh = Gdx.files.internal(shaderDir + "/" + fh.path());
 		if (!fh.exists())
-			throw new GdxRuntimeException("Shader not found: " + fh.path());
+			throw new GdxRuntimeException(
+				"Shader not found: " + fh.path());
 		return fh;
 	}
 
 	private String appendGLESPrecisions (String shader, String prec) {
 		if (shader == null)
 			return null;
-		if (Gdx.app.getType() == ApplicationType.Desktop || Gdx.app.getType() == ApplicationType.Applet)
+		if (Gdx.app.getType() == ApplicationType.Desktop
+			|| Gdx.app.getType() == ApplicationType.Applet)
 			return shader;
-		String tmp = "#ifdef GL_ES\n " + "precision " + prec + " float;\n" + "precision " + prec + " int;\n" +
+		String tmp = "#ifdef GL_ES\n " + "precision " + prec
+			+ " float;\n" + "precision " + prec + " int;\n" +
 			// "precision " + prec + " vec2;\n" +
 			// "precision " + prec + " vec3;\n" +
 			// "precision " + prec + " vec4;\n" +
@@ -574,7 +632,8 @@ public class ShaderManager {
 	public ShaderProgram get (String name) {
 		if (shaders.containsKey(name))
 			return shaders.get(name);
-		throw new GdxRuntimeException("No shader named '" + name + "' in ShaderManager!");
+		throw new GdxRuntimeException(
+			"No shader named '" + name + "' in ShaderManager!");
 	}
 
 	/** Returns current shader from ShaderManager.
@@ -582,7 +641,8 @@ public class ShaderManager {
 	public ShaderProgram getCurrent () {
 		if (currentShader != null)
 			return currentShader;
-		throw new GdxRuntimeException("No current shader set in ShaderManager!");
+		throw new GdxRuntimeException(
+			"No current shader set in ShaderManager!");
 	}
 
 	/** Returns the vertex shader source for requested shader
@@ -612,13 +672,16 @@ public class ShaderManager {
 			String key = keys.next();
 			int ind = shaderPaths.get(key).indexOf(";");
 			String vertPath = shaderPaths.get(key).substring(0, ind);
-			String fragPath = shaderPaths.get(key).substring(ind + 1, shaderPaths.get(key).length());
+			String fragPath = shaderPaths.get(key).substring(ind + 1,
+				shaderPaths.get(key).length());
 			if (am != null)
-				add(key, RavTech.files.getAssetHandle(vertPath), RavTech.files.getAssetHandle(fragPath));
+				add(key, RavTech.files.getAssetHandle(vertPath),
+					RavTech.files.getAssetHandle(fragPath));
 			else
 				add(key, vertPath, fragPath);
 		}
-		Gdx.app.log("ShaderManager", "Shaders reloaded in " + (System.currentTimeMillis() - t) + "ms");
+		Gdx.app.log("ShaderManager", "Shaders reloaded in "
+			+ (System.currentTimeMillis() - t) + "ms");
 	}
 
 	/* passing uniforms to current shader */
@@ -629,44 +692,55 @@ public class ShaderManager {
 	 * @param value2 the second value
 	 * @param value3 the third value
 	 * @param value4 the fourth value */
-	public ShaderProgram setAttributef (java.lang.String name, float value1, float value2, float value3, float value4) {
+	public ShaderProgram setAttributef (java.lang.String name,
+		float value1, float value2, float value3, float value4) {
 		if (currentShader != null) {
-			currentShader.setAttributef(name, value1, value2, value3, value4);
+			currentShader.setAttributef(name, value1, value2, value3,
+				value4);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
-	public ShaderProgram setUniform1fv (java.lang.String name, float[] values, int offset, int length) {
+	public ShaderProgram setUniform1fv (java.lang.String name,
+		float[] values, int offset, int length) {
 		if (currentShader != null) {
 			currentShader.setUniform1fv(name, values, offset, length);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
-	public ShaderProgram setUniform2fv (java.lang.String name, float[] values, int offset, int length) {
+	public ShaderProgram setUniform2fv (java.lang.String name,
+		float[] values, int offset, int length) {
 		if (currentShader != null) {
 			currentShader.setUniform2fv(name, values, offset, length);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
-	public ShaderProgram setUniform3fv (java.lang.String name, float[] values, int offset, int length) {
+	public ShaderProgram setUniform3fv (java.lang.String name,
+		float[] values, int offset, int length) {
 		if (currentShader != null) {
 			currentShader.setUniform3fv(name, values, offset, length);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
-	public ShaderProgram setUniform4fv (java.lang.String name, float[] values, int offset, int length) {
+	public ShaderProgram setUniform4fv (java.lang.String name,
+		float[] values, int offset, int length) {
 		if (currentShader != null) {
 			currentShader.setUniform4fv(name, values, offset, length);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -674,12 +748,14 @@ public class ShaderManager {
 	 *
 	 * @param name the name of the uniform
 	 * @param value the value */
-	public ShaderProgram setUniformf (java.lang.String name, float value) {
+	public ShaderProgram setUniformf (java.lang.String name,
+		float value) {
 		if (currentShader != null) {
 			currentShader.setUniformf(name, value);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -688,12 +764,14 @@ public class ShaderManager {
 	 * @param name the name of the uniform
 	 * @param value1 the first value
 	 * @param value2 the second value */
-	public ShaderProgram setUniformf (java.lang.String name, float value1, float value2) {
+	public ShaderProgram setUniformf (java.lang.String name,
+		float value1, float value2) {
 		if (currentShader != null) {
 			currentShader.setUniformf(name, value1, value2);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -703,12 +781,14 @@ public class ShaderManager {
 	 * @param value1 the first value
 	 * @param value2 the second value
 	 * @param value3 the third value */
-	public ShaderProgram setUniformf (java.lang.String name, float value1, float value2, float value3) {
+	public ShaderProgram setUniformf (java.lang.String name,
+		float value1, float value2, float value3) {
 		if (currentShader != null) {
 			currentShader.setUniformf(name, value1, value2, value3);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -719,12 +799,15 @@ public class ShaderManager {
 	 * @param value2 the second value
 	 * @param value3 the third value
 	 * @param value4 the fourth value */
-	public ShaderProgram setUniformf (java.lang.String name, float value1, float value2, float value3, float value4) {
+	public ShaderProgram setUniformf (java.lang.String name,
+		float value1, float value2, float value3, float value4) {
 		if (currentShader != null) {
-			currentShader.setUniformf(name, value1, value2, value3, value4);
+			currentShader.setUniformf(name, value1, value2, value3,
+				value4);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -732,12 +815,14 @@ public class ShaderManager {
 	 *
 	 * @param name the name of the uniform
 	 * @param value the value */
-	public ShaderProgram setUniformi (java.lang.String name, int value) {
+	public ShaderProgram setUniformi (java.lang.String name,
+		int value) {
 		if (currentShader != null) {
 			currentShader.setUniformi(name, value);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -746,12 +831,14 @@ public class ShaderManager {
 	 * @param name the name of the uniform
 	 * @param value1 the first value
 	 * @param value2 the second value */
-	public ShaderProgram setUniformi (java.lang.String name, int value1, int value2) {
+	public ShaderProgram setUniformi (java.lang.String name,
+		int value1, int value2) {
 		if (currentShader != null) {
 			currentShader.setUniformi(name, value1, value2);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -761,12 +848,14 @@ public class ShaderManager {
 	 * @param value1 the first value
 	 * @param value2 the second value
 	 * @param value3 the third value */
-	public ShaderProgram setUniformi (java.lang.String name, int value1, int value2, int value3) {
+	public ShaderProgram setUniformi (java.lang.String name,
+		int value1, int value2, int value3) {
 		if (currentShader != null) {
 			currentShader.setUniformi(name, value1, value2, value3);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -777,12 +866,15 @@ public class ShaderManager {
 	 * @param value2 the second value
 	 * @param value3 the third value
 	 * @param value4 the fourth value */
-	public ShaderProgram setUniformi (java.lang.String name, int value1, int value2, int value3, int value4) {
+	public ShaderProgram setUniformi (java.lang.String name,
+		int value1, int value2, int value3, int value4) {
 		if (currentShader != null) {
-			currentShader.setUniformi(name, value1, value2, value3, value4);
+			currentShader.setUniformi(name, value1, value2, value3,
+				value4);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform matrix with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -790,12 +882,14 @@ public class ShaderManager {
 	 *
 	 * @param name the name of the uniform
 	 * @param matrix the matrix */
-	public ShaderProgram setUniformMatrix (java.lang.String name, Matrix3 matrix) {
+	public ShaderProgram setUniformMatrix (java.lang.String name,
+		Matrix3 matrix) {
 		if (currentShader != null) {
 			currentShader.setUniformMatrix(name, matrix);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform matrix with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -804,12 +898,14 @@ public class ShaderManager {
 	 * @param name the name of the uniform
 	 * @param matrix the matrix
 	 * @param transpose whether the uniform matrix should be transposed */
-	public ShaderProgram setUniformMatrix (java.lang.String name, Matrix3 matrix, boolean transpose) {
+	public ShaderProgram setUniformMatrix (java.lang.String name,
+		Matrix3 matrix, boolean transpose) {
 		if (currentShader != null) {
 			currentShader.setUniformMatrix(name, matrix, transpose);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform matrix with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -817,12 +913,14 @@ public class ShaderManager {
 	 *
 	 * @param name the name of the uniform
 	 * @param matrix the matrix */
-	public ShaderProgram setUniformMatrix (java.lang.String name, Matrix4 matrix) {
+	public ShaderProgram setUniformMatrix (java.lang.String name,
+		Matrix4 matrix) {
 		if (currentShader != null) {
 			currentShader.setUniformMatrix(name, matrix);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform matrix with the given name. Throws an IllegalArgumentException in case it is not called in between a
@@ -831,26 +929,30 @@ public class ShaderManager {
 	 * @param name the name of the uniform
 	 * @param matrix the matrix
 	 * @param transpose whether the matrix should be transposed */
-	public ShaderProgram setUniformMatrix (java.lang.String name, Matrix4 matrix, boolean transpose) {
+	public ShaderProgram setUniformMatrix (java.lang.String name,
+		Matrix4 matrix, boolean transpose) {
 		if (currentShader != null) {
 			currentShader.setUniformMatrix(name, matrix, transpose);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/** Sets the uniform with the given name, automatically binding the texture to a number. Throws an IllegalArgumentException in
 	 * case it is not called in between a {@link #begin()}/{@link #end()} block.
 	 *
 	 * @param name the name of the uniform */
-	public ShaderProgram setUniformTexture (String name, Texture value) {
+	public ShaderProgram setUniformTexture (String name,
+		Texture value) {
 		if (currentShader != null) {
 			int texId = getCurrentTextureId();
 			value.bind(texId);
 			currentShader.setUniformi(name, texId);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 
 	/*
@@ -868,12 +970,14 @@ public class ShaderManager {
 	 * @param normalize whether fixed point data should be normalized. Will not work on the desktop
 	 * @param stride the stride in bytes between successive attributes
 	 * @param offset byte offset into the vertex buffer object bound to GL20.GL_ARRAY_BUFFER. */
-	public ShaderProgram setVertexAttribute (java.lang.String name, int size, int type, boolean normalize, int stride,
-		int offset) {
+	public ShaderProgram setVertexAttribute (java.lang.String name,
+		int size, int type, boolean normalize, int stride, int offset) {
 		if (currentShader != null) {
-			currentShader.setVertexAttribute(name, size, type, normalize, stride, offset);
+			currentShader.setVertexAttribute(name, size, type, normalize,
+				stride, offset);
 			return currentShader;
 		} else
-			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+			throw new IllegalArgumentException(
+				"Can't set uniform before calling begin()!");
 	}
 }

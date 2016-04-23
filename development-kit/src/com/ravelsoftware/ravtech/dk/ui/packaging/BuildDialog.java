@@ -51,7 +51,8 @@ public class BuildDialog extends VisWindow {
 		newWindowStyle.background = windowStyle.background;
 		newWindowStyle.titleFont = windowStyle.titleFont;
 		newWindowStyle.titleFontColor = windowStyle.titleFontColor;
-		newWindowStyle.stageBackground = VisUI.getSkin().getDrawable("dialogDim");
+		newWindowStyle.stageBackground = VisUI.getSkin()
+			.getDrawable("dialogDim");
 		setStyle(newWindowStyle);
 		centerWindow();
 	}
@@ -75,35 +76,46 @@ public class BuildDialog extends VisWindow {
 		dropDown.setItems("Internal", "External");
 		optionsTable.add(dropDown);
 		contentTable.add(optionsTable).grow();
-		
+
 		VisTable bottomTable = new VisTable();
 
 		VisTextButton buildButton = new VisTextButton("Build");
 		buildButton.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				if (platformList.getSelected().equals(TargetPlatform.Android)) {
+				if (platformList.getSelected()
+					.equals(TargetPlatform.Android)) {
 					BuildDialog.this.contentTable.clear();
-					BuildDialog.this.contentTable.add(createApkOptionsTable(
-						new BuildOptions((dropDown.getSelectedIndex() == 0) ? AssetType.Internal : AssetType.External))).grow();
+					BuildDialog.this.contentTable
+						.add(createApkOptionsTable(new BuildOptions(
+							(dropDown.getSelectedIndex() == 0)
+								? AssetType.Internal : AssetType.External)))
+						.grow();
 					return;
 				}
 				BuildDialog.this.build(platformList.getSelected(), false,
-					new BuildOptions((dropDown.getSelectedIndex() == 0) ? AssetType.Internal : AssetType.External));
+					new BuildOptions((dropDown.getSelectedIndex() == 0)
+						? AssetType.Internal : AssetType.External));
 			}
 		});
 		bottomTable.add(buildButton);
 
-		VisTextButton buildAndRunButton = new VisTextButton("Build and Run");
+		VisTextButton buildAndRunButton = new VisTextButton(
+			"Build and Run");
 		buildAndRunButton.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				if (platformList.getSelected().equals(TargetPlatform.Android) && AdbManager.getDevices().size == 0)
+				if (platformList.getSelected()
+					.equals(TargetPlatform.Android)
+					&& AdbManager.getDevices().size == 0)
 					return;
-				if (platformList.getSelected().equals(TargetPlatform.Android) && AdbManager.getDevices().size > 1)
+				if (platformList.getSelected()
+					.equals(TargetPlatform.Android)
+					&& AdbManager.getDevices().size > 1)
 					return;
 				BuildDialog.this.build(platformList.getSelected(), true,
-					new BuildOptions((dropDown.getSelectedIndex() == 0) ? AssetType.Internal : AssetType.External));
+					new BuildOptions((dropDown.getSelectedIndex() == 0)
+						? AssetType.Internal : AssetType.External));
 			}
 		});
 		bottomTable.add(buildAndRunButton);
@@ -113,14 +125,17 @@ public class BuildDialog extends VisWindow {
 		return contentTable;
 	}
 
-	public VisTable createApkOptionsTable (final BuildOptions buildOptions) {
+	public VisTable createApkOptionsTable (
+		final BuildOptions buildOptions) {
 		VisTable optionsTable = new VisTable();
 		optionsTable.setFillParent(true);
 
 		VisTable contentTable = new VisTable();
 		final VisTextField keystorePathField = new VisTextField();
-		VisTextButton keystoreSelectButton = new VisTextButton("Select");
-		VisTextButton keystoreCreateTextButton = new VisTextButton("Create");
+		VisTextButton keystoreSelectButton = new VisTextButton(
+			"Select");
+		VisTextButton keystoreCreateTextButton = new VisTextButton(
+			"Create");
 		final VisTextField keystorePasswordField = new VisTextField();
 		keystorePasswordField.setPasswordMode(true);
 		final VisTextField aliasField = new VisTextField();
@@ -132,7 +147,8 @@ public class BuildDialog extends VisWindow {
 		fileChooser.setFileFilter(new FileFilter() {
 			@Override
 			public boolean accept (File arg0) {
-				return Gdx.files.absolute(arg0.getAbsolutePath()).extension().equals("keystore") || arg0.isDirectory();
+				return Gdx.files.absolute(arg0.getAbsolutePath())
+					.extension().equals("keystore") || arg0.isDirectory();
 			}
 		});
 		fileChooser.setListener(new FileChooserAdapter() {
@@ -157,13 +173,15 @@ public class BuildDialog extends VisWindow {
 		contentTable.add(new Actor());
 		contentTable.add(keystoreCreateTextButton).align(Align.right);
 		contentTable.row();
-		contentTable.add(new VisLabel("Keystore Password:")).align(Align.left);
+		contentTable.add(new VisLabel("Keystore Password:"))
+			.align(Align.left);
 		contentTable.add(keystorePasswordField).growX();
 		contentTable.row();
 		contentTable.add(new VisLabel("Alias:")).align(Align.left);
 		contentTable.add(aliasField).growX();
 		contentTable.row();
-		contentTable.add(new VisLabel("Alias Password:")).align(Align.left);
+		contentTable.add(new VisLabel("Alias Password:"))
+			.align(Align.left);
 		contentTable.add(aliasPasswordField).growX();
 		contentTable.row();
 
@@ -177,8 +195,12 @@ public class BuildDialog extends VisWindow {
 		buildButton.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				BuildDialog.this.build(TargetPlatform.Android, false, new KeyStoreCredentials(new File(keystorePathField.getText()),
-					keystorePasswordField.getText(), aliasField.getText(), aliasPasswordField.getText()), buildOptions);
+				BuildDialog.this.build(TargetPlatform.Android, false,
+					new KeyStoreCredentials(
+						new File(keystorePathField.getText()),
+						keystorePasswordField.getText(),
+						aliasField.getText(), aliasPasswordField.getText()),
+					buildOptions);
 			}
 		});
 		bottomTable.add(buildButton).align(Align.bottomRight);
@@ -189,15 +211,18 @@ public class BuildDialog extends VisWindow {
 		return optionsTable;
 	}
 
-	public void build (TargetPlatform targetPlatform, boolean run, Object userData, BuildOptions options) {
+	public void build (TargetPlatform targetPlatform, boolean run,
+		Object userData, BuildOptions options) {
 		BuildReporterDialog buildDialog = new BuildReporterDialog();
 		contentTable.clearChildren();
 		VisScrollPane scrollPane = new VisScrollPane(buildDialog);
-		contentTable.add(scrollPane).grow().pad(10).align(Align.top).padTop(32);
+		contentTable.add(scrollPane).grow().pad(10).align(Align.top)
+			.padTop(32);
 
 		if (targetPlatform == TargetPlatform.Android && run) {
 			if (!AdbManager.initialized) {
-				com.ravelsoftware.ravtech.util.Debug.logError("Adb Error", "Adb Path Not Delcared");
+				com.ravelsoftware.ravtech.util.Debug.logError("Adb Error",
+					"Adb Path Not Delcared");
 				AdbManager.initializeAdb();
 			}
 			Array<JadbDevice> devices = AdbManager.getDevices();
@@ -211,33 +236,36 @@ public class BuildDialog extends VisWindow {
 		if (run)
 			Packager.run(buildDialog, targetPlatform, "");
 		else
-			Packager.dist(buildDialog, targetPlatform, userData, getDistFileHandle(targetPlatform),
+			Packager.dist(buildDialog, targetPlatform, userData,
+				getDistFileHandle(targetPlatform),
 				new BuildOptions(AssetType.Internal));
 	}
 
-	public void build (TargetPlatform targetPlatform, boolean run, BuildOptions buildOptions) {
+	public void build (TargetPlatform targetPlatform, boolean run,
+		BuildOptions buildOptions) {
 		this.build(targetPlatform, run, null, buildOptions);
 	}
 
 	FileHandle getDistFileHandle (TargetPlatform platform) {
-		FileHandle buildsHandle = RavTechDK.projectHandle.child("builds");
+		FileHandle buildsHandle = RavTechDK.projectHandle
+			.child("builds");
 		switch (platform) {
-		case Android:
-			return buildsHandle.child("android");
-		case Desktop:
-			return buildsHandle.child("desktop");
-		case Linux:
-			break;
-		case Mac:
-			break;
-		case WebGL:
-			break;
-		case Windows:
-			break;
-		case iOS:
-			break;
-		default:
-			break;
+			case Android:
+				return buildsHandle.child("android");
+			case Desktop:
+				return buildsHandle.child("desktop");
+			case Linux:
+				break;
+			case Mac:
+				break;
+			case WebGL:
+				break;
+			case Windows:
+				break;
+			case iOS:
+				break;
+			default:
+				break;
 		}
 		return buildsHandle.child("error");
 	}

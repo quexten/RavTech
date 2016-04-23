@@ -16,7 +16,8 @@ public class RavSettings {
 	Preferences preferences;
 
 	public RavSettings () {
-		preferences = Gdx.app.getPreferences(RavTech.isEditor ? "RavTech" : RavTech.project.appName);
+		preferences = Gdx.app.getPreferences(
+			RavTech.isEditor ? "RavTech" : RavTech.project.appName);
 		if (preferences.get().size() > 0)
 			load();
 		else {
@@ -33,15 +34,19 @@ public class RavSettings {
 		if (preferences == null)
 			return;
 		if (value instanceof Boolean)
-			preferences.putBoolean(key, Boolean.valueOf(String.valueOf(value)));
+			preferences.putBoolean(key,
+				Boolean.valueOf(String.valueOf(value)));
 		else if (value instanceof String)
 			preferences.putString(key, String.valueOf(value));
 		else if (value instanceof Integer)
-			preferences.putInteger(key, Integer.valueOf(String.valueOf(value)));
+			preferences.putInteger(key,
+				Integer.valueOf(String.valueOf(value)));
 		else if (value instanceof Float)
-			preferences.putFloat(key, Float.valueOf(String.valueOf(value)));
+			preferences.putFloat(key,
+				Float.valueOf(String.valueOf(value)));
 		else if (value instanceof Double)
-			preferences.putFloat(key, Float.valueOf(String.valueOf(value)));
+			preferences.putFloat(key,
+				Float.valueOf(String.valueOf(value)));
 	}
 
 	public Object getValue (String key) {
@@ -71,7 +76,8 @@ public class RavSettings {
 		return Double.valueOf(values.get(key).toString());
 	}
 
-	public void addValueListener (String value, SettingsValueListener listener) {
+	public void addValueListener (String value,
+		SettingsValueListener listener) {
 		valueListeners.put(value, listener);
 	}
 
@@ -80,12 +86,14 @@ public class RavSettings {
 	}
 
 	public void load () {
-		Preferences preferences = Gdx.app.getPreferences(RavTech.isEditor ? "RavTech" : RavTech.project.appName);
+		Preferences preferences = Gdx.app.getPreferences(
+			RavTech.isEditor ? "RavTech" : RavTech.project.appName);
 		if (preferences == null)
 			return;
 		this.preferences = preferences;
 		Map<String, ?> preferenceMap = preferences.get();
-		Iterator<String> keyIterator = preferenceMap.keySet().iterator();
+		Iterator<String> keyIterator = preferenceMap.keySet()
+			.iterator();
 		while (keyIterator.hasNext()) {
 			String key = keyIterator.next();
 			setValue(key, preferenceMap.get(key));

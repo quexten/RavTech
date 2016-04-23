@@ -11,7 +11,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.ravelsoftware.ravtech.project.Project;
 
-public class ProjectLoader extends AsynchronousAssetLoader<Project, AssetLoaderParameters<Project>> {
+public class ProjectLoader extends
+	AsynchronousAssetLoader<Project, AssetLoaderParameters<Project>> {
 
 	Project project;
 
@@ -21,18 +22,21 @@ public class ProjectLoader extends AsynchronousAssetLoader<Project, AssetLoaderP
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
+	public Array<AssetDescriptor> getDependencies (String fileName,
+		FileHandle file, AssetLoaderParameters<Project> parameter) {
 		project = new Json().fromJson(Project.class, file.readString());
 		Array<AssetDescriptor> assetDependencies = new Array<AssetDescriptor>();
 		return assetDependencies;
 	}
 
 	@Override
-	public void loadAsync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
+	public void loadAsync (AssetManager manager, String fileName,
+		FileHandle file, AssetLoaderParameters<Project> parameter) {
 	}
 
 	@Override
-	public Project loadSync (AssetManager manager, String fileName, FileHandle file, AssetLoaderParameters<Project> parameter) {
+	public Project loadSync (AssetManager manager, String fileName,
+		FileHandle file, AssetLoaderParameters<Project> parameter) {
 		return project;
 	}
 }

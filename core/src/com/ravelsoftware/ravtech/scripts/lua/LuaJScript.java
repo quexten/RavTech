@@ -66,7 +66,9 @@ public class LuaJScript extends Script {
 		Entries<String, Object> entries = values.iterator();
 		while (entries.hasNext) {
 			Entry<String, Object> entry = entries.next();
-			globals.set(entry.key, entry.value instanceof LuaValue ? (LuaValue)entry.value : CoerceJavaToLua.coerce(entry.value));
+			globals.set(entry.key,
+				entry.value instanceof LuaValue ? (LuaValue)entry.value
+					: CoerceJavaToLua.coerce(entry.value));
 		}
 	}
 
@@ -82,19 +84,24 @@ public class LuaJScript extends Script {
 			return LuaValue.NIL;
 		LuaValue returnValue = null;
 		switch (args.length) {
-		case 0:
-			returnValue = function.call();
-			break;
-		case 1:
-			returnValue = function.call(CoerceJavaToLua.coerce(args[0]));
-			break;
-		case 2:
-			returnValue = function.call(CoerceJavaToLua.coerce(args[0]), CoerceJavaToLua.coerce(args[1]));
-			break;
-		case 3:
-			returnValue = function.call(CoerceJavaToLua.coerce(args[0]), CoerceJavaToLua.coerce(args[1]),
-				CoerceJavaToLua.coerce(args[2]));
-			break;
+			case 0:
+				returnValue = function.call();
+				break;
+			case 1:
+				returnValue = function
+					.call(CoerceJavaToLua.coerce(args[0]));
+				break;
+			case 2:
+				returnValue = function.call(
+					CoerceJavaToLua.coerce(args[0]),
+					CoerceJavaToLua.coerce(args[1]));
+				break;
+			case 3:
+				returnValue = function.call(
+					CoerceJavaToLua.coerce(args[0]),
+					CoerceJavaToLua.coerce(args[1]),
+					CoerceJavaToLua.coerce(args[2]));
+				break;
 		}
 		return returnValue;
 	}
@@ -119,7 +126,9 @@ public class LuaJScript extends Script {
 		String message = messageParts[messageParts.length - 1];
 		int lineNumber = Integer.parseInt(lineNumberString);
 
-		Debug.logError("Lua", "Script Error in line " + lineNumber + " - " + script.split("\n")[lineNumber - 1] + " - " + message);
+		Debug.logError("Lua",
+			"Script Error in line " + lineNumber + " - "
+				+ script.split("\n")[lineNumber - 1] + " - " + message);
 	}
 
 	public void loadChunk (String source) {

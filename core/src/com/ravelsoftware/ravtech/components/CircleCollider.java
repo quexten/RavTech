@@ -11,7 +11,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
-public class CircleCollider extends Box2dCollider implements Json.Serializable {
+public class CircleCollider extends Box2dCollider
+	implements Json.Serializable {
 
 	@Override
 	public ComponentType getType () {
@@ -50,7 +51,8 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 
 	@Override
 	public void apply () {
-		Body body = ((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
+		Body body = ((Rigidbody)getParent()
+			.getComponentByType(ComponentType.Rigidbody)).getBody();
 		FixtureDef fixtureDef = new FixtureDef();
 		CircleShape shape = new CircleShape();
 		shape.setPosition(new Vector2(x, y));
@@ -63,25 +65,30 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 		if (fixture != null) {
 			dispose();
 			fixture = null;
-			((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).apply();
+			((Rigidbody)getParent()
+				.getComponentByType(ComponentType.Rigidbody)).apply();
 			rebuildAll();
-			getParent().transform.setRotation(getParent().transform.getRotation());
+			getParent().transform
+				.setRotation(getParent().transform.getRotation());
 			return;
 		}
 		fixture = body.createFixture(fixtureDef);
 		fixture.setFilterData(filter);
 		UserData userdata = new UserData();
-		userdata.component = (Rigidbody)getParent().getComponentByName("Rigidbody");
+		userdata.component = (Rigidbody)getParent()
+			.getComponentByName("Rigidbody");
 		fixture.setUserData(userdata);
 	}
 
 	@Override
-	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+	public void load (
+		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 	}
 
 	@Override
 	public void finishedLoading () {
-		if (getParent().getComponentByType(ComponentType.Rigidbody) == null)
+		if (getParent()
+			.getComponentByType(ComponentType.Rigidbody) == null)
 			getParent().addComponent(new Rigidbody());
 		apply();
 	}
@@ -115,13 +122,13 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 			super.setVariable(variableID, value);
 		String valueString = String.valueOf(value);
 		switch (variableID) {
-		case 7:
-			setPosition(Float.valueOf(valueString), y);
-		case 8:
-			setPosition(x, Float.valueOf(valueString));
-			break;
-		case 9:
-			setRadius(Float.valueOf(valueString));
+			case 7:
+				setPosition(Float.valueOf(valueString), y);
+			case 8:
+				setPosition(x, Float.valueOf(valueString));
+				break;
+			case 9:
+				setRadius(Float.valueOf(valueString));
 		}
 	}
 
@@ -131,12 +138,12 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 		if (superId != -1)
 			return superId;
 		switch (variableName) {
-		case "x":
-			return 7;
-		case "y":
-			return 8;
-		case "radius":
-			return 9;
+			case "x":
+				return 7;
+			case "y":
+				return 8;
+			case "radius":
+				return 9;
 		}
 		return -1;
 	}
@@ -147,12 +154,12 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 			return super.getVariable(variableID);
 		else
 			switch (variableID) {
-			case 7:
-				return x;
-			case 8:
-				return y;
-			case 9:
-				return radius;
+				case 7:
+					return x;
+				case 8:
+					return y;
+				case 9:
+					return radius;
 			}
 		return null;
 	}
@@ -164,7 +171,8 @@ public class CircleCollider extends Box2dCollider implements Json.Serializable {
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {density, filter.categoryBits, filter.maskBits, filter.maskBits, friction, isSensor, restitution, x, y,
-			radius};
+		return new Object[] {density, filter.categoryBits,
+			filter.maskBits, filter.maskBits, friction, isSensor,
+			restitution, x, y, radius};
 	}
 }

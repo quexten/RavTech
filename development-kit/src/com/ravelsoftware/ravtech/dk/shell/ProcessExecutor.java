@@ -7,12 +7,15 @@ import java.io.InputStream;
 
 public class ProcessExecutor {
 
-	public static int exec (Class<?> klass, String... args) throws IOException, InterruptedException {
+	public static int exec (Class<?> klass, String... args)
+		throws IOException, InterruptedException {
 		String javaHome = System.getProperty("java.home");
-		String javaBin = javaHome + File.separator + "bin" + File.separator + "java";
+		String javaBin = javaHome + File.separator + "bin"
+			+ File.separator + "java";
 		String classpath = System.getProperty("java.class.path");
 		String className = klass.getCanonicalName();
-		ProcessBuilder builder = new ProcessBuilder(javaBin, "-cp", classpath, className, args[0]);
+		ProcessBuilder builder = new ProcessBuilder(javaBin, "-cp",
+			classpath, className, args[0]);
 		builder.redirectErrorStream(true);
 		byte[] buffer = new byte[1024];
 		Process process = builder.start();

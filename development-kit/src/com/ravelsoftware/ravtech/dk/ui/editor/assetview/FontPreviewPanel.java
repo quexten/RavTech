@@ -27,7 +27,9 @@ public class FontPreviewPanel extends AssetPreviewPanel {
 		labelStyle.font = font;
 		previewLabel.setStyle(labelStyle);
 		previewLabel.setFontScale(0.2f, 0.2f);
-		VisLabel label = new VisLabel(assetPath.contains("/") ? assetPath.substring(assetPath.lastIndexOf('/') + 1) : assetPath);
+		VisLabel label = new VisLabel(assetPath.contains("/")
+			? assetPath.substring(assetPath.lastIndexOf('/') + 1)
+			: assetPath);
 		setSize(100, 100);
 		add(previewLabel).grow().padTop(50).padBottom(50);
 		row();
@@ -36,8 +38,10 @@ public class FontPreviewPanel extends AssetPreviewPanel {
 
 	@Override
 	public void addToScene () {
-		Vector2 worldPosition = RavTechDK.mainSceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-		GameObject object = RavTech.currentScene.addGameObject(worldPosition.x, worldPosition.y);
+		Vector2 worldPosition = RavTechDK.mainSceneView.camera
+			.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		GameObject object = RavTech.currentScene
+			.addGameObject(worldPosition.x, worldPosition.y);
 		FontRenderer renderer = new FontRenderer();
 		renderer.setFont(assetPath);
 		object.addComponent(renderer);

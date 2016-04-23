@@ -36,7 +36,8 @@ public class PrefabManager {
 		String temp = json.toJson(object);
 		int transformStart = ordinalIndexOf(temp, '{', 1);
 		int firstComponentStart = ordinalIndexOf(temp, '{', 2);
-		String finalstring = temp.substring(0, transformStart) + temp.substring(firstComponentStart);
+		String finalstring = temp.substring(0, transformStart)
+			+ temp.substring(firstComponentStart);
 		return finalstring;
 	}
 

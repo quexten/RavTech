@@ -5,7 +5,9 @@ import java.io.File;
 
 public class KeyStoreCredentials {
 
-	public KeyStoreCredentials (File keystoreFile, String keystorePassword, String aliasName, String aliasPassword) {
+	public KeyStoreCredentials (File keystoreFile,
+		String keystorePassword, String aliasName,
+		String aliasPassword) {
 		this.keystoreFile = keystoreFile;
 		this.keystorePassword = keystorePassword;
 		this.aliasName = aliasName;

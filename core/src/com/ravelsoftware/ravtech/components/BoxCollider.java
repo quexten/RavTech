@@ -39,12 +39,14 @@ public class BoxCollider extends Box2dCollider {
 	}
 
 	@Override
-	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+	public void load (
+		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 	}
 
 	@Override
 	public void finishedLoading () {
-		if (getParent().getComponentByType(ComponentType.Rigidbody) == null)
+		if (getParent()
+			.getComponentByType(ComponentType.Rigidbody) == null)
 			getParent().addComponent(new Rigidbody());
 		apply();
 	}
@@ -92,10 +94,12 @@ public class BoxCollider extends Box2dCollider {
 
 	@Override
 	public void apply () {
-		Body body = ((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
+		Body body = ((Rigidbody)getParent()
+			.getComponentByType(ComponentType.Rigidbody)).getBody();
 		FixtureDef fixtureDef = new FixtureDef();
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(width / 2, height / 2, new Vector2(x, y), (float)Math.toRadians(angle));
+		shape.setAsBox(width / 2, height / 2, new Vector2(x, y),
+			(float)Math.toRadians(angle));
 		fixtureDef.density = density;
 		fixtureDef.friction = friction;
 		fixtureDef.isSensor = isSensor;
@@ -104,14 +108,16 @@ public class BoxCollider extends Box2dCollider {
 		if (fixture != null) {
 			dispose();
 			fixture = null;
-			((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).apply();
+			((Rigidbody)getParent()
+				.getComponentByType(ComponentType.Rigidbody)).apply();
 			rebuildAll();
 			return;
 		}
 		fixture = body.createFixture(fixtureDef);
 		fixture.setFilterData(filter);
 		UserData userdata = new UserData();
-		userdata.component = (Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody);
+		userdata.component = (Rigidbody)getParent()
+			.getComponentByType(ComponentType.Rigidbody);
 		fixture.setUserData(userdata);
 	}
 
@@ -142,23 +148,23 @@ public class BoxCollider extends Box2dCollider {
 			super.setVariable(variableID, value);
 		String valueString = String.valueOf(value);
 		switch (variableID) {
-		case 7:
-			setPosition(Float.valueOf(valueString), y);
-			break;
-		case 8:
-			setPosition(x, Float.valueOf(valueString));
-			break;
-		case 9:
-			setBounds(Float.valueOf(valueString), height);
-			apply();
-			break;
-		case 10:
-			setBounds(width, Float.valueOf(valueString));
-			apply();
-			break;
-		case 11:
-			setAngle(Float.valueOf(valueString));
-			break;
+			case 7:
+				setPosition(Float.valueOf(valueString), y);
+				break;
+			case 8:
+				setPosition(x, Float.valueOf(valueString));
+				break;
+			case 9:
+				setBounds(Float.valueOf(valueString), height);
+				apply();
+				break;
+			case 10:
+				setBounds(width, Float.valueOf(valueString));
+				apply();
+				break;
+			case 11:
+				setAngle(Float.valueOf(valueString));
+				break;
 		}
 	}
 
@@ -167,16 +173,16 @@ public class BoxCollider extends Box2dCollider {
 		int variableId = super.getVariableId(variableName);
 		if (variableId == -1) {
 			switch (variableName) {
-			case "x":
-				return 7;
-			case "y":
-				return 8;
-			case "width":
-				return 9;
-			case "height":
-				return 10;
-			case "angle":
-				return 11;
+				case "x":
+					return 7;
+				case "y":
+					return 8;
+				case "width":
+					return 9;
+				case "height":
+					return 10;
+				case "angle":
+					return 11;
 			}
 			return -1;
 		} else
@@ -188,16 +194,16 @@ public class BoxCollider extends Box2dCollider {
 		if (variableID <= 6)
 			return super.getVariable(variableID);
 		switch (variableID) {
-		case 7:
-			return x;
-		case 8:
-			return y;
-		case 9:
-			return width;
-		case 10:
-			return height;
-		case 11:
-			return angle;
+			case 7:
+				return x;
+			case 8:
+				return y;
+			case 9:
+				return width;
+			case 10:
+				return height;
+			case 11:
+				return angle;
 		}
 		return null;
 	}
@@ -209,7 +215,8 @@ public class BoxCollider extends Box2dCollider {
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {density, filter.categoryBits, filter.maskBits, filter.maskBits, friction, isSensor, restitution, x, y,
-			width, height, angle};
+		return new Object[] {density, filter.categoryBits,
+			filter.maskBits, filter.maskBits, friction, isSensor,
+			restitution, x, y, width, height, angle};
 	}
 }

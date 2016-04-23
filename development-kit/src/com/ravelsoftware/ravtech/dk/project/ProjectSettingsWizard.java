@@ -29,7 +29,8 @@ public class ProjectSettingsWizard extends VisWindow {
 	boolean isCreation;
 	public String creationPath = "";
 
-	public ProjectSettingsWizard (final Project project, boolean isCreation) {
+	public ProjectSettingsWizard (final Project project,
+		boolean isCreation) {
 		super("Project Settings");
 		this.project = project;
 		this.isCreation = isCreation;
@@ -53,8 +54,10 @@ public class ProjectSettingsWizard extends VisWindow {
 						}
 					});
 					fileChooser.setSize(330, 330);
-					fileChooser.setSelectionMode(SelectionMode.DIRECTORIES);
-					event.getListenerActor().getStage().addActor(fileChooser);
+					fileChooser
+						.setSelectionMode(SelectionMode.DIRECTORIES);
+					event.getListenerActor().getStage()
+						.addActor(fileChooser);
 				}
 			});
 			add(textField);
@@ -62,24 +65,34 @@ public class ProjectSettingsWizard extends VisWindow {
 		}
 		addTextLabelPair("Developer Name:", project.developerName);
 		addTextLabelPair("App Name:", project.appName);
-		addTextLabelPair("BuildVersion:", String.valueOf(project.buildVersion));
-		addTextLabelPair("MajorVersion:", String.valueOf(project.majorVersion));
-		addTextLabelPair("MinorVersion:", String.valueOf(project.minorVersion));
-		addTextLabelPair("MicroVersion:", String.valueOf(project.microVersion));
+		addTextLabelPair("BuildVersion:",
+			String.valueOf(project.buildVersion));
+		addTextLabelPair("MajorVersion:",
+			String.valueOf(project.majorVersion));
+		addTextLabelPair("MinorVersion:",
+			String.valueOf(project.minorVersion));
+		addTextLabelPair("MicroVersion:",
+			String.valueOf(project.microVersion));
 		addTextLabelPair("Package:", String.valueOf(project.appId));
 		addTextLabelPair("StartScene:", project.startScene);
 		VisTextButton button = new VisTextButton("Save");
 		button.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				project.developerName = fieldMap.get("Developer Name:").getText();
+				project.developerName = fieldMap.get("Developer Name:")
+					.getText();
 				project.appName = fieldMap.get("App Name:").getText();
-				project.buildVersion = Integer.valueOf(fieldMap.get("BuildVersion:").getText());
-				project.majorVersion = Integer.valueOf(fieldMap.get("MajorVersion:").getText());
-				project.minorVersion = Integer.valueOf(fieldMap.get("MinorVersion:").getText());
-				project.microVersion = Integer.valueOf(fieldMap.get("MicroVersion:").getText());
+				project.buildVersion = Integer
+					.valueOf(fieldMap.get("BuildVersion:").getText());
+				project.majorVersion = Integer
+					.valueOf(fieldMap.get("MajorVersion:").getText());
+				project.minorVersion = Integer
+					.valueOf(fieldMap.get("MinorVersion:").getText());
+				project.microVersion = Integer
+					.valueOf(fieldMap.get("MicroVersion:").getText());
 				project.appId = fieldMap.get("Package:").getText();
-				project.startScene = fieldMap.get("StartScene:").getText();
+				project.startScene = fieldMap.get("StartScene:")
+					.getText();
 				if (ProjectSettingsWizard.this.isCreation) {
 					RavTechDK.createProject(creationPath, project);
 					RavTechDK.setProject(creationPath);

@@ -11,22 +11,29 @@ public class LabelNumberPair extends LabelActorPair<Float> {
 	public LabelNumberPair (String labelText, float value) {
 		super(labelText, new VisTextField(String.valueOf(value)), true);
 		((VisTextField)pairedComponent).setFocusTraversal(false);
-		((VisTextField)pairedComponent).setTextFieldListener(new TextFieldListener() {
-			@Override
-			public void keyTyped (VisTextField textField, char key) {
-				if (key == '\n' || key == '\r') {
-					((VisTextField)LabelNumberPair.this.pairedComponent).focusLost();
-					return;
-				}
+		((VisTextField)pairedComponent)
+			.setTextFieldListener(new TextFieldListener() {
+				@Override
+				public void keyTyped (VisTextField textField, char key) {
+					if (key == '\n' || key == '\r') {
+						((VisTextField)LabelNumberPair.this.pairedComponent)
+							.focusLost();
+						return;
+					}
 
-				String text = ((VisTextField)LabelNumberPair.this.pairedComponent).getText();
-				if (text.isEmpty() || !Pattern.matches("([0-9]*)\\.([0-9]*)", text) && !Pattern.matches("([0-9]*)", text))
-					return;
-				LabelNumberPair.this.dragValue = Float
-					.valueOf(String.valueOf(((VisTextField)LabelNumberPair.this.pairedComponent).getText()));
-				LabelNumberPair.this.draggedListener.run();
-			}
-		});
+					String text = ((VisTextField)LabelNumberPair.this.pairedComponent)
+						.getText();
+					if (text.isEmpty()
+						|| !Pattern.matches("([0-9]*)\\.([0-9]*)", text)
+							&& !Pattern.matches("([0-9]*)", text))
+						return;
+					LabelNumberPair.this.dragValue = Float
+						.valueOf(String.valueOf(
+							((VisTextField)LabelNumberPair.this.pairedComponent)
+								.getText()));
+					LabelNumberPair.this.draggedListener.run();
+				}
+			});
 	}
 
 	@Override
@@ -36,7 +43,8 @@ public class LabelNumberPair extends LabelActorPair<Float> {
 
 	void dragged (float x, float y) {
 		dragValue = oldValue + x / 100f;
-		((VisTextField)pairedComponent).setText(String.valueOf(dragValue));
+		((VisTextField)pairedComponent)
+			.setText(String.valueOf(dragValue));
 	}
 
 }

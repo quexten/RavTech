@@ -12,13 +12,15 @@ public class PlatformStep extends PackageStep {
 	Platform platform;
 	boolean run;
 
-	public PlatformStep (BuildReporterDialog buildReporterDialog, Platform platform) {
+	public PlatformStep (BuildReporterDialog buildReporterDialog,
+		Platform platform) {
 		super(buildReporterDialog);
 		this.platform = platform;
 		run = true;
 	}
 
-	public PlatformStep (BuildReporterDialog buildReporterDialog, Platform platform, FileHandle destinationDir) {
+	public PlatformStep (BuildReporterDialog buildReporterDialog,
+		Platform platform, FileHandle destinationDir) {
 		this(buildReporterDialog, platform);
 		run = false;
 		directory = destinationDir;
