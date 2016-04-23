@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDK.EditingMode;
@@ -44,83 +45,97 @@ public class TransformGizmo extends Gizmo<Transform> {
 		super(transform);
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public void draw (PolygonShapeRenderer batch, boolean selected) {
 		float positionX = component.getPosition().x;
 		float positionY = component.getPosition().y;
 
-		if (RavTechDK.getEditingMode() == EditingMode.Move) {
-			// Draw X Axis
-			batch.setColor((selectedAxis & AXIS_X) == 0 || !selected
-				? Color.RED : Color.YELLOW);
-			batch.draw(arrowRegion, positionX, positionY,
-				ARROW_LENGTH * getZoom(), ARROW_WIDTH * getZoom());
+		switch (RavTechDK.getEditingMode()) {
+			case Move:
+				// Draw X Axis
+				batch.setColor((selectedAxis & AXIS_X) == 0 || !selected
+					? Color.RED : Color.YELLOW);
+				batch.draw(arrowRegion, positionX, positionY,
+					ARROW_LENGTH * getZoom(), ARROW_WIDTH * getZoom());
 
-			// Draw Y Axis
-			batch.setColor((selectedAxis & AXIS_Y) == 0 || !selected
-				? Color.GREEN : Color.YELLOW);
-			batch.draw(arrowRegion, positionX, positionY, 0, 0,
-				ARROW_LENGTH * getZoom(), ARROW_WIDTH * getZoom(), 1, 1,
-				90);
-		} else if (RavTechDK.getEditingMode() == EditingMode.Rotate) {
+				// Draw Y Axis
+				batch.setColor((selectedAxis & AXIS_Y) == 0 || !selected
+					? Color.GREEN : Color.YELLOW);
+				batch.draw(arrowRegion, positionX, positionY, 0, 0,
+					ARROW_LENGTH * getZoom(), ARROW_WIDTH * getZoom(), 1,
+					1, 90);
+				break;
+			case Rotate:
+				// Draw Difference
+				if (Gdx.input.isTouched() && selected) {
+					batch.setColor(new Color(0.5f, 0.5f, 0.5f, 0.5f));
+					batch.draw(circleRegion, positionX, positionY, 0, 0,
+						ARROW_LENGTH, ARROW_LENGTH, getZoom(), getZoom(),
+						oldRotation);
 
-			// Draw Difference
-			if (Gdx.input.isTouched() && selected) {
-				batch.setColor(new Color(0.5f, 0.5f, 0.5f, 0.5f));
-				batch.draw(circleRegion, positionX, positionY, 0, 0,
-					ARROW_LENGTH, ARROW_LENGTH, getZoom(), getZoom(),
-					oldRotation);
-				// Draw Old Rotation Axis
-				batch.setColor(0.6f, 0.6f, 0.6f, 1f);
+					// Draw Old Rotation Axis
+					batch.setColor(0.6f, 0.6f, 0.6f, 1f);
+					batch.draw(arrowRegion, positionX, positionY, 0, 0,
+						ARROW_LENGTH, ARROW_WIDTH, getZoom(), getZoom(),
+						oldRotation);
+				}
+
+				// Draw Ring
+				batch.setThickness(2);
+				batch.setColor(
+					(selectedAxis != RING) ? Color.BLUE : Color.YELLOW);
+				batch.drawCone(positionX, positionY, 0, 360,
+					ARROW_LENGTH * getZoom());
+
+				// Draw Rotation Axis
+				batch.setColor((selectedAxis != AXIS_ROTATION)
+					? Color.BLUE : Color.YELLOW);
 				batch.draw(arrowRegion, positionX, positionY, 0, 0,
 					ARROW_LENGTH, ARROW_WIDTH, getZoom(), getZoom(),
-					oldRotation);
-			}
+					component.getRotation());
+				break;
+			case Scale:				
+				float deltaScaleX = 0;				
+				float deltaScaleY = 0;
+				if(Gdx.input.isTouched() && selected) {
+					if((selectedAxis & AXIS_X) > 0)
+						deltaScaleX = RavTech.input.getWorldPosition().x - (positionX + grabOffset.x);
+					if((selectedAxis & AXIS_Y) > 0)
+						deltaScaleY = RavTech.input.getWorldPosition().y -(positionY + grabOffset.y);
+				}
+				// Draw X Axis
+				batch.setColor((selectedAxis & AXIS_X) == 0 || !selected
+					? Color.RED : Color.YELLOW);
+				batch.line(positionX, positionY,
+					positionX + ARROW_LENGTH * getZoom() + deltaScaleX, positionY);
 
-			// Draw Ring
-			batch.setThickness(2);
-			batch.setColor(
-				(selectedAxis != RING) ? Color.BLUE : Color.YELLOW);
-			batch.drawCone(positionX, positionY, 0, 360,
-				ARROW_LENGTH * getZoom());
+				// Draw X End
+				batch.setThickness(10);
+				batch.line(positionX + (ARROW_LENGTH - 10) * getZoom() + deltaScaleX,
+					positionY - 5 * getZoom(),
+					positionX + ARROW_LENGTH * getZoom() + deltaScaleX,
+					positionY - 5 * getZoom());
+				batch.setThickness(1);
 
-			// Draw Rotation Axis
-			batch.setColor((selectedAxis != AXIS_ROTATION) ? Color.BLUE
-				: Color.YELLOW);
-			batch.draw(arrowRegion, positionX, positionY, 0, 0,
-				ARROW_LENGTH, ARROW_WIDTH, getZoom(), getZoom(),
-				component.getRotation());
-		} else if (RavTechDK.getEditingMode() == EditingMode.Scale) {
-			// Draw X Axis
-			batch.setColor((selectedAxis & AXIS_X) == 0 || !selected
-				? Color.RED : Color.YELLOW);
-			batch.line(positionX, positionY,
-				positionX + ARROW_LENGTH * getZoom(), positionY);
+				// Draw Y Axis
+				batch.setColor((selectedAxis & AXIS_Y) == 0 || !selected
+					? Color.GREEN : Color.YELLOW);
+				batch.line(positionX, positionY, positionX,
+					positionY + ARROW_LENGTH * getZoom() + deltaScaleY);
 
-			// Draw X End
-			batch.setThickness(10);
-			batch.line(positionX + (ARROW_LENGTH - 10) * getZoom(),
-				positionY - 5 * getZoom(),
-				positionX + ARROW_LENGTH * getZoom(),
-				positionY - 5 * getZoom());
-			batch.setThickness(1);
-
-			// Draw Y Axis
-			batch.setColor((selectedAxis & AXIS_Y) == 0 || !selected
-				? Color.GREEN : Color.YELLOW);
-			batch.line(positionX, positionY, positionX,
-				positionY + ARROW_LENGTH * getZoom());
-
-			// Draw Y End
-			batch.setThickness(10);
-			batch.line(positionX + 5 * getZoom(),
-				positionY + (ARROW_LENGTH - 10) * getZoom(),
-				positionX + 5 * getZoom(),
-				positionY + ARROW_LENGTH * getZoom());
-			batch.setThickness(1);
+				// Draw Y End
+				batch.setThickness(10);
+				batch.line(positionX + 5 * getZoom(),
+					positionY + (ARROW_LENGTH - 10) * getZoom() + deltaScaleY,
+					positionX + 5 * getZoom(),
+					positionY + ARROW_LENGTH * getZoom() + deltaScaleY);
+				batch.setThickness(1);
+				break;
 		}
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	@Override
 	public float input (float x, float y, int button, int eventType) {
 		float positionX = component.getPosition().x;
@@ -189,8 +204,8 @@ public class TransformGizmo extends Gizmo<Transform> {
 						}
 						newRotation = newRotation % 360;
 
-						final float step = 22.5f;
 						// Stepping when Control is Pressed
+						final float step = 22.5f;
 						if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT))
 							newRotation = step
 								* (Math.round(newRotation / step));
@@ -212,12 +227,13 @@ public class TransformGizmo extends Gizmo<Transform> {
 						circleRegion = GizmoHandler.createCircleRegion(0);
 						break;
 					case EventType.MouseMoved:
-						float dst = component.getPosition().dst(x, y);
-						float dstRing = Math
-							.abs(dst - ARROW_LENGTH * getZoom());
 						Vector2 endpoint = component.getPosition().cpy()
 							.add(new Vector2(ARROW_LENGTH * getZoom(), 0)
 								.rotate(component.getLocalRotation()));
+
+						float dst = component.getPosition().dst(x, y);
+						float dstRing = Math
+							.abs(dst - ARROW_LENGTH * getZoom());
 						float dstAxis = GeometryUtils.dstFromLine(
 							component.getPosition(), endpoint,
 							new Vector2(x, y));
@@ -239,10 +255,6 @@ public class TransformGizmo extends Gizmo<Transform> {
 							selectedAxis = 0;
 							return -1;
 						}
-					case EventType.MouseUp:
-						component.setLocalRotation(
-							component.getLocalRotation() % 360);
-						break;
 				}
 				break;
 			case Scale:
@@ -277,6 +289,7 @@ public class TransformGizmo extends Gizmo<Transform> {
 						float dstX = (x > positionX
 							&& x < positionX + ARROW_LENGTH * getZoom())
 								? Math.abs(positionY - y) : Float.MAX_VALUE;
+
 						float dstY = (y > positionY
 							&& y < positionY + ARROW_LENGTH * getZoom())
 								? Math.abs(positionX - x) : Float.MAX_VALUE;
@@ -293,8 +306,6 @@ public class TransformGizmo extends Gizmo<Transform> {
 							return dstY;
 						}
 				}
-				break;
-			case Other:
 				break;
 		}
 		return -1f;
