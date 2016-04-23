@@ -162,7 +162,9 @@ public class SceneViewWidget extends Widget {
 				if (keycode == Keys.E) {
 					RavTechDK.setEditingMode(EditingMode.Rotate);
 				}
-
+				if (keycode == Keys.R) {
+					RavTechDK.setEditingMode(EditingMode.Scale);
+				}
 				return false;
 			}
 		});

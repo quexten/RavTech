@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.ravelsoftware.ravtech.components.Transform;
 import com.ravelsoftware.ravtech.dk.RavTechDK;
 import com.ravelsoftware.ravtech.dk.RavTechDK.EditingMode;
+import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 
@@ -20,15 +21,17 @@ public class TransformGizmo extends Gizmo<Transform> {
 
 	// Rotation
 	private static int AXIS_ROTATION = 1, RING = 2;
-		
+
 	private int selectedAxis = 2;
 
 	private Vector2 grabOffset = new Vector2();
 	private float oldRotation;
+	private Vector2 oldScale = new Vector2();
 
 	final static int ARROW_LENGTH = 100;
 	final static int ARROW_WIDTH = 20;
 	final static int MINIMUM_DST = 20;
+	final static int SCALE_SIZE = 10;
 
 	PolygonRegion arrowRegion = new PolygonRegion(new TextureRegion(GizmoHandler.whiteTexture),
 		new float[] {0, 0, 0.75f, -0.25f, 0.75f, 0.25f, 1, 0}, new short[] {0, 1, 3, 0, 2, 3});
@@ -40,38 +43,57 @@ public class TransformGizmo extends Gizmo<Transform> {
 
 	@Override
 	public void draw (PolygonShapeRenderer batch, boolean selected) {
+		float positionX = component.getPosition().x;
+		float positionY = component.getPosition().y;
+
 		if (RavTechDK.getEditingMode() == EditingMode.Move) {
 			// Draw X Axis
 			batch.setColor((selectedAxis & AXIS_X) == 0 || !selected ? Color.RED : Color.YELLOW);
-			batch.draw(arrowRegion, component.getPosition().x, component.getPosition().y, ARROW_LENGTH * getZoom(),
-				ARROW_WIDTH * getZoom());
+			batch.draw(arrowRegion, positionX, positionY, ARROW_LENGTH * getZoom(), ARROW_WIDTH * getZoom());
 
 			// Draw Y Axis
 			batch.setColor((selectedAxis & AXIS_Y) == 0 || !selected ? Color.GREEN : Color.YELLOW);
-			batch.draw(arrowRegion, component.getPosition().x, component.getPosition().y, 0, 0, ARROW_LENGTH * getZoom(),
-				ARROW_WIDTH * getZoom(), 1, 1, 90);
+			batch.draw(arrowRegion, positionX, positionY, 0, 0, ARROW_LENGTH * getZoom(), ARROW_WIDTH * getZoom(), 1, 1, 90);
 		} else if (RavTechDK.getEditingMode() == EditingMode.Rotate) {
 
 			// Draw Difference
 			if (Gdx.input.isTouched() && selected) {
 				batch.setColor(new Color(0.5f, 0.5f, 0.5f, 0.5f));
-				batch.draw(circleRegion, component.getPosition().x, component.getPosition().y, 0, 0, ARROW_LENGTH, ARROW_LENGTH,
-					getZoom(), getZoom(), oldRotation);
+				batch.draw(circleRegion, positionX, positionY, 0, 0, ARROW_LENGTH, ARROW_LENGTH, getZoom(), getZoom(), oldRotation);
 				// Draw Old Rotation Axis
 				batch.setColor(0.6f, 0.6f, 0.6f, 1f);
-				batch.draw(arrowRegion, component.getPosition().x, component.getPosition().y, 0, 0, ARROW_LENGTH, ARROW_WIDTH,
-					getZoom(), getZoom(), oldRotation);
+				batch.draw(arrowRegion, positionX, positionY, 0, 0, ARROW_LENGTH, ARROW_WIDTH, getZoom(), getZoom(), oldRotation);
 			}
 
 			// Draw Ring
 			batch.setThickness(2);
 			batch.setColor((selectedAxis != RING) ? Color.BLUE : Color.YELLOW);
-			batch.drawCone(component.getPosition().x, component.getPosition().y, 0, 360, ARROW_LENGTH * getZoom());
+			batch.drawCone(positionX, positionY, 0, 360, ARROW_LENGTH * getZoom());
 
 			// Draw Rotation Axis
 			batch.setColor((selectedAxis != AXIS_ROTATION) ? Color.BLUE : Color.YELLOW);
-			batch.draw(arrowRegion, component.getPosition().x, component.getPosition().y, 0, 0, ARROW_LENGTH, ARROW_WIDTH, getZoom(),
-				getZoom(), component.getRotation());
+			batch.draw(arrowRegion, positionX, positionY, 0, 0, ARROW_LENGTH, ARROW_WIDTH, getZoom(), getZoom(),
+				component.getRotation());
+		} else if (RavTechDK.getEditingMode() == EditingMode.Scale) {
+			//Draw X Axis
+			batch.setColor((selectedAxis & AXIS_X) == 0 || !selected ? Color.RED : Color.YELLOW);
+			batch.line(positionX, positionY, positionX + ARROW_LENGTH * getZoom(), positionY);
+			
+			//Draw X End
+			batch.setThickness(10);
+			batch.line(positionX + (ARROW_LENGTH - 10) * getZoom(), positionY - 5 * getZoom(), positionX + ARROW_LENGTH * getZoom(),
+				positionY - 5 * getZoom());
+			batch.setThickness(1);
+			
+			//Draw Y Axis
+			batch.setColor((selectedAxis & AXIS_Y) == 0 || !selected ? Color.GREEN : Color.YELLOW);
+			batch.line(positionX, positionY, positionX, positionY + ARROW_LENGTH * getZoom());
+			
+			//Draw Y End
+			batch.setThickness(10);
+			batch.line(positionX + 5 * getZoom(), positionY + (ARROW_LENGTH - 10) * getZoom(), positionX + 5 * getZoom(),
+				positionY + ARROW_LENGTH * getZoom());
+			batch.setThickness(1);
 		}
 	}
 
@@ -86,8 +108,8 @@ public class TransformGizmo extends Gizmo<Transform> {
 					case EventType.MouseDrag:
 						float newX = ((AXIS_X & selectedAxis) > 0) ? x + grabOffset.x : component.getLocalPosition().x;
 						float newY = ((AXIS_Y & selectedAxis) > 0) ? y + grabOffset.y : component.getLocalPosition().y;
-						
-						//Stepping
+
+						// Stepping
 						if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
 							if ((AXIS_X & selectedAxis) > 0)
 								newX = (int)newX;
@@ -173,6 +195,43 @@ public class TransformGizmo extends Gizmo<Transform> {
 				}
 				break;
 			case Scale:
+				switch (eventType) {
+					case EventType.MouseDrag:
+						float newX = ((AXIS_X & selectedAxis) > 0) ? (x - component.getPosition().x) - grabOffset.x + oldScale.x : component.getLocalScale().x;
+						float newY = ((AXIS_Y & selectedAxis) > 0) ? (y - component.getPosition().y) - grabOffset.y + oldScale.y : component.getLocalScale().y;
+
+						// Stepping
+						if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
+							if ((AXIS_X & selectedAxis) > 0)
+								newX = (int)newX;
+							if ((AXIS_Y & selectedAxis) > 0)
+								newY = (int)newY;
+						}
+
+						component.setLocalScale(newX, newY);
+						break;
+					case EventType.MouseDown:
+						grabOffset.set(x -component.getPosition().x, y - component.getPosition().y);
+						oldScale.set(component.getLocalScale());
+						break;
+					case EventType.MouseMoved:
+						float dstXY = component.getPosition().dst(x, y);
+						float dstX = (x > positionX && x < positionX + ARROW_LENGTH * getZoom()) ? Math.abs(positionY - y)
+							: Float.MAX_VALUE;
+						float dstY = (y > positionY && y < positionY + ARROW_LENGTH * getZoom()) ? Math.abs(positionX - x)
+							: Float.MAX_VALUE;
+
+						if (dstXY < MINIMUM_DST * getZoom()) {
+							selectedAxis = AXIS_XY;
+							return dstXY;
+						} else if (dstX <= dstY && dstX < MINIMUM_DST * getZoom()) {
+							selectedAxis = AXIS_X;
+							return dstX;
+						} else if (dstY < MINIMUM_DST * getZoom()) {
+							selectedAxis = AXIS_Y;
+							return dstY;
+						}
+				}
 				break;
 			case Other:
 				break;

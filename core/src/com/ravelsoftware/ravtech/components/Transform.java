@@ -166,13 +166,13 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	/** Sets the local scale
 	 * @param x - the scale along the x axis
 	 * @param y - the scale along the y axis */
-	void setLocalScale (float x, float y) {
+	public void setLocalScale (float x, float y) {
 		scale.set(x, y);
 		updatePosition();
 	}
 
 	/** gets the Local Scale */
-	Vector2 getLocalScale () {
+	public Vector2 getLocalScale () {
 		return scale;
 	}
 
