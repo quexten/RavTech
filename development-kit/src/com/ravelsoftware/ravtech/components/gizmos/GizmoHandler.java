@@ -60,8 +60,8 @@ public class GizmoHandler {
 				if (object != null)
 					for (int n = 0; n < object.getComponents().size; n++) {
 						Gizmo<? extends GameComponent> gizmo = getGizmoFor(
-							object.getComponents().get(n));
-						if (gizmo != null)
+							object.getComponents().get(n));						
+						if (gizmo != null && (RavTechDK.getEditingMode() == EditingMode.Other) ? true : gizmo instanceof TransformGizmo)
 							gizmo.draw(renderer, gizmo == closestGizmo);
 					}
 			}
@@ -89,6 +89,8 @@ public class GizmoHandler {
 						Gizmo<? extends GameComponent> giz = values.next();
 						float gizDst = giz.input(x, y, 0,
 							EventType.MouseMoved);
+						if(!((RavTechDK.getEditingMode() == EditingMode.Other) ? true : giz instanceof TransformGizmo))
+							continue;
 						if (gizDst > 0 && gizDst < closestDst
 							&& Math.abs(gizDst - closestDst) > 0.1f * 1
 								/ 0.05f
@@ -137,7 +139,7 @@ public class GizmoHandler {
 				}
 				return false;
 			case EventType.MouseDrag:
-				if (draggedGizmo != null)
+				if (draggedGizmo != null && (RavTechDK.getEditingMode() == EditingMode.Other) ? true : draggedGizmo instanceof TransformGizmo)
 					draggedGizmo.input(x, y, button, EventType.MouseDrag);
 				return draggedGizmo != null;
 		}

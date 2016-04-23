@@ -187,6 +187,9 @@ public class SceneViewWidget extends Widget {
 					for (int i = 0; i < assetNames.size; i++)
 						RavTech.files.reloadAsset(assetNames.get(i));
 				}
+				if (keycode == Keys.Q) {
+					RavTechDK.setEditingMode(EditingMode.Other);
+				}
 				if (keycode == Keys.W) {
 					RavTechDK.setEditingMode(EditingMode.Move);
 				}
