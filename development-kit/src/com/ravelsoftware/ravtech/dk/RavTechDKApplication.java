@@ -20,6 +20,7 @@ import com.ravelsoftware.ravtech.dk.adb.AdbManager;
 import com.ravelsoftware.ravtech.dk.project.ProjectSettingsWizard;
 import com.ravelsoftware.ravtech.dk.ui.editor.SceneViewWidget;
 import com.ravelsoftware.ravtech.project.Project;
+import com.ravelsoftware.ravtech.util.Debug;
 
 public class RavTechDKApplication extends RavTech {
 
@@ -80,10 +81,6 @@ public class RavTechDKApplication extends RavTech {
 
 		RavTech.sceneHandler.render();
 		RavTech.ui.getStage().draw();
-		RavTech.shapeRenderer.begin();
-		RavTech.shapeRenderer.circle(RavTech.input.getWorldPosition().x,
-			RavTech.input.getWorldPosition().y, 2);
-		RavTech.shapeRenderer.end();
 	}
 
 	public void resize (int width, int height) {

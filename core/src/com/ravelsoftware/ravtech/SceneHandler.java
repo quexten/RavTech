@@ -169,7 +169,8 @@ public class SceneHandler {
 		SpriteBatch spriteBatch = RavTech.spriteBatch;
 		ShapeRenderer shapeRenderer = RavTech.shapeRenderer;
 		cameraManager.render(spriteBatch);
-
+		
+		shapeRenderer.setProjectionMatrix(worldCamera.combined);
 		shapeRenderer.begin(ShapeType.Line);
 		Debug.render(shapeRenderer);
 		shapeRenderer.end();
