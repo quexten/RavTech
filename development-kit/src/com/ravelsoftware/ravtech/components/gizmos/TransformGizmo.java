@@ -197,8 +197,8 @@ public class TransformGizmo extends Gizmo<Transform> {
 			case Scale:
 				switch (eventType) {
 					case EventType.MouseDrag:
-						float newX = ((AXIS_X & selectedAxis) > 0) ? (x - component.getPosition().x) - grabOffset.x + oldScale.x : component.getLocalScale().x;
-						float newY = ((AXIS_Y & selectedAxis) > 0) ? (y - component.getPosition().y) - grabOffset.y + oldScale.y : component.getLocalScale().y;
+						float newX = ((AXIS_X & selectedAxis) > 0) ? ((x - component.getPosition().x) - grabOffset.x) + oldScale.x : component.getLocalScale().x;
+						float newY = ((AXIS_Y & selectedAxis) > 0) ? ((y - component.getPosition().y) - grabOffset.y) + oldScale.y : component.getLocalScale().y;
 
 						// Stepping
 						if (Gdx.input.isKeyPressed(Keys.CONTROL_LEFT)) {
