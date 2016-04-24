@@ -1,13 +1,13 @@
 
-package com.ravelsoftware.ravtech.client;
+package com.quexten.ravtech.client;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.math.Vector2;
 import com.google.gwt.core.client.JavaScriptObject;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.components.Transform;
-import com.ravelsoftware.ravtech.scripts.luajs.MoonshineJSScript;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.components.Transform;
+import com.quexten.ravtech.scripts.luajs.MoonshineJSScript;
 
 public class JavaToJavascript {
 
@@ -206,10 +206,10 @@ public class JavaToJavascript {
                                                                                      var moonshineJSScript = {};
                                                                                      moonshineJSScript.child = child;
                                                                                      moonshineJSScript.registerFunction = function(self, name, callback) {
-                                                                                     child.@com.ravelsoftware.ravtech.scripts.luajs.MoonshineJSScript::registerFunction(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(name, callback);           
+                                                                                     child.@com.quexten.ravtech.scripts.luajs.MoonshineJSScript::registerFunction(Ljava/lang/String;Lcom/google/gwt/core/client/JavaScriptObject;)(name, callback);           
                                                                                      };  
                                                                                      moonshineJSScript.setLoaded = function(self) {
-                                                                                     child.@com.ravelsoftware.ravtech.scripts.luajs.MoonshineJSScript::setLoaded()();
+                                                                                     child.@com.quexten.ravtech.scripts.luajs.MoonshineJSScript::setLoaded()();
                                                                                      };
                                                                                      return moonshineJSScript;
                                                                                      }-*/;
@@ -217,16 +217,16 @@ public class JavaToJavascript {
     public static native JavaScriptObject gameObject (GameObject child)/*-{
                                                                        var gameObject = {};
                                                                        gameObject.child = child;
-                                                                       gameObject.transform = @com.ravelsoftware.ravtech.client.JavaToJavascript::convertObject(Ljava/lang/Object;)(child.@com.ravelsoftware.ravtech.components.GameObject::transform);        
+                                                                       gameObject.transform = @com.quexten.ravtech.client.JavaToJavascript::convertObject(Ljava/lang/Object;)(child.@com.quexten.ravtech.components.GameObject::transform);        
                                                                        return gameObject;
                                                                        }-*/;
 
     public static native JavaScriptObject transform (Transform child)/*-{
                                                                      var Transform = {};
                                                                      Transform.child = child;
-                                                                     Transform.setPosition = function(self, var0, var1) { return child.@com.ravelsoftware.ravtech.components.Transform::setPosition(FF)(var0, var1); };
-                                                                     Transform.setRotation = function(self, var0) { return child.@com.ravelsoftware.ravtech.components.Transform::setRotation(F)(var0); };
-                                                                     Transform.getRotation = function(self) { return child.@com.ravelsoftware.ravtech.components.Transform::getRotation()(); };
+                                                                     Transform.setPosition = function(self, var0, var1) { return child.@com.quexten.ravtech.components.Transform::setPosition(FF)(var0, var1); };
+                                                                     Transform.setRotation = function(self, var0) { return child.@com.quexten.ravtech.components.Transform::setRotation(F)(var0); };
+                                                                     Transform.getRotation = function(self) { return child.@com.quexten.ravtech.components.Transform::getRotation()(); };
                                                                      return Transform;    
                                                                      }-*/;
 }

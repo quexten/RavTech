@@ -1,12 +1,12 @@
 
-package com.ravelsoftware.ravtech.dk.ui.utils;
+package com.quexten.ravtech.dk.ui.utils;
 
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.util.Debug;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.util.Debug;
 
 public class UpdateManager {
 

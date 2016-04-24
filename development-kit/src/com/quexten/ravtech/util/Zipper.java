@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.util;
+package com.quexten.ravtech.util;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -12,7 +12,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class Zipper {
 

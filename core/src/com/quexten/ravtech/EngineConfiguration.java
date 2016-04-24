@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech;
+package com.quexten.ravtech;
 
 public class EngineConfiguration {
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.files;
+package com.quexten.ravtech.files;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
@@ -9,7 +9,7 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.ravelsoftware.ravtech.project.Project;
+import com.quexten.ravtech.project.Project;
 
 public class ProjectLoader extends
 	AsynchronousAssetLoader<Project, AssetLoaderParameters<Project>> {

@@ -1,12 +1,12 @@
 
-package com.ravelsoftware.ravtech.dk.zerobrane;
+package com.quexten.ravtech.dk.zerobrane;
 
 import java.io.File;
 import java.io.IOException;
 
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.ui.utils.GitHubUpdater;
-import com.ravelsoftware.ravtech.dk.ui.utils.UpdateManager;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.ui.utils.GitHubUpdater;
+import com.quexten.ravtech.dk.ui.utils.UpdateManager;
 
 public class ZeroBraneUtil {
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.scripts.luajs;
+package com.quexten.ravtech.scripts.luajs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -10,11 +10,11 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 import com.google.gwt.core.client.JsArrayString;
-import com.ravelsoftware.ravtech.client.JavaToJavascript;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.scripts.Script;
-import com.ravelsoftware.ravtech.scripts.WebGLScriptManager;
-import com.ravelsoftware.ravtech.util.Debug;
+import com.quexten.ravtech.client.JavaToJavascript;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.scripts.Script;
+import com.quexten.ravtech.scripts.WebGLScriptManager;
+import com.quexten.ravtech.util.Debug;
 
 public class MoonshineJSScript extends Script {
 

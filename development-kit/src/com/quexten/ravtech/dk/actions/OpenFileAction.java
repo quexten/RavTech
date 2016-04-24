@@ -1,11 +1,11 @@
 
-package com.ravelsoftware.ravtech.dk.actions;
+package com.quexten.ravtech.dk.actions;
 
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 
-import com.ravelsoftware.ravtech.dk.zerobrane.ZeroBraneUtil;
+import com.quexten.ravtech.dk.zerobrane.ZeroBraneUtil;
 
 public class OpenFileAction implements Runnable {
 

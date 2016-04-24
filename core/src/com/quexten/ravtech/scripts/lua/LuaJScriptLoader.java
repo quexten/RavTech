@@ -1,9 +1,9 @@
 
-package com.ravelsoftware.ravtech.scripts.lua;
+package com.quexten.ravtech.scripts.lua;
 
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.scripts.Script;
-import com.ravelsoftware.ravtech.scripts.ScriptLoader;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.scripts.Script;
+import com.quexten.ravtech.scripts.ScriptLoader;
 
 public class LuaJScriptLoader implements ScriptLoader {
 

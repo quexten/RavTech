@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.files.zip;
+package com.quexten.ravtech.files.zip;
 
 import java.io.IOException;
 import java.io.InputStream;

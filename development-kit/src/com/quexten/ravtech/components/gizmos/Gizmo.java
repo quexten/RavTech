@@ -1,10 +1,10 @@
 
-package com.ravelsoftware.ravtech.components.gizmos;
+package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.GameComponent;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.GameComponent;
 
 public abstract class Gizmo<T extends GameComponent> {
 

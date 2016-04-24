@@ -1,11 +1,11 @@
 
-package com.ravelsoftware.ravtech.dk.packaging.platforms;
+package com.quexten.ravtech.dk.packaging.platforms;
 
 import java.io.File;
 
-import com.ravelsoftware.ravtech.dk.shell.Shell;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
-import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler.Printer;
+import com.quexten.ravtech.dk.shell.Shell;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.dk.ui.utils.StreamGobbler.Printer;
 
 public class GradleInvoker {
 

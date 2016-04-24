@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.graphics;
+package com.quexten.ravtech.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Array;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 public class Shader {
 

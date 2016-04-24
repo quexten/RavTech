@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk;
+package com.quexten.ravtech.dk;
 
 import java.io.File;
 
@@ -7,11 +7,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.dk.adb.AdbManager;
-import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
-import com.ravelsoftware.ravtech.settings.SettingsValueListener;
-import com.ravelsoftware.ravtech.util.Debug;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.dk.adb.AdbManager;
+import com.quexten.ravtech.scripts.lua.LuaJScriptLoader;
+import com.quexten.ravtech.settings.SettingsValueListener;
+import com.quexten.ravtech.util.Debug;
 
 public class Launcher {
 

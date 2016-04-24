@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.animation;
+package com.quexten.ravtech.animation;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Json;

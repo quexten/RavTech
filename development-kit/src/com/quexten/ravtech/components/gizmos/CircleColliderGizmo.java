@@ -1,14 +1,14 @@
 
-package com.ravelsoftware.ravtech.components.gizmos;
+package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.CircleCollider;
-import com.ravelsoftware.ravtech.dk.ui.utils.ColorUtils;
-import com.ravelsoftware.ravtech.history.ChangeManager;
-import com.ravelsoftware.ravtech.history.ModifyChangeable;
-import com.ravelsoftware.ravtech.util.EventType;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.CircleCollider;
+import com.quexten.ravtech.dk.ui.utils.ColorUtils;
+import com.quexten.ravtech.history.ChangeManager;
+import com.quexten.ravtech.history.ModifyChangeable;
+import com.quexten.ravtech.util.EventType;
 
 public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 

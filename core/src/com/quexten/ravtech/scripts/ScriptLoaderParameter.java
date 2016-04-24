@@ -1,8 +1,8 @@
 
-package com.ravelsoftware.ravtech.scripts;
+package com.quexten.ravtech.scripts;
 
 import com.badlogic.gdx.assets.AssetLoaderParameters;
-import com.ravelsoftware.ravtech.components.GameObject;
+import com.quexten.ravtech.components.GameObject;
 
 public class ScriptLoaderParameter
 	extends AssetLoaderParameters<Script> {

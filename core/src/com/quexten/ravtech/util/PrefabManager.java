@@ -1,13 +1,13 @@
 
-package com.ravelsoftware.ravtech.util;
+package com.quexten.ravtech.util;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.GameObject;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.GameObject;
 
 public class PrefabManager {
 

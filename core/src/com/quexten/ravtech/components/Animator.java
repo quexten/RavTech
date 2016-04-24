@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components;
+package com.quexten.ravtech.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
@@ -8,8 +8,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.ravelsoftware.ravtech.animation.Animation;
-import com.ravelsoftware.ravtech.animation.Timeline;
+import com.quexten.ravtech.animation.Animation;
+import com.quexten.ravtech.animation.Timeline;
 
 public class Animator extends GameComponent
 	implements Json.Serializable {

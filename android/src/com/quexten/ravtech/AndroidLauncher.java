@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech;
+package com.quexten.ravtech;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -7,9 +7,9 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFiles;
 import com.badlogic.gdx.utils.Json;
-import com.ravelsoftware.ravtech.android.AndroidEngineConfiguration;
-import com.ravelsoftware.ravtech.files.zip.ArchiveFileHandleResolver;
-import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
+import com.quexten.ravtech.android.AndroidEngineConfiguration;
+import com.quexten.ravtech.files.zip.ArchiveFileHandleResolver;
+import com.quexten.ravtech.scripts.lua.LuaJScriptLoader;
 
 import android.os.Bundle;
 

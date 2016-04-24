@@ -1,12 +1,12 @@
 
-package com.ravelsoftware.ravtech.components.gizmos;
+package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.ravelsoftware.ravtech.components.Light;
-import com.ravelsoftware.ravtech.util.EventType;
-import com.ravelsoftware.ravtech.util.GeometryUtils;
+import com.quexten.ravtech.components.Light;
+import com.quexten.ravtech.util.EventType;
+import com.quexten.ravtech.util.GeometryUtils;
 
 import box2dLight.ConeLight;
 

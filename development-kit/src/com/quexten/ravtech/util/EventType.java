@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.util;
+package com.quexten.ravtech.util;
 
 public class EventType {
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components.gizmos;
+package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
@@ -13,19 +13,19 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.ObjectMap.Values;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.BoxCollider;
-import com.ravelsoftware.ravtech.components.CircleCollider;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.components.Light;
-import com.ravelsoftware.ravtech.components.PolygonCollider;
-import com.ravelsoftware.ravtech.components.SpriteRenderer;
-import com.ravelsoftware.ravtech.components.Transform;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDK.EditingMode;
-import com.ravelsoftware.ravtech.graphics.Camera;
-import com.ravelsoftware.ravtech.util.EventType;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.BoxCollider;
+import com.quexten.ravtech.components.CircleCollider;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.components.Light;
+import com.quexten.ravtech.components.PolygonCollider;
+import com.quexten.ravtech.components.SpriteRenderer;
+import com.quexten.ravtech.components.Transform;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.RavTechDK.EditingMode;
+import com.quexten.ravtech.graphics.Camera;
+import com.quexten.ravtech.util.EventType;
 
 public class GizmoHandler {
 

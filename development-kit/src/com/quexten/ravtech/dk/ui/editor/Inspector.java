@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.quexten.ravtech.dk.ui.editor;
 
 import java.lang.reflect.Method;
 
@@ -18,8 +18,8 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.dk.RavTechDK;
 
 public class Inspector extends VisWindow {
 
@@ -147,7 +147,7 @@ public class Inspector extends VisWindow {
 	}
 
 	public void changed () {
-		com.ravelsoftware.ravtech.util.Debug.log("Inspector",
+		com.quexten.ravtech.util.Debug.log("Inspector",
 			"changed");
 		inspectorChanged = true;
 	}

@@ -1,10 +1,10 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor.assetview;
+package com.quexten.ravtech.dk.ui.editor.assetview;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.kotcrab.vis.ui.widget.VisLabel;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.RavTechDK;
 
 public class FolderPreviewPanel extends AssetPreviewPanel {
 

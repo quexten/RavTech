@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.graphics;
+package com.quexten.ravtech.graphics;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components;
+package com.quexten.ravtech.components;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Color;
@@ -13,8 +13,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.util.JsonUtil;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.util.JsonUtil;
 
 public class FontRenderer extends Renderer {
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.graphics;
+package com.quexten.ravtech.graphics;
 
 import java.util.Comparator;
 
@@ -15,13 +15,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.ravelsoftware.ravtech.HookApi;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.ComponentType;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.components.Light;
-import com.ravelsoftware.ravtech.components.Renderer;
+import com.quexten.ravtech.HookApi;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.ComponentType;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.components.Light;
+import com.quexten.ravtech.components.Renderer;
 import com.thesecretpie.shader.ShaderManager;
 
 public class SortedRenderer {

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.input;
+package com.quexten.ravtech.input;
 
 import com.badlogic.gdx.Gdx;
 

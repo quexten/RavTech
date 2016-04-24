@@ -1,6 +1,6 @@
-package com.ravelsoftware.ravtech.client;
+package com.quexten.ravtech.client;
 
-import com.ravelsoftware.ravtech.EngineConfiguration;
+import com.quexten.ravtech.EngineConfiguration;
 
 public class HtmlEngineConfiguration extends EngineConfiguration {
 

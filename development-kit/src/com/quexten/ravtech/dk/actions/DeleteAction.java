@@ -1,7 +1,7 @@
 
-package com.ravelsoftware.ravtech.dk.actions;
+package com.quexten.ravtech.dk.actions;
 
-import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.RavTechDK;
 
 public class DeleteAction implements Runnable {
 

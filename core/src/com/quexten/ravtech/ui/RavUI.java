@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.ui;
+package com.quexten.ravtech.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;

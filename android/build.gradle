@@ -1,4 +1,4 @@
-def appId = "com.ravelsoftware.ravtech"
+def appId = "com.quexten.ravtech"
 
 android {
     buildToolsVersion "23.0.2"
@@ -70,7 +70,7 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', appId + '/com.ravelsoftware.ravtech.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', appId + '/com.quexten.ravtech.AndroidLauncher'
 }
 
 // sets up the Android Eclipse project, using the old Ant based build.

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.quexten.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -15,9 +15,9 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.ui.utils.UpdateManager;
-import com.ravelsoftware.ravtech.dk.ui.utils.Updater;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.ui.utils.UpdateManager;
+import com.quexten.ravtech.dk.ui.utils.Updater;
 
 public class UpdaterWidget extends VisWindow {
 

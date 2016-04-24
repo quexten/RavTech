@@ -1,10 +1,10 @@
 
-package com.ravelsoftware.ravtech.util;
+package com.quexten.ravtech.util;
 
 import com.badlogic.gdx.utils.Array;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.components.GameObject;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.components.GameObject;
 
 public class GameObjectTraverseUtil {
 

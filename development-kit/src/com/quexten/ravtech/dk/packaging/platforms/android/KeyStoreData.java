@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.packaging.platforms.android;
+package com.quexten.ravtech.dk.packaging.platforms.android;
 
 public class KeyStoreData {
 

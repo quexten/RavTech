@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components.gizmos;
+package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -7,11 +7,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.Transform;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.util.EventType;
-import com.ravelsoftware.ravtech.util.GeometryUtils;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.Transform;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.util.EventType;
+import com.quexten.ravtech.util.GeometryUtils;
 
 public class TransformGizmo extends Gizmo<Transform> {
 

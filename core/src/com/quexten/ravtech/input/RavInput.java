@@ -1,11 +1,11 @@
 
-package com.ravelsoftware.ravtech.input;
+package com.quexten.ravtech.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 public class RavInput {
 

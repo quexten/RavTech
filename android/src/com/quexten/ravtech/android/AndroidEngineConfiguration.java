@@ -1,6 +1,6 @@
-package com.ravelsoftware.ravtech.android;
+package com.quexten.ravtech.android;
 
-import com.ravelsoftware.ravtech.EngineConfiguration;;
+import com.quexten.ravtech.EngineConfiguration;;
 
 public class AndroidEngineConfiguration extends EngineConfiguration {
 	

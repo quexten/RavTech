@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.files.zip;
+package com.quexten.ravtech.files.zip;
 
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;

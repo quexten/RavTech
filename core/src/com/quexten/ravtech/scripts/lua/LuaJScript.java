@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.scripts.lua;
+package com.quexten.ravtech.scripts.lua;
 
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
@@ -14,11 +14,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.ComponentType;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.scripts.Script;
-import com.ravelsoftware.ravtech.util.Debug;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.ComponentType;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.scripts.Script;
+import com.quexten.ravtech.util.Debug;
 
 public class LuaJScript extends Script {
 

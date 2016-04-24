@@ -1,12 +1,12 @@
 
-package com.ravelsoftware.ravtech.graphics;
+package com.quexten.ravtech.graphics;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.Json.Serializable;
 import com.badlogic.gdx.utils.JsonValue;
-import com.ravelsoftware.ravtech.util.JsonUtil;
+import com.quexten.ravtech.util.JsonUtil;
 
 public class RenderProperties implements Serializable {
 

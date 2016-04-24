@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech;
+package com.quexten.ravtech;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -19,14 +19,14 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.components.ScriptComponent;
-import com.ravelsoftware.ravtech.components.UserData;
-import com.ravelsoftware.ravtech.graphics.Camera;
-import com.ravelsoftware.ravtech.graphics.CameraManager;
-import com.ravelsoftware.ravtech.graphics.SortedRenderer;
-import com.ravelsoftware.ravtech.util.Debug;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.components.ScriptComponent;
+import com.quexten.ravtech.components.UserData;
+import com.quexten.ravtech.graphics.Camera;
+import com.quexten.ravtech.graphics.CameraManager;
+import com.quexten.ravtech.graphics.SortedRenderer;
+import com.quexten.ravtech.util.Debug;
 import com.thesecretpie.shader.ShaderManager;
 
 import box2dLight.DynamicRayHandler;

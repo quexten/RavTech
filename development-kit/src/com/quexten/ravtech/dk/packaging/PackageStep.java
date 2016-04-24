@@ -1,7 +1,7 @@
 
-package com.ravelsoftware.ravtech.dk.packaging;
+package com.quexten.ravtech.dk.packaging;
 
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public abstract class PackageStep implements Runnable {
 

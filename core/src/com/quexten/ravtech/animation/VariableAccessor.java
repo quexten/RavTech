@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.animation;
+package com.quexten.ravtech.animation;
 
 public interface VariableAccessor {
 

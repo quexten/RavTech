@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.files;
+package com.quexten.ravtech.files;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;

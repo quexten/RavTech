@@ -1,11 +1,11 @@
 
-package com.ravelsoftware.ravtech.dk.ui.utils;
+package com.quexten.ravtech.dk.ui.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.ravelsoftware.ravtech.components.ComponentType;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.components.Rigidbody;
+import com.quexten.ravtech.components.ComponentType;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.components.Rigidbody;
 
 public class ColorUtils {
 

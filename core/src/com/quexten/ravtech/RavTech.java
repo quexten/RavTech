@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech;
+package com.quexten.ravtech;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
@@ -7,14 +7,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.ravelsoftware.ravtech.files.RavFiles;
-import com.ravelsoftware.ravtech.input.RavInput;
-import com.ravelsoftware.ravtech.project.Project;
-import com.ravelsoftware.ravtech.screens.PlayScreen;
-import com.ravelsoftware.ravtech.scripts.ScriptLoader;
-import com.ravelsoftware.ravtech.scripts.WebGLScriptManager;
-import com.ravelsoftware.ravtech.settings.RavSettings;
-import com.ravelsoftware.ravtech.ui.RavUI;
+import com.quexten.ravtech.files.RavFiles;
+import com.quexten.ravtech.input.RavInput;
+import com.quexten.ravtech.project.Project;
+import com.quexten.ravtech.screens.PlayScreen;
+import com.quexten.ravtech.scripts.ScriptLoader;
+import com.quexten.ravtech.scripts.WebGLScriptManager;
+import com.quexten.ravtech.settings.RavSettings;
+import com.quexten.ravtech.ui.RavUI;
 
 public class RavTech extends Game {
 

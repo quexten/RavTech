@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.animation;
+package com.quexten.ravtech.animation;
 
 import java.util.Comparator;
 
@@ -8,10 +8,10 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.brashmonkey.spriter.Curve;
-import com.ravelsoftware.ravtech.components.Animator;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.components.Transform;
-import com.ravelsoftware.ravtech.util.GameObjectTraverseUtil;
+import com.quexten.ravtech.components.Animator;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.components.Transform;
+import com.quexten.ravtech.util.GameObjectTraverseUtil;
 
 public class Timeline implements Json.Serializable {
 

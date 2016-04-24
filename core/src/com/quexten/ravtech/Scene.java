@@ -1,10 +1,10 @@
 
-package com.ravelsoftware.ravtech;
+package com.quexten.ravtech;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.graphics.RenderProperties;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.graphics.RenderProperties;
 
 public class Scene {
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components.gizmos;
+package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -8,11 +8,11 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.BoxCollider;
-import com.ravelsoftware.ravtech.dk.ui.utils.ColorUtils;
-import com.ravelsoftware.ravtech.util.EventType;
-import com.ravelsoftware.ravtech.util.GeometryUtils;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.BoxCollider;
+import com.quexten.ravtech.dk.ui.utils.ColorUtils;
+import com.quexten.ravtech.util.EventType;
+import com.quexten.ravtech.util.GeometryUtils;
 
 public class BoxColliderGizmo extends Gizmo<BoxCollider> {
 

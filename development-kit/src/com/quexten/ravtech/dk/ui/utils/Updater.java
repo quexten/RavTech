@@ -1,7 +1,7 @@
 
-package com.ravelsoftware.ravtech.dk.ui.utils;
+package com.quexten.ravtech.dk.ui.utils;
 
-import com.ravelsoftware.ravtech.dk.ui.editor.UpdaterWidget.UpdaterEntry;
+import com.quexten.ravtech.dk.ui.editor.UpdaterWidget.UpdaterEntry;
 
 public abstract class Updater {
 

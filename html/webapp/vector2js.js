@@ -5,8 +5,8 @@
 			this.abc = 123;
 		}
 		window.vector.prototype.fn = function() {
-			var cash = @com.ravelsoftware.ravtech.Cash::new()();
-			return cash@com.ravelsoftware.ravtech.Cash::test()();
+			var cash = @com.quexten.ravtech.Cash::new()();
+			return cash@com.quexten.ravtech.Cash::test()();
 		};
 		window.vector.abc = 123;
 	}

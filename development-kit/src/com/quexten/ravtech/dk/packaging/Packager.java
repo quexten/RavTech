@@ -1,21 +1,21 @@
 
-package com.ravelsoftware.ravtech.dk.packaging;
+package com.quexten.ravtech.dk.packaging;
 
 import java.io.File;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.AndroidPlatform;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.BuildOptions;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.DesktopPlatform;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.WebGLPlatform;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.android.AlignStep;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.android.SignStep;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.packaging.platforms.AndroidPlatform;
+import com.quexten.ravtech.dk.packaging.platforms.BuildOptions;
+import com.quexten.ravtech.dk.packaging.platforms.DesktopPlatform;
+import com.quexten.ravtech.dk.packaging.platforms.WebGLPlatform;
+import com.quexten.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
+import com.quexten.ravtech.dk.packaging.platforms.android.AlignStep;
+import com.quexten.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
+import com.quexten.ravtech.dk.packaging.platforms.android.SignStep;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class Packager {
 

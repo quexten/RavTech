@@ -1,12 +1,12 @@
 
-package com.ravelsoftware.ravtech.dk.packaging;
+package com.quexten.ravtech.dk.packaging;
 
 import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class CopyDirectoryStep extends PackageStep {
 

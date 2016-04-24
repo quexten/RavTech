@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.utils;
+package com.quexten.ravtech.dk.ui.utils;
 
 import java.util.StringTokenizer;
 

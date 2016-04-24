@@ -1,8 +1,8 @@
 
-package com.ravelsoftware.ravtech.dk.packaging.platforms;
+package com.quexten.ravtech.dk.packaging.platforms;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class DesktopPlatform implements Platform {
 

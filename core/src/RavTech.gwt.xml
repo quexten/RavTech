@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit trunk//EN" "http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
 <module>
-	<source path="com/ravelsoftware/ravtech" >
+	<source path="com/quexten/ravtech" >
 	<exclude name="**/lua/**" />	
 	<exclude name="**/zip/**" />
 	</source>
@@ -9,14 +9,14 @@
 	<source path="com/thesecretpie/shader"/>
 	<source path="com/brashmonkey/spriter"/>
 	
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.Scene" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.components" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.animation" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.files.PhysicsProperties" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.graphics.RenderProperties" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.graphics.SortingLayer" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.scripts.Script" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.scripts.luajs.MoonshineJSScript" />	
-	<extend-configuration-property name="gdx.reflect.include" value="com.ravelsoftware.ravtech.project.Project" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.Scene" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.components" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.animation" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.files.PhysicsProperties" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.graphics.RenderProperties" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.graphics.SortingLayer" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.scripts.Script" />
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.scripts.luajs.MoonshineJSScript" />	
+	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.project.Project" />
 	
 </module>

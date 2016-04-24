@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components;
+package com.quexten.ravtech.components;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,9 +9,9 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.animation.Animation;
-import com.ravelsoftware.ravtech.util.PrefabManager;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.animation.Animation;
+import com.quexten.ravtech.util.PrefabManager;
 
 public class GameObject extends GameComponent
 	implements Json.Serializable {

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.desktop;
+package com.quexten.ravtech.desktop;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -8,9 +8,9 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
 import com.badlogic.gdx.utils.Json;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.files.zip.ArchiveFileHandleResolver;
-import com.ravelsoftware.ravtech.scripts.lua.LuaJScriptLoader;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.files.zip.ArchiveFileHandleResolver;
+import com.quexten.ravtech.scripts.lua.LuaJScriptLoader;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

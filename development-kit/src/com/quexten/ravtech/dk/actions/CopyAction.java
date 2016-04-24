@@ -1,11 +1,11 @@
 
-package com.ravelsoftware.ravtech.dk.actions;
+package com.quexten.ravtech.dk.actions;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.util.PrefabManager;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.util.PrefabManager;
 
 public class CopyAction implements Runnable {
 

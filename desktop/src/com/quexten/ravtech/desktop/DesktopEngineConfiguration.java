@@ -1,7 +1,7 @@
 
-package com.ravelsoftware.ravtech.desktop;
+package com.quexten.ravtech.desktop;
 
-import com.ravelsoftware.ravtech.EngineConfiguration;
+import com.quexten.ravtech.EngineConfiguration;
 
 public class DesktopEngineConfiguration extends EngineConfiguration {
 	

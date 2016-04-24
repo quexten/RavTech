@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech;
+package com.quexten.ravtech;
 
 import org.robovm.apple.foundation.NSAutoreleasePool;
 import org.robovm.apple.uikit.UIApplication;
@@ -7,7 +7,7 @@ import org.robovm.apple.uikit.UIApplication;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override

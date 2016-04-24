@@ -116,7 +116,7 @@ project(":html") {
 		     	sourceSets {
 		  main {
 		    java {
-		      exclude 'com/ravelsoftware/ravtech/scripts/lua/**'
+		      exclude 'com/quexten/ravtech/scripts/lua/**'
 		    }
 		  }
 		}

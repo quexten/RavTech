@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components.gizmos;
+package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
@@ -7,10 +7,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.PolygonCollider;
-import com.ravelsoftware.ravtech.util.EventType;
-import com.ravelsoftware.ravtech.util.GeometryUtils;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.PolygonCollider;
+import com.quexten.ravtech.util.EventType;
+import com.quexten.ravtech.util.GeometryUtils;
 
 public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 

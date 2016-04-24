@@ -1,15 +1,15 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor.assetview;
+package com.quexten.ravtech.dk.ui.editor.assetview;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.kotcrab.vis.ui.widget.VisLabel;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.FontRenderer;
-import com.ravelsoftware.ravtech.components.GameObject;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.FontRenderer;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.dk.RavTechDK;
 
 public class FontPreviewPanel extends AssetPreviewPanel {
 

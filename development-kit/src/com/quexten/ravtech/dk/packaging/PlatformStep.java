@@ -1,10 +1,10 @@
 
-package com.ravelsoftware.ravtech.dk.packaging;
+package com.quexten.ravtech.dk.packaging;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.Platform;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
-import com.ravelsoftware.ravtech.dk.ui.packaging.PrinterListener;
+import com.quexten.ravtech.dk.packaging.platforms.Platform;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.dk.ui.packaging.PrinterListener;
 
 public class PlatformStep extends PackageStep {
 

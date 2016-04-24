@@ -1,10 +1,10 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.quexten.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 public class ColorPanel extends Widget {
 

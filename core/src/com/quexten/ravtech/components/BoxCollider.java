@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components;
+package com.quexten.ravtech.components;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

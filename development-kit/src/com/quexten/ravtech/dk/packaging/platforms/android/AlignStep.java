@@ -1,11 +1,11 @@
 
-package com.ravelsoftware.ravtech.dk.packaging.platforms.android;
+package com.quexten.ravtech.dk.packaging.platforms.android;
 
 import java.io.File;
 
-import com.ravelsoftware.ravtech.dk.packaging.PackageStep;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
-import com.ravelsoftware.ravtech.dk.ui.packaging.PrinterListener;
+import com.quexten.ravtech.dk.packaging.PackageStep;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.dk.ui.packaging.PrinterListener;
 
 public class AlignStep extends PackageStep {
 

@@ -1,12 +1,12 @@
 
-package com.ravelsoftware.ravtech.dk.packaging.platforms.android;
+package com.quexten.ravtech.dk.packaging.platforms.android;
 
 import java.io.File;
 
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.dk.shell.Shell;
-import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler.Printer;
-import com.ravelsoftware.ravtech.util.Debug;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.dk.shell.Shell;
+import com.quexten.ravtech.dk.ui.utils.StreamGobbler.Printer;
+import com.quexten.ravtech.util.Debug;
 
 public class KeyStoreManager {
 

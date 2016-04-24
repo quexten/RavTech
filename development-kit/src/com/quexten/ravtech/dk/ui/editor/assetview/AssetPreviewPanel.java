@@ -1,10 +1,10 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor.assetview;
+package com.quexten.ravtech.dk.ui.editor.assetview;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 public abstract class AssetPreviewPanel extends VisTable {
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.scripts;
+package com.quexten.ravtech.scripts;
 
 import com.badlogic.gdx.utils.Array;
 

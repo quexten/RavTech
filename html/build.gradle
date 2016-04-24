@@ -7,8 +7,8 @@ gwt {
     minHeapSize="1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'com.ravelsoftware.ravtech.GdxDefinition'
-    devModules 'com.ravelsoftware.ravtech.GdxDefinitionSuperdev'
+    modules 'com.quexten.ravtech.GdxDefinition'
+    devModules 'com.quexten.ravtech.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {

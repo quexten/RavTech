@@ -9,7 +9,7 @@
 	<inherits name='com.kotcrab.vis.vis-ui' />
 	
 	<inherits name='RavTech' />
-	<entry-point class='com.ravelsoftware.ravtech.client.HtmlLauncher' />
+	<entry-point class='com.quexten.ravtech.client.HtmlLauncher' />
 	
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
 </module>

@@ -1,15 +1,15 @@
 
-package com.ravelsoftware.ravtech.dk.adb;
+package com.quexten.ravtech.dk.adb;
 
 import java.io.File;
 import java.io.IOException;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.dk.shell.Shell;
-import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler.Printer;
-import com.ravelsoftware.ravtech.util.Debug;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.dk.shell.Shell;
+import com.quexten.ravtech.dk.ui.utils.StreamGobbler.Printer;
+import com.quexten.ravtech.util.Debug;
 
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.history;
+package com.quexten.ravtech.history;
 
 import com.badlogic.gdx.utils.Array;
 

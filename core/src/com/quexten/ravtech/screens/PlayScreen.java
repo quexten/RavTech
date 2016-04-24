@@ -1,10 +1,10 @@
 
-package com.ravelsoftware.ravtech.screens;
+package com.quexten.ravtech.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 public class PlayScreen implements Screen {
 

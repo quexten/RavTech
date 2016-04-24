@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.graphics;
+package com.quexten.ravtech.graphics;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.util.Debug;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.util.Debug;
 
 import box2dLight.DynamicLightMap;
 

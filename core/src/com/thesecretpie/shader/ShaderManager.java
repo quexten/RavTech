@@ -28,7 +28,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 /** @author Przemek Muller This class simplifies usage of shaders and framebuffers. It can load shaders from files, fix them for
  *         GLES specifics and reload them at runtime. */

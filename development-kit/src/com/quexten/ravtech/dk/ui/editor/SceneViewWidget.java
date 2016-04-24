@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.quexten.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
@@ -17,15 +17,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.VisUI;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.RavTechDK.EditingMode;
-import com.ravelsoftware.ravtech.dk.actions.CopyAction;
-import com.ravelsoftware.ravtech.dk.actions.DeleteAction;
-import com.ravelsoftware.ravtech.dk.actions.PasteAction;
-import com.ravelsoftware.ravtech.graphics.Camera;
-import com.ravelsoftware.ravtech.util.Debug;
-import com.ravelsoftware.ravtech.util.EventType;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.RavTechDK.EditingMode;
+import com.quexten.ravtech.dk.actions.CopyAction;
+import com.quexten.ravtech.dk.actions.DeleteAction;
+import com.quexten.ravtech.dk.actions.PasteAction;
+import com.quexten.ravtech.graphics.Camera;
+import com.quexten.ravtech.util.Debug;
+import com.quexten.ravtech.util.EventType;
 
 public class SceneViewWidget extends Widget {
 

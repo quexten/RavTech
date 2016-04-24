@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk;
+package com.quexten.ravtech.dk;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -17,7 +17,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 public class AssetFileWatcher {
 

@@ -1,11 +1,11 @@
 
-package com.ravelsoftware.ravtech.components.gizmos;
+package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
-import com.ravelsoftware.ravtech.graphics.Camera;
+import com.quexten.ravtech.graphics.Camera;
 
 public class PolygonShapeRenderer extends PolygonSpriteBatch {
 

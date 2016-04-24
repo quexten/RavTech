@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.components;
+package com.quexten.ravtech.components;
 
 import com.badlogic.gdx.physics.box2d.Filter;
 import com.badlogic.gdx.physics.box2d.Fixture;

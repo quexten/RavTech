@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.quexten.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Cursor.SystemCursor;

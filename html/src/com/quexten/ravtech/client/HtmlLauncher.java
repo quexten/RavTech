@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.client;
+package com.quexten.ravtech.client;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -12,10 +12,10 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.ravelsoftware.ravtech.HookApi;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.scripts.Script;
-import com.ravelsoftware.ravtech.scripts.luajs.MoonshineJSScriptLoader;
+import com.quexten.ravtech.HookApi;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.scripts.Script;
+import com.quexten.ravtech.scripts.luajs.MoonshineJSScriptLoader;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -97,7 +97,7 @@ public class HtmlLauncher extends GwtApplication {
                                        }-*/;
 
     native void setupResizeHook () /*-{
-                                   var htmlLauncher_onWindowResize = $entry(@com.ravelsoftware.ravtech.client.HtmlLauncher::handleResize());
+                                   var htmlLauncher_onWindowResize = $entry(@com.quexten.ravtech.client.HtmlLauncher::handleResize());
                                    $wnd.addEventListener('resize', htmlLauncher_onWindowResize, false);
                                    }-*/;
 

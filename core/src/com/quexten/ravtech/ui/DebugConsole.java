@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.ui;
+package com.quexten.ravtech.ui;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -7,8 +7,8 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.scripts.lua.LuaJScript;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.scripts.lua.LuaJScript;
 
 public class DebugConsole extends VisWindow {
 
@@ -50,17 +50,17 @@ public class DebugConsole extends VisWindow {
 	}
 
 	public void log (String tag, String message) {
-		textArea.log(com.ravelsoftware.ravtech.util.Debug.logColor,
+		textArea.log(com.quexten.ravtech.util.Debug.logColor,
 			"[" + tag + "] : " + message + "\n");
 	}
 
 	public void logError (String tag, String message) {
-		textArea.log(com.ravelsoftware.ravtech.util.Debug.errorColor,
+		textArea.log(com.quexten.ravtech.util.Debug.errorColor,
 			"[" + tag + "] : " + message + "\n");
 	}
 
 	public void logDebug (String tag, String message) {
-		textArea.log(com.ravelsoftware.ravtech.util.Debug.debugColor,
+		textArea.log(com.quexten.ravtech.util.Debug.debugColor,
 			"[" + tag + "] : " + message + "\n");
 	}
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.animation;
+package com.quexten.ravtech.dk.ui.animation;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

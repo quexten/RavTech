@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.quexten.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -21,10 +21,10 @@ import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
 import com.kotcrab.vis.ui.widget.color.ColorPicker;
 import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.history.ChangeManager;
-import com.ravelsoftware.ravtech.history.ModifyChangeable;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.history.ChangeManager;
+import com.quexten.ravtech.history.ModifyChangeable;
 
 public abstract class ComponentPanel {
 

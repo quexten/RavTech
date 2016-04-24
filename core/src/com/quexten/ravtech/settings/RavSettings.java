@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.settings;
+package com.quexten.ravtech.settings;
 
 import java.util.Iterator;
 import java.util.Map;
@@ -7,7 +7,7 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.ravelsoftware.ravtech.RavTech;
+import com.quexten.ravtech.RavTech;
 
 public class RavSettings {
 

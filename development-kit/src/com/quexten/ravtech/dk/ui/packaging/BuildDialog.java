@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.packaging;
+package com.quexten.ravtech.dk.ui.packaging;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -23,13 +23,13 @@ import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.adb.AdbManager;
-import com.ravelsoftware.ravtech.dk.packaging.Packager;
-import com.ravelsoftware.ravtech.dk.packaging.Packager.TargetPlatform;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.BuildOptions;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
-import com.ravelsoftware.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.adb.AdbManager;
+import com.quexten.ravtech.dk.packaging.Packager;
+import com.quexten.ravtech.dk.packaging.Packager.TargetPlatform;
+import com.quexten.ravtech.dk.packaging.platforms.BuildOptions;
+import com.quexten.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
+import com.quexten.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
 
 import se.vidstige.jadb.JadbDevice;
 
@@ -221,7 +221,7 @@ public class BuildDialog extends VisWindow {
 
 		if (targetPlatform == TargetPlatform.Android && run) {
 			if (!AdbManager.initialized) {
-				com.ravelsoftware.ravtech.util.Debug.logError("Adb Error",
+				com.quexten.ravtech.util.Debug.logError("Adb Error",
 					"Adb Path Not Delcared");
 				AdbManager.initializeAdb();
 			}

@@ -1,8 +1,8 @@
 
-package com.ravelsoftware.ravtech.history;
+package com.quexten.ravtech.history;
 
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.util.GameObjectTraverseUtil;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.util.GameObjectTraverseUtil;
 
 public class ModifyChangeable extends Changeable {
 

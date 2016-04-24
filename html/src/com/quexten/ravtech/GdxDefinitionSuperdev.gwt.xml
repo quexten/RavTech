@@ -7,7 +7,7 @@
 	<inherits name='com.badlogic.gdx.ai' />
 	<inherits name='Box2DLights' />
 	<inherits name='com.kotcrab.vis.vis-ui' />
-    <inherits name='com.ravelsoftware.ravtech.GdxDefinition' />
+    <inherits name='com.quexten.ravtech.GdxDefinition' />
     
     <collapse-all-properties />
     

@@ -1,13 +1,13 @@
 
-package com.ravelsoftware.ravtech.dk.shell;
+package com.quexten.ravtech.dk.shell;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler;
-import com.ravelsoftware.ravtech.dk.ui.utils.StreamGobbler.Printer;
+import com.quexten.ravtech.dk.ui.utils.StreamGobbler;
+import com.quexten.ravtech.dk.ui.utils.StreamGobbler.Printer;
 
 public class Shell {
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.project;
+package com.quexten.ravtech.dk.project;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,9 +17,9 @@ import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.ui.editor.LabelTextPair;
-import com.ravelsoftware.ravtech.project.Project;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.ui.editor.LabelTextPair;
+import com.quexten.ravtech.project.Project;
 
 public class ProjectSettingsWizard extends VisWindow {
 

@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.editor;
+package com.quexten.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -7,19 +7,19 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.ravelsoftware.ravtech.RavTech;
-import com.ravelsoftware.ravtech.components.BoxCollider;
-import com.ravelsoftware.ravtech.components.CircleCollider;
-import com.ravelsoftware.ravtech.components.ComponentType;
-import com.ravelsoftware.ravtech.components.FontRenderer;
-import com.ravelsoftware.ravtech.components.GameComponent;
-import com.ravelsoftware.ravtech.components.Light;
-import com.ravelsoftware.ravtech.components.Rigidbody;
-import com.ravelsoftware.ravtech.components.ScriptComponent;
-import com.ravelsoftware.ravtech.components.SpriteRenderer;
-import com.ravelsoftware.ravtech.components.Transform;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.graphics.SortingLayer;
+import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.BoxCollider;
+import com.quexten.ravtech.components.CircleCollider;
+import com.quexten.ravtech.components.ComponentType;
+import com.quexten.ravtech.components.FontRenderer;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.components.Light;
+import com.quexten.ravtech.components.Rigidbody;
+import com.quexten.ravtech.components.ScriptComponent;
+import com.quexten.ravtech.components.SpriteRenderer;
+import com.quexten.ravtech.components.Transform;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.graphics.SortingLayer;
 
 public class ComponentPanels {
 

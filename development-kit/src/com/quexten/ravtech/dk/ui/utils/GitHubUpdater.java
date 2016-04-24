@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.ui.utils;
+package com.quexten.ravtech.dk.ui.utils;
 
 import java.net.URL;
 
@@ -11,9 +11,9 @@ import com.badlogic.gdx.Net.HttpRequest;
 import com.badlogic.gdx.Net.HttpResponse;
 import com.badlogic.gdx.Net.HttpResponseListener;
 import com.badlogic.gdx.net.HttpRequestBuilder;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.util.Debug;
-import com.ravelsoftware.ravtech.util.Zipper;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.util.Debug;
+import com.quexten.ravtech.util.Zipper;
 
 public class GitHubUpdater extends Updater {
 

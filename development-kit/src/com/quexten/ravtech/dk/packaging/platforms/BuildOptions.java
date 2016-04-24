@@ -1,5 +1,5 @@
 
-package com.ravelsoftware.ravtech.dk.packaging.platforms;
+package com.quexten.ravtech.dk.packaging.platforms;
 
 public class BuildOptions {
 

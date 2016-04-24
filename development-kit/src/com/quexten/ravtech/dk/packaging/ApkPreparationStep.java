@@ -1,12 +1,12 @@
 
-package com.ravelsoftware.ravtech.dk.packaging;
+package com.quexten.ravtech.dk.packaging;
 
 import java.io.File;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.ravelsoftware.ravtech.dk.RavTechDK;
-import com.ravelsoftware.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class ApkPreparationStep extends PackageStep {
 
