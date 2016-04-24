@@ -8,27 +8,26 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.ravelsoftware.ravtech.RavTech;
 import com.ravelsoftware.ravtech.components.SpriteRenderer;
-import com.ravelsoftware.ravtech.util.Debug;
 import com.ravelsoftware.ravtech.util.EventType;
 import com.ravelsoftware.ravtech.util.GeometryUtils;
 
 public class SpriteRendererGizmo extends Gizmo<SpriteRenderer> {
 
-	SpriteRenderer spriteRenderer;
-	boolean isGrabbed = false;
-	int grabbedPoint = 0;
-	Vector2 oldPosition;
-	Vector2 trueOldPosition;
-	Vector2 oldBounds;
-	boolean canEdit = true;
-	float ppuX; // Pixels per Unit
-	float ppuY; // Pixels per Unit
-	int oldSrcWidth;
-	int oldSrcHeight;
-	int oldSrcX;
-	int oldSrcY;
-	float closestDst;
-	int selectedPoint;
+	private SpriteRenderer spriteRenderer;
+	private boolean isGrabbed = false;
+	private int grabbedPoint = 0;
+	private Vector2 oldPosition;
+	private Vector2 trueOldPosition;
+	private Vector2 oldBounds;
+	private boolean canEdit = true;
+	private float ppuX; // Pixels per Unit
+	private float ppuY; // Pixels per Unit
+	private int oldSrcWidth;
+	private int oldSrcHeight;
+	private int oldSrcX;
+	private int oldSrcY;
+	private float closestDst;
+	private int selectedPoint;
 
 	public SpriteRendererGizmo (SpriteRenderer spriteRenderer) {
 		super(spriteRenderer);
@@ -260,81 +259,36 @@ public class SpriteRendererGizmo extends Gizmo<SpriteRenderer> {
 						.getLocalScale().y);
 				if (isGrabbed)
 					switch (grabbedPoint) {
-						case 0: // tl
-							changeBounds(mousePosition.cpy().sub(oldPosition)
-								.rotate(-spriteRenderer.getParent().transform
-									.getRotation())
-								.scl(antiScale).x,
+						case 0:
+						case 1:
+						case 2:
+						case 3:// tl
+							changeBounds(
+								mousePosition.cpy().sub(oldPosition)
+									.rotate(
+										-spriteRenderer.getParent().transform
+											.getRotation())
+									.scl(
+										antiScale).x,
 								mousePosition.cpy().sub(oldPosition)
 									.rotate(
 										-spriteRenderer.getParent().transform
 											.getRotation())
 									.scl(antiScale).y,
-								false, false);
+								grabbedPoint == 2 || grabbedPoint == 3,
+								grabbedPoint == 2 || grabbedPoint == 1);
 							break;
-						case 1: // TOP-LEFT
-							changeBounds(mousePosition.cpy().sub(oldPosition)
-								.rotate(-spriteRenderer.getParent().transform
-									.getRotation())
-								.scl(antiScale).x,
-								mousePosition.cpy().sub(oldPosition)
-									.rotate(
-										-spriteRenderer.getParent().transform
-											.getRotation())
-									.scl(antiScale).y,
-								false, true);
-							break;
-						case 2: // br
-							changeBounds(mousePosition.cpy().sub(oldPosition)
-								.rotate(-spriteRenderer.getParent().transform
-									.getRotation())
-								.scl(antiScale).x,
-								mousePosition.cpy().sub(oldPosition)
-									.rotate(
-										-spriteRenderer.getParent().transform
-											.getRotation())
-									.scl(antiScale).y,
-								true, true);
-							break;
-						case 3: // Bottom Right
-							changeBounds(mousePosition.cpy().sub(oldPosition)
-								.rotate(-spriteRenderer.getParent().transform
-									.getRotation())
-								.scl(
-									antiScale
-										.cpy()).x,
-								mousePosition.cpy().sub(oldPosition)
-									.rotate(
-										-spriteRenderer.getParent().transform
-											.getRotation())
-									.scl(antiScale).y,
-								true, false);
-							break;
-						case 4: // t
+						case 4:
+						case 6:// t
 							changeHeight(
 								mousePosition.sub(oldPosition)
 									.rotate(
 										-spriteRenderer.getParent().transform
 											.getRotation())
 									.scl(antiScale).y,
-								true);
+								grabbedPoint == 4);
 							break;
 						case 5: // r
-							changeWidth(mousePosition.sub(oldPosition)
-
-								.rotate(-spriteRenderer.getParent().transform
-									.getRotation())
-								.scl(antiScale).x, true);
-							break;
-						case 6: // b
-							changeHeight(
-								mousePosition.sub(oldPosition)
-									.rotate(
-										-spriteRenderer.getParent().transform
-											.getRotation())
-									.scl(antiScale).y,
-								false);
-							break;
 						case 7: // l
 							changeWidth(
 								mousePosition.sub(oldPosition)
@@ -342,16 +296,7 @@ public class SpriteRendererGizmo extends Gizmo<SpriteRenderer> {
 										-spriteRenderer.getParent().transform
 											.getRotation())
 									.scl(antiScale).x,
-								false);
-							break;
-						case 8:
-							Vector2 subPosition = mousePosition
-								.sub(spriteRenderer.getParent().transform
-									.getPosition().cpy());
-							spriteRenderer.originX = -subPosition.x
-								/ spriteRenderer.width * 2;
-							spriteRenderer.originY = -subPosition.y
-								/ spriteRenderer.height * 2;
+								grabbedPoint == 5);
 							break;
 					}
 				return -1f;
@@ -371,10 +316,7 @@ public class SpriteRendererGizmo extends Gizmo<SpriteRenderer> {
 			.sub(spriteRenderer.getParent().transform.getPosition()
 				.cpy()).x
 			/ width;
-		spriteRenderer.originY = spriteRenderer.originY; // -trueOldPosition.cpy().add(addPosition).sub(spriteRenderer.getParent().transform.getPosition().cpy()).y
-																			// /
-																			// (spriteRenderer.height
-																			// );
+		spriteRenderer.originY = spriteRenderer.originY;
 		spriteRenderer.width = width;
 		if (spriteRenderer.uWrap.equals(TextureWrap.Repeat)) {
 			spriteRenderer.srcWidth = (int)(ppuX * width);
