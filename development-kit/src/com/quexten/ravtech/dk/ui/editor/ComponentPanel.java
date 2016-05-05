@@ -25,6 +25,7 @@ import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.history.ChangeManager;
 import com.quexten.ravtech.history.ModifyChangeable;
+import com.quexten.ravtech.util.Debug;
 
 public abstract class ComponentPanel {
 
@@ -109,39 +110,6 @@ public abstract class ComponentPanel {
 		table.setFillParent(true);
 		table.row();
 
-		label.pairedComponent.addListener(new ClickListener() {
-			public void clicked (InputEvent event, float x, float y) {
-				final ColorPicker picker = new ColorPicker();
-				picker.setListener(new ColorPickerListener() {
-					@Override
-					public void canceled (Color oldColor) {
-						((ColorPanel)label.pairedComponent).backgroundColor
-							.set(oldColor);
-						gameComponent.setVariable(
-							gameComponent.getVariableId(variable), oldColor);
-					}
-
-					@Override
-					public void changed (Color newColor) {
-						((ColorPanel)label.pairedComponent).backgroundColor
-							.set(newColor);
-						gameComponent.setVariable(
-							gameComponent.getVariableId(variable), newColor);
-					}
-
-					@Override
-					public void reset (Color previousColor,
-						Color newColor) {
-					}
-
-					@Override
-					public void finished (Color newColor) {
-						picker.dispose();
-					}
-				});
-				label.label.getStage().addActor(picker);
-			}
-		});
 	}
 
 	public void addButton (VisTable table, String text, String title,

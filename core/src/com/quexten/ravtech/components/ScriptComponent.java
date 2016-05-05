@@ -115,7 +115,11 @@ public class ScriptComponent extends GameComponent
 	}
 
 	public void callFunction (String name, Object[] args) {
-		script.callFunction(name, args);
+		try {
+			script.callFunction(name, args);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public Object getVariable (String name) {

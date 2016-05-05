@@ -1,11 +1,13 @@
 
 package com.quexten.ravtech.components;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
@@ -78,19 +80,34 @@ public class Rigidbody extends GameComponent
 		body.setUserData(new UserData());
 	}
 
-	public void onCollisionEnter (Fixture other) {
-		if (!RavTech.sceneHandler.paused)
-			for (int i = 0; i < getParent().getComponents().size; i++) {
-				// call onCollisionEnter on scripts
+	public void onCollisionEnter (final Fixture other,
+		final Contact contact) {
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run () {
+				if (getParent().getComponentByType(
+					ComponentType.ScriptComponent) != null)
+					((ScriptComponent)getParent()
+						.getComponentByType(ComponentType.ScriptComponent))
+							.callFunction("onCollisionEnter",
+								new Object[] {other, contact});
 			}
+		});
 	}
 
-	public void onCollisionExit (Fixture other) {
-		if (getParent()
-			.getComponentByType(ComponentType.ScriptComponent) != null)
-			((ScriptComponent)getParent()
-				.getComponentByType(ComponentType.ScriptComponent))
-					.callFunction("onCollisionExit", new Object[] {other});
+	public void onCollisionExit (final Fixture other,
+		final Contact contact) {
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run () {
+				if (getParent().getComponentByType(
+					ComponentType.ScriptComponent) != null)
+					((ScriptComponent)getParent()
+						.getComponentByType(ComponentType.ScriptComponent))
+							.callFunction("onCollisionExit",
+								new Object[] {other, contact});
+			}
+		});
 	}
 
 	public Body getBody () {

@@ -8,9 +8,11 @@ public class BuildOptions {
 	};
 
 	public AssetType assetType;
-
-	public BuildOptions (AssetType assetType) {
+	public boolean skipBuild;
+	
+	public BuildOptions (AssetType assetType, boolean skipBuild) {
 		this.assetType = assetType;
+		this.skipBuild = skipBuild;
 	}
 
 }

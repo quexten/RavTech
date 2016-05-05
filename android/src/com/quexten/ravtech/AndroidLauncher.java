@@ -30,7 +30,7 @@ public class AndroidLauncher extends AndroidApplication {
 			ex.printStackTrace();
 		}
 
-		boolean useExternalAssetBundle = true;
+		boolean useExternalAssetBundle = engineConfiguration.useAssetBundle;
 
 		RavTech ravtech = new RavTech(useExternalAssetBundle
 			? new ArchiveFileHandleResolver(

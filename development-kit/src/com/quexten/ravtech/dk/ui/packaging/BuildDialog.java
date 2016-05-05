@@ -6,11 +6,13 @@ import java.io.FileFilter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.VisUI;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisList;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
@@ -75,6 +77,9 @@ public class BuildDialog extends VisWindow {
 		final VisSelectBox<String> dropDown = new VisSelectBox<String>();
 		dropDown.setItems("Internal", "External");
 		optionsTable.add(dropDown);
+		optionsTable.add(new VisLabel("Skip Build"));
+		final VisCheckBox skipBuildBox = new VisCheckBox("");
+		optionsTable.add(skipBuildBox);
 		contentTable.add(optionsTable).grow();
 
 		VisTable bottomTable = new VisTable();
@@ -89,13 +94,13 @@ public class BuildDialog extends VisWindow {
 					BuildDialog.this.contentTable
 						.add(createApkOptionsTable(new BuildOptions(
 							(dropDown.getSelectedIndex() == 0)
-								? AssetType.Internal : AssetType.External)))
+								? AssetType.Internal : AssetType.External, skipBuildBox.isChecked())))
 						.grow();
 					return;
 				}
 				BuildDialog.this.build(platformList.getSelected(), false,
 					new BuildOptions((dropDown.getSelectedIndex() == 0)
-						? AssetType.Internal : AssetType.External));
+						? AssetType.Internal : AssetType.External, skipBuildBox.isChecked()));
 			}
 		});
 		bottomTable.add(buildButton);
@@ -115,7 +120,7 @@ public class BuildDialog extends VisWindow {
 					return;
 				BuildDialog.this.build(platformList.getSelected(), true,
 					new BuildOptions((dropDown.getSelectedIndex() == 0)
-						? AssetType.Internal : AssetType.External));
+						? AssetType.Internal : AssetType.External, skipBuildBox.isChecked()));
 			}
 		});
 		bottomTable.add(buildAndRunButton);
@@ -227,18 +232,18 @@ public class BuildDialog extends VisWindow {
 			}
 			Array<JadbDevice> devices = AdbManager.getDevices();
 			if (devices.size == 1)
-				Packager.run(buildDialog, targetPlatform, "");
-			else if (devices.size > 1)
+				Packager.run(buildDialog, targetPlatform, "", options);
+			//else if (devices.size > 1)
 				// show device selector
 				return;
 		}
 
 		if (run)
-			Packager.run(buildDialog, targetPlatform, "");
+			Packager.run(buildDialog, targetPlatform, "", options);
 		else
 			Packager.dist(buildDialog, targetPlatform, userData,
 				getDistFileHandle(targetPlatform),
-				new BuildOptions(AssetType.Internal));
+				new BuildOptions(AssetType.Internal, options.skipBuild));
 	}
 
 	public void build (TargetPlatform targetPlatform, boolean run,

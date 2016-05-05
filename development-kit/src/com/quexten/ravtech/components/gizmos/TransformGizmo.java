@@ -16,16 +16,15 @@ import com.quexten.ravtech.util.GeometryUtils;
 public class TransformGizmo extends Gizmo<Transform> {
 
 	// Move / Scale
-	private static int AXIS_X = 1, AXIS_Y = 2;
-
-	static int AXIS_XY = AXIS_X | AXIS_Y;
+	static int AXIS_X = 1, AXIS_Y = 2,
+		AXIS_XY = AXIS_X | AXIS_Y;
 
 	// Rotation
 	private static int AXIS_ROTATION = 1, RING = 2;
 
-	int selectedAxis = 2;
+	public int selectedAxis = 2;
 
-	private Vector2 grabOffset = new Vector2();
+	protected Vector2 grabOffset = new Vector2();
 	private float oldRotation;
 	private Vector2 oldScale = new Vector2();
 
@@ -83,35 +82,40 @@ public class TransformGizmo extends Gizmo<Transform> {
 				// Draw Ring
 				batch.setThickness(2);
 				batch.setColor(
-					(selectedAxis != RING) ? Color.BLUE : Color.YELLOW);
+					(selectedAxis != RING) || !selected ? Color.BLUE : Color.YELLOW);
 				batch.drawCone(positionX, positionY, 0, 360,
 					ARROW_LENGTH * getZoom());
 
 				// Draw Rotation Axis
-				batch.setColor((selectedAxis != AXIS_ROTATION)
+				batch.setColor((selectedAxis != AXIS_ROTATION) || !selected 
 					? Color.BLUE : Color.YELLOW);
 				batch.draw(arrowRegion, positionX, positionY, 0, 0,
 					ARROW_LENGTH, ARROW_WIDTH, getZoom(), getZoom(),
 					component.getRotation());
 				break;
-			case Scale:				
-				float deltaScaleX = 0;				
+			case Scale:
+				float deltaScaleX = 0;
 				float deltaScaleY = 0;
-				if(Gdx.input.isTouched() && selected) {
-					if((selectedAxis & AXIS_X) > 0)
-						deltaScaleX = RavTech.input.getWorldPosition().x - (positionX + grabOffset.x);
-					if((selectedAxis & AXIS_Y) > 0)
-						deltaScaleY = RavTech.input.getWorldPosition().y -(positionY + grabOffset.y);
+				if (Gdx.input.isTouched() && selected) {
+					if ((selectedAxis & AXIS_X) > 0)
+						deltaScaleX = RavTech.input.getWorldPosition().x
+							- (positionX + grabOffset.x);
+					if ((selectedAxis & AXIS_Y) > 0)
+						deltaScaleY = RavTech.input.getWorldPosition().y
+							- (positionY + grabOffset.y);
 				}
 				// Draw X Axis
 				batch.setColor((selectedAxis & AXIS_X) == 0 || !selected
 					? Color.RED : Color.YELLOW);
 				batch.line(positionX, positionY,
-					positionX + ARROW_LENGTH * getZoom() + deltaScaleX, positionY);
+					positionX + ARROW_LENGTH * getZoom() + deltaScaleX,
+					positionY);
 
 				// Draw X End
 				batch.setThickness(10);
-				batch.line(positionX + (ARROW_LENGTH - 10) * getZoom() + deltaScaleX,
+				batch.line(
+					positionX + (ARROW_LENGTH - 10) * getZoom()
+						+ deltaScaleX,
 					positionY - 5 * getZoom(),
 					positionX + ARROW_LENGTH * getZoom() + deltaScaleX,
 					positionY - 5 * getZoom());
@@ -126,7 +130,8 @@ public class TransformGizmo extends Gizmo<Transform> {
 				// Draw Y End
 				batch.setThickness(10);
 				batch.line(positionX + 5 * getZoom(),
-					positionY + (ARROW_LENGTH - 10) * getZoom() + deltaScaleY,
+					positionY + (ARROW_LENGTH - 10) * getZoom()
+						+ deltaScaleY,
 					positionX + 5 * getZoom(),
 					positionY + ARROW_LENGTH * getZoom() + deltaScaleY);
 				batch.setThickness(1);
@@ -313,5 +318,9 @@ public class TransformGizmo extends Gizmo<Transform> {
 	@Override
 	public boolean isInBoundingBox (Vector2 coord) {
 		return false;
+	}
+
+	public void setGrabOffset (float x, float y) {
+		grabOffset.set(x - component.getPosition().x, y -component.getPosition().y).scl(-1f);
 	}
 }

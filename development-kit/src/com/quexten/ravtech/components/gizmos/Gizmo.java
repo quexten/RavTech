@@ -1,7 +1,6 @@
 
 package com.quexten.ravtech.components.gizmos;
 
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.GameComponent;

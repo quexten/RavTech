@@ -7,6 +7,7 @@ import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
@@ -44,8 +45,10 @@ public class LuaJScript extends Script {
 		values.put("ComponentType", ComponentType.class);
 		values.put("RavTech", RavTech.class);
 		values.put("Settings", RavTech.settings);
+		values.put("Graphics", Gdx.graphics);
 		values.put("Camera", RavTech.sceneHandler.worldCamera);
 		values.put("Box2DWorld", RavTech.sceneHandler.box2DWorld);
+		values.put("Net", Gdx.net);
 		setEnviroment(values);
 	}
 
@@ -121,6 +124,9 @@ public class LuaJScript extends Script {
 	}
 
 	void printLuaError (LuaError error) {
+		error.printStackTrace();
+		if(true)
+			return;
 		String[] messageParts = error.getMessage().split(":");
 		String lineNumberString = messageParts[messageParts.length - 2];
 		String message = messageParts[messageParts.length - 1];

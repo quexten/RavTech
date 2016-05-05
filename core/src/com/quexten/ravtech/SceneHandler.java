@@ -60,7 +60,7 @@ public class SceneHandler {
 
 		// worldViewport = new FillViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), worldCamera);
 
-		box2DWorld = new World(new Vector2(0, 0), false);
+		box2DWorld = new World(new Vector2(0, -9.81f), false);
 		box2DWorld.setContactListener(new ContactListener() {
 
 			@Override
@@ -71,9 +71,9 @@ public class SceneHandler {
 				UserData fixtureDataB = (UserData)fixtureB.getUserData();
 				if (fixtureDataA != null && fixtureDataB != null) {
 					if (fixtureDataA.component != null)
-						fixtureDataA.component.onCollisionEnter(fixtureB);
+						fixtureDataA.component.onCollisionEnter(fixtureB, contact);
 					if (fixtureDataB.component != null)
-						fixtureDataB.component.onCollisionEnter(fixtureA);
+						fixtureDataB.component.onCollisionEnter(fixtureA, contact);
 				}
 			}
 
@@ -85,9 +85,9 @@ public class SceneHandler {
 				UserData fixtureDataB = (UserData)fixtureB.getUserData();
 				if (fixtureDataA != null && fixtureDataB != null) {
 					if (fixtureDataA.component != null)
-						fixtureDataA.component.onCollisionExit(fixtureB);
+						fixtureDataA.component.onCollisionExit(fixtureB, contact);
 					if (fixtureDataB.component != null)
-						fixtureDataB.component.onCollisionExit(fixtureA);
+						fixtureDataB.component.onCollisionExit(fixtureA, contact);
 				}
 				contact.setEnabled(false);
 			}
@@ -118,6 +118,7 @@ public class SceneHandler {
 		Debug.startTimer("box2dUpdateTime");
 		Debug.debugFilledShapes.clear();
 		Debug.debugLineShapes.clear();
+		
 		if (paused)
 			box2DWorld.step(0, 8, 3);
 		else
@@ -156,8 +157,8 @@ public class SceneHandler {
 
 		int targetFramerate = RavTech.settings
 			.getInt("targetFramerate");
-
-		if (Math.abs(Gdx.graphics.getFramesPerSecond()
+		//check for vsync
+		if (RavTech.isEditor && Math.abs(Gdx.graphics.getFramesPerSecond()
 			- 1f / targetFramerate) > 2) {
 			accumulator += Gdx.graphics.getDeltaTime();
 			while (accumulator > step) {
@@ -227,6 +228,12 @@ public class SceneHandler {
 	}
 
 	public void loadState (String state) {
+		System.out.println("LoadState");
+		Array<Body> bodies = new Array<Body>();
+		this.box2DWorld.getBodies(bodies);
+		for(Body body : bodies) {
+			((UserData) body.getUserData()).isFlaggedForDelete = true;
+		}
 		RavTech.currentScene.dispose();
 		Json json = new Json();
 		RavTech.currentScene = json.fromJson(Scene.class, state);

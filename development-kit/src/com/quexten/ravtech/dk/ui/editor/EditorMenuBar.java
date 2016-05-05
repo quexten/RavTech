@@ -4,6 +4,7 @@ package com.quexten.ravtech.dk.ui.editor;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
@@ -19,6 +20,7 @@ import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.Scene;
+import com.quexten.ravtech.components.UserData;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.project.ProjectSettingsWizard;
 import com.quexten.ravtech.dk.ui.packaging.BuildDialog;
@@ -182,6 +184,17 @@ public class EditorMenuBar extends MenuBar {
 					}
 				});
 				menu.addItem(entry);
+			}			
+			{ // Scene Settings
+				entry = new MenuItem("Scene Settings");
+				entry.addListener(new ChangeListener() {
+
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						actor.getStage().addActor(new SceneSettings(RavTech.currentScene));
+					}
+				});
+				menu.addItem(entry);
 			}
 			addMenu(menu);
 		}
@@ -267,6 +280,11 @@ public class EditorMenuBar extends MenuBar {
 			public void changed (ChangeEvent event, Actor actor) {
 				RavTech.sceneHandler.paused = !RavTech.sceneHandler.paused;
 				if (RavTech.sceneHandler.paused) {
+					Array<Body> bodies = new Array<Body>();
+					RavTech.sceneHandler.box2DWorld.getBodies(bodies);
+					for(Body body : bodies) {
+						((UserData) body.getUserData()).isFlaggedForDelete = true;
+					}
 					RavTech.files.loadState(state);
 					playButton.setText("Run");
 				} else {

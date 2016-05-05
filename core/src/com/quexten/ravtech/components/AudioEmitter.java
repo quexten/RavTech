@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.util.Debug;
 
 public class AudioEmitter extends GameComponent
 	implements Json.Serializable {
@@ -33,7 +34,8 @@ public class AudioEmitter extends GameComponent
 	@Override
 	public void load (Array<AssetDescriptor> dependencies) {
 		AssetDescriptor<Sound> assetDescriptor = new AssetDescriptor<Sound>(
-			RavTech.files.getAssetHandle(filePath), Sound.class);
+			filePath, Sound.class);
+		Debug.log("LoadSound", filePath);
 		dependencies.add(assetDescriptor);
 	}
 
@@ -65,6 +67,7 @@ public class AudioEmitter extends GameComponent
 		path = path.replaceAll("\\\\", "/");
 		filePath = path;
 		RavTech.files.loadAsset(filePath, Sound.class);
+		RavTech.files.finishLoading();
 	}
 
 	public void setPitch (float pitch) {

@@ -309,4 +309,8 @@ public class GameObject extends GameComponent
 	public Object[] getValiables () {
 		return null;
 	}
+
+	public void setName (String text) {
+		this.name = text;
+	}
 }

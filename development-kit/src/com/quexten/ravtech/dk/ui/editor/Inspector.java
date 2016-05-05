@@ -5,8 +5,11 @@ import java.lang.reflect.Method;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
@@ -14,9 +17,11 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.kotcrab.vis.ui.widget.MenuItem;
 import com.kotcrab.vis.ui.widget.PopupMenu;
+import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.dk.RavTechDK;
@@ -51,6 +56,26 @@ public class Inspector extends VisWindow {
 		if (scrollPane != null)
 			scroll = scrollPane.getScrollY();
 		clear();
+
+		VisTable nameTable = new VisTable();
+		nameTable.add(new VisLabel("Name:")).align(Align.bottomLeft)
+			.padRight(5);
+		final VisTextField nameField = new VisTextField();
+		nameField.setText(RavTechDK.selectedObjects.size > 0 ? RavTechDK.selectedObjects.first().getName() : "");
+		nameField.addListener(new InputListener() {
+			@Override
+			public boolean keyTyped (InputEvent event, char c) {
+				if (c == '\r' || c == '\n') {
+					RavTechDK.selectedObjects.first()
+						.setName(nameField.getText());
+					return true;
+				} else
+					return false;
+			}
+		});
+		nameTable.add(nameField).growX();
+		add(nameTable).growX().padBottom(5);
+		row();
 
 		contentTable = new VisTable();
 		contentTable.top();
@@ -147,8 +172,7 @@ public class Inspector extends VisWindow {
 	}
 
 	public void changed () {
-		com.quexten.ravtech.util.Debug.log("Inspector",
-			"changed");
+		com.quexten.ravtech.util.Debug.log("Inspector", "changed");
 		inspectorChanged = true;
 	}
 

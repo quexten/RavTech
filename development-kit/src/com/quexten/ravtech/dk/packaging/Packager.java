@@ -16,6 +16,7 @@ import com.quexten.ravtech.dk.packaging.platforms.android.AlignStep;
 import com.quexten.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
 import com.quexten.ravtech.dk.packaging.platforms.android.SignStep;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
+import com.quexten.ravtech.util.Debug;
 
 public class Packager {
 
@@ -125,9 +126,25 @@ public class Packager {
 	 * @param platform - the platform to run the app on
 	 * @param deviceIdentifier - the device identifier in case there are multiple devices. Null if there is only 1 device */
 	public static void run (BuildReporterDialog buildReporterDialog,
-		TargetPlatform platform, String deviceIdentifier) {
+		TargetPlatform platform, String deviceIdentifier,
+		BuildOptions options) {
 		PackageStep firstStep = null;
+		RavTechDK.getLocalFile("builder/android/assets/config.json")
+			.writeString("{ \"title\": \"" + RavTech.project.appName
+				+ "\",\n\"useAssetBundle\": "
+				+ String.valueOf(
+					options.assetType == BuildOptions.AssetType.External)
+				+ "\n}", false);
 		RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
+		
+		if (options.assetType == AssetType.External)
+			firstStep = new PackBundleStep(buildReporterDialog);
+		else {
+			firstStep = new CopyDirectoryStep(buildReporterDialog,
+				RavTechDK.projectHandle.child("assets").file(), RavTechDK
+					.getLocalFile("/builder/android/assets/").file());
+		}
+
 		switch (platform) {
 			case Desktop:
 			case Windows:
@@ -149,7 +166,8 @@ public class Packager {
 			case Android:
 				RavTechDK.saveScene(RavTech.files
 					.getAssetHandle(RavTechDK.getCurrentScene()));
-				firstStep = new PackBundleStep(buildReporterDialog);
+				Debug.log("Proj", RavTechDK.project.appId + " | " + RavTech.project.buildVersion + " | " + RavTech.project.appId);
+				if(!options.skipBuild)
 				firstStep
 					.setNextStep(new PackBundleStep(buildReporterDialog))
 					.setNextStep(
@@ -158,10 +176,18 @@ public class Packager {
 						System.getProperty("user.dir")
 							+ "/temp/build.ravpack ",
 						"/sdcard/Android/obb/" + RavTechDK.project.appId
-							+ "/main." + RavTech.project.buildVersion + "."
-							+ RavTech.project.appId + ".obb"))
+							+ "/main." + RavTechDK.project.buildVersion + "."
+							+ RavTechDK.project.appId + ".obb"))
 					.setNextStep(new PlatformStep(buildReporterDialog,
-						new AndroidPlatform(deviceIdentifier)));
+						new AndroidPlatform(deviceIdentifier, options.skipBuild)));
+				else
+					firstStep.setNextStep(new AndroidPushStep(buildReporterDialog,
+						System.getProperty("user.dir")
+							+ "/temp/build.ravpack ",
+						"/sdcard/Android/obb/" + RavTechDK.project.appId
+							+ "/main." + RavTechDK.project.buildVersion + "."
+							+ RavTechDK.project.appId + ".obb"))
+					.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(deviceIdentifier, options.skipBuild)));
 				break;
 			case WebGL:
 				RavTechDK.saveScene(RavTech.files

@@ -1,6 +1,7 @@
 
 package com.quexten.ravtech.desktop;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
@@ -21,6 +22,7 @@ public class DesktopLauncher {
 		final Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setWindowedMode(1280, 720);
 		config.setDecorated(true);
+		config.useVsync(true);
 		config.setWindowListener(new Lwjgl3WindowListener() {
 			@Override
 			public void iconified () {

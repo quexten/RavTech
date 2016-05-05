@@ -81,7 +81,7 @@ public class RavTech extends Game {
 
 		if (serializedCurrentScene != null)
 			files.loadState(serializedCurrentScene);
-		else if (files.hasAsset(project.startScene)) {
+		else if (!isEditor || files.hasAsset(project.startScene)) {
 			files.loadAsset(project.startScene, Scene.class);
 			files.finishLoading();
 			RavTech.currentScene = files.getAsset(project.startScene);
