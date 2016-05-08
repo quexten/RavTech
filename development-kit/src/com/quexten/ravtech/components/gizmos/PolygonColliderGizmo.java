@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.PolygonCollider;
+import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 import com.quexten.ravtech.util.GeometryUtils;
 

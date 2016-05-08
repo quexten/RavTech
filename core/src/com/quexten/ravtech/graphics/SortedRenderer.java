@@ -55,7 +55,7 @@ public class SortedRenderer {
 			for (int i = 0; i < components.size; i++) {
 				Renderer renderer = (Renderer)components.get(i);
 				if (renderer instanceof Light)
-					((Light)renderer).light.setActive(renderer.enabled);
+					((Light)renderer).getLight().setActive(renderer.enabled);
 				if (renderingLayers.get(renderer.sortingLayerName) != null
 					&& renderer.enabled)
 					renderingLayers.get(renderer.sortingLayerName)

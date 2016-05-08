@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.SpriteRenderer;
+import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 import com.quexten.ravtech.util.GeometryUtils;
 

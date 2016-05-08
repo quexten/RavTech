@@ -1,9 +1,11 @@
 
-package com.quexten.ravtech.components.gizmos;
+package com.quexten.ravtech.graphics;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.graphics.Camera;
 
@@ -15,7 +17,11 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 
 	public PolygonShapeRenderer (Camera camera) {
 		this.camera = camera;
-		texture = GizmoHandler.whiteTexture;
+		Pixmap pixmap = new Pixmap(1, 1, Format.RGB565);
+		pixmap.setColor(Color.WHITE);
+		pixmap.fill();
+		texture = new Texture(pixmap);
+		pixmap.dispose();
 	}
 
 	void drawRect (float x, float y, float width, float height,
@@ -26,7 +32,7 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		draw(texture, x + width - thickness, y, thickness, height);
 	}
 
-	void line (float x1, float y1, float x2, float y2) {
+	public void line (float x1, float y1, float x2, float y2) {
 		float dx = x1 - x2;
 		float dy = y1 - y2;
 
@@ -88,7 +94,7 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		polyline(indicies);
 	}
 
-	void setThickness (int thickness) {
+	public void setThickness (int thickness) {
 		this.thickness = thickness;
 	}
 

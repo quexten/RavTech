@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.BoxCollider;
 import com.quexten.ravtech.dk.ui.utils.ColorUtils;
+import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 import com.quexten.ravtech.util.GeometryUtils;
 

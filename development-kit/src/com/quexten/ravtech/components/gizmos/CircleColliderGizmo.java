@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.CircleCollider;
 import com.quexten.ravtech.dk.ui.utils.ColorUtils;
+import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.history.ChangeManager;
 import com.quexten.ravtech.history.ModifyChangeable;
 import com.quexten.ravtech.util.EventType;

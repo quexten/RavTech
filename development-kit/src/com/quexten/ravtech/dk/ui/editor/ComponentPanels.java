@@ -14,6 +14,7 @@ import com.quexten.ravtech.components.ComponentType;
 import com.quexten.ravtech.components.FontRenderer;
 import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.components.Light;
+import com.quexten.ravtech.components.Light.LightType;
 import com.quexten.ravtech.components.Rigidbody;
 import com.quexten.ravtech.components.ScriptComponent;
 import com.quexten.ravtech.components.SpriteRenderer;
@@ -116,9 +117,17 @@ public class ComponentPanels {
 				public VisTable createTable (GameComponent component) {
 					this.component = component;
 					VisTable table = new VisTable();
-					addColorPicker(table, "color");
 					addSliderLabel(table, "angle");
+					addColorPicker(table, "color");
 					addSliderLabel(table, "distance");
+					addSliderLabel(table, "rayCount");
+					addDropdown(table, "type",
+						new String[] {LightType.ChainLight.toString(),
+							LightType.ConeLight.toString(),
+							LightType.DirectionalLight.toString(),
+							LightType.PointLight.toString()});
+					addCheckBox(table, "isSoft");
+					addSliderLabel(table, "softnessLength");
 					return table;
 				}
 			});

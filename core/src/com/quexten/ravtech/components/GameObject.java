@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.animation.Animation;
+import com.quexten.ravtech.components.Light.LightType;
 import com.quexten.ravtech.util.PrefabManager;
 
 public class GameObject extends GameComponent
@@ -129,7 +130,7 @@ public class GameObject extends GameComponent
 		else if (classname.equals("AudioEmitter"))
 			component = new AudioEmitter();
 		else if (classname.equals("Light"))
-			component = new Light();
+			component = new Light(LightType.ConeLight);
 		else if (classname.equals("ScriptComponent"))
 			component = new ScriptComponent();
 		else if (classname.equals("GameObject"))

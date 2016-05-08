@@ -25,6 +25,7 @@ import com.quexten.ravtech.components.Transform;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.RavTechDK.EditingMode;
 import com.quexten.ravtech.graphics.Camera;
+import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 
 public class GizmoHandler {

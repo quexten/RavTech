@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.components.Light;
+import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 import com.quexten.ravtech.util.GeometryUtils;
 
@@ -13,18 +14,21 @@ import box2dLight.ConeLight;
 public class ConeLightGizmo extends Gizmo<Light> {
 
 	Light light;
-	ConeLight coneLight;
+	box2dLight.Light coneLight;
 	boolean raySelected;
 
 	public ConeLightGizmo (Light light) {
 		super(light);
 		this.light = light;
-		coneLight = (ConeLight)light.light;
+		//coneLight = (box2dLight.RavChainLight)light.light;
 	}
 
 	@Override
 	public void draw (PolygonShapeRenderer renderer,
 		boolean selected) {
+		//((box2dLight.RavChainLight) coneLight).debugRender(renderer);
+		if(true)
+			return;
 		renderer.setColor(
 			selected && !raySelected ? Color.YELLOW : Color.CYAN);
 		drawCone(renderer);
@@ -35,13 +39,15 @@ public class ConeLightGizmo extends Gizmo<Light> {
 	}
 
 	private void drawCone (PolygonShapeRenderer renderer) {
+		if(true)
+		return;
 		Vector2 origin = new Vector2(
 			light.getParent().transform.getPosition().x,
 			light.getParent().transform.getPosition().y);
 		int indexcount = 360;
 		float[] indicies = new float[indexcount * 2];
 		for (int i = 0; i < indexcount; i++) {
-			float offset = coneLight.getConeDegree() * 2
+			/*float offset = coneLight.getConeDegree() * 2
 				* (i / (indexcount - 1f) - 0.5f);
 			Vector2 endpoint = new Vector2(
 				origin.x + (float)Math.cos(Math.toRadians(
@@ -49,9 +55,9 @@ public class ConeLightGizmo extends Gizmo<Light> {
 				* coneLight.getDistance(),
 				origin.y + (float)Math.sin(Math.toRadians(
 					light.getParent().transform.getRotation() + offset))
-					* coneLight.getDistance());
-			indicies[2 * i] = endpoint.x;
-			indicies[2 * i + 1] = endpoint.y;
+					* coneLight.getDistance());*/
+			//indicies[2 * i] = endpoint.x;
+			//indicies[2 * i + 1] = endpoint.y;
 		}
 		renderer.polyline(indicies);
 	}
@@ -75,6 +81,8 @@ public class ConeLightGizmo extends Gizmo<Light> {
 
 	@Override
 	public float input (float x, float y, int button, int eventType) {
+		if(true)
+			return 0;
 		Vector2 origin = new Vector2(
 			light.getParent().transform.getPosition().x,
 			light.getParent().transform.getPosition().y);
@@ -84,15 +92,15 @@ public class ConeLightGizmo extends Gizmo<Light> {
 				float coneDst = Math.abs(
 					origin.dst(worldPosition) - coneLight.getDistance());
 				float rayDst = GeometryUtils.isInBoundingBox(origin,
-					getRayEndpoint(origin, light.angle), worldPosition, 1)
+					getRayEndpoint(origin, light.getAngle()), worldPosition, 1)
 						? GeometryUtils.dstFromLine(origin,
-							getRayEndpoint(origin, light.angle),
+							getRayEndpoint(origin, light.getAngle()),
 							worldPosition)
 						: Float.MAX_VALUE;
 				float rayDst2 = GeometryUtils.isInBoundingBox(origin,
-					getRayEndpoint(origin, -light.angle), worldPosition, 1)
+					getRayEndpoint(origin, -light.getAngle()), worldPosition, 1)
 						? GeometryUtils.dstFromLine(origin,
-							getRayEndpoint(origin, -light.angle),
+							getRayEndpoint(origin, -light.getAngle()),
 							worldPosition)
 						: Float.MAX_VALUE;
 				if (rayDst > rayDst2)
