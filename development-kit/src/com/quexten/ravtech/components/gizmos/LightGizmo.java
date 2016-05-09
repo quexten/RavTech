@@ -2,7 +2,6 @@
 package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.components.Light;
 import com.quexten.ravtech.components.Light.LightType;
@@ -94,13 +93,6 @@ public class LightGizmo extends Gizmo<Light> {
 
 		renderer.setColor(coneColor);
 		renderer.polyline(indicies);
-	}
-
-	private void drawRay (ShapeRenderer renderer, float degrees) {
-		Vector2 origin = new Vector2(
-			component.getParent().transform.getPosition().x,
-			component.getParent().transform.getPosition().y);
-		renderer.line(origin, getRayEndpoint(origin, degrees));
 	}
 
 	private Vector2 getRayEndpoint (Vector2 origin, float degrees) {
