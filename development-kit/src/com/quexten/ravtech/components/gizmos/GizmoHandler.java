@@ -58,12 +58,11 @@ public class GizmoHandler {
 			for (int i = 0; i < objects.size; i++) {
 				GameObject object = objects.get(i);
 				if (object != null)
-					for (int n = 0; n < object.getComponents().size; n++) {
+					for (int n = object.getComponents().size
+						- 1; n >= 0; n--) {
 						Gizmo<? extends GameComponent> gizmo = getGizmoFor(
 							object.getComponents().get(n));
-						if (gizmo != null && (RavTechDK
-							.getEditingMode() == EditingMode.Other) ? true
-								: gizmo instanceof TransformGizmo)
+						if (gizmo != null)
 							gizmo.draw(renderer, gizmo == closestGizmo);
 					}
 			}
@@ -125,11 +124,12 @@ public class GizmoHandler {
 					if (button == Buttons.LEFT) {
 						if (transform != null) {
 							if (getGizmoFor(transform) == null) {
-								if(!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-								RavTechDK
-									.setSelectedObjects(transform.getParent());
+								if (!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
+									RavTechDK.setSelectedObjects(
+										transform.getParent());
 								else
-									RavTechDK.selectedObjects.add(transform.getParent());
+									RavTechDK.selectedObjects
+										.add(transform.getParent());
 								setupGizmos();
 							}
 							draggedGizmo = getGizmoFor(transform);
@@ -222,7 +222,7 @@ public class GizmoHandler {
 		else if (iteratedComponentClass.equals(CircleCollider.class))
 			gizmo = new CircleColliderGizmo((CircleCollider)component);
 		else if (iteratedComponentClass.equals(Light.class))
-			gizmo = new ConeLightGizmo((Light)component);
+			gizmo = new LightGizmo((Light)component);
 		else if (iteratedComponentClass.equals(PolygonCollider.class))
 			gizmo = new PolygonColliderGizmo((PolygonCollider)component);
 		else if (iteratedComponentClass.equals(SpriteRenderer.class))

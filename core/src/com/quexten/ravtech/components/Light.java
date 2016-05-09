@@ -81,7 +81,8 @@ public class Light extends Renderer implements Json.Serializable {
 
 	public float getAngle () {
 		return (getLightType() == LightType.ConeLight)
-			? ((ConeLight)light).getConeDegree() : 0;
+			? ((ConeLight)light).getConeDegree()
+			: (getLightType() == LightType.PointLight) ? 180 : 0;
 	}
 
 	public void setChain (float[] values) {
@@ -171,7 +172,7 @@ public class Light extends Renderer implements Json.Serializable {
 				break;
 			case PointLight:
 				light = new PointLight(RavTech.sceneHandler.lightHandler,
-					rayCount > 3 ? rayCount : 3, color, distance,
+					rayCount > 3 ? rayCount + 1 : 3, color, distance,
 					position.x, position.y);
 				break;
 		}
@@ -190,7 +191,7 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	public int getRayCount () {
-		return light.getRayNum();
+		return light.getRayNum() - ((getLightType() == LightType.PointLight) ? 1 : 0);
 	}
 
 	public void setSoft (boolean soft) {
