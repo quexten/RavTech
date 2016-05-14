@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.kotcrab.vis.ui.layout.HorizontalFlowGroup;
+import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.quexten.ravtech.dk.RavTechDK;
@@ -47,14 +48,24 @@ public class AssetViewer extends VisTable {
 		row();
 		add(assetView = new AssetView()).grow();
 	}
-
+	
+	@Override
+	public void layout() {
+		super.layout();
+		assetView.group.setWidth(this.getWidth());
+		assetView.group.invalidate();
+		assetView.group.layout();
+	}
+	
+	
 	public class AssetView extends VisTable {
 
 		ObjectMap<String, AssetPreviewPanel> previewPanels = new ObjectMap<String, AssetPreviewPanel>();
 		AssetPreviewPanel lastSelected;
 		FileHandle folderHandle;
 		String currentPath;
-
+		HorizontalFlowGroup group;
+		
 		public AssetView () {
 			setDirectory("");
 		}
@@ -63,8 +74,12 @@ public class AssetViewer extends VisTable {
 			RavTechDK.inspector.changed();
 			currentPath = path;
 			clear();
-			HorizontalFlowGroup group = new HorizontalFlowGroup();
-			add(group).grow();
+			group = new HorizontalFlowGroup();
+			VisScrollPane pane = new VisScrollPane(group);
+			pane.setScrollingDisabled(true, false);
+			top();
+			left();
+			add(pane);
 
 			folderHandle = RavTechDK.projectHandle.child("assets")
 				.child(path);
