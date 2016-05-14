@@ -41,9 +41,13 @@ public class DesktopLauncher {
 			}
 
 			@Override
-			public boolean windowIsClosing () {
+			public boolean closeRequested () {
 				System.exit(0);
-				return false;
+				return true;
+			}
+
+			@Override
+			public void filesDropped (String[] files) {				
 			}
 
 		});

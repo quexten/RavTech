@@ -13,7 +13,6 @@ import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
@@ -184,14 +183,15 @@ public class EditorMenuBar extends MenuBar {
 					}
 				});
 				menu.addItem(entry);
-			}			
+			}
 			{ // Scene Settings
 				entry = new MenuItem("Scene Settings");
 				entry.addListener(new ChangeListener() {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						actor.getStage().addActor(new SceneSettings(RavTech.currentScene));
+						actor.getStage().addActor(
+							new SceneSettings(RavTech.currentScene));
 					}
 				});
 				menu.addItem(entry);
@@ -229,7 +229,7 @@ public class EditorMenuBar extends MenuBar {
 						Gdx.app.postRunnable(new Runnable() {
 							@Override
 							public void run () {
-								VisWindow window = new VisWindow("Scene");
+								RavWindow window = new RavWindow("Scene", true);
 								window.addCloseButton();
 								window.setSize(320, 180);
 								window.add(new SceneViewWidget(false)).grow();
@@ -263,7 +263,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						VisWindow window = RavTechDK.updateWidget;
+						RavWindow window = RavTechDK.updateWidget;
 						window.setVisible(!window.isVisible());
 					}
 				});
@@ -282,8 +282,9 @@ public class EditorMenuBar extends MenuBar {
 				if (RavTech.sceneHandler.paused) {
 					Array<Body> bodies = new Array<Body>();
 					RavTech.sceneHandler.box2DWorld.getBodies(bodies);
-					for(Body body : bodies) {
-						((UserData) body.getUserData()).isFlaggedForDelete = true;
+					for (Body body : bodies) {
+						((UserData)body
+							.getUserData()).isFlaggedForDelete = true;
 					}
 					RavTech.files.loadState(state);
 					playButton.setText("Run");

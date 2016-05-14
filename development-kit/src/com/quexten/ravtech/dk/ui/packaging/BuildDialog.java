@@ -6,7 +6,6 @@ import java.io.FileFilter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
@@ -20,7 +19,6 @@ import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
@@ -32,17 +30,18 @@ import com.quexten.ravtech.dk.packaging.Packager.TargetPlatform;
 import com.quexten.ravtech.dk.packaging.platforms.BuildOptions;
 import com.quexten.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
 import com.quexten.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
+import com.quexten.ravtech.dk.ui.editor.RavWindow;
 
 import se.vidstige.jadb.JadbDevice;
 
-public class BuildDialog extends VisWindow {
+public class BuildDialog extends RavWindow {
 
 	VisTable contentTable = new VisTable();
 
 	public BuildDialog () {
 		super("Build");
-		contentTable.setFillParent(true);
-		addActor(contentTable);
+		add(contentTable).grow();
+		
 		setSize(500, 350);
 		setVisible(true);
 		addCloseButton();
@@ -69,18 +68,18 @@ public class BuildDialog extends VisWindow {
 		platforms.add(TargetPlatform.Android);
 		platforms.add(TargetPlatform.WebGL);
 		platformList.setItems(platforms);
-		contentTable.padTop(28).padLeft(20);
 		contentTable.add(platformList).grow();
 
 		final VisTable optionsTable = new VisTable();
-		optionsTable.add(new VisLabel("AssetType"));
+		optionsTable.add(new VisLabel("AssetType")).growX().left();
 		final VisSelectBox<String> dropDown = new VisSelectBox<String>();
 		dropDown.setItems("Internal", "External");
-		optionsTable.add(dropDown);
-		optionsTable.add(new VisLabel("Skip Build"));
+		optionsTable.add(dropDown).growX();
+		optionsTable.row();
+		optionsTable.add(new VisLabel("Skip Build")).growX().left();
 		final VisCheckBox skipBuildBox = new VisCheckBox("");
-		optionsTable.add(skipBuildBox);
-		contentTable.add(optionsTable).grow();
+		optionsTable.add(skipBuildBox).left();
+		contentTable.add(optionsTable).growX().top();
 
 		VisTable bottomTable = new VisTable();
 
@@ -126,6 +125,7 @@ public class BuildDialog extends VisWindow {
 		bottomTable.add(buildAndRunButton);
 
 		contentTable.row();
+		contentTable.add(new Actor());
 		contentTable.add(bottomTable).align(Align.right);
 		return contentTable;
 	}

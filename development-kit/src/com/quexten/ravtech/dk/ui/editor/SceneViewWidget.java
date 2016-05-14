@@ -42,6 +42,8 @@ public class SceneViewWidget extends Widget {
 
 	boolean renderGrid;
 
+	int oldWidth, oldHeight;
+
 	public SceneViewWidget (boolean main) {
 		camera = main ? RavTech.sceneHandler.worldCamera
 			: RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
@@ -225,11 +227,11 @@ public class SceneViewWidget extends Widget {
 	@Override
 	public void act (float delta) {
 		if (hasToLerpZoom)
-			camera.zoom += 0.16f * (targetZoom - camera.zoom);
+			camera.zoom += 5 * delta * (targetZoom - camera.zoom);
 		if (hasToLerpPosition)
 			camera.position.lerp(
 				new Vector3(targetPosition.x, targetPosition.y, 0),
-				0.16f);
+				5 * delta);
 		if (Math.abs(targetZoom - camera.zoom) < 0.00001f)
 			hasToLerpZoom = hasToLerpPosition = false;
 	}
@@ -237,6 +239,13 @@ public class SceneViewWidget extends Widget {
 	@Override
 	public void draw (Batch batch, float alpha) {
 		super.draw(batch, alpha);
+
+		if (oldWidth != (int)getWidth()
+			|| oldHeight != (int)getHeight()) {
+			resize();
+		}
+		oldWidth = (int)getWidth();
+		oldHeight = (int)getHeight();
 
 		batch.setColor(Color.WHITE);
 		batch.disableBlending();

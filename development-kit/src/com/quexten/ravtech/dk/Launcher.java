@@ -46,14 +46,19 @@ public class Launcher {
 			}
 
 			@Override
-			public boolean windowIsClosing () {
+			public boolean closeRequested () {
 				System.exit(0);
-				return true;
+				return false;
 			}
 
+			@Override
+			public void filesDropped (String[] files) {
+				Debug.log("Dropped", files);
+			}			
 		});
 		RavTech.scriptLoader = new LuaJScriptLoader();
-		new Lwjgl3Application(ravtech, config);
+		Lwjgl3Application application = new Lwjgl3Application(ravtech, config);
+		
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run () {

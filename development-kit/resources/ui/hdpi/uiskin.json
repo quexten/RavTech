@@ -12,7 +12,7 @@ com.badlogic.gdx.graphics.Color: {
 	green: {a: 1, b: 0, g: 1, r: 0 },
 	red: {a: 1, b: 0, g: 0, r: 1 },
 	blue: {a: 1, b: 1, g: 0, r: 0 },
-	grey: {a: 1, b: 0.32, g: 0.32, r: 0.32 },
+	grey: {a: 1, b: 0.855, g: 0.855, r: 0. },
 	vis-blue: {a: 1, b: 0.886, g: 0.631, r: 0.105 },
 	vis-red: {a: 1, b: 0.047, g: 0, r: 0.862 },
 	menuitem: {a: 1, b: 0.65, g: 0.65, r: 0.65 },

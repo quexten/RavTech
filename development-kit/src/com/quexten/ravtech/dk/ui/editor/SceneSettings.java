@@ -2,10 +2,9 @@
 package com.quexten.ravtech.dk.ui.editor;
 
 import com.kotcrab.vis.ui.widget.VisLabel;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.quexten.ravtech.Scene;
 
-public class SceneSettings extends VisWindow {
+public class SceneSettings extends RavWindow {
 
 	final Scene scene;
 

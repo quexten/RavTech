@@ -12,12 +12,12 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.VisUI;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.quexten.ravtech.EngineConfiguration;
 import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.adb.AdbManager;
 import com.quexten.ravtech.dk.project.ProjectSettingsWizard;
+import com.quexten.ravtech.dk.ui.editor.RavWindow;
 import com.quexten.ravtech.dk.ui.editor.SceneViewWidget;
 import com.quexten.ravtech.project.Project;
 import com.quexten.ravtech.util.Debug;
@@ -86,11 +86,13 @@ public class RavTechDKApplication extends RavTech {
 	public void resize (int width, int height) {
 		RavTech.ui.getStage().getViewport().update(width, height, true);
 		RavTech.ui.getStage().draw();
+		RavTechDK.windowWidth = width;
+		RavTechDK.windowHeight = height;
 		super.resize(width, height);
 	}
 
 	public void addWindow (String title) {
-		final VisWindow window = new VisWindow(title);
+		final RavWindow window = new RavWindow(title);
 		final SceneViewWidget sceneView = new SceneViewWidget(false);
 		window.add(sceneView).expand().fill();
 		window.setSize(128 * 3, 72 * 3);

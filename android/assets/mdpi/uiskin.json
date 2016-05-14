@@ -13,7 +13,8 @@ com.badlogic.gdx.graphics.Color: {
 	vis-blue: {a: 1, b: 0.886, g: 0.631, r: 0.105 },
 	vis-red: {a: 1, b: 0.047, g: 0, r: 0.862 },
 	menuitem: {a: 1, b: 0.65, g: 0.65, r: 0.65 },
-	link-label: {a: 1, b: 0.886, g: 0.631, r: 0.105 }
+	link-label: {a: 1, b: 0.886, g: 0.631, r: 0.105 },
+	rav-background: {a: 1, b: 0.855, g: 0.855, r: 0.855 },
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: {name: white, color: {r: 0, g: 0, b: 0, a: 0.45} }

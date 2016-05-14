@@ -14,12 +14,11 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.ui.utils.UpdateManager;
 import com.quexten.ravtech.dk.ui.utils.Updater;
 
-public class UpdaterWidget extends VisWindow {
+public class UpdaterWidget extends RavWindow {
 
 	public UpdaterWidget () {
 		super("Updater");
@@ -37,7 +36,8 @@ public class UpdaterWidget extends VisWindow {
 			entry.value.setUpdaterEntry(updaterEntry);
 			items.add(updaterEntry).growX();
 		}
-		this.add(new VisScrollPane(items)).growX().align(Align.top);
+
+		add(new VisScrollPane(items)).growX().align(Align.top);
 
 		setResizable(true);
 		setSize(450, 600);

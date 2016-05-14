@@ -7,13 +7,16 @@ import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Window;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
-import com.kotcrab.vis.ui.widget.VisWindow;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
+import com.badlogic.gdx.utils.reflect.ReflectionException;
 import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.Scene;
@@ -21,6 +24,7 @@ import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.components.gizmos.GizmoHandler;
 import com.quexten.ravtech.dk.ui.editor.EditorMenuBar;
 import com.quexten.ravtech.dk.ui.editor.Inspector;
+import com.quexten.ravtech.dk.ui.editor.RavWindow;
 import com.quexten.ravtech.dk.ui.editor.SceneViewWidget;
 import com.quexten.ravtech.dk.ui.editor.UpdaterWidget;
 import com.quexten.ravtech.dk.ui.editor.assetview.AssetViewer;
@@ -58,6 +62,9 @@ public class RavTechDK {
 	};
 
 	private static EditingMode currentEditingMode = EditingMode.Move;
+
+	public static int windowWidth;
+	public static int windowHeight;
 
 	public static void initialize () {
 		final Table root = new Table();
@@ -119,10 +126,10 @@ public class RavTechDK {
 		});
 		assetViewer = new AssetViewer();
 		AssetFileWatcher.set(RavTechDK.projectHandle);
-		VisWindow window = new VisWindow("AssetView");
+		RavWindow window = new RavWindow("AssetView", false);
 		window.add(assetViewer).grow();
 		window.setResizable(true);
-		window.setSize(1000, 300);
+		window.setSize(300, 300);
 		window.setPosition(2000, 0);
 		RavTech.ui.getStage().addActor(window);
 		loadScene(project.startScene);
@@ -235,6 +242,22 @@ public class RavTechDK {
 
 	public static EditingMode getEditingMode () {
 		return currentEditingMode;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Lwjgl3Window getWindow () {
+		com.badlogic.gdx.utils.reflect.Field field;
+		try {
+			field = ClassReflection.getDeclaredField(Lwjgl3Application.class,
+				"windows");
+			field.setAccessible(true);
+			Array<Lwjgl3Window> windows = (Array<Lwjgl3Window>)field
+				.get(Gdx.app);
+			return windows.first();
+		} catch (ReflectionException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

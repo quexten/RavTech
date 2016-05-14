@@ -22,11 +22,10 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.dk.RavTechDK;
 
-public class Inspector extends VisWindow {
+public class Inspector extends RavWindow {
 
 	VisTable contentTable;
 	VisScrollPane scrollPane;
@@ -37,7 +36,7 @@ public class Inspector extends VisWindow {
 	boolean inspectorChanged;
 
 	public Inspector () {
-		super("Inspector");
+		super("Inspector", false);
 		ComponentPanels.registerPanels();
 		setSize(300, 500);
 		setPosition(0, 200);

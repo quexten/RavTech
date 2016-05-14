@@ -12,16 +12,16 @@ import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
-import com.kotcrab.vis.ui.widget.VisWindow;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.ui.editor.LabelTextPair;
+import com.quexten.ravtech.dk.ui.editor.RavWindow;
 import com.quexten.ravtech.project.Project;
 
-public class ProjectSettingsWizard extends VisWindow {
+public class ProjectSettingsWizard extends RavWindow {
 
 	VisTable table;
 	Project project;
