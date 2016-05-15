@@ -186,7 +186,7 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	public void setRayCount (int amount) {
-		this.rayCount = amount;
+		this.rayCount = amount > 2 ? amount : 3;
 		this.setLightType(getLightType());
 	}
 
