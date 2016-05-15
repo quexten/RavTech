@@ -143,7 +143,7 @@ public class LightGizmo extends Gizmo<Light> {
 				break;
 			case EventType.MouseDrag:
 				if (!raySelected)
-					component.setVariable(1, origin.dst(worldPosition));
+					component.setVariable(component.getVariableId("distance"), origin.dst(worldPosition));
 				else {
 					float angle = worldPosition.cpy().sub(origin).angle();
 					float rotation = component.getParent().transform
