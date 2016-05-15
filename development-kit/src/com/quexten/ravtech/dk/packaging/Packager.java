@@ -35,7 +35,7 @@ public class Packager {
 		TargetPlatform targetPlatform, Object userData,
 		FileHandle destinationDir, BuildOptions options) {
 		RavTechDK.getLocalFile("builder/android/assets/config.json")
-			.writeString("{ \"title\": \"" + RavTech.project.appName
+			.writeString("{ \"title\": \"" + RavTechDK.project.appName
 				+ "\",\n\"useAssetBundle\": "
 				+ String.valueOf(
 					options.assetType == BuildOptions.AssetType.External)
@@ -91,6 +91,7 @@ public class Packager {
 							destinationDir.child("assets.ravpack")));
 
 				localFirstStep
+					.setNextStep(new DeleteDirectoryStep(buildReporterDialog, RavTechDK.getLocalFile("builder/android/assets").file()))
 					.setNextStep(new PlatformStep(buildReporterDialog,
 						new DesktopPlatform(),
 						destinationDir.child("build.jar")))
@@ -136,7 +137,7 @@ public class Packager {
 					options.assetType == BuildOptions.AssetType.External)
 				+ "\n}", false);
 		RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
-		
+
 		if (options.assetType == AssetType.External)
 			firstStep = new PackBundleStep(buildReporterDialog);
 		else {
@@ -166,28 +167,38 @@ public class Packager {
 			case Android:
 				RavTechDK.saveScene(RavTech.files
 					.getAssetHandle(RavTechDK.getCurrentScene()));
-				Debug.log("Proj", RavTechDK.project.appId + " | " + RavTech.project.buildVersion + " | " + RavTech.project.appId);
-				if(!options.skipBuild)
-				firstStep
-					.setNextStep(new PackBundleStep(buildReporterDialog))
-					.setNextStep(
-						new ApkPreparationStep(buildReporterDialog))
-					.setNextStep(new AndroidPushStep(buildReporterDialog,
-						System.getProperty("user.dir")
-							+ "/temp/build.ravpack ",
-						"/sdcard/Android/obb/" + RavTechDK.project.appId
-							+ "/main." + RavTechDK.project.buildVersion + "."
-							+ RavTechDK.project.appId + ".obb"))
-					.setNextStep(new PlatformStep(buildReporterDialog,
-						new AndroidPlatform(deviceIdentifier, options.skipBuild)));
+				Debug.log("Proj",
+					RavTechDK.project.appId + " | "
+						+ RavTech.project.buildVersion + " | "
+						+ RavTech.project.appId);
+				if (!options.skipBuild)
+					firstStep
+						.setNextStep(
+							new PackBundleStep(buildReporterDialog))
+						.setNextStep(
+							new ApkPreparationStep(buildReporterDialog))
+						.setNextStep(new AndroidPushStep(
+							buildReporterDialog,
+							System.getProperty("user.dir")
+								+ "/temp/build.ravpack ",
+							"/sdcard/Android/obb/" + RavTechDK.project.appId
+								+ "/main." + RavTechDK.project.buildVersion
+								+ "." + RavTechDK.project.appId + ".obb"))
+						.setNextStep(new PlatformStep(buildReporterDialog,
+							new AndroidPlatform(deviceIdentifier,
+								options.skipBuild)));
 				else
-					firstStep.setNextStep(new AndroidPushStep(buildReporterDialog,
-						System.getProperty("user.dir")
-							+ "/temp/build.ravpack ",
-						"/sdcard/Android/obb/" + RavTechDK.project.appId
-							+ "/main." + RavTechDK.project.buildVersion + "."
-							+ RavTechDK.project.appId + ".obb"))
-					.setNextStep(new PlatformStep(buildReporterDialog, new AndroidPlatform(deviceIdentifier, options.skipBuild)));
+					firstStep
+						.setNextStep(new AndroidPushStep(
+							buildReporterDialog,
+							System.getProperty("user.dir")
+								+ "/temp/build.ravpack ",
+							"/sdcard/Android/obb/" + RavTechDK.project.appId
+								+ "/main." + RavTechDK.project.buildVersion
+								+ "." + RavTechDK.project.appId + ".obb"))
+						.setNextStep(new PlatformStep(buildReporterDialog,
+							new AndroidPlatform(deviceIdentifier,
+								options.skipBuild)));
 				break;
 			case WebGL:
 				RavTechDK.saveScene(RavTech.files

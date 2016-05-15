@@ -41,7 +41,7 @@ public class BuildDialog extends RavWindow {
 	public BuildDialog () {
 		super("Build");
 		add(contentTable).grow();
-		
+
 		setSize(500, 350);
 		setVisible(true);
 		addCloseButton();
@@ -93,13 +93,16 @@ public class BuildDialog extends RavWindow {
 					BuildDialog.this.contentTable
 						.add(createApkOptionsTable(new BuildOptions(
 							(dropDown.getSelectedIndex() == 0)
-								? AssetType.Internal : AssetType.External, skipBuildBox.isChecked())))
+								? AssetType.Internal : AssetType.External,
+							skipBuildBox.isChecked())))
 						.grow();
 					return;
 				}
 				BuildDialog.this.build(platformList.getSelected(), false,
-					new BuildOptions((dropDown.getSelectedIndex() == 0)
-						? AssetType.Internal : AssetType.External, skipBuildBox.isChecked()));
+					new BuildOptions(
+						(dropDown.getSelectedIndex() == 0)
+							? AssetType.Internal : AssetType.External,
+						skipBuildBox.isChecked()));
 			}
 		});
 		bottomTable.add(buildButton);
@@ -118,8 +121,10 @@ public class BuildDialog extends RavWindow {
 					&& AdbManager.getDevices().size > 1)
 					return;
 				BuildDialog.this.build(platformList.getSelected(), true,
-					new BuildOptions((dropDown.getSelectedIndex() == 0)
-						? AssetType.Internal : AssetType.External, skipBuildBox.isChecked()));
+					new BuildOptions(
+						(dropDown.getSelectedIndex() == 0)
+							? AssetType.Internal : AssetType.External,
+						skipBuildBox.isChecked()));
 			}
 		});
 		bottomTable.add(buildAndRunButton);
@@ -233,17 +238,16 @@ public class BuildDialog extends RavWindow {
 			Array<JadbDevice> devices = AdbManager.getDevices();
 			if (devices.size == 1)
 				Packager.run(buildDialog, targetPlatform, "", options);
-			//else if (devices.size > 1)
-				// show device selector
-				return;
+			// else if (devices.size > 1)
+			// show device selector
+			return;
 		}
 
 		if (run)
 			Packager.run(buildDialog, targetPlatform, "", options);
 		else
 			Packager.dist(buildDialog, targetPlatform, userData,
-				getDistFileHandle(targetPlatform),
-				new BuildOptions(AssetType.Internal, options.skipBuild));
+				getDistFileHandle(targetPlatform), options);
 	}
 
 	public void build (TargetPlatform targetPlatform, boolean run,
