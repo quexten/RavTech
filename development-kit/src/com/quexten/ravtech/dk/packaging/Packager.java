@@ -1,19 +1,13 @@
 
 package com.quexten.ravtech.dk.packaging;
 
-import java.io.File;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.packaging.platforms.AndroidPlatform;
 import com.quexten.ravtech.dk.packaging.platforms.BuildOptions;
 import com.quexten.ravtech.dk.packaging.platforms.DesktopPlatform;
-import com.quexten.ravtech.dk.packaging.platforms.WebGLPlatform;
-import com.quexten.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
+import com.quexten.ravtech.dk.packaging.platforms.Platform;
 import com.quexten.ravtech.dk.packaging.platforms.android.AlignStep;
-import com.quexten.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
 import com.quexten.ravtech.dk.packaging.platforms.android.SignStep;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 import com.quexten.ravtech.util.Debug;
@@ -27,82 +21,72 @@ public class Packager {
 	/** Queues up the required steps to package the application for the required target and executes them in a separate GUIWorker
 	 * thread so that it doesn't lock the editors GUI.
 	 *
-	 * @param buildReporterDialog - the dialog to log the progress in
+	 * @param dialog - the dialog to log the progress in
 	 * @param targetPlatform - the platform the app is packaged for (E.g Android / Dekstop / iOS)
 	 * @param userData
 	 * @param destinationDir - the destination, meaning the path the package is saved at */
-	public static void dist (BuildReporterDialog buildReporterDialog,
-		TargetPlatform targetPlatform, Object userData,
-		FileHandle destinationDir, BuildOptions options) {
-		RavTechDK.getLocalFile("builder/android/assets/config.json")
-			.writeString("{ \"title\": \"" + RavTechDK.project.appName
-				+ "\",\n\"useAssetBundle\": "
-				+ String.valueOf(
-					options.assetType == BuildOptions.AssetType.External)
-				+ "\n}", false);
-		RavTechDK.saveScene(
-			RavTech.files.getAssetHandle(RavTechDK.getCurrentScene()));
-		RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
+	public static void build (BuildReporterDialog dialog,
+		TargetPlatform targetPlatform, BuildOptions options) {
 
-		PackageStep firstStep;
-		if (options.assetType == AssetType.External)
-			firstStep = new PackBundleStep(buildReporterDialog);
-		else {
-			firstStep = new CopyDirectoryStep(buildReporterDialog,
-				RavTechDK.projectHandle.child("assets").file(), RavTechDK
-					.getLocalFile("/builder/android/assets/").file());
+		PackageStep firstStep = null;
+		PackageStep currentStep = null;
+
+		if (options.isExternal()) {
+			if (options.skipBuild) {
+				firstStep = new PackageStep(dialog) {
+					@Override
+					public void run () {
+						executeNext();
+					}
+				};
+				currentStep = addCreateAssetBundleStep(dialog, firstStep,
+					targetPlatform);
+			} else
+				firstStep = addAssetClearStep(dialog);
+		} else
+			firstStep = addAssetClearStep(dialog);
+
+		// Build Engine
+		if (currentStep == null) {
+			currentStep = firstStep;
+			if (!options.isExternal()) {
+				currentStep = addCopyAssetsStep(dialog, currentStep);
+			} else {
+				currentStep = addCreateAssetBundleStep(dialog,
+					currentStep, targetPlatform);
+			}
+			currentStep = currentStep.setNextStep(
+				getWriteConfigStep(dialog, options.isExternal()));
+			currentStep = addBuildEngineStep(dialog, currentStep, targetPlatform,
+				options);
 		}
+		
+		if(options.run) {
+			currentStep = addRunStep(dialog, currentStep, targetPlatform, options);
+		}
+		
+		PackageStep iterStep = firstStep;
+		while(iterStep != null) {
+			Debug.log("iterStep", iterStep);
+			iterStep = iterStep.nextStep;
+		}
+		
+		// Executes the queue in a separate thread
+		new PackageWorker(firstStep).run();
+	}
 
-		PackageStep localFirstStep = firstStep;
-
-		// Builds the packaging chain
-		switch (targetPlatform) {
+	private static PackageStep addRunStep (BuildReporterDialog dialog,
+		PackageStep currentStep, TargetPlatform targetPlatform,
+		BuildOptions options) {
+		return currentStep.setNextStep(new RunPlatformStep(dialog, getPlatform(targetPlatform), options));
+	}
+	
+	private static Platform getPlatform(TargetPlatform platform) {
+		switch(platform) {
 			case Android:
-				if (options.assetType == AssetType.External)
-					localFirstStep = localFirstStep
-						.setNextStep(new CopyStep(buildReporterDialog,
-							Gdx.files.absolute(System.getProperty("user.dir")
-								+ "/temp/build.ravpack"),
-							destinationDir.child("extension.obb")));
-
-				localFirstStep
-					.setNextStep(
-						new ApkPreparationStep(buildReporterDialog))
-					.setNextStep(new PlatformStep(buildReporterDialog,
-						new AndroidPlatform(),
-						destinationDir.child("build.apk")))
-					.setNextStep(new SignStep(buildReporterDialog,
-						(KeyStoreCredentials)userData))
-					.setNextStep(new AlignStep(buildReporterDialog))
-					.setNextStep(new CopyStep(buildReporterDialog,
-						Gdx.files.absolute(System.getProperty("user.dir")
-							+ "/builder/android/build/outputs/apk/android-release-aligned.apk"),
-						destinationDir.child("build.apk")))
-					.setNextStep(new DeleteFileStep(buildReporterDialog,
-						RavTechDK.projectHandle.child("assets")
-							.child("project.json")));
-				break;
+				return new AndroidPlatform();
 			case Desktop:
-				if (options.assetType == AssetType.External)
-					localFirstStep = localFirstStep
-						.setNextStep(new CopyStep(buildReporterDialog,
-							Gdx.files.absolute(System.getProperty("user.dir")
-								+ "/temp/build.ravpack"),
-							destinationDir.child("assets.ravpack")));
-
-				localFirstStep
-					.setNextStep(new DeleteDirectoryStep(buildReporterDialog, RavTechDK.getLocalFile("builder/android/assets").file()))
-					.setNextStep(new PlatformStep(buildReporterDialog,
-						new DesktopPlatform(),
-						destinationDir.child("build.jar")))
-					.setNextStep(new CopyStep(buildReporterDialog,
-						Gdx.files.absolute(System.getProperty("user.dir")
-							+ "/builder/desktop/build/libs/desktop-1.0.jar"),
-						destinationDir.child("build.jar")))
-					.setNextStep(new DeleteFileStep(buildReporterDialog,
-						RavTechDK.projectHandle.child("assets")
-							.child("project.json")));
-				break;
+				return new DesktopPlatform();
 			case Linux:
 				break;
 			case Mac:
@@ -114,112 +98,110 @@ public class Packager {
 			case iOS:
 				break;
 			default:
-				break;
+				break;			
 		}
-		// Executes the queue in a separate thread
-		new PackageWorker(firstStep).run();
+		return null;
+	}
+	
+	private static PackageStep addAssetClearStep (
+		BuildReporterDialog dialog) {
+		return new DeleteDirectoryStep(dialog,
+			RavTechDK.getLocalFile("builder/android/assets").file());
 	}
 
-	/** Queues up the required steps to run the application for the required target and executes them in a separate GUIWorker
-	 * thread so that it doesn't lock the editors GUI.
-	 *
-	 * @param buildReporterDialog - the dialog to log the progress in
-	 * @param platform - the platform to run the app on
-	 * @param deviceIdentifier - the device identifier in case there are multiple devices. Null if there is only 1 device */
-	public static void run (BuildReporterDialog buildReporterDialog,
-		TargetPlatform platform, String deviceIdentifier,
-		BuildOptions options) {
-		PackageStep firstStep = null;
-		RavTechDK.getLocalFile("builder/android/assets/config.json")
-			.writeString("{ \"title\": \"" + RavTech.project.appName
-				+ "\",\n\"useAssetBundle\": "
-				+ String.valueOf(
-					options.assetType == BuildOptions.AssetType.External)
-				+ "\n}", false);
-		RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
+	private static PackageStep addCopyAssetsStep (
+		BuildReporterDialog dialog, PackageStep currentStep) {
+		return currentStep.setNextStep(getWriteProjectStep(dialog))
+			.setNextStep(new CopyDirectoryStep(dialog,
+				RavTechDK.projectHandle.child("assets"),
+				RavTechDK.getLocalFile("/builder/android/assets/")))
+			.setNextStep(getDeleteProjectStep(dialog));
+	}
 
-		if (options.assetType == AssetType.External)
-			firstStep = new PackBundleStep(buildReporterDialog);
-		else {
-			firstStep = new CopyDirectoryStep(buildReporterDialog,
-				RavTechDK.projectHandle.child("assets").file(), RavTechDK
-					.getLocalFile("/builder/android/assets/").file());
-		}
+	private static PackageStep addCreateAssetBundleStep (
+		BuildReporterDialog dialog, PackageStep currentStep,
+		TargetPlatform targetPlatform) {
+		return currentStep.setNextStep(getWriteProjectStep(dialog))
+			.setNextStep(new PackBundleStep(dialog))
+			.setNextStep(new CopyStep(dialog,
+				Gdx.files.absolute(System.getProperty("user.dir")
+					+ "/temp/build.ravpack"),
+				RavTechDK.projectHandle.child("builds")
+					.child(targetPlatform.toString().toLowerCase())
+					.child("assets.ravpack")))
+			.setNextStep(getDeleteProjectStep(dialog));
+	}
+
+	private static CreateFileStep getWriteConfigStep (
+		BuildReporterDialog dialog, boolean external) {
+		return new CreateFileStep(dialog,
+			RavTechDK.getLocalFile("builder/android/assets/config.json"),
+			("{ \"title\": \"" + RavTechDK.project.appName
+				+ "\",\n\"useAssetBundle\": " + String.valueOf(external)
+				+ "\n}").getBytes());
+	}
+
+	private static PackageStep getWriteProjectStep (
+		BuildReporterDialog dialog) {
+		return new PackageStep(dialog) {
+			@Override
+			public void run () {
+				buildReporterDialog.log("Saving Project.");
+				RavTechDK.project
+					.save(RavTechDK.projectHandle.child("assets"));
+				executeNext();
+			}
+		};
+	}
+
+	private static PackageStep getDeleteProjectStep (
+		BuildReporterDialog dialog) {
+		return new PackageStep(dialog) {
+			@Override
+			public void run () {
+				buildReporterDialog.log("Deleting Project.");
+				RavTechDK.projectHandle.child("assets")
+					.child("project.json").delete();
+				executeNext();
+			}
+		};
+	}
+
+	@SuppressWarnings("incomplete-switch")
+	private static PackageStep addBuildEngineStep (
+		BuildReporterDialog dialog, PackageStep currentStep,
+		TargetPlatform platform, BuildOptions options) {
+		PackageStep tempStep = null;
 
 		switch (platform) {
 			case Desktop:
-			case Windows:
-			case Mac:
-			case Linux:
-				RavTechDK.saveScene(RavTech.files
-					.getAssetHandle(RavTechDK.getCurrentScene()));
-				firstStep = new PackBundleStep(buildReporterDialog);
-				firstStep
-					.setNextStep(new PackBundleStep(buildReporterDialog))
-					.setNextStep(new CopyStep(buildReporterDialog,
-						Gdx.files.absolute(System.getProperty("user.dir")
-							+ "/temp/build.ravpack"),
-						Gdx.files.absolute(System.getProperty("user.dir")
-							+ "/builder/android/assets/resourcepack.ravpack")))
-					.setNextStep(new PlatformStep(buildReporterDialog,
-						new DesktopPlatform()));
-				break;
+				tempStep = currentStep.setNextStep(
+					new BuildPlatformStep(dialog, new DesktopPlatform(), options));
+				return tempStep.setNextStep(new CopyStep(dialog,
+					RavTechDK.getLocalFile(
+						"builder/desktop/build/libs/desktop-1.0.jar"),
+					RavTechDK.projectHandle.child("builds")
+						.child("desktop").child("build.jar")));
 			case Android:
-				RavTechDK.saveScene(RavTech.files
-					.getAssetHandle(RavTechDK.getCurrentScene()));
-				Debug.log("Proj",
-					RavTechDK.project.appId + " | "
-						+ RavTech.project.buildVersion + " | "
-						+ RavTech.project.appId);
-				if (!options.skipBuild)
-					firstStep
-						.setNextStep(
-							new PackBundleStep(buildReporterDialog))
-						.setNextStep(
-							new ApkPreparationStep(buildReporterDialog))
-						.setNextStep(new AndroidPushStep(
-							buildReporterDialog,
-							System.getProperty("user.dir")
-								+ "/temp/build.ravpack ",
-							"/sdcard/Android/obb/" + RavTechDK.project.appId
-								+ "/main." + RavTechDK.project.buildVersion
-								+ "." + RavTechDK.project.appId + ".obb"))
-						.setNextStep(new PlatformStep(buildReporterDialog,
-							new AndroidPlatform(deviceIdentifier,
-								options.skipBuild)));
-				else
-					firstStep
-						.setNextStep(new AndroidPushStep(
-							buildReporterDialog,
-							System.getProperty("user.dir")
-								+ "/temp/build.ravpack ",
-							"/sdcard/Android/obb/" + RavTechDK.project.appId
-								+ "/main." + RavTechDK.project.buildVersion
-								+ "." + RavTechDK.project.appId + ".obb"))
-						.setNextStep(new PlatformStep(buildReporterDialog,
-							new AndroidPlatform(deviceIdentifier,
-								options.skipBuild)));
-				break;
-			case WebGL:
-				RavTechDK.saveScene(RavTech.files
-					.getAssetHandle(RavTechDK.getCurrentScene()));
-				firstStep = new CopyDirectoryStep(buildReporterDialog,
-					RavTechDK.projectHandle.child("assets").file(),
-					new File(System.getProperty("user.dir")
-						+ "/builder/android/assets/"));
-				firstStep
-					.setNextStep(new CopyDirectoryStep(buildReporterDialog,
-						RavTechDK.projectHandle.child("assets").file(),
-						new File(System.getProperty("user.dir")
-							+ "/builder/html/war/assets/")))
-					.setNextStep(new PlatformStep(buildReporterDialog,
-						new WebGLPlatform()));
-				break;
-			default:
-				break;
+				tempStep = currentStep
+					.setNextStep(new ApkPreparationStep(dialog))
+					.setNextStep(new BuildPlatformStep(dialog,
+						new AndroidPlatform(), options))
+					.setNextStep(new AlignStep(dialog));
+				
+				if (options.sign)
+					tempStep = tempStep.setNextStep(
+						new SignStep(dialog, options.credentials));
+
+				final String releaseFile = "android-release-aligned";
+				final String debugFile = "android-debug";
+				
+				return tempStep.setNextStep(new CopyStep(dialog,
+					Gdx.files.absolute(System.getProperty("user.dir")
+						+ "/builder/android/build/outputs/apk/" + (options.sign ? releaseFile : debugFile) + ".apk"),
+					RavTechDK.getLocalFile("builds/android")
+						.child("build.apk")));
 		}
-		firstStep.run();
-		RavTechDK.projectHandle.child("assets").child("project.json")
-			.delete();
+		return null;
 	}
 }

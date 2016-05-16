@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.VisUI;
+import com.quexten.ravtech.RavTech;
 
 public class RavUI {
 
@@ -15,6 +16,8 @@ public class RavUI {
 	public DebugConsole debugConsole;
 
 	public RavUI () {
+		if (!RavTech.isEditor)
+			return;
 		if (!VisUI.isLoaded())
 			VisUI.load(Gdx.files.internal("mdpi/uiskin.json"));
 		debugConsole = new DebugConsole();

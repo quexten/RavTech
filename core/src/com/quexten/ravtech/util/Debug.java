@@ -23,19 +23,23 @@ public class Debug {
 
 	public static void log (String tag, Object message) {
 		Gdx.app.log(tag, String.valueOf(message));
-		RavTech.ui.debugConsole.log(tag, String.valueOf(message));
+		if (RavTech.isEditor)
+			RavTech.ui.debugConsole.log(tag, String.valueOf(message));
 	}
 
 	public static void logError (String tag, Object message) {
 		Gdx.app.error(tag, message.toString());
-		RavTech.ui.debugConsole.logError(tag, String.valueOf(message));
+		if (RavTech.isEditor)
+			RavTech.ui.debugConsole.logError(tag,
+				String.valueOf(message));
 	}
 
 	public static void logDebug (String tag, Object message) {
 		if (debugLogging) {
 			Gdx.app.debug(tag, message.toString());
-			RavTech.ui.debugConsole.logDebug(tag,
-				String.valueOf(message));
+			if (RavTech.isEditor)
+				RavTech.ui.debugConsole.logDebug(tag,
+					String.valueOf(message));
 		}
 	}
 

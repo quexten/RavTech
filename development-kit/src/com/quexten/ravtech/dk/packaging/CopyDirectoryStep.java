@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class CopyDirectoryStep extends PackageStep {
@@ -14,10 +15,10 @@ public class CopyDirectoryStep extends PackageStep {
 	File srcDir;
 
 	public CopyDirectoryStep (BuildReporterDialog buildReporterDialog,
-		File srcDir, File dstDir) {
+		FileHandle srcDir, FileHandle dstDir) {
 		super(buildReporterDialog);
-		this.srcDir = srcDir;
-		this.dstDir = dstDir;
+		this.srcDir = srcDir.file();
+		this.dstDir = dstDir.file();
 	}
 
 	@Override

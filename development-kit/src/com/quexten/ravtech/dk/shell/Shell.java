@@ -17,27 +17,33 @@ public class Shell {
 	 * @param command the command
 	 * @return the output of the command executed */
 	public static String executeCommand (File directory,
-		String command) {
+		String command, boolean sameDirectory) {
 		Process process;
 		StringBuilder stringBuilder = new StringBuilder();
 		try {
 			process = Runtime.getRuntime()
 				.exec(
-					directory.getPath()
-						+ System.getProperty("file.separator") + command,
+					(sameDirectory ? (directory.getPath()
+						+ System.getProperty("file.separator")) : "") + command,
 					null, directory);
 			InputStreamReader in = new InputStreamReader(
 				process.getInputStream());
 			BufferedReader reader = new BufferedReader(in);
 			String line;
-			while ((line = reader.readLine()) != null)
+			while ((line = reader.readLine()) != null) {
+				stringBuilder.append(line + '\n');
 				System.err.println(line);
+			}
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		return stringBuilder.toString();
 	}
-
+	
+	public static String executeCommand (File directory, String command) {
+		return executeCommand(directory, command, true);
+	}
+	
 	/** Executes the command at the specified directory and asyncronously logs the output
 	 *
 	 * @param directory the directory to execute the command in

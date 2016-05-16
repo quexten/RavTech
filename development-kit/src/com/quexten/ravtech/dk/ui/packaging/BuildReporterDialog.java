@@ -31,6 +31,7 @@ public class BuildReporterDialog extends VisTable {
 	}
 
 	public void logError (String message) {
+		Gdx.app.error("BuildReporterDialog", message);
 		textArea
 			.setText(textArea.getText() + "[Error]" + message + "\n");
 	}

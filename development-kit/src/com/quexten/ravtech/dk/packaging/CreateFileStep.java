@@ -1,31 +1,41 @@
 
 package com.quexten.ravtech.dk.packaging;
 
-import java.io.File;
-
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class CreateFileStep extends PackageStep {
 
 	byte[] data;
-	File destinationFile;
+	FileHandle fileHandle;
+
+	FileHandle destinationFile;
 
 	public CreateFileStep (BuildReporterDialog buildReporterDialog,
-		File file, byte[] data) {
+		FileHandle file, byte[] data) {
 		super(buildReporterDialog);
-		destinationFile = file;
+		this.destinationFile = file;
 		this.data = data;
+	}
+
+	public CreateFileStep (BuildReporterDialog buildReporterDialog,
+		FileHandle file, FileHandle fileHandle) {
+		super(buildReporterDialog);
+		this.destinationFile = file;
+		this.fileHandle = fileHandle;
 	}
 
 	@Override
 	public void run () {
+		buildReporterDialog.log("Creating File " + destinationFile);
+
+		if (fileHandle == null)
+			destinationFile.writeBytes(data, false);
+		else
+			destinationFile.write(fileHandle.read(), false);
+
 		buildReporterDialog
-			.log("Creating File " + destinationFile.getAbsolutePath());
-		Gdx.files.absolute(destinationFile.getAbsolutePath())
-			.writeBytes(data, false);
-		buildReporterDialog
-			.log("Created File " + destinationFile.getAbsolutePath());
+			.log("Created File " + destinationFile.path());
 		executeNext();
 	}
 

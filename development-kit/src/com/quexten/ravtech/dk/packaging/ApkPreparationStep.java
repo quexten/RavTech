@@ -1,8 +1,6 @@
 
 package com.quexten.ravtech.dk.packaging;
 
-import java.io.File;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.quexten.ravtech.dk.RavTechDK;
@@ -27,7 +25,7 @@ public class ApkPreparationStep extends PackageStep {
 			.setNextStep(new CopyStep(buildReporterDialog,
 				getIcon("mdpi"), getIconDst("mdpi")))
 			.setNextStep(new CreateFileStep(buildReporterDialog,
-				new File(System.getProperty("user.dir")
+				Gdx.files.absolute(System.getProperty("user.dir")
 					+ "/builder/android/build.gradle"),
 				Gdx.files
 					.absolute(System.getProperty("user.dir")
@@ -37,7 +35,7 @@ public class ApkPreparationStep extends PackageStep {
 						"\"" + RavTechDK.project.appId + "\"")
 					.getBytes()))
 			.setNextStep(new CreateFileStep(buildReporterDialog,
-				new File(System.getProperty("user.dir")
+				Gdx.files.absolute(System.getProperty("user.dir")
 					+ "/builder/android/AndroidManifest.xml"),
 				Gdx.files
 					.absolute(System.getProperty("user.dir")
@@ -48,7 +46,7 @@ public class ApkPreparationStep extends PackageStep {
 						String.valueOf(RavTechDK.project.buildVersion))
 					.getBytes()))
 			.setNextStep(new CreateFileStep(buildReporterDialog,
-				new File(System.getProperty("user.dir")
+				Gdx.files.absolute(System.getProperty("user.dir")
 					+ "/builder/android/res/values/strings.xml"),
 				Gdx.files
 					.absolute(System.getProperty("user.dir")

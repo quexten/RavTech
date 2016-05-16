@@ -48,7 +48,7 @@ project(":development-kit") {
        		libsPath = '/libs/'
 		}
 		
-        compile files(libsPath + 'jadb-v0.8.jar')
+        compile files(libsPath + 'jadb.jar')
     }
 }
 

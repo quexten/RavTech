@@ -7,12 +7,13 @@ import java.io.IOException;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.shell.Shell;
-import com.quexten.ravtech.dk.ui.utils.StreamGobbler.Printer;
 import com.quexten.ravtech.util.Debug;
 
 import se.vidstige.jadb.JadbConnection;
 import se.vidstige.jadb.JadbDevice;
+import se.vidstige.jadb.managers.PackageManager;
 
 public class AdbManager {
 
@@ -23,23 +24,7 @@ public class AdbManager {
 	private static boolean onBoot;
 
 	public static String executeAdbCommand (String arguments) {
-		Shell.executeCommand(adbLocation, "adb " + arguments,
-			new Printer() {
-
-				@Override
-				public void run () {
-					Debug.log("Line", line);
-				}
-
-			}, new Printer() {
-
-				@Override
-				public void run () {
-					Debug.log("Error", line);
-				}
-
-			});
-		return "";
+		return Shell.executeCommand(adbLocation, "adb " + arguments);
 	}
 
 	public static JadbDevice getDevice (String deviceId) {
@@ -65,10 +50,12 @@ public class AdbManager {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+
 		if (devices.size > 0) {
 			String deviceShellOutput = executeAdbCommand("devices -l");
 			String[] deviceShellOutputLines = deviceShellOutput
 				.split("\\n");
+
 			for (int i = 1; i < deviceShellOutputLines.length; i++) {
 				String line = deviceShellOutputLines[i];
 				int start = line.indexOf("model:") + "model:".length();
@@ -76,6 +63,7 @@ public class AdbManager {
 					+ line.substring(start).indexOf(' ');
 				if (end < 0)
 					end = line.length();
+
 				deviceNames.put(
 					getDevice(line.substring(0, line.indexOf(' '))),
 					line.substring(start, end));
@@ -112,6 +100,26 @@ public class AdbManager {
 				}
 			}
 		}.start();
+	}
+
+	public static void installBuild (String deviceId) {
+		try {
+			new PackageManager(getDevice(deviceId))
+				.forceInstall(RavTechDK
+					.getLocalFile("builds/android/build.apk").file());
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void launchBuild (String deviceId) {
+		try {
+			new PackageManager(getDevice(deviceId))
+				.launch(new se.vidstige.jadb.managers.Package(
+					RavTechDK.project.appId));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 	public static void initializeAdb () {
