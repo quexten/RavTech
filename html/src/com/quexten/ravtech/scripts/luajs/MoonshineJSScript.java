@@ -148,4 +148,10 @@ public class MoonshineJSScript extends Script {
 	public Object getVariable (String name) {
 		return null;
 	}
+
+	@Override
+	public void loadChunk (String chunk) {
+		// TODO Auto-generated method stub
+		
+	}
 }
