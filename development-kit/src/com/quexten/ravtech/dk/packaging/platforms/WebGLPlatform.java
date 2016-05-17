@@ -1,9 +1,10 @@
 
 package com.quexten.ravtech.dk.packaging.platforms;
 
+import com.quexten.ravtech.dk.packaging.PackageStep;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
-public class WebGLPlatform implements Platform {
+public class WebGLPlatform extends Platform {
 
 	@Override
 	public void build (BuildReporterDialog buildReporterDialog, BuildOptions options) {
@@ -18,5 +19,16 @@ public class WebGLPlatform implements Platform {
 		GradleInvoker.Invoke(buildReporterDialog,
 			"html:superDev --stacktrace");
 		buildReporterDialog.setVisible(true);
+	}
+
+	@Override
+	public BuildOptions getOptions () {
+		return null;
+	}
+
+	@Override
+	public PackageStep addBuildEngineStep (BuildReporterDialog dialog,
+		PackageStep currentStep, BuildOptions options) {
+		return null;
 	}
 }

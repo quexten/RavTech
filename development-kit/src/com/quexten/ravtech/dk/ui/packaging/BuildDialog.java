@@ -30,7 +30,6 @@ import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.adb.AdbManager;
 import com.quexten.ravtech.dk.packaging.Packager;
-import com.quexten.ravtech.dk.packaging.Packager.TargetPlatform;
 import com.quexten.ravtech.dk.packaging.platforms.BuildOptions;
 import com.quexten.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
 import com.quexten.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
@@ -66,12 +65,8 @@ public class BuildDialog extends RavWindow {
 		VisTable contentTable = new VisTable();
 		contentTable.setFillParent(true);
 
-		final VisList<TargetPlatform> platformList = new VisList<TargetPlatform>();
-		Array<TargetPlatform> platforms = new Array<TargetPlatform>();
-		platforms.add(TargetPlatform.Desktop);
-		platforms.add(TargetPlatform.Android);
-		platforms.add(TargetPlatform.WebGL);
-		platformList.setItems(platforms);
+		final VisList<String> platformList = new VisList<String>();
+		platformList.setItems(Packager.getPlatforms());
 		contentTable.add(platformList).grow();
 
 		final VisTable optionsTable = new VisTable();
@@ -101,7 +96,7 @@ public class BuildDialog extends RavWindow {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				if (platformList.getSelected()
-					.equals(TargetPlatform.Android)) {
+					.equals("Android")) {
 					if (signBox.isChecked()) {
 						BuildDialog.this.contentTable.clear();
 						BuildDialog.this.contentTable
@@ -120,9 +115,8 @@ public class BuildDialog extends RavWindow {
 						: AssetType.External,
 					skipBuildBox.isChecked());
 				options.sign = signBox.isChecked();
-
-				BuildDialog.this.build(platformList.getSelected(),
-					options);
+				options.targetPlatform = platformList.getSelected();				
+				BuildDialog.this.build(options);
 			}
 		});
 		bottomTable.add(buildButton);
@@ -133,7 +127,7 @@ public class BuildDialog extends RavWindow {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				if (platformList.getSelected()
-					.equals(TargetPlatform.Android)) {
+					.equals("Android")) {
 					BuildOptions options = new BuildOptions(
 						(dropDown.getSelectedIndex() == 0) ? AssetType.Internal
 							: AssetType.External,
@@ -150,8 +144,8 @@ public class BuildDialog extends RavWindow {
 						: AssetType.External,
 					skipBuildBox.isChecked());
 				options.run = true;
-				BuildDialog.this.build(platformList.getSelected(),
-					options);
+				options.targetPlatform = platformList.getSelected();
+				BuildDialog.this.build(options);
 			}
 		});
 		bottomTable.add(buildAndRunButton);
@@ -249,8 +243,7 @@ public class BuildDialog extends RavWindow {
 					keystorePasswordField.getText(), aliasField.getText(),
 					aliasPasswordField.getText());
 				buildOptions.sign = true;
-				BuildDialog.this.build(TargetPlatform.Android,
-					buildOptions);
+				BuildDialog.this.build(buildOptions);
 			}
 		});
 		bottomTable.add(buildButton).align(Align.bottomRight);
@@ -309,8 +302,7 @@ public class BuildDialog extends RavWindow {
 			public void changed (ChangeEvent event, Actor actor) {
 				currentOptions.run = true;
 				currentOptions.deviceId = deviceList.getSelected().substring(deviceList.getSelected().lastIndexOf(" ") + 1);
-				BuildDialog.this.build(TargetPlatform.Android,
-					currentOptions);				
+				BuildDialog.this.build(currentOptions);				
 			}			
 		});
 		bottomTable.add(nextButton);
@@ -332,15 +324,14 @@ public class BuildDialog extends RavWindow {
 		deviceList.setItems(deviceStrings);
 	}
 
-	public void build (TargetPlatform targetPlatform,
-		BuildOptions options) {
+	public void build (BuildOptions options) {
 		BuildReporterDialog buildDialog = new BuildReporterDialog();
 		contentTable.clearChildren();
 		VisScrollPane scrollPane = new VisScrollPane(buildDialog);
 		contentTable.add(scrollPane).grow().pad(10).align(Align.top)
 			.padTop(32);
 
-		if (targetPlatform == TargetPlatform.Android && options.run) {
+		if (options.targetPlatform == "Android" && options.run) {
 			if (!AdbManager.initialized) {
 				com.quexten.ravtech.util.Debug.logError("Adb Error",
 					"Adb Path Not Delcared");
@@ -348,7 +339,7 @@ public class BuildDialog extends RavWindow {
 			}
 		}
 
-		Packager.build(buildDialog, targetPlatform, options);
+		Packager.build(buildDialog, options);
 	}
 
 }

@@ -22,6 +22,9 @@ import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.Scene;
 import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.components.gizmos.GizmoHandler;
+import com.quexten.ravtech.dk.packaging.Packager;
+import com.quexten.ravtech.dk.packaging.platforms.AndroidPlatform;
+import com.quexten.ravtech.dk.packaging.platforms.DesktopPlatform;
 import com.quexten.ravtech.dk.ui.editor.EditorMenuBar;
 import com.quexten.ravtech.dk.ui.editor.Inspector;
 import com.quexten.ravtech.dk.ui.editor.RavWindow;
@@ -67,6 +70,9 @@ public class RavTechDK {
 	public static int windowHeight;
 
 	public static void initialize () {
+		Packager.registerPlatform("Desktop", new DesktopPlatform());
+		Packager.registerPlatform("Android", new AndroidPlatform());
+		
 		final Table root = new Table();
 		root.setFillParent(true);
 		RavTech.ui.getStage().addActor(root);
