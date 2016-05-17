@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }        
         jcenter()
     }
     dependencies {
@@ -29,6 +29,7 @@ allprojects {
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        maven { url "https://jitpack.io" }
     }
 }
 
@@ -42,13 +43,8 @@ project(":development-kit") {
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-controllers-lwjgl3:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"   
-       	compile 'commons-io:commons-io:2.4'       	
-       	
-		ext {
-       		libsPath = '/libs/'
-		}
-		
-        compile files(libsPath + 'jadb.jar')
+       	compile 'commons-io:commons-io:2.4'      	
+		compile 'com.github.Quexten:jadb:d1420aa7d5'
     }
 }
 
