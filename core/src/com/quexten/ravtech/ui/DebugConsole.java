@@ -9,7 +9,6 @@ import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.scripts.Script;
-import com.quexten.ravtech.scripts.lua.LuaJScript;
 
 public class DebugConsole extends VisWindow {
 
