@@ -136,7 +136,8 @@ public class LuaJScript extends Script {
 			"Script Error in line " + lineNumber + " - "
 				+ script.split("\n")[lineNumber - 1] + " - " + message);
 	}
-
+	
+	@Override
 	public void loadChunk (String source) {
 		try {
 			chunk = globals.load(source);

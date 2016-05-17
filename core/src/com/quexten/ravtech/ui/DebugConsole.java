@@ -8,12 +8,13 @@ import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
 import com.kotcrab.vis.ui.widget.VisWindow;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.scripts.Script;
 import com.quexten.ravtech.scripts.lua.LuaJScript;
 
 public class DebugConsole extends VisWindow {
 
 	ColoredTextArea textArea;
-	LuaJScript script;
+	Script script;
 	boolean visible;
 
 	public DebugConsole () {
@@ -30,7 +31,7 @@ public class DebugConsole extends VisWindow {
 			@Override
 			public void keyTyped (VisTextField textField, char c) {
 				if (script == null)
-					script = (LuaJScript)RavTech.scriptLoader
+					script = RavTech.scriptLoader
 						.createScript("", null);
 
 				if (c == '\n' || c == '\r') {
