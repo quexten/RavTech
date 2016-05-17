@@ -1,6 +1,8 @@
 # RavTech
 ![Alt text](/logo.png?raw=true "")
 
+[![Build Status](https://travis-ci.org/Quexten/RavTech.svg?branch=master)](https://travis-ci.org/Quexten/RavTech)
+
 RavTech is a Game Engine built for rapid, cross-platform, collaborative development.
 It's still quite a way to the first stable version.
 
@@ -20,7 +22,7 @@ It's still quite a way to the first stable version.
 - HTML5
 
 ##License
-The Engine and Development Kit are Licensed under the Apache 2 License
+The Engine and Development Kit are Licensed under the MIT License
 
 ##How to Build
 In the projects root directory, run the command:
