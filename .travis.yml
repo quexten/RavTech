@@ -5,14 +5,14 @@ android:
   components:
     - platform-tools
 
-    - build-tools-20.0.0
+    - build-tools-23.0.2
 
-    - android-23
+    - android-20
 
     - extra-google-google_play_services
     - extra-google-m2repository
     - extra-android-m2repository
-    - addon-google_apis-google-23
+    - addon-google_apis-google-20
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 cache:
