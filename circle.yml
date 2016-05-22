@@ -1,0 +1,12 @@
+machine:
+    environment:
+
+dependencies:
+    override:
+        - chmod +x gradlew
+        - ./gradlew dependencies 
+
+test:
+    override:
+        #assemble the apk if tests were successful
+        - ./gradlew clean assembleDebug

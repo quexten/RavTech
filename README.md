@@ -2,6 +2,7 @@
 ![Alt text](/logo.png?raw=true "")
 
 [![Build Status](https://travis-ci.org/Quexten/RavTech.svg?branch=master)](https://travis-ci.org/Quexten/RavTech)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org)
 
 RavTech is a Game Engine built for rapid, cross-platform, collaborative development.
 It's still quite a way to the first stable version.
