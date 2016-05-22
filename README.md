@@ -1,6 +1,7 @@
 # RavTech
 ![Alt text](/logo.png?raw=true "")
 
+[![CircleCI](https://circleci.com/gh/Quexten/RavTech.svg?style=svg)](https://circleci.com/gh/Quexten/RavTech)
 [![Build Status](https://travis-ci.org/Quexten/RavTech.svg?branch=master)](https://travis-ci.org/Quexten/RavTech)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org)
 
