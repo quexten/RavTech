@@ -10,17 +10,17 @@ import com.quexten.ravtech.dk.packaging.platforms.BuildOptions.AssetType;
 import com.quexten.ravtech.dk.shell.Shell;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
-public class DesktopPlatform extends Platform {
+public class DesktopPlatform extends Platform<DesktopBuildOptions, DesktopBuildOptionsTable> {
 
 	@Override
 	public void build (BuildReporterDialog dialog,
-		BuildOptions options) {
+		DesktopBuildOptions options) {
 		GradleInvoker.Invoke(dialog, "desktop:dist");
 	}
 
 	@Override
 	public void run (BuildReporterDialog dialog,
-		BuildOptions options) {
+		DesktopBuildOptions options) {
 		Shell.executeCommand(
 			RavTechDK.projectHandle.child("builds").child("desktop")
 				.file(),
@@ -31,13 +31,13 @@ public class DesktopPlatform extends Platform {
 	}
 
 	@Override
-	public BuildOptions getOptions () {
-		return new BuildOptions(AssetType.External, false);
+	public DesktopBuildOptions getOptions () {
+		return new DesktopBuildOptions(AssetType.External);
 	}
 
 	@Override
 	public PackageStep addBuildEngineStep (BuildReporterDialog dialog,
-		PackageStep currentStep, BuildOptions options) {
+		PackageStep currentStep, DesktopBuildOptions options) {
 		PackageStep tempStep = null;
 
 		tempStep = currentStep.setNextStep(new BuildPlatformStep(dialog,
@@ -49,4 +49,17 @@ public class DesktopPlatform extends Platform {
 			RavTechDK.projectHandle.child("builds").child("desktop")
 				.child("build.jar")));
 	}
+
+	@Override
+	public DesktopBuildOptionsTable getOptionsTable (
+		DesktopBuildOptions options) {
+		return new DesktopBuildOptionsTable(options);
+	}
+
+	@Override
+	public void applyOptions (DesktopBuildOptionsTable optionsTable,
+		DesktopBuildOptions options) {
+		
+	}
+
 }

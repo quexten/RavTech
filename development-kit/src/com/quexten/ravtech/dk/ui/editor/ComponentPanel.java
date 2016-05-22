@@ -3,10 +3,8 @@ package com.quexten.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener.ChangeEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Payload;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Source;
 import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
@@ -19,13 +17,10 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
-import com.kotcrab.vis.ui.widget.color.ColorPicker;
-import com.kotcrab.vis.ui.widget.color.ColorPickerListener;
 import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.history.ChangeManager;
 import com.quexten.ravtech.history.ModifyChangeable;
-import com.quexten.ravtech.util.Debug;
 
 public abstract class ComponentPanel {
 
@@ -99,7 +94,6 @@ public abstract class ComponentPanel {
 
 	public void addColorPicker (VisTable table, String variableName) {
 		final String variable = variableName;
-		final GameComponent gameComponent = component;
 		final LabelColorPair label = new LabelColorPair(
 			variable.substring(0, 1).toUpperCase()
 				+ variable.substring(1) + ":",

@@ -8,9 +8,11 @@ import com.quexten.ravtech.dk.ui.packaging.PrinterListener;
 
 public class BuildPlatformStep extends PackageStep {
 
+	@SuppressWarnings("rawtypes")
 	Platform platform;
 	BuildOptions options;
 
+	@SuppressWarnings("rawtypes")
 	public BuildPlatformStep (BuildReporterDialog buildReporterDialog,
 		Platform platform, BuildOptions options) {
 		super(buildReporterDialog);
@@ -18,6 +20,7 @@ public class BuildPlatformStep extends PackageStep {
 		this.options = options;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run () {
 		buildReporterDialog.printerListeners.add(new PrinterListener() {

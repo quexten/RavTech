@@ -13,8 +13,10 @@ import com.quexten.ravtech.util.Debug;
 
 public class Packager {
 
+	@SuppressWarnings("rawtypes")
 	private static ObjectMap<String, Platform> platforms = new ObjectMap<String, Platform>();
 
+	@SuppressWarnings("rawtypes")
 	public static void registerPlatform (String string,
 		Platform platform) {
 		platforms.put(string, platform);
@@ -35,6 +37,7 @@ public class Packager {
 	 * @param targetPlatform - the platform the app is packaged for (E.g Android / Dekstop / iOS)
 	 * @param userData
 	 * @param destinationDir - the destination, meaning the path the package is saved at */
+	@SuppressWarnings("unchecked")
 	public static void build (BuildReporterDialog dialog,
 		BuildOptions options) {
 
@@ -153,6 +156,12 @@ public class Packager {
 				executeNext();
 			}
 		};
+	}
+
+	@SuppressWarnings("rawtypes")
+	public static Platform getPlatform (String targetPlatform) {
+		System.out.println("GetPlatform:" + targetPlatform);
+		return platforms.get(targetPlatform);
 	}
 
 }

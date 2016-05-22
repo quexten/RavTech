@@ -74,7 +74,6 @@ public class AdbManager {
 
 	public static void initAdbConnection () {
 		new Thread() {
-
 			@Override
 			public void run () {
 				if (adbLocation.getPath().startsWith("null") && !onBoot)
@@ -132,6 +131,10 @@ public class AdbManager {
 				+ System.getProperty("file.separator")
 				+ "platform-tools");
 		initAdbConnection();
+		RavTechDK.getLocalFile("builder/local.properties")
+			.writeString("sdk.dir="
+				+ RavTech.settings.getString("RavTechDK.android.sdk.dir"),
+			false);
 	}
 
 	public static void onBoot () {

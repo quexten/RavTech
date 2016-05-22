@@ -1,7 +1,6 @@
 
 package com.quexten.ravtech.components.gizmos;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.CircleCollider;
@@ -25,8 +24,6 @@ public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 		boolean selected) {
 		renderer.setColor(selected ? ColorUtils.getSelectionColor()
 			: ColorUtils.getGizmoColor(component));
-		Vector2 middlePosition = getMiddlePosition();
-		// renderer.circle(middlePosition.x, middlePosition.y, component.radius, 72);
 	}
 
 	@Override

@@ -14,11 +14,12 @@ import com.quexten.ravtech.dk.packaging.platforms.android.AlignStep;
 import com.quexten.ravtech.dk.packaging.platforms.android.SignStep;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
-public class AndroidPlatform extends Platform {
+public class AndroidPlatform
+	extends Platform<AndroidBuildOptions, AndroidBuildOptionsTable> {
 
 	@Override
 	public void build (BuildReporterDialog buildReporterDialog,
-		BuildOptions options) {
+		AndroidBuildOptions options) {
 		GradleInvoker.Invoke(buildReporterDialog, "assemble"
 			+ (options.sign ? "Release" : "Debug") + " --stacktrace");
 		buildReporterDialog.setVisible(true);
@@ -26,7 +27,7 @@ public class AndroidPlatform extends Platform {
 
 	@Override
 	public void run (BuildReporterDialog buildReporterDialog,
-		BuildOptions options) {
+		AndroidBuildOptions options) {
 		if (!options.skipBuild)
 			AdbManager.installBuild(options.deviceId);
 		if (options.isExternal())
@@ -40,13 +41,13 @@ public class AndroidPlatform extends Platform {
 	}
 
 	@Override
-	public BuildOptions getOptions () {
-		return new BuildOptions(AssetType.Internal, false);
+	public AndroidBuildOptions getOptions () {
+		return new AndroidBuildOptions(AssetType.Internal);
 	}
 
 	@Override
 	public PackageStep addBuildEngineStep (BuildReporterDialog dialog,
-		PackageStep currentStep, BuildOptions options) {
+		PackageStep currentStep, AndroidBuildOptions options) {
 		PackageStep tempStep = null;
 
 		tempStep = currentStep
@@ -69,4 +70,17 @@ public class AndroidPlatform extends Platform {
 			RavTechDK.getLocalFile("builds/android")
 				.child("build.apk")));
 	}
+
+	@Override
+	public AndroidBuildOptionsTable getOptionsTable (
+		AndroidBuildOptions options) {
+		return new AndroidBuildOptionsTable (options);
+	}
+
+	@Override
+	public void applyOptions (AndroidBuildOptionsTable optionsTable,
+		AndroidBuildOptions options) {
+		options.sign = optionsTable.signBox.isChecked();
+	}
+
 }

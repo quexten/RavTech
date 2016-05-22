@@ -20,7 +20,6 @@ import com.quexten.ravtech.dk.project.ProjectSettingsWizard;
 import com.quexten.ravtech.dk.ui.editor.RavWindow;
 import com.quexten.ravtech.dk.ui.editor.SceneViewWidget;
 import com.quexten.ravtech.project.Project;
-import com.quexten.ravtech.util.Debug;
 
 public class RavTechDKApplication extends RavTech {
 

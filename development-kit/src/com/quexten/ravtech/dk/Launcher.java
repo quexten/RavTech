@@ -57,7 +57,7 @@ public class Launcher {
 			}			
 		});
 		RavTech.scriptLoader = new LuaJScriptLoader();
-		Lwjgl3Application application = new Lwjgl3Application(ravtech, config);
+		new Lwjgl3Application(ravtech, config);
 		
 		Gdx.app.postRunnable(new Runnable() {
 			@Override

@@ -4,8 +4,6 @@ package com.quexten.ravtech.components.gizmos;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.PolygonCollider;
@@ -155,20 +153,6 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 				return -1f;
 		}
 		return -1f;
-	}
-
-	private void renderCircle (ShapeRenderer renderer,
-		Vector2 position, Vector2 mousePosition, boolean isClosest) {
-		boolean hoverable = (Gdx.input.isButtonPressed(Buttons.LEFT)
-			&& isGrabbed || !Gdx.input.isButtonPressed(Buttons.LEFT))
-			&& isClosest;
-		position = component.getParent().transform
-			.getPosition(position.cpy());
-		renderer.setColor(isGrabbed
-			|| position.dst(mousePosition.x, mousePosition.y) < 1
-				&& hoverable ? Color.YELLOW : Color.GRAY);
-		renderer.circle(position.x, position.y,
-			1 * RavTech.sceneHandler.worldCamera.zoom, 20);
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.Scene;
 import com.quexten.ravtech.components.UserData;
 import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.adb.AdbManager;
 import com.quexten.ravtech.dk.project.ProjectSettingsWizard;
 import com.quexten.ravtech.dk.ui.packaging.BuildDialog;
 import com.quexten.ravtech.history.ChangeManager;
@@ -133,7 +134,12 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						actor.getStage().addActor(new BuildDialog());
+						if (AdbManager.initialized)
+							actor.getStage().addActor(new BuildDialog());
+						else {
+							PreferencesWindow window = new PreferencesWindow();
+							window.setSize(400, 300);
+						}
 					}
 				});
 				menu.addItem(entry);
@@ -205,7 +211,8 @@ public class EditorMenuBar extends MenuBar {
 				entry.addListener(new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-
+						PreferencesWindow window = new PreferencesWindow();
+						window.setSize(400, 300);
 					}
 				});
 				menu.addItem(entry);
@@ -229,7 +236,8 @@ public class EditorMenuBar extends MenuBar {
 						Gdx.app.postRunnable(new Runnable() {
 							@Override
 							public void run () {
-								RavWindow window = new RavWindow("Scene", true);
+								RavWindow window = new RavWindow("Scene",
+									true);
 								window.addCloseButton();
 								window.setSize(320, 180);
 								window.add(new SceneViewWidget(false)).grow();

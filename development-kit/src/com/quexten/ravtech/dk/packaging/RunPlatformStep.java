@@ -6,9 +6,11 @@ import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
 public class RunPlatformStep extends PackageStep {
 
+	@SuppressWarnings("rawtypes")
 	Platform platform;
 	BuildOptions options;
 	
+	@SuppressWarnings("rawtypes")
 	public RunPlatformStep (BuildReporterDialog buildReporterDialog,
 		Platform platform, BuildOptions options) {
 		super(buildReporterDialog);
@@ -16,6 +18,7 @@ public class RunPlatformStep extends PackageStep {
 		this.options = options;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run () {
 		platform.run(buildReporterDialog, options);

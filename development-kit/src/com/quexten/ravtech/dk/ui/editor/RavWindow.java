@@ -162,6 +162,22 @@ public class RavWindow extends VisWindow {
 		this.exitOnClose = exit;
 	}
 
+	public Table top () {
+		return rootTable.top();
+	}
+
+	public Table bottom () {
+		return rootTable.bottom();
+	}
+
+	public Table left () {
+		return rootTable.left();
+	}
+
+	public Table right () {
+		return rootTable.right();
+	}
+
 	class RavWindowAppListener implements ApplicationListener {
 
 		private int width = 100;
@@ -177,6 +193,7 @@ public class RavWindow extends VisWindow {
 		@Override
 		public void create () {
 			externalize();
+
 		}
 
 		@Override
