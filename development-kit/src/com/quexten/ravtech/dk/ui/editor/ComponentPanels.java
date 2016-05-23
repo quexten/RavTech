@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
-import com.kotcrab.vis.ui.widget.VisTextField;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.BoxCollider;
 import com.quexten.ravtech.components.CircleCollider;
@@ -246,7 +245,7 @@ public class ComponentPanels {
 						public void changed (ChangeEvent event,
 							Actor actor) {
 							((ScriptComponent)component).setScript(
-								((VisTextField)actor).getText().toString());
+								((VisLabel)actor).getText().toString());
 						}
 
 					}, "lua");
