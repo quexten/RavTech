@@ -118,14 +118,14 @@ public abstract class ComponentPanel {
 	public void addFileSelector (VisTable table, String text,
 		String initialPath, final ChangeListener listener,
 		final String... fileTypes) {
-		table.add(new VisLabel(text)).expandX().growX().padLeft(5);
-		final VisLabel fileLabel = new VisLabel(initialPath);
-		VisTable padTable = new VisTable();
-		table.add(padTable).expandX().growX().height(20);
-		padTable.add(fileLabel).growX().fillX();
+		table.add(new VisLabel(text)).growX().padLeft(5);
+		final VisTextField field = new VisTextField(initialPath != null ? initialPath : "Empty");	
+		field.setDisabled(true);
+		table.add(field).growX();
 		table.row();
+		table.setFillParent(true);
 		RavTechDK.assetViewer.dragAndDrop
-			.addTarget(new Target(padTable) {
+			.addTarget(new Target(field) {
 				@Override
 				public boolean drag (Source source, Payload payload,
 					float x, float y, int pointer) {
@@ -141,11 +141,11 @@ public abstract class ComponentPanel {
 				@Override
 				public void drop (Source source, Payload payload, float x,
 					float y, int pointer) {
-					fileLabel.setText(
+					field.setText(
 						String.valueOf(payload.getObject()).replace(
 							RavTechDK.projectHandle.path() + "/assets/",
 							""));
-					listener.changed(new ChangeEvent(), fileLabel);
+					listener.changed(new ChangeEvent(), field);
 				}
 			});
 	}
