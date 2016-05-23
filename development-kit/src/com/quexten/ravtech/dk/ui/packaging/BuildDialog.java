@@ -39,6 +39,8 @@ public class BuildDialog extends RavWindow {
 
 	VisTable contentTable = new VisTable();
 	BuildOptions options = new AndroidBuildOptions(AssetType.Internal);
+	VisTable platformTable;
+	
 	
 	public BuildDialog () {
 		super("Build");
@@ -54,6 +56,7 @@ public class BuildDialog extends RavWindow {
 		centerWindow();
 	}
 
+	@SuppressWarnings("unchecked")
 	public VisTable createPlatformTable () {
 		
 		final VisTable contentTable = new VisTable();
@@ -95,22 +98,19 @@ public class BuildDialog extends RavWindow {
 		
 		
 		final VisTable platformPaddingTable = new VisTable();
-		@SuppressWarnings("unchecked")
-		final VisTable platformTable = Packager.getPlatform(options.targetPlatform).getOptionsTable(options);
+		platformTable = Packager.getPlatform(options.targetPlatform).getOptionsTable(options);
 		platformPaddingTable.add(platformTable).growX();
 		optionsTable.add(platformPaddingTable).colspan(2).growX();
 		contentTable.row();
 		
 		platformList.addListener(new ChangeListener() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-				System.out.println("Platform: " + options.targetPlatform);
 				BuildOptions oldOptions = options;
 				options = Packager.getPlatform(platformList.getSelected()).getOptions();
 				oldOptions.copyTo(options);
 				platformPaddingTable.clear();
-				final VisTable platformTable = Packager.getPlatform(platformList.getSelected()).getOptionsTable(options);
+				platformTable = Packager.getPlatform(platformList.getSelected()).getOptionsTable(options);
 				platformPaddingTable.add(platformTable).growX();
 			}			
 		});
@@ -121,7 +121,6 @@ public class BuildDialog extends RavWindow {
 		final VisTable bottomTable = new VisTable();
 		final VisTextButton buildButton = new VisTextButton("Build");
 		buildButton.addListener(new ChangeListener() {
-			@SuppressWarnings("unchecked")
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				options.skipBuild = skipBuildBox.isChecked();
