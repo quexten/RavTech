@@ -10,8 +10,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.util.Debug;
 
-public class AudioEmitter extends GameComponent
-	implements Json.Serializable {
+public class AudioEmitter extends GameComponent implements Json.Serializable {
 
 	public ComponentType getType () {
 		return ComponentType.AudioEmitter;
@@ -33,8 +32,7 @@ public class AudioEmitter extends GameComponent
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void load (Array<AssetDescriptor> dependencies) {
-		AssetDescriptor<Sound> assetDescriptor = new AssetDescriptor<Sound>(
-			filePath, Sound.class);
+		AssetDescriptor<Sound> assetDescriptor = new AssetDescriptor<Sound>(filePath, Sound.class);
 		Debug.log("LoadSound", filePath);
 		dependencies.add(assetDescriptor);
 	}

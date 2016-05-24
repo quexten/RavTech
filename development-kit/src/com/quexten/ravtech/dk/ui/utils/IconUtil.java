@@ -24,8 +24,7 @@ public class IconUtil {
 
 	public static BufferedImage getBufferedImage (String filename) {
 		try {
-			return ImageIO.read(new File(System.getProperty("user.dir")
-				+ "//resources//icons//" + filename + ".png"));
+			return ImageIO.read(new File(System.getProperty("user.dir") + "//resources//icons//" + filename + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -36,13 +35,11 @@ public class IconUtil {
 		return new ImageIcon("resources//icons//" + filename + ".png");
 	}
 
-	public static ImageIcon getIconByComponent (
-		GameComponent component) {
+	public static ImageIcon getIconByComponent (GameComponent component) {
 		return getIconByComponentClass(component.getClass());
 	}
 
-	public static ImageIcon getIconByComponentClass (
-		Class<? extends GameComponent> componentClass) {
+	public static ImageIcon getIconByComponentClass (Class<? extends GameComponent> componentClass) {
 		if (componentClass.isAssignableFrom(Transform.class))
 			return IconUtil.getIcon("transform");
 		else if (componentClass.isAssignableFrom(SpriteRenderer.class))

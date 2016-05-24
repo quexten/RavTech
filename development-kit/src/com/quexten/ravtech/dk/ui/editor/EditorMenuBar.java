@@ -54,16 +54,9 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						RavTech.files
-							.getAssetHandle(RavTech.files.getAssetManager()
-								.getAssetFileName(RavTech.currentScene))
-							.writeString(
-								new Json().toJson(RavTech.currentScene),
-								false);
-						Debug.log("Saved Scene",
-							"[" + RavTech.files.getAssetManager()
-								.getAssetFileName(RavTech.currentScene)
-							+ "]");
+						RavTech.files.getAssetHandle(RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene))
+							.writeString(new Json().toJson(RavTech.currentScene), false);
+						Debug.log("Saved Scene", "[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
 					}
 				});
 				entry.setShortcut(Keys.CONTROL_LEFT, Keys.S);
@@ -75,28 +68,21 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						FileChooser fileChooser = new FileChooser(
-							Mode.SAVE);
+						FileChooser fileChooser = new FileChooser(Mode.SAVE);
 						fileChooser.setSelectionMode(SelectionMode.FILES);
 						fileChooser.setListener(new FileChooserAdapter() {
 							@Override
 							public void selected (Array<FileHandle> file) {
-								file.first().writeString(
-									new Json().toJson(RavTech.currentScene),
-									true);
+								file.first().writeString(new Json().toJson(RavTech.currentScene), true);
 								Debug.log("Saved Scene",
-									"[" + RavTech.files.getAssetManager()
-										.getAssetFileName(RavTech.currentScene)
-									+ "]");
+									"[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
 							}
 						});
-						fileChooser.setDirectory(
-							RavTechDK.projectHandle.child("assets"));
+						fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
 						actor.getStage().addActor(fileChooser);
 					}
 				});
-				entry.setShortcut(Keys.CONTROL_LEFT, Keys.SHIFT_LEFT,
-					Keys.S);
+				entry.setShortcut(Keys.CONTROL_LEFT, Keys.SHIFT_LEFT, Keys.S);
 				menu.addItem(entry);
 			}
 			{ // Load Scene
@@ -106,21 +92,17 @@ public class EditorMenuBar extends MenuBar {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
 
-						FileChooser fileChooser = new FileChooser(
-							Mode.OPEN);
+						FileChooser fileChooser = new FileChooser(Mode.OPEN);
 						fileChooser.setSelectionMode(SelectionMode.FILES);
 						fileChooser.setListener(new FileChooserAdapter() {
 							@Override
 							public void selected (Array<FileHandle> file) {
-								String localScenePath = file.first().path()
-									.replaceAll(RavTechDK.projectHandle
-										.child("assets").path(), "")
+								String localScenePath = file.first().path().replaceAll(RavTechDK.projectHandle.child("assets").path(), "")
 									.substring(1);
 								RavTechDK.loadScene(localScenePath);
 							}
 						});
-						fileChooser.setDirectory(
-							RavTechDK.projectHandle.child("assets"));
+						fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
 						actor.getStage().addActor(fileChooser);
 					}
 				});
@@ -160,16 +142,12 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						CreateChangeable changeable = new CreateChangeable(
-							null, "Added GameObject",
+						CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
 							"{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
-								+ RavTech.sceneHandler.worldCamera.position.x
-								+ ",\"y\":"
-								+ RavTech.sceneHandler.worldCamera.position.y
+								+ RavTech.sceneHandler.worldCamera.position.x + ",\"y\":" + RavTech.sceneHandler.worldCamera.position.y
 								+ ",\"rotation\":0,\"scale\":1}]}");
 						ChangeManager.addChangeable(changeable);
-						RavTechDK.setSelectedObjects(
-							RavTech.currentScene.gameObjects.peek());
+						RavTechDK.setSelectedObjects(RavTech.currentScene.gameObjects.peek());
 					}
 				});
 				menu.addItem(entry);
@@ -184,8 +162,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						actor.getStage().addActor(new ProjectSettingsWizard(
-							RavTechDK.project, false));
+						actor.getStage().addActor(new ProjectSettingsWizard(RavTechDK.project, false));
 					}
 				});
 				menu.addItem(entry);
@@ -196,8 +173,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						actor.getStage().addActor(
-							new SceneSettings(RavTech.currentScene));
+						actor.getStage().addActor(new SceneSettings(RavTech.currentScene));
 					}
 				});
 				menu.addItem(entry);
@@ -236,8 +212,7 @@ public class EditorMenuBar extends MenuBar {
 						Gdx.app.postRunnable(new Runnable() {
 							@Override
 							public void run () {
-								RavWindow window = new RavWindow("Scene",
-									true);
+								RavWindow window = new RavWindow("Scene", true);
 								window.addCloseButton();
 								window.setSize(320, 180);
 								window.add(new SceneViewWidget(false)).grow();
@@ -291,8 +266,7 @@ public class EditorMenuBar extends MenuBar {
 					Array<Body> bodies = new Array<Body>();
 					RavTech.sceneHandler.box2DWorld.getBodies(bodies);
 					for (Body body : bodies) {
-						((UserData)body
-							.getUserData()).isFlaggedForDelete = true;
+						((UserData)body.getUserData()).isFlaggedForDelete = true;
 					}
 					RavTech.files.loadState(state);
 					playButton.setText("Run");

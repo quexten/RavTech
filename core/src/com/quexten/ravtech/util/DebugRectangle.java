@@ -9,8 +9,7 @@ public class DebugRectangle extends DebugShape {
 
 	Vector2 position, bounds;
 
-	public DebugRectangle (Vector2 position, Vector2 bounds,
-		Color color) {
+	public DebugRectangle (Vector2 position, Vector2 bounds, Color color) {
 		super(color);
 		this.position = position;
 		this.bounds = bounds.scl(2);
@@ -19,7 +18,6 @@ public class DebugRectangle extends DebugShape {
 	@Override
 	public void draw (ShapeRenderer renderer) {
 		renderer.setColor(color);
-		renderer.rect(position.x - bounds.x / 2,
-			position.y - bounds.y / 2.0f, bounds.x, bounds.y);
+		renderer.rect(position.x - bounds.x / 2, position.y - bounds.y / 2.0f, bounds.x, bounds.y);
 	}
 }

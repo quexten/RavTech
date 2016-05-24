@@ -55,13 +55,11 @@ public class RavInput {
 	}
 
 	public Vector2 getWorldPosition () {
-		return RavTech.sceneHandler.worldCamera
-			.unproject(new Vector2(getX(), getY()));
+		return RavTech.sceneHandler.worldCamera.unproject(new Vector2(getX(), getY()));
 	}
 
 	public Vector2 getWorldPosition (int pointer) {
-		return RavTech.sceneHandler.worldCamera
-			.unproject(new Vector2(getX(pointer), getY(pointer)));
+		return RavTech.sceneHandler.worldCamera.unproject(new Vector2(getX(pointer), getY(pointer)));
 	}
 
 	public boolean isTouched () {
@@ -85,8 +83,7 @@ public class RavInput {
 	}
 
 	public boolean isButtonJustPressed (int button) {
-		return mouseButtonStates.get(button).newValue
-			&& !mouseButtonStates.get(button).lastValue;
+		return mouseButtonStates.get(button).newValue && !mouseButtonStates.get(button).lastValue;
 	}
 
 	// Keyboard input
@@ -100,20 +97,15 @@ public class RavInput {
 
 	// Controller input
 	public float getGamepadAxisValue (int controller, int axis) {
-		return controllerStates.get(controller).axisValues.get(axis,
-			0f);
+		return controllerStates.get(controller).axisValues.get(axis, 0f);
 	}
 
-	public boolean isGamepadButtonPressed (int controller,
-		int button) {
-		return controllerStates.get(controller).buttonValues.get(button,
-			false);
+	public boolean isGamepadButtonPressed (int controller, int button) {
+		return controllerStates.get(controller).buttonValues.get(button, false);
 	}
 
-	public boolean isGamepadButtonJustPressed (int controller,
-		int button) {
-		return controllerStates.get(controller).lastButtonValues
-			.get(button) == false
+	public boolean isGamepadButtonJustPressed (int controller, int button) {
+		return controllerStates.get(controller).lastButtonValues.get(button) == false
 			&& controllerStates.get(controller).buttonValues.get(button);
 	}
 

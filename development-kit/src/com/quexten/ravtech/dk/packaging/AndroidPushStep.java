@@ -10,8 +10,7 @@ public class AndroidPushStep extends PackageStep {
 	String localPath;
 	String externalPath;
 
-	public AndroidPushStep (BuildReporterDialog buildReporterDialog,
-		String localPath, String externalPath) {
+	public AndroidPushStep (BuildReporterDialog buildReporterDialog, String localPath, String externalPath) {
 		super(buildReporterDialog);
 		this.localPath = localPath;
 		this.externalPath = externalPath;
@@ -20,8 +19,7 @@ public class AndroidPushStep extends PackageStep {
 	@Override
 	public void run () {
 		buildReporterDialog.log("Pushing Assets to " + externalPath);
-		Debug.logError("Error", AdbManager.executeAdbCommand(
-			"push " + localPath + " " + externalPath));
+		Debug.logError("Error", AdbManager.executeAdbCommand("push " + localPath + " " + externalPath));
 		buildReporterDialog.log("Finished Pushing Assets");
 		executeNext();
 	}

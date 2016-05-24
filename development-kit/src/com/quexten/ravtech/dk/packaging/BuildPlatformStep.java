@@ -8,13 +8,11 @@ import com.quexten.ravtech.dk.ui.packaging.PrinterListener;
 
 public class BuildPlatformStep extends PackageStep {
 
-	@SuppressWarnings("rawtypes")
-	Platform platform;
+	@SuppressWarnings("rawtypes") Platform platform;
 	BuildOptions options;
 
 	@SuppressWarnings("rawtypes")
-	public BuildPlatformStep (BuildReporterDialog buildReporterDialog,
-		Platform platform, BuildOptions options) {
+	public BuildPlatformStep (BuildReporterDialog buildReporterDialog, Platform platform, BuildOptions options) {
 		super(buildReporterDialog);
 		this.platform = platform;
 		this.options = options;

@@ -21,22 +21,19 @@ public class GameInputProcessor implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchDown (int screenX, int screenY, int pointer,
-		int button) {
+	public boolean touchDown (int screenX, int screenY, int pointer, int button) {
 		// RavTech.input.lastPointer = pointer;
 		return true;
 	}
 
 	@Override
-	public boolean touchUp (int screenX, int screenY, int pointer,
-		int button) {
+	public boolean touchUp (int screenX, int screenY, int pointer, int button) {
 		// RavTech.input.lastPointer = pointer;
 		return false;
 	}
 
 	@Override
-	public boolean touchDragged (int screenX, int screenY,
-		int pointer) {
+	public boolean touchDragged (int screenX, int screenY, int pointer) {
 		return true;
 	}
 

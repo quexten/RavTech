@@ -8,16 +8,14 @@ public class WebGLPlatform extends Platform<WebGLBuildOptions, WebGLBuildOptions
 
 	@Override
 	public void build (BuildReporterDialog buildReporterDialog, WebGLBuildOptions options) {
-		GradleInvoker.Invoke(buildReporterDialog,
-			"html:dist --stacktrace");
+		GradleInvoker.Invoke(buildReporterDialog, "html:dist --stacktrace");
 		buildReporterDialog.setVisible(true);
 	}
 
 	@Override
 	public void run (BuildReporterDialog buildReporterDialog, WebGLBuildOptions options) {
 		GradleInvoker.Invoke("--stop");
-		GradleInvoker.Invoke(buildReporterDialog,
-			"html:superDev --stacktrace");
+		GradleInvoker.Invoke(buildReporterDialog, "html:superDev --stacktrace");
 		buildReporterDialog.setVisible(true);
 	}
 
@@ -27,19 +25,16 @@ public class WebGLPlatform extends Platform<WebGLBuildOptions, WebGLBuildOptions
 	}
 
 	@Override
-	public PackageStep addBuildEngineStep (BuildReporterDialog dialog,
-		PackageStep currentStep, WebGLBuildOptions options) {
+	public PackageStep addBuildEngineStep (BuildReporterDialog dialog, PackageStep currentStep, WebGLBuildOptions options) {
 		return null;
 	}
 
 	@Override
-	public WebGLBuildOptionsTable getOptionsTable (
-		WebGLBuildOptions options) {
+	public WebGLBuildOptionsTable getOptionsTable (WebGLBuildOptions options) {
 		return null;
 	}
 
 	@Override
-	public void applyOptions (WebGLBuildOptionsTable optionsTable,
-		WebGLBuildOptions options) {		
+	public void applyOptions (WebGLBuildOptionsTable optionsTable, WebGLBuildOptions options) {
 	}
 }

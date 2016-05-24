@@ -7,8 +7,7 @@ import com.badlogic.gdx.utils.JsonValue;
 
 public class JsonUtil {
 
-	public static void writeColorToJson (Json json, Color color,
-		String name) {
+	public static void writeColorToJson (Json json, Color color, String name) {
 		json.writeObjectStart(name);
 		json.writeValue("r", color.r);
 		json.writeValue("g", color.g);
@@ -17,8 +16,7 @@ public class JsonUtil {
 		json.writeObjectEnd();
 	}
 
-	public static Color readColorFromJson (JsonValue jsonData,
-		String name) {
+	public static Color readColorFromJson (JsonValue jsonData, String name) {
 		JsonValue colordata = jsonData.getChild(name);
 		if (colordata == null)
 			return null;

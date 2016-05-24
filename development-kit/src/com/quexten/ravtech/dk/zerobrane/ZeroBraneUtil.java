@@ -15,30 +15,21 @@ public class ZeroBraneUtil {
 			new GitHubUpdater("pkulchenko", "ZeroBraneStudio")
 				.setDescription(
 					"ZeroBrane is the standard Integrated Development\nEnviroment for the RavTech Development Kit.\nIt is released under the MIT License.")
-				.setProjectPage("https://studio.zerobrane.com/")
-				.addPostUpdateHook(new Runnable() {
+				.setProjectPage("https://studio.zerobrane.com/").addPostUpdateHook(new Runnable() {
 					@Override
 					public void run () {
-						RavTechDK
-							.getLocalFile(
-								"resources/zerobrane/ravtech-api.lua")
-							.copyTo(RavTechDK.getLocalFile(
-								"ZeroBraneStudio/api/lua/ravtech.lua"));
-						RavTechDK
-							.getLocalFile(
-								"resources/zerobrane/ravtech-interpreter.lua")
-							.copyTo(RavTechDK.getLocalFile(
-								"ZeroBraneStudio/api/lua/ravtech.lua"));
+						RavTechDK.getLocalFile("resources/zerobrane/ravtech-api.lua")
+							.copyTo(RavTechDK.getLocalFile("ZeroBraneStudio/api/lua/ravtech.lua"));
+						RavTechDK.getLocalFile("resources/zerobrane/ravtech-interpreter.lua")
+							.copyTo(RavTechDK.getLocalFile("ZeroBraneStudio/api/lua/ravtech.lua"));
 					}
 				}));
 	}
 
 	public static void openFile (File file) {
 		ProcessBuilder b = new ProcessBuilder(
-			RavTechDK.getPluginsFile("ZeroBraneStudio/zbstudio."
-				+ RavTechDK.getSystemExecutableEnding()).path(),
-			RavTechDK.projectHandle.child("assets").path(),
-			file.getPath());
+			RavTechDK.getPluginsFile("ZeroBraneStudio/zbstudio." + RavTechDK.getSystemExecutableEnding()).path(),
+			RavTechDK.projectHandle.child("assets").path(), file.getPath());
 		try {
 			b.start();
 		} catch (IOException ex) {

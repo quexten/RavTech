@@ -36,8 +36,7 @@ public class Light extends Renderer implements Json.Serializable {
 	box2dLight.Light light;
 	LightType type;
 	private int rayCount = 360;
-	final static float[] defaultChain = new float[] {-1, -1, 0, 0, 1,
-		1};
+	final static float[] defaultChain = new float[] {-1, -1, 0, 0, 1, 1};
 
 	public Light () {
 		this(LightType.PointLight);
@@ -48,8 +47,7 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	@Override
-	public void load (
-		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 	}
 
 	@Override
@@ -63,8 +61,7 @@ public class Light extends Renderer implements Json.Serializable {
 	@Override
 	public void draw (SpriteBatch batch) {
 		light.setColor(light.getColor());
-		light.setPosition(getParent().transform.getPosition().x,
-			getParent().transform.getPosition().y);
+		light.setPosition(getParent().transform.getPosition().x, getParent().transform.getPosition().y);
 		light.setDirection(getParent().transform.getRotation());
 
 	}
@@ -80,8 +77,7 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	public float getAngle () {
-		return (getLightType() == LightType.ConeLight)
-			? ((ConeLight)light).getConeDegree()
+		return (getLightType() == LightType.ConeLight) ? ((ConeLight)light).getConeDegree()
 			: (getLightType() == LightType.PointLight) ? 180 : 0;
 	}
 
@@ -93,8 +89,7 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	public float[] getChain () {
-		return (getLightType() == LightType.ChainLight)
-			? ((RavChainLight)light).chain.shrink() : new float[0];
+		return (getLightType() == LightType.ChainLight) ? ((RavChainLight)light).chain.shrink() : new float[0];
 	}
 
 	public void setColor (Color color) {
@@ -125,12 +120,9 @@ public class Light extends Renderer implements Json.Serializable {
 
 		this.type = type;
 
-		Vector2 position = getParent() != null
-			? getParent().transform.getPosition() : Vector2.Zero;
-		float rotation = getParent() != null
-			? getParent().transform.getRotation() : 0;
-		float angle = (lastLightType == LightType.ConeLight)
-			? ((ConeLight)getLight()).getConeDegree() : 90;
+		Vector2 position = getParent() != null ? getParent().transform.getPosition() : Vector2.Zero;
+		float rotation = getParent() != null ? getParent().transform.getRotation() : 0;
+		float angle = (lastLightType == LightType.ConeLight) ? ((ConeLight)getLight()).getConeDegree() : 90;
 
 		float[] chain;
 		Color color;
@@ -139,11 +131,9 @@ public class Light extends Renderer implements Json.Serializable {
 		float softnessLength;
 
 		if (light != null) {
-			chain = (lastLightType == LightType.ChainLight)
-				? (this.getChain()) : defaultChain;
+			chain = (lastLightType == LightType.ChainLight) ? (this.getChain()) : defaultChain;
 			color = getColor();
-			distance = (lastLightType != LightType.DirectionalLight)
-				? getDistance() : 10f;
+			distance = (lastLightType != LightType.DirectionalLight) ? getDistance() : 10f;
 			soft = isSoft();
 			softnessLength = getSoftnessLength();
 		} else {
@@ -156,23 +146,17 @@ public class Light extends Renderer implements Json.Serializable {
 
 		switch (type) {
 			case ChainLight:
-				light = new RavChainLight(
-					RavTech.sceneHandler.lightHandler, rayCount, color,
-					distance, 0, chain);
+				light = new RavChainLight(RavTech.sceneHandler.lightHandler, rayCount, color, distance, 0, chain);
 				break;
 			case ConeLight:
-				light = new ConeLight(RavTech.sceneHandler.lightHandler,
-					rayCount, color, distance, position.x, position.y,
-					rotation, angle);
+				light = new ConeLight(RavTech.sceneHandler.lightHandler, rayCount, color, distance, position.x, position.y, rotation,
+					angle);
 				break;
 			case DirectionalLight:
-				light = new DirectionalLight(
-					RavTech.sceneHandler.lightHandler, rayCount, color,
-					rotation);
+				light = new DirectionalLight(RavTech.sceneHandler.lightHandler, rayCount, color, rotation);
 				break;
 			case PointLight:
-				light = new PointLight(RavTech.sceneHandler.lightHandler,
-					rayCount > 3 ? rayCount + 1 : 3, color, distance,
+				light = new PointLight(RavTech.sceneHandler.lightHandler, rayCount > 3 ? rayCount + 1 : 3, color, distance,
 					position.x, position.y);
 				break;
 		}
@@ -229,40 +213,22 @@ public class Light extends Renderer implements Json.Serializable {
 	@Override
 	public void read (Json json, JsonValue jsonData) {
 		if (jsonData.has("type"))
-			setLightType(
-				jsonData.getString("type")
-					.equals(
-						LightType.ChainLight.toString())
-							? LightType.ChainLight
-							: jsonData.getString("type")
-								.equals(LightType.ConeLight.toString())
-									? LightType.ConeLight
-									: jsonData.getString("type")
-										.equals(LightType.DirectionalLight
-											.toString())
-												? LightType.DirectionalLight
-												: jsonData.getString("type")
-													.equals(LightType.PointLight
-														.toString())
-															? LightType.PointLight
-															: LightType.ConeLight);
-		setAngle(
-			jsonData.has("angle") ? jsonData.getFloat("angle") : 90);
+			setLightType(jsonData.getString("type").equals(LightType.ChainLight.toString()) ? LightType.ChainLight
+				: jsonData.getString("type").equals(LightType.ConeLight.toString()) ? LightType.ConeLight
+					: jsonData.getString("type").equals(LightType.DirectionalLight.toString()) ? LightType.DirectionalLight
+						: jsonData.getString("type").equals(LightType.PointLight.toString()) ? LightType.PointLight
+							: LightType.ConeLight);
+		setAngle(jsonData.has("angle") ? jsonData.getFloat("angle") : 90);
 		setColor(JsonUtil.readColorFromJson(jsonData, "color"));
-		setDistance(jsonData.has("distance")
-			? jsonData.getFloat("distance") : 10);
-		setRayCount(jsonData.has("rayCount")
-			? jsonData.getInt("rayCount") : 360);
-		setSoft(jsonData.has("isSoft") ? jsonData.getBoolean("isSoft")
-			: true);
-		setSoftnessLength(jsonData.has("softnessLength")
-			? jsonData.getFloat("softnessLength") : 2);
+		setDistance(jsonData.has("distance") ? jsonData.getFloat("distance") : 10);
+		setRayCount(jsonData.has("rayCount") ? jsonData.getInt("rayCount") : 360);
+		setSoft(jsonData.has("isSoft") ? jsonData.getBoolean("isSoft") : true);
+		setSoftnessLength(jsonData.has("softnessLength") ? jsonData.getFloat("softnessLength") : 2);
 	}
 
 	@Override
 	public String[] getVariableNames () {
-		return new String[] {"angle", "chain", "color", "distance",
-			"type", "rayCount", "isSoft", "softnessLength"};
+		return new String[] {"angle", "chain", "color", "distance", "type", "rayCount", "isSoft", "softnessLength"};
 	}
 
 	@Override
@@ -281,28 +247,14 @@ public class Light extends Renderer implements Json.Serializable {
 				setDistance(Float.valueOf(String.valueOf(value)));
 				break;
 			case 4:
-				setLightType(
-					value.toString()
-						.equals(LightType.ChainLight.toString())
-							? LightType.ChainLight
-							: value.toString()
-								.equals(LightType.ConeLight.toString())
-									? LightType.ConeLight
-									: value.toString()
-										.equals(LightType.DirectionalLight
-											.toString())
-												? LightType.DirectionalLight
-												: value.toString()
-													.equals(LightType.PointLight
-														.toString())
-															? LightType.PointLight
-															: LightType.PointLight);
+				setLightType(value.toString().equals(LightType.ChainLight.toString()) ? LightType.ChainLight
+					: value.toString().equals(LightType.ConeLight.toString()) ? LightType.ConeLight
+						: value.toString().equals(LightType.DirectionalLight.toString()) ? LightType.DirectionalLight
+							: value.toString().equals(LightType.PointLight.toString()) ? LightType.PointLight : LightType.PointLight);
 				break;
 			case 5:
 				String amount = String.valueOf(value);
-				amount = (amount.contains(".")
-					? amount.substring(0, amount.lastIndexOf('.'))
-					: amount);
+				amount = (amount.contains(".") ? amount.substring(0, amount.lastIndexOf('.')) : amount);
 				setRayCount(Integer.valueOf(amount));
 				break;
 			case 6:
@@ -348,8 +300,7 @@ public class Light extends Renderer implements Json.Serializable {
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {getAngle(), getChain(), getColor(),
-			getDistance(), getLightType(), getRayCount(), isSoft(),
+		return new Object[] {getAngle(), getChain(), getColor(), getDistance(), getLightType(), getRayCount(), isSoft(),
 			getSoftnessLength()};
 	}
 

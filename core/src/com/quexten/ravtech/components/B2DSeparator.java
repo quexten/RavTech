@@ -44,8 +44,7 @@ public class B2DSeparator {
 	 * @see b2Fixture */
 	private static final float PPM = 1;
 
-	public static void separate (Body body, FixtureDef fixtureDef,
-		Vector2[] verticesVec, PolygonCollider polygonCollider) {
+	public static void separate (Body body, FixtureDef fixtureDef, Vector2[] verticesVec, PolygonCollider polygonCollider) {
 		float scale = 30;
 		int i, j, m;
 		int n = verticesVec.length;
@@ -53,8 +52,7 @@ public class B2DSeparator {
 		ArrayList<ArrayList<Vector2>> figsVec;
 		PolygonShape polyShape;
 		for (i = 0; i < n; i++)
-			vec.add(new Vector2(verticesVec[i].x * scale,
-				verticesVec[i].y * scale));
+			vec.add(new Vector2(verticesVec[i].x * scale, verticesVec[i].y * scale));
 		figsVec = calcShapes(vec);
 		n = figsVec.size();
 		for (i = 0; i < n; i++) {
@@ -62,8 +60,7 @@ public class B2DSeparator {
 			verticesVec = new Vector2[vec.size()];
 			m = vec.size();
 			for (j = 0; j < m; j++)
-				verticesVec[j] = new Vector2(vec.get(j).x / (scale * PPM),
-					vec.get(j).y / (scale * PPM));
+				verticesVec[j] = new Vector2(vec.get(j).x / (scale * PPM), vec.get(j).y / (scale * PPM));
 			polyShape = new PolygonShape();
 			polyShape.set(verticesVec);
 			FixtureDef fixDef = new FixtureDef();
@@ -104,18 +101,15 @@ public class B2DSeparator {
 			for (j = 0; j < n; j++)
 				if (j != i && j != i2) {
 					if (!fl) {
-						d = det(verticesVec[i].x, verticesVec[i].y,
-							verticesVec[i2].x, verticesVec[i2].y,
-							verticesVec[j].x, verticesVec[j].y);
+						d = det(verticesVec[i].x, verticesVec[i].y, verticesVec[i2].x, verticesVec[i2].y, verticesVec[j].x,
+							verticesVec[j].y);
 						if (d > 0)
 							fl = true;
 					}
 					if (j != i3) {
 						j2 = j < n - 1 ? j + 1 : 0;
-						if (hitSegment(verticesVec[i].x, verticesVec[i].y,
-							verticesVec[i2].x, verticesVec[i2].y,
-							verticesVec[j].x, verticesVec[j].y,
-							verticesVec[j2].x, verticesVec[j2].y) != null)
+						if (hitSegment(verticesVec[i].x, verticesVec[i].y, verticesVec[i2].x, verticesVec[i2].y, verticesVec[j].x,
+							verticesVec[j].y, verticesVec[j2].x, verticesVec[j2].y) != null)
 							ret = 1;
 					}
 				}
@@ -130,8 +124,7 @@ public class B2DSeparator {
 		return ret;
 	}
 
-	private static ArrayList<ArrayList<Vector2>> calcShapes (
-		ArrayList<Vector2> verticesVec) {
+	private static ArrayList<ArrayList<Vector2>> calcShapes (ArrayList<Vector2> verticesVec) {
 		ArrayList<Vector2> vec;
 		int i, j, n, i1, i2, i3, j1, j2, k = 0, h = -1;
 		float d, t, dx, dy, minLen;
@@ -162,8 +155,7 @@ public class B2DSeparator {
 							j2 = j < n - 1 ? j + 1 : 0;
 							v1 = vec.get(j1);
 							v2 = vec.get(j2);
-							v = hitRay(p1.x, p1.y, p2.x, p2.y, v1.x, v1.y,
-								v2.x, v2.y);
+							v = hitRay(p1.x, p1.y, p2.x, p2.y, v1.x, v1.y, v2.x, v2.y);
 							if (v != null) {
 								dx = p2.x - v.x;
 								dy = p2.y - v.y;
@@ -196,8 +188,7 @@ public class B2DSeparator {
 						else {
 							if (h < 0 || h >= n)
 								err();
-							if (!isOnSegment(v2.x, v2.y, vec.get(h).x,
-								vec.get(h).y, p1.x, p1.y))
+							if (!isOnSegment(v2.x, v2.y, vec.get(h).x, vec.get(h).y, p1.x, p1.y))
 								vec1.add(vec.get(k));
 							break;
 						}
@@ -216,8 +207,7 @@ public class B2DSeparator {
 						else {
 							if (h < 0 || h >= n)
 								err();
-							if (k == j1 && !isOnSegment(v1.x, v1.y,
-								vec.get(h).x, vec.get(h).y, p2.x, p2.y))
+							if (k == j1 && !isOnSegment(v1.x, v1.y, vec.get(h).x, vec.get(h).y, p2.x, p2.y))
 								vec2.add(vec.get(k));
 							break;
 						}
@@ -241,10 +231,8 @@ public class B2DSeparator {
 		return figsVec;
 	}
 
-	private static Vector2 hitRay (float x1, float y1, float x2,
-		float y2, float x3, float y3, float x4, float y4) {
-		float t1 = x3 - x1, t2 = y3 - y1, t3 = x2 - x1, t4 = y2 - y1,
-			t5 = x4 - x3, t6 = y4 - y3, t7 = t4 * t5 - t3 * t6, a;
+	private static Vector2 hitRay (float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+		float t1 = x3 - x1, t2 = y3 - y1, t3 = x2 - x1, t4 = y2 - y1, t5 = x4 - x3, t6 = y4 - y3, t7 = t4 * t5 - t3 * t6, a;
 		if (t7 != 0)
 			a = (t5 * t2 - t6 * t1) / t7;
 		else
@@ -257,10 +245,8 @@ public class B2DSeparator {
 		return null;
 	}
 
-	private Vector2 hitSegment (float x1, float y1, float x2, float y2,
-		float x3, float y3, float x4, float y4) {
-		float t1 = x3 - x1, t2 = y3 - y1, t3 = x2 - x1, t4 = y2 - y1,
-			t5 = x4 - x3, t6 = y4 - y3, t7 = t4 * t5 - t3 * t6, a;
+	private Vector2 hitSegment (float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4) {
+		float t1 = x3 - x1, t2 = y3 - y1, t3 = x2 - x1, t4 = y2 - y1, t5 = x4 - x3, t6 = y4 - y3, t7 = t4 * t5 - t3 * t6, a;
 		a = (t5 * t2 - t6 * t1) / t7;
 		float px = x1 + a * t3, py = y1 + a * t4;
 		boolean b1 = isOnSegment(px, py, x1, y1, x2, y2);
@@ -270,42 +256,31 @@ public class B2DSeparator {
 		return null;
 	}
 
-	private static boolean isOnSegment (float px, float py, float x1,
-		float y1, float x2, float y2) {
-		boolean b1 = x1 + 0.1 >= px && px >= x2 - 0.1
-			|| x1 - 0.1 <= px && px <= x2 + 0.1;
-		boolean b2 = y1 + 0.1 >= py && py >= y2 - 0.1
-			|| y1 - 0.1 <= py && py <= y2 + 0.1;
+	private static boolean isOnSegment (float px, float py, float x1, float y1, float x2, float y2) {
+		boolean b1 = x1 + 0.1 >= px && px >= x2 - 0.1 || x1 - 0.1 <= px && px <= x2 + 0.1;
+		boolean b2 = y1 + 0.1 >= py && py >= y2 - 0.1 || y1 - 0.1 <= py && py <= y2 + 0.1;
 		return b1 && b2 && isOnLine(px, py, x1, y1, x2, y2);
 	}
 
-	private static boolean pointsMatch (float x1, float y1, float x2,
-		float y2) {
-		float dx = x2 >= x1 ? x2 - x1 : x1 - x2,
-			dy = y2 >= y1 ? y2 - y1 : y1 - y2;
+	private static boolean pointsMatch (float x1, float y1, float x2, float y2) {
+		float dx = x2 >= x1 ? x2 - x1 : x1 - x2, dy = y2 >= y1 ? y2 - y1 : y1 - y2;
 		return dx < 0.1 && dy < 0.1;
 	}
 
-	private static boolean isOnLine (float px, float py, float x1,
-		float y1, float x2, float y2) {
+	private static boolean isOnLine (float px, float py, float x1, float y1, float x2, float y2) {
 		if (x2 - x1 > 0.1 || x1 - x2 > 0.1) {
-			float a = (y2 - y1) / (x2 - x1),
-				possibleY = a * (px - x1) + y1,
-				diff = possibleY > py ? possibleY - py : py - possibleY;
+			float a = (y2 - y1) / (x2 - x1), possibleY = a * (px - x1) + y1, diff = possibleY > py ? possibleY - py : py - possibleY;
 			return diff < 0.1;
 		}
 		return px - x1 < 0.1 || x1 - px < 0.1;
 	}
 
-	private static float det (float x1, float y1, float x2, float y2,
-		float x3, float y3) {
-		return x1 * y2 + x2 * y3 + x3 * y1 - y1 * x2 - y2 * x3
-			- y3 * x1;
+	private static float det (float x1, float y1, float x2, float y2, float x3, float y3) {
+		return x1 * y2 + x2 * y3 + x3 * y1 - y1 * x2 - y2 * x3 - y3 * x1;
 	}
 
 	private static void err () {
-		throw new Error(
-			"A problem has occurred. Use the Validate() method to see where the problem is.");
+		throw new Error("A problem has occurred. Use the Validate() method to see where the problem is.");
 	}
 
 	private static void reverse (ArrayList<Vector2> vec1) {

@@ -8,8 +8,7 @@ import com.badlogic.gdx.utils.JsonWriter.OutputType;
 public class Project {
 
 	public static Project load (FileHandle handle) {
-		return new Json().fromJson(Project.class,
-			handle.child("project.json"));
+		return new Json().fromJson(Project.class, handle.child("project.json"));
 	}
 
 	// App Meta Data
@@ -37,7 +36,6 @@ public class Project {
 		json.setUsePrototypes(false);
 		json.setIgnoreUnknownFields(true);
 		json.setOutputType(OutputType.json);
-		handle.child("project.json").writeString(json.prettyPrint(this),
-			false);
+		handle.child("project.json").writeString(json.prettyPrint(this), false);
 	}
 }

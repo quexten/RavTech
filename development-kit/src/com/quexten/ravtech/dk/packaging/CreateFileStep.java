@@ -11,15 +11,13 @@ public class CreateFileStep extends PackageStep {
 
 	FileHandle destinationFile;
 
-	public CreateFileStep (BuildReporterDialog buildReporterDialog,
-		FileHandle file, byte[] data) {
+	public CreateFileStep (BuildReporterDialog buildReporterDialog, FileHandle file, byte[] data) {
 		super(buildReporterDialog);
 		this.destinationFile = file;
 		this.data = data;
 	}
 
-	public CreateFileStep (BuildReporterDialog buildReporterDialog,
-		FileHandle file, FileHandle fileHandle) {
+	public CreateFileStep (BuildReporterDialog buildReporterDialog, FileHandle file, FileHandle fileHandle) {
 		super(buildReporterDialog);
 		this.destinationFile = file;
 		this.fileHandle = fileHandle;
@@ -34,8 +32,7 @@ public class CreateFileStep extends PackageStep {
 		else
 			destinationFile.write(fileHandle.read(), false);
 
-		buildReporterDialog
-			.log("Created File " + destinationFile.path());
+		buildReporterDialog.log("Created File " + destinationFile.path());
 		executeNext();
 	}
 

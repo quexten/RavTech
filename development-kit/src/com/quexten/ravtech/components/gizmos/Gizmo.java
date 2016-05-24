@@ -20,8 +20,7 @@ public abstract class Gizmo<T extends GameComponent> {
 	/** Draws the gizmo
 	 * @param batch - the polygon batch
 	 * @param selected - whether the gizmo is selected */
-	public abstract void draw (PolygonShapeRenderer batch,
-		boolean selected);
+	public abstract void draw (PolygonShapeRenderer batch, boolean selected);
 
 	/** Handles the given mouse input
 	 * @param x - the x coordinate in world coordinate space
@@ -29,8 +28,7 @@ public abstract class Gizmo<T extends GameComponent> {
 	 * @param button - the mouse button the event was performed with (e.g Left / Right / Middle)
 	 * @param eventType - the type of the event (MouseDown, MouseDrag, MouseUp)
 	 * @return returns the distance to the component, < 0 if not handled */
-	public abstract float input (float x, float y, int button,
-		int eventType);
+	public abstract float input (float x, float y, int button, int eventType);
 
 	/** Checks whether the given coordinate is within the bounding box (drag area) of the gizmo
 	 * @param coord - the coordinate to check

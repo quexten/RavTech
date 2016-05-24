@@ -27,10 +27,8 @@ public class RenderProperties implements Serializable {
 		for (int i = 0; i < sortingLayers.size; i++)
 			json.writeValue(sortingLayers.get(i));
 		json.writeArrayEnd();
-		JsonUtil.writeColorToJson(json, backgroundColor,
-			"backgroundColor");
-		JsonUtil.writeColorToJson(json, ambientLightColor,
-			"ambientLightColor");
+		JsonUtil.writeColorToJson(json, backgroundColor, "backgroundColor");
+		JsonUtil.writeColorToJson(json, ambientLightColor, "ambientLightColor");
 	}
 
 	@Override
@@ -39,13 +37,10 @@ public class RenderProperties implements Serializable {
 		JsonValue sortingLayersValue = jsonData.get("sortingLayers");
 		JsonValue currentLayerValue = sortingLayersValue.child();
 		while (currentLayerValue != null) {
-			sortingLayers.add(json.fromJson(SortingLayer.class,
-				currentLayerValue.toString()));
+			sortingLayers.add(json.fromJson(SortingLayer.class, currentLayerValue.toString()));
 			currentLayerValue = currentLayerValue.next();
 		}
-		backgroundColor = JsonUtil.readColorFromJson(jsonData,
-			"backgroundColor");
-		ambientLightColor = JsonUtil.readColorFromJson(jsonData,
-			"ambientLightColor");
+		backgroundColor = JsonUtil.readColorFromJson(jsonData, "backgroundColor");
+		ambientLightColor = JsonUtil.readColorFromJson(jsonData, "ambientLightColor");
 	}
 }

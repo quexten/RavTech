@@ -6,8 +6,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
-public abstract class Box2dCollider extends GameComponent
-	implements Json.Serializable {
+public abstract class Box2dCollider extends GameComponent implements Json.Serializable {
 
 	float density = 1;
 	Filter filter;
@@ -154,14 +153,11 @@ public abstract class Box2dCollider extends GameComponent
 
 	@Override
 	public String[] getVariableNames () {
-		return new String[] {"density", "categoryBits", "maskBits",
-			"groupIndex", "friction", "isSensor", "restitution"};
+		return new String[] {"density", "categoryBits", "maskBits", "groupIndex", "friction", "isSensor", "restitution"};
 	}
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {density, filter.categoryBits,
-			filter.maskBits, filter.maskBits, friction, isSensor,
-			restitution};
+		return new Object[] {density, filter.categoryBits, filter.maskBits, filter.maskBits, friction, isSensor, restitution};
 	}
 }

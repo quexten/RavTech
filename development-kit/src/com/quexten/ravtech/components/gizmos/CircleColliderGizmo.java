@@ -20,10 +20,8 @@ public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 	}
 
 	@Override
-	public void draw (PolygonShapeRenderer renderer,
-		boolean selected) {
-		renderer.setColor(selected ? ColorUtils.getSelectionColor()
-			: ColorUtils.getGizmoColor(component));
+	public void draw (PolygonShapeRenderer renderer, boolean selected) {
+		renderer.setColor(selected ? ColorUtils.getSelectionColor() : ColorUtils.getGizmoColor(component));
 	}
 
 	@Override
@@ -31,9 +29,7 @@ public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 		switch (eventtype) {
 			case EventType.MouseMoved:
 				float distanceToMiddle = getMiddleDistance(x, y);
-				if (Math.abs(distanceToMiddle
-					- component.radius) < RavTech.sceneHandler.worldCamera.zoom
-						* 3)
+				if (Math.abs(distanceToMiddle - component.radius) < RavTech.sceneHandler.worldCamera.zoom * 3)
 					return distanceToMiddle;
 				else
 					return -1;
@@ -41,13 +37,11 @@ public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 				oldRadius = component.radius;
 				break;
 			case EventType.MouseDrag:
-				new ModifyChangeable(component, "", "radius", oldRadius,
-					getMiddleDistance(x, y)).redo();
+				new ModifyChangeable(component, "", "radius", oldRadius, getMiddleDistance(x, y)).redo();
 				break;
 			case EventType.MouseUp:
-				ChangeManager.addChangeable(new ModifyChangeable(
-					component, "Set Circle Collider Radius: ", "radius",
-					oldRadius, getMiddleDistance(x, y)));
+				ChangeManager.addChangeable(
+					new ModifyChangeable(component, "Set Circle Collider Radius: ", "radius", oldRadius, getMiddleDistance(x, y)));
 				break;
 		}
 		return -1f;
@@ -60,8 +54,7 @@ public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 
 	private Vector2 getMiddlePosition () {
 		return component.getParent().transform.getPosition()
-			.add(component.getPosition()
-				.rotate(component.getParent().transform.getRotation()));
+			.add(component.getPosition().rotate(component.getParent().transform.getRotation()));
 	}
 
 	private float getMiddleDistance (float x, float y) {

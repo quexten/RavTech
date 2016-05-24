@@ -53,20 +53,16 @@ public class AdbManager {
 
 		if (devices.size > 0) {
 			String deviceShellOutput = executeAdbCommand("devices -l");
-			String[] deviceShellOutputLines = deviceShellOutput
-				.split("\\n");
+			String[] deviceShellOutputLines = deviceShellOutput.split("\\n");
 
 			for (int i = 1; i < deviceShellOutputLines.length; i++) {
 				String line = deviceShellOutputLines[i];
 				int start = line.indexOf("model:") + "model:".length();
-				int end = line.indexOf("model:") + "model:".length()
-					+ line.substring(start).indexOf(' ');
+				int end = line.indexOf("model:") + "model:".length() + line.substring(start).indexOf(' ');
 				if (end < 0)
 					end = line.length();
 
-				deviceNames.put(
-					getDevice(line.substring(0, line.indexOf(' '))),
-					line.substring(start, end));
+				deviceNames.put(getDevice(line.substring(0, line.indexOf(' '))), line.substring(start, end));
 			}
 		}
 		return devices;
@@ -78,8 +74,7 @@ public class AdbManager {
 			public void run () {
 				if (adbLocation.getPath().startsWith("null") && !onBoot)
 					return;
-				else if (adbLocation.getPath().startsWith("null")
-					&& onBoot) {
+				else if (adbLocation.getPath().startsWith("null") && onBoot) {
 					onBoot = false;
 					return;
 				}
@@ -103,9 +98,7 @@ public class AdbManager {
 
 	public static void installBuild (String deviceId) {
 		try {
-			new PackageManager(getDevice(deviceId))
-				.forceInstall(RavTechDK
-					.getLocalFile("builds/android/build.apk").file());
+			new PackageManager(getDevice(deviceId)).forceInstall(RavTechDK.getLocalFile("builds/android/build.apk").file());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -113,9 +106,7 @@ public class AdbManager {
 
 	public static void launchBuild (String deviceId) {
 		try {
-			new PackageManager(getDevice(deviceId))
-				.launch(new se.vidstige.jadb.managers.Package(
-					RavTechDK.project.appId));
+			new PackageManager(getDevice(deviceId)).launch(new se.vidstige.jadb.managers.Package(RavTechDK.project.appId));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -123,18 +114,12 @@ public class AdbManager {
 
 	public static void initializeAdb () {
 		Debug.log("InitializeAdb",
-			RavTech.settings.getString("RavTechDK.android.sdk.dir")
-				+ System.getProperty("file.separator")
-				+ "platform-tools");
+			RavTech.settings.getString("RavTechDK.android.sdk.dir") + System.getProperty("file.separator") + "platform-tools");
 		adbLocation = new File(
-			RavTech.settings.getString("RavTechDK.android.sdk.dir")
-				+ System.getProperty("file.separator")
-				+ "platform-tools");
+			RavTech.settings.getString("RavTechDK.android.sdk.dir") + System.getProperty("file.separator") + "platform-tools");
 		initAdbConnection();
 		RavTechDK.getLocalFile("builder/local.properties")
-			.writeString("sdk.dir="
-				+ RavTech.settings.getString("RavTechDK.android.sdk.dir"),
-			false);
+			.writeString("sdk.dir=" + RavTech.settings.getString("RavTechDK.android.sdk.dir"), false);
 	}
 
 	public static void onBoot () {

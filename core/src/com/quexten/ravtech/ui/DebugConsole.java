@@ -30,12 +30,10 @@ public class DebugConsole extends VisWindow {
 			@Override
 			public void keyTyped (VisTextField textField, char c) {
 				if (script == null)
-					script = RavTech.scriptLoader
-						.createScript("", null);
+					script = RavTech.scriptLoader.createScript("", null);
 
 				if (c == '\n' || c == '\r') {
-					script.loadChunk("function init() \n "
-						+ textField.getText() + "\n end");
+					script.loadChunk("function init() \n " + textField.getText() + "\n end");
 					script.init();
 					textField.setText("");
 				}
@@ -50,23 +48,19 @@ public class DebugConsole extends VisWindow {
 	}
 
 	public void log (String tag, String message) {
-		textArea.log(com.quexten.ravtech.util.Debug.logColor,
-			"[" + tag + "] : " + message + "\n");
+		textArea.log(com.quexten.ravtech.util.Debug.logColor, "[" + tag + "] : " + message + "\n");
 	}
 
 	public void logError (String tag, String message) {
-		textArea.log(com.quexten.ravtech.util.Debug.errorColor,
-			"[" + tag + "] : " + message + "\n");
+		textArea.log(com.quexten.ravtech.util.Debug.errorColor, "[" + tag + "] : " + message + "\n");
 	}
 
 	public void logDebug (String tag, String message) {
-		textArea.log(com.quexten.ravtech.util.Debug.debugColor,
-			"[" + tag + "] : " + message + "\n");
+		textArea.log(com.quexten.ravtech.util.Debug.debugColor, "[" + tag + "] : " + message + "\n");
 	}
 
 	public void toggleVisible () {
-		if (getZIndex() != getParent().getChildren().size - 1
-			|| !isVisible() || !visible) {
+		if (getZIndex() != getParent().getChildren().size - 1 || !isVisible() || !visible) {
 			toFront();
 			this.fadeIn();
 			visible = true;
@@ -78,8 +72,7 @@ public class DebugConsole extends VisWindow {
 
 	/** Fade outs this window, when fade out animation is completed, window is removed from Stage */
 	public void fadeOut (float time) {
-		addAction(
-			Actions.sequence(Actions.fadeOut(time, Interpolation.fade)));
+		addAction(Actions.sequence(Actions.fadeOut(time, Interpolation.fade)));
 		visible = false;
 	}
 

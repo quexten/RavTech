@@ -14,8 +14,7 @@ public class CopyDirectoryStep extends PackageStep {
 	File dstDir;
 	File srcDir;
 
-	public CopyDirectoryStep (BuildReporterDialog buildReporterDialog,
-		FileHandle srcDir, FileHandle dstDir) {
+	public CopyDirectoryStep (BuildReporterDialog buildReporterDialog, FileHandle srcDir, FileHandle dstDir) {
 		super(buildReporterDialog);
 		this.srcDir = srcDir.file();
 		this.dstDir = dstDir.file();
@@ -23,8 +22,7 @@ public class CopyDirectoryStep extends PackageStep {
 
 	@Override
 	public void run () {
-		buildReporterDialog.log("Copy from [" + srcDir.getAbsolutePath()
-			+ "] to [" + dstDir.getAbsolutePath() + "]");
+		buildReporterDialog.log("Copy from [" + srcDir.getAbsolutePath() + "] to [" + dstDir.getAbsolutePath() + "]");
 		try {
 			FileUtils.copyDirectory(srcDir, dstDir);
 		} catch (IOException e) {

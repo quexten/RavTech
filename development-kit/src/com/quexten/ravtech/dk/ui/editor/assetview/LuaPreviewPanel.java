@@ -14,14 +14,11 @@ public class LuaPreviewPanel extends AssetPreviewPanel {
 		super(fileName);
 		RavTechDK.editorAssetManager.load(iconPath, Texture.class);
 		RavTechDK.editorAssetManager.finishLoading();
-		Image image = new Image(
-			(Texture)RavTechDK.editorAssetManager.get(iconPath));
+		Image image = new Image((Texture)RavTechDK.editorAssetManager.get(iconPath));
 		image.getDrawable().setMinHeight(100);
 		image.getDrawable().setMinWidth(100);
 
-		VisLabel label = new VisLabel(assetPath.contains("/")
-			? assetPath.substring(assetPath.lastIndexOf('/') + 1)
-			: assetPath);
+		VisLabel label = new VisLabel(assetPath.contains("/") ? assetPath.substring(assetPath.lastIndexOf('/') + 1) : assetPath);
 		add(image).padTop(8).padBottom(7).grow();
 		row();
 		add(label);

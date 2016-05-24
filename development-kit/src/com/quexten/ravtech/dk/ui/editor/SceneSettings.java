@@ -13,13 +13,11 @@ public class SceneSettings extends RavWindow {
 		this.scene = scene;
 
 		add(new VisLabel("Background Color:")).growX();
-		add(new ColorPanel(scene.renderProperties.backgroundColor))
-			.growX().fillY();
+		add(new ColorPanel(scene.renderProperties.backgroundColor)).growX().fillY();
 		row();
 
 		add(new VisLabel("Ambient Light:")).growX();
-		add(new ColorPanel(scene.renderProperties.ambientLightColor))
-			.growX().fillY();
+		add(new ColorPanel(scene.renderProperties.ambientLightColor)).growX().fillY();
 		row();
 
 		setResizable(true);

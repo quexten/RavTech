@@ -11,11 +11,9 @@ public class PasteAction implements Runnable {
 	@Override
 	public void run () {
 		try {
-			GameObject object = PrefabManager
-				.makeObject(Gdx.app.getClipboard().getContents());
+			GameObject object = PrefabManager.makeObject(Gdx.app.getClipboard().getContents());
 			RavTech.currentScene.addGameObject(object);
-			object.transform
-				.setPosition(RavTech.input.getWorldPosition());
+			object.transform.setPosition(RavTech.input.getWorldPosition());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

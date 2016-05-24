@@ -17,20 +17,17 @@ public class ArchiveFileHandle extends FileHandle {
 	InputStream entrystream;
 	String filePath;
 
-	public ArchiveFileHandle (FileHandle zipfilehandle,
-		String filePath, boolean init) {
+	public ArchiveFileHandle (FileHandle zipfilehandle, String filePath, boolean init) {
 		super(filePath, FileType.Classpath);
 		this.zipfilehandle = zipfilehandle;
 		if (filePath.startsWith("/"))
 			filePath = filePath.substring(1);
 		if (init) {
-			ZipInputStream stream = new ZipInputStream(
-				zipfilehandle.read());
+			ZipInputStream stream = new ZipInputStream(zipfilehandle.read());
 			try {
 				ZipEntry entry;
 				while ((entry = stream.getNextEntry()) != null)
-					if (entry.getName().replace('\\', '/')
-						.equals(filePath)) {
+					if (entry.getName().replace('\\', '/').equals(filePath)) {
 						entrystream = stream;
 						break;
 					}
@@ -41,8 +38,7 @@ public class ArchiveFileHandle extends FileHandle {
 		this.filePath = filePath;
 	}
 
-	public ArchiveFileHandle (FileHandle zipfilehandle,
-		String filePath) {
+	public ArchiveFileHandle (FileHandle zipfilehandle, String filePath) {
 		this(zipfilehandle, filePath, true);
 	}
 
@@ -53,8 +49,7 @@ public class ArchiveFileHandle extends FileHandle {
 
 	@Override
 	public FileHandle child (String name) {
-		return new ArchiveFileHandle(zipfilehandle, filePath + name,
-			false);
+		return new ArchiveFileHandle(zipfilehandle, filePath + name, false);
 	}
 
 	@Override
@@ -65,8 +60,7 @@ public class ArchiveFileHandle extends FileHandle {
 	@Override
 	public FileHandle parent () {
 		filePath = filePath.replace('\\', '/');
-		return new ArchiveFileHandle(zipfilehandle,
-			filePath.substring(0, filePath.lastIndexOf('/') + 1), false);
+		return new ArchiveFileHandle(zipfilehandle, filePath.substring(0, filePath.lastIndexOf('/') + 1), false);
 	}
 
 	@Override
@@ -75,8 +69,7 @@ public class ArchiveFileHandle extends FileHandle {
 		try {
 			return StreamUtils.copyStreamToByteArray(input, 512);
 		} catch (IOException ex) {
-			throw new GdxRuntimeException("Error reading file: " + this,
-				ex);
+			throw new GdxRuntimeException("Error reading file: " + this, ex);
 		} finally {
 			StreamUtils.closeQuietly(input);
 		}

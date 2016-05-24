@@ -48,8 +48,7 @@ public class RavFiles {
 	 * @param path - the path to the asset
 	 * @param assetType - the type of the asset
 	 * @param parameters - parameters to pass the loader */
-	public <T> void loadAsset (String path, Class<T> assetType,
-		AssetLoaderParameters<T> parameters) {
+	public <T> void loadAsset (String path, Class<T> assetType, AssetLoaderParameters<T> parameters) {
 		assetManager.load(path, assetType, parameters);
 	}
 
@@ -57,8 +56,7 @@ public class RavFiles {
 	 * @param path - the path to the asset
 	 * @param assetType - the type of the asset
 	 * @param finish - whether to wait for the asset to finish loading */
-	public <T> void loadAsset (String path, Class<T> assetType,
-		boolean finish) {
+	public <T> void loadAsset (String path, Class<T> assetType, boolean finish) {
 		assetManager.load(path, assetType);
 		if (finish)
 			assetManager.finishLoadingAsset(path);
@@ -87,8 +85,7 @@ public class RavFiles {
 		getAssetManager().unload(path);
 		getAssetManager().load(path, type);
 		finishLoading();
-		Array<GameComponent> dependentComponents = getDependentComponents(
-			path);
+		Array<GameComponent> dependentComponents = getDependentComponents(path);
 		for (int i = 0; i < dependentComponents.size; i++)
 			dependentComponents.get(i).finishedLoading();
 	}
@@ -121,27 +118,24 @@ public class RavFiles {
 	/** Loads the specified scene as the current Scene
 	 * @param sceneString - the Scene to load */
 	public void loadState (final String sceneString) {
-		String scenePath = getAssetManager()
-			.getAssetFileName(RavTech.currentScene);
+		String scenePath = getAssetManager().getAssetFileName(RavTech.currentScene);
 		RavTech.currentScene.dispose();
 		getAssetManager().unload(scenePath);
-		getAssetManager().setLoader(Scene.class,
-			new SceneLoader(new FileHandleResolver() {
-				@Override
-				public FileHandle resolve (String fileName) {
-					return new FileHandle() {
-						@Override
-						public String readString () {
-							return sceneString;
-						}
-					};
-				}
-			}));
+		getAssetManager().setLoader(Scene.class, new SceneLoader(new FileHandleResolver() {
+			@Override
+			public FileHandle resolve (String fileName) {
+				return new FileHandle() {
+					@Override
+					public String readString () {
+						return sceneString;
+					}
+				};
+			}
+		}));
 		loadAsset(scenePath, Scene.class);
 		finishLoading();
 		RavTech.currentScene = getAsset(scenePath);
-		getAssetManager().setLoader(Scene.class,
-			new SceneLoader(getResolver()));
+		getAssetManager().setLoader(Scene.class, new SceneLoader(getResolver()));
 	}
 
 	public Array<GameComponent> getDependentComponents (String path) {
@@ -158,8 +152,7 @@ public class RavFiles {
 		componentDependencies.get(path).add(component);
 	}
 
-	public void removeDependency (String path,
-		GameComponent component) {
+	public void removeDependency (String path, GameComponent component) {
 		Debug.logDebug("RemoveDependency", path);
 		if (componentDependencies.get(path) == null)
 			return;
@@ -177,12 +170,9 @@ public class RavFiles {
 			assetManager.dispose();
 		assetManager = new AssetManager(resolver);
 		assetManager.setLoader(Scene.class, new SceneLoader(resolver));
-		assetManager.setLoader(Project.class,
-			new ProjectLoader(resolver));
-		assetManager.setLoader(String.class,
-			new StringLoader(resolver));
-		assetManager.setLoader(BitmapFont.class,
-			new BitmapFontLoader(assetManager.getFileHandleResolver()));
+		assetManager.setLoader(Project.class, new ProjectLoader(resolver));
+		assetManager.setLoader(String.class, new StringLoader(resolver));
+		assetManager.setLoader(BitmapFont.class, new BitmapFontLoader(assetManager.getFileHandleResolver()));
 	}
 
 }

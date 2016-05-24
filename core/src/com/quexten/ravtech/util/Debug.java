@@ -30,39 +30,31 @@ public class Debug {
 	public static void logError (String tag, Object message) {
 		Gdx.app.error(tag, message.toString());
 		if (RavTech.isEditor)
-			RavTech.ui.debugConsole.logError(tag,
-				String.valueOf(message));
+			RavTech.ui.debugConsole.logError(tag, String.valueOf(message));
 	}
 
 	public static void logDebug (String tag, Object message) {
 		if (debugLogging) {
 			Gdx.app.debug(tag, message.toString());
 			if (RavTech.isEditor)
-				RavTech.ui.debugConsole.logDebug(tag,
-					String.valueOf(message));
+				RavTech.ui.debugConsole.logDebug(tag, String.valueOf(message));
 		}
 	}
 
-	public static void drawRay (Vector2 start, float dir,
-		Color color) {
+	public static void drawRay (Vector2 start, float dir, Color color) {
 		debugLineShapes.add(new DebugLineShape(start, dir, color));
 	}
 
-	public static void drawLine (Vector2 start, Vector2 end,
-		Color color) {
+	public static void drawLine (Vector2 start, Vector2 end, Color color) {
 		debugLineShapes.add(new DebugLineShape(start, end, color));
 	}
 
-	public static void drawCircle (Vector2 middlePosition,
-		float radius, Color color, boolean filled) {
-		(filled ? debugFilledShapes : debugLineShapes)
-			.add(new DebugCircleShape(middlePosition, radius, color));
+	public static void drawCircle (Vector2 middlePosition, float radius, Color color, boolean filled) {
+		(filled ? debugFilledShapes : debugLineShapes).add(new DebugCircleShape(middlePosition, radius, color));
 	}
 
-	public static void drawRectangle (Vector2 middlePosition,
-		Vector2 size, Color color, boolean filled) {
-		(filled ? debugFilledShapes : debugLineShapes)
-			.add(new DebugRectangle(middlePosition, size, color));
+	public static void drawRectangle (Vector2 middlePosition, Vector2 size, Color color, boolean filled) {
+		(filled ? debugFilledShapes : debugLineShapes).add(new DebugRectangle(middlePosition, size, color));
 	}
 
 	public static void render (ShapeRenderer renderer) {

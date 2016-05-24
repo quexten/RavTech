@@ -14,8 +14,7 @@ public class ColorUtils {
 	}
 
 	public static Color swingToGdx (java.awt.Color c) {
-		return new Color(c.getRed() / 255.0f, c.getGreen() / 255.0f,
-			c.getBlue() / 255.0f, c.getAlpha() / 255.0f);
+		return new Color(c.getRed() / 255.0f, c.getGreen() / 255.0f, c.getBlue() / 255.0f, c.getAlpha() / 255.0f);
 	}
 
 	public static Color getGizmoColor (GameComponent component) {
@@ -26,14 +25,10 @@ public class ColorUtils {
 				break;
 			case BoxCollider:
 				return getPhysicsBodyTypeColor(
-					((Rigidbody)component.getParent()
-						.getComponentByType(ComponentType.Rigidbody))
-							.getBody().getType());
+					((Rigidbody)component.getParent().getComponentByType(ComponentType.Rigidbody)).getBody().getType());
 			case CircleCollider:
 				return getPhysicsBodyTypeColor(
-					((Rigidbody)component.getParent()
-						.getComponentByType(ComponentType.Rigidbody))
-							.getBody().getType());
+					((Rigidbody)component.getParent().getComponentByType(ComponentType.Rigidbody)).getBody().getType());
 			case Default:
 				break;
 			case GameObject:

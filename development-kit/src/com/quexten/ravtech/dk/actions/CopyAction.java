@@ -12,7 +12,6 @@ public class CopyAction implements Runnable {
 	@Override
 	public void run () {
 		Array<GameObject> objects = RavTechDK.selectedObjects;
-		Gdx.app.getClipboard()
-			.setContents(PrefabManager.makePrefab(objects.get(0)));
+		Gdx.app.getClipboard().setContents(PrefabManager.makePrefab(objects.get(0)));
 	}
 }

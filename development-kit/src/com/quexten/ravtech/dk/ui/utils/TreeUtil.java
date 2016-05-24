@@ -23,8 +23,7 @@ public class TreeUtil {
 		return buf.toString();
 	}
 
-	public static boolean isDescendant (TreePath path1,
-		TreePath path2) {
+	public static boolean isDescendant (TreePath path1, TreePath path2) {
 		int count1 = path1.getPathCount();
 		int count2 = path2.getPathCount();
 		if (count1 <= count2)
@@ -36,8 +35,7 @@ public class TreeUtil {
 		return path1.equals(path2);
 	}
 
-	public static void restoreExpanstionState (JTree tree, int row,
-		String expansionState) {
+	public static void restoreExpanstionState (JTree tree, int row, String expansionState) {
 		StringTokenizer stok = new StringTokenizer(expansionState, ",");
 		while (stok.hasMoreTokens()) {
 			int token = row + Integer.parseInt(stok.nextToken());

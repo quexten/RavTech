@@ -1,3 +1,4 @@
+
 package com.quexten.ravtech.dk.packaging;
 
 import java.io.File;
@@ -11,8 +12,7 @@ public class DeleteDirectoryStep extends PackageStep {
 
 	File dir;
 
-	public DeleteDirectoryStep (BuildReporterDialog buildReporterDialog,
-		File dir) {
+	public DeleteDirectoryStep (BuildReporterDialog buildReporterDialog, File dir) {
 		super(buildReporterDialog);
 		this.dir = dir;
 	}

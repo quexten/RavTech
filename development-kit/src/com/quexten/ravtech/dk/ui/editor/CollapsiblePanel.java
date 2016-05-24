@@ -15,15 +15,12 @@ import com.kotcrab.vis.ui.widget.VisTable;
 
 public class CollapsiblePanel extends VisTable {
 
-	private static final Drawable treePlus = VisUI.getSkin()
-		.getDrawable("tree-plus");
-	private static final Drawable treeMinus = VisUI.getSkin()
-		.getDrawable("tree-minus");
+	private static final Drawable treePlus = VisUI.getSkin().getDrawable("tree-plus");
+	private static final Drawable treeMinus = VisUI.getSkin().getDrawable("tree-minus");
 
 	public CollapsiblePanel (String title, VisTable contentTable) {
 		VisTable titleTable = new VisTable(true);
-		titleTable
-			.setBackground(VisUI.getSkin().getDrawable("tree-over"));
+		titleTable.setBackground(VisUI.getSkin().getDrawable("tree-over"));
 
 		final Image icon = new Image(treeMinus, Scaling.none);
 
@@ -39,18 +36,15 @@ public class CollapsiblePanel extends VisTable {
 		style.over = up;
 		titleTable.add(button);
 
-		final CollapsibleWidget collapsible = new CollapsibleWidget(
-			contentTable, false);
+		final CollapsibleWidget collapsible = new CollapsibleWidget(contentTable, false);
 		add(titleTable).expandX().fillX().row();
 		add(collapsible).expandX().fillX().padTop(3);
 
 		nameLabel.addListener(new ClickListener() {
 			@Override
 			public void clicked (InputEvent event, float x, float y) {
-				collapsible.setCollapsed(!collapsible.isCollapsed(),
-					false);
-				icon.setDrawable(
-					collapsible.isCollapsed() ? treePlus : treeMinus);
+				collapsible.setCollapsed(!collapsible.isCollapsed(), false);
+				icon.setDrawable(collapsible.isCollapsed() ? treePlus : treeMinus);
 			}
 		});
 	}

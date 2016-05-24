@@ -15,8 +15,7 @@ import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.animation.VariableAccessor;
 import com.quexten.ravtech.util.JsonUtil;
 
-public class SpriteRenderer extends Renderer
-	implements Json.Serializable, VariableAccessor {
+public class SpriteRenderer extends Renderer implements Json.Serializable, VariableAccessor {
 
 	@Override
 	public ComponentType getType () {
@@ -51,8 +50,7 @@ public class SpriteRenderer extends Renderer
 		RavTech.files.finishLoading();
 	}
 
-	public SpriteRenderer (String texturePath, float width,
-		float height) {
+	public SpriteRenderer (String texturePath, float width, float height) {
 		super();
 		this.width = width;
 		this.height = height;
@@ -60,10 +58,8 @@ public class SpriteRenderer extends Renderer
 	}
 
 	@Override
-	public void load (
-		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
-		dependencies.add(
-			new AssetDescriptor<Texture>(texturePath, Texture.class));
+	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+		dependencies.add(new AssetDescriptor<Texture>(texturePath, Texture.class));
 		RavTech.files.addDependency(texturePath, this);
 	}
 
@@ -88,14 +84,10 @@ public class SpriteRenderer extends Renderer
 			float halfHeight = height / 2;
 			float originWidth = originX * halfWidth + halfWidth;
 			float originHeight = originY * halfHeight + halfHeight;
-			batch.draw(texture,
-				getParent().transform.getPosition().x - originWidth,
-				getParent().transform.getPosition().y - originHeight,
-				originWidth, originHeight, width, height,
-				getParent().transform.getLocalScale().x,
-				getParent().transform.getLocalScale().y,
-				getParent().transform.getRotation(), srcX, srcY, srcWidth,
-				srcHeight, false, false);
+			batch.draw(texture, getParent().transform.getPosition().x - originWidth,
+				getParent().transform.getPosition().y - originHeight, originWidth, originHeight, width, height,
+				getParent().transform.getLocalScale().x, getParent().transform.getLocalScale().y, getParent().transform.getRotation(),
+				srcX, srcY, srcWidth, srcHeight, false, false);
 		}
 		batch.setColor(Color.WHITE);
 	}
@@ -109,11 +101,9 @@ public class SpriteRenderer extends Renderer
 		RavTech.files.addDependency(texturePath, this);
 		this.texturePath = texturePath;
 		if (!RavTech.files.isLoaded(SpriteRenderer.this.texturePath))
-			RavTech.files.loadAsset(SpriteRenderer.this.texturePath,
-				Texture.class, false);
+			RavTech.files.loadAsset(SpriteRenderer.this.texturePath, Texture.class, false);
 		RavTech.files.finishLoading();
-		texture = RavTech.files
-			.getAsset(SpriteRenderer.this.texturePath);
+		texture = RavTech.files.getAsset(SpriteRenderer.this.texturePath);
 		srcWidth = texture.getWidth();
 		srcHeight = texture.getHeight();
 	}
@@ -141,17 +131,13 @@ public class SpriteRenderer extends Renderer
 		json.writeValue("srcHeight", srcHeight);
 		json.writeValue("originX", originX);
 		json.writeValue("originY", originY);
-		json.writeValue("minFilter",
-			minFilter == TextureFilter.Linear ? "Linear" : "Nearest");
-		json.writeValue("magFilter",
-			magFilter == TextureFilter.Linear ? "Linear" : "Nearest");
+		json.writeValue("minFilter", minFilter == TextureFilter.Linear ? "Linear" : "Nearest");
+		json.writeValue("magFilter", magFilter == TextureFilter.Linear ? "Linear" : "Nearest");
 		JsonUtil.writeColorToJson(json, color, "tint");
-		json.writeValue("uWrap", uWrap == TextureWrap.ClampToEdge
-			? "ClampToEdge"
-			: uWrap == TextureWrap.Repeat ? "Repeat" : "MirroredRepeat");
-		json.writeValue("vWrap", vWrap == TextureWrap.ClampToEdge
-			? "ClampToEdge"
-			: vWrap == TextureWrap.Repeat ? "Repeat" : "MirroredRepeat");
+		json.writeValue("uWrap",
+			uWrap == TextureWrap.ClampToEdge ? "ClampToEdge" : uWrap == TextureWrap.Repeat ? "Repeat" : "MirroredRepeat");
+		json.writeValue("vWrap",
+			vWrap == TextureWrap.ClampToEdge ? "ClampToEdge" : vWrap == TextureWrap.Repeat ? "Repeat" : "MirroredRepeat");
 	}
 
 	@Override
@@ -178,35 +164,27 @@ public class SpriteRenderer extends Renderer
 		if (jsonData.has("originY"))
 			originY = jsonData.getFloat("originY");
 		if (jsonData.has("minFilter"))
-			minFilter = jsonData.getString("minFilter").equals("Linear")
-				? TextureFilter.Linear : TextureFilter.Nearest;
+			minFilter = jsonData.getString("minFilter").equals("Linear") ? TextureFilter.Linear : TextureFilter.Nearest;
 		if (jsonData.has("magFilter"))
-			magFilter = jsonData.getString("magFilter").equals("Linear")
-				? TextureFilter.Linear : TextureFilter.Nearest;
+			magFilter = jsonData.getString("magFilter").equals("Linear") ? TextureFilter.Linear : TextureFilter.Nearest;
 		if (jsonData.has("tint"))
 			setColor(JsonUtil.readColorFromJson(jsonData, "tint"));
 		if (jsonData.has("uWrap")) {
 			String uWrapStrings = jsonData.getString("uWrap");
-			uWrap = uWrapStrings.equals("ClampToEdge")
-				? TextureWrap.ClampToEdge
-				: uWrapStrings.equals("Repeat") ? TextureWrap.Repeat
-					: TextureWrap.MirroredRepeat;
+			uWrap = uWrapStrings.equals("ClampToEdge") ? TextureWrap.ClampToEdge
+				: uWrapStrings.equals("Repeat") ? TextureWrap.Repeat : TextureWrap.MirroredRepeat;
 		}
 		if (jsonData.has("vWrap")) {
 			String vWrapStrings = jsonData.getString("vWrap");
-			vWrap = vWrapStrings.equals("ClampToEdge")
-				? TextureWrap.ClampToEdge
-				: vWrapStrings.equals("Repeat") ? TextureWrap.Repeat
-					: TextureWrap.MirroredRepeat;
+			vWrap = vWrapStrings.equals("ClampToEdge") ? TextureWrap.ClampToEdge
+				: vWrapStrings.equals("Repeat") ? TextureWrap.Repeat : TextureWrap.MirroredRepeat;
 		}
 	}
 
 	@Override
 	public String[] getVariableNames () {
-		return new String[] {"sortingLayerName", "sortingOrder",
-			"width", "height", "texture", "regionName", "srcX", "srcY",
-			"srcWidth", "srcHeight", "originX", "originY", "minFilter",
-			"magFilter", "tint", "uTextureWrap", "vTextureWrap"};
+		return new String[] {"sortingLayerName", "sortingOrder", "width", "height", "texture", "regionName", "srcX", "srcY",
+			"srcWidth", "srcHeight", "originX", "originY", "minFilter", "magFilter", "tint", "uTextureWrap", "vTextureWrap"};
 	}
 
 	@Override
@@ -218,8 +196,7 @@ public class SpriteRenderer extends Renderer
 			case 1:
 				String varString = String.valueOf(value);
 				if (varString.indexOf('.') > 0)
-					varString = varString.substring(0,
-						varString.indexOf('.'));
+					varString = varString.substring(0, varString.indexOf('.'));
 				sortingOrder = Integer.valueOf(varString);
 				break;
 			case 2:
@@ -259,8 +236,7 @@ public class SpriteRenderer extends Renderer
 			case 12:
 				if (value instanceof String)
 					value = value.equals("Linear") ? TextureFilter.Linear
-						: value.equals("Nearest") ? TextureFilter.Nearest
-							: TextureFilter.MipMap;
+						: value.equals("Nearest") ? TextureFilter.Nearest : TextureFilter.MipMap;
 				minFilter = (TextureFilter)value;
 				Gdx.app.postRunnable(new Runnable() {
 					@Override
@@ -272,8 +248,7 @@ public class SpriteRenderer extends Renderer
 			case 13:
 				if (value instanceof String)
 					value = value.equals("Linear") ? TextureFilter.Linear
-						: value.equals("Nearest") ? TextureFilter.Nearest
-							: TextureFilter.MipMap;
+						: value.equals("Nearest") ? TextureFilter.Nearest : TextureFilter.MipMap;
 				magFilter = (TextureFilter)value;
 				Gdx.app.postRunnable(new Runnable() {
 
@@ -288,10 +263,8 @@ public class SpriteRenderer extends Renderer
 				break;
 			case 15:
 				if (value instanceof String)
-					value = value.equals("ClampToEdge")
-						? TextureWrap.ClampToEdge
-						: value.equals("Repeat") ? TextureWrap.Repeat
-							: TextureWrap.MirroredRepeat;
+					value = value.equals("ClampToEdge") ? TextureWrap.ClampToEdge
+						: value.equals("Repeat") ? TextureWrap.Repeat : TextureWrap.MirroredRepeat;
 				uWrap = (TextureWrap)value;
 				Gdx.app.postRunnable(new Runnable() {
 
@@ -303,10 +276,8 @@ public class SpriteRenderer extends Renderer
 				break;
 			case 16:
 				if (value instanceof String)
-					value = value.equals("ClampToEdge")
-						? TextureWrap.ClampToEdge
-						: value.equals("Repeat") ? TextureWrap.Repeat
-							: TextureWrap.MirroredRepeat;
+					value = value.equals("ClampToEdge") ? TextureWrap.ClampToEdge
+						: value.equals("Repeat") ? TextureWrap.Repeat : TextureWrap.MirroredRepeat;
 				vWrap = (TextureWrap)value;
 				Gdx.app.postRunnable(new Runnable() {
 

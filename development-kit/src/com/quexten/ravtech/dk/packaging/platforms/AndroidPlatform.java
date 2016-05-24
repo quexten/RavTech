@@ -14,28 +14,21 @@ import com.quexten.ravtech.dk.packaging.platforms.android.AlignStep;
 import com.quexten.ravtech.dk.packaging.platforms.android.SignStep;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
-public class AndroidPlatform
-	extends Platform<AndroidBuildOptions, AndroidBuildOptionsTable> {
+public class AndroidPlatform extends Platform<AndroidBuildOptions, AndroidBuildOptionsTable> {
 
 	@Override
-	public void build (BuildReporterDialog buildReporterDialog,
-		AndroidBuildOptions options) {
-		GradleInvoker.Invoke(buildReporterDialog, "assemble"
-			+ (options.sign ? "Release" : "Debug") + " --stacktrace");
+	public void build (BuildReporterDialog buildReporterDialog, AndroidBuildOptions options) {
+		GradleInvoker.Invoke(buildReporterDialog, "assemble" + (options.sign ? "Release" : "Debug") + " --stacktrace");
 		buildReporterDialog.setVisible(true);
 	}
 
 	@Override
-	public void run (BuildReporterDialog buildReporterDialog,
-		AndroidBuildOptions options) {
+	public void run (BuildReporterDialog buildReporterDialog, AndroidBuildOptions options) {
 		if (!options.skipBuild)
 			AdbManager.installBuild(options.deviceId);
 		if (options.isExternal())
-			new AndroidPushStep(buildReporterDialog,
-				RavTechDK.getLocalFile("/temp/build.ravpack").path(),
-				"/sdcard/Android/obb/" + RavTechDK.project.appId
-					+ "/main." + RavTechDK.project.buildVersion + "."
-					+ RavTechDK.project.appId + ".obb").run();
+			new AndroidPushStep(buildReporterDialog, RavTechDK.getLocalFile("/temp/build.ravpack").path(), "/sdcard/Android/obb/"
+				+ RavTechDK.project.appId + "/main." + RavTechDK.project.buildVersion + "." + RavTechDK.project.appId + ".obb").run();
 
 		AdbManager.launchBuild(options.deviceId);
 	}
@@ -46,40 +39,32 @@ public class AndroidPlatform
 	}
 
 	@Override
-	public PackageStep addBuildEngineStep (BuildReporterDialog dialog,
-		PackageStep currentStep, AndroidBuildOptions options) {
+	public PackageStep addBuildEngineStep (BuildReporterDialog dialog, PackageStep currentStep, AndroidBuildOptions options) {
 		PackageStep tempStep = null;
 
-		tempStep = currentStep
-			.setNextStep(new ApkPreparationStep(dialog))
-			.setNextStep(new BuildPlatformStep(dialog,
-				new AndroidPlatform(), options))
-			.setNextStep(new AlignStep(dialog));
+		tempStep = currentStep.setNextStep(new ApkPreparationStep(dialog))
+			.setNextStep(new BuildPlatformStep(dialog, new AndroidPlatform(), options)).setNextStep(new AlignStep(dialog));
 
 		if (options.sign)
-			tempStep = tempStep
-				.setNextStep(new SignStep(dialog, options.credentials));
+			tempStep = tempStep.setNextStep(new SignStep(dialog, options.credentials));
 
 		final String releaseFile = "android-release-aligned";
 		final String debugFile = "android-debug";
 
-		return tempStep.setNextStep(new CopyStep(dialog,
-			Gdx.files.absolute(System.getProperty("user.dir")
-				+ "/builder/android/build/outputs/apk/"
-				+ (options.sign ? releaseFile : debugFile) + ".apk"),
-			RavTechDK.getLocalFile("builds/android")
-				.child("build.apk")));
+		return tempStep
+			.setNextStep(new CopyStep(dialog,
+				Gdx.files.absolute(System.getProperty("user.dir") + "/builder/android/build/outputs/apk/"
+					+ (options.sign ? releaseFile : debugFile) + ".apk"),
+			RavTechDK.getLocalFile("builds/android").child("build.apk")));
 	}
 
 	@Override
-	public AndroidBuildOptionsTable getOptionsTable (
-		AndroidBuildOptions options) {
-		return new AndroidBuildOptionsTable (options);
+	public AndroidBuildOptionsTable getOptionsTable (AndroidBuildOptions options) {
+		return new AndroidBuildOptionsTable(options);
 	}
 
 	@Override
-	public void applyOptions (AndroidBuildOptionsTable optionsTable,
-		AndroidBuildOptions options) {
+	public void applyOptions (AndroidBuildOptionsTable optionsTable, AndroidBuildOptions options) {
 		options.sign = optionsTable.signBox.isChecked();
 	}
 

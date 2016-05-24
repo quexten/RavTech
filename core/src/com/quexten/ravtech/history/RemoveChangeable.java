@@ -21,16 +21,14 @@ public class RemoveChangeable extends Changeable {
 	/** @param component - the component, the new component is added to
 	 * @param changeLabel - the labeling for the history view of the change event
 	 * @param gameComponent - the added Component in JSON format */
-	public RemoveChangeable (GameComponent parent, String changeLabel,
-		String gameComponent) {
+	public RemoveChangeable (GameComponent parent, String changeLabel, String gameComponent) {
 		super(parent, changeLabel);
 		this.gameComponent = gameComponent;
 		redo();
 	}
 
 	public void redo () {
-		GameObject component = (GameObject)GameObjectTraverseUtil
-			.gameComponentFromPath(pathToComponent);
+		GameObject component = (GameObject)GameObjectTraverseUtil.gameComponentFromPath(pathToComponent);
 		JsonValue jsonData = new JsonReader().parse(gameComponent);
 		componentType = jsonData.getString("componenttype");
 		if (componentType.equals("GameObject"))
@@ -47,19 +45,15 @@ public class RemoveChangeable extends Changeable {
 		Json json = new Json();
 		GameObject tempObject = new GameObject();
 		tempObject.readValue(json, jsonData);
-		GameComponent toAddComponent = tempObject
-			.getComponentByName(componentType);
-		tempObject.getComponents().removeValue(
-			tempObject.getComponentByName(componentType), true);
+		GameComponent toAddComponent = tempObject.getComponentByName(componentType);
+		tempObject.getComponents().removeValue(tempObject.getComponentByName(componentType), true);
 		tempObject.destroy();
 		if (pathToComponent.lastIndexOf('/') == 0) {
 			toAddComponent.setParent(null);
-			RavTech.currentScene
-				.addGameObject((GameObject)toAddComponent);
+			RavTech.currentScene.addGameObject((GameObject)toAddComponent);
 		} else {
 			GameObject component = (GameObject)GameObjectTraverseUtil
-				.gameComponentFromPath(pathToComponent.substring(0,
-					pathToComponent.lastIndexOf('/')));
+				.gameComponentFromPath(pathToComponent.substring(0, pathToComponent.lastIndexOf('/')));
 			toAddComponent.setParent(component);
 			component.addComponent(toAddComponent);
 		}

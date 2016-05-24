@@ -23,8 +23,7 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 	}
 
 	@Override
-	public void draw (PolygonShapeRenderer renderer,
-		boolean selected) {
+	public void draw (PolygonShapeRenderer renderer, boolean selected) {
 		renderer.setColor(Color.LIGHT_GRAY);
 		Vector2 mousePosition = RavTech.input.getWorldPosition();
 		/*
@@ -35,16 +34,11 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 		float selLine = -1;
 		for (int i = 0; i < component.vertecies.size; i++)
 			if (i < component.vertecies.size) {
-				Vector2 firstPoint = component.getParent().transform
-					.getPosition(component.vertecies.get(i).cpy());
-				Vector2 secondPoint = component.getParent().transform
-					.getPosition(i < component.vertecies.size - 1
-						? component.vertecies.get(i + 1).cpy()
-						: component.vertecies.get(0).cpy());
-				if (GeometryUtils.isPointNearLine(firstPoint, secondPoint,
-					mousePosition, closestDst)) {
-					float dst = GeometryUtils.dstFromLine(firstPoint,
-						secondPoint, mousePosition);
+				Vector2 firstPoint = component.getParent().transform.getPosition(component.vertecies.get(i).cpy());
+				Vector2 secondPoint = component.getParent().transform.getPosition(
+					i < component.vertecies.size - 1 ? component.vertecies.get(i + 1).cpy() : component.vertecies.get(0).cpy());
+				if (GeometryUtils.isPointNearLine(firstPoint, secondPoint, mousePosition, closestDst)) {
+					float dst = GeometryUtils.dstFromLine(firstPoint, secondPoint, mousePosition);
 					if (dst < 0.3f) {
 						selLine = i;
 						closestDst = dst;
@@ -53,12 +47,9 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 			}
 		for (int i = 0; i < component.vertecies.size; i++)
 			if (i < component.vertecies.size) {
-				Vector2 firstPoint = component.getParent().transform
-					.getPosition(component.vertecies.get(i).cpy());
-				Vector2 secondPoint = component.getParent().transform
-					.getPosition(i < component.vertecies.size - 1
-						? component.vertecies.get(i + 1).cpy()
-						: component.vertecies.get(0).cpy());
+				Vector2 firstPoint = component.getParent().transform.getPosition(component.vertecies.get(i).cpy());
+				Vector2 secondPoint = component.getParent().transform.getPosition(
+					i < component.vertecies.size - 1 ? component.vertecies.get(i + 1).cpy() : component.vertecies.get(0).cpy());
 				if (i == selLine)
 					renderer.setColor(Color.RED);
 				else
@@ -75,17 +66,11 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 			case EventType.MouseMoved:
 				for (int i = 0; i < component.vertecies.size; i++)
 					if (i < component.vertecies.size) {
-						Vector2 firstPoint = component.getParent().transform
-							.getPosition(component.vertecies.get(i).cpy());
-						Vector2 secondPoint = component
-							.getParent().transform
-								.getPosition(i < component.vertecies.size - 1
-									? component.vertecies.get(i + 1).cpy()
-									: component.vertecies.get(0).cpy());
-						if (GeometryUtils.isPointNearLine(firstPoint,
-							secondPoint, mousePosition, closestDst)) {
-							float dst = GeometryUtils.dstFromLine(firstPoint,
-								secondPoint, mousePosition);
+						Vector2 firstPoint = component.getParent().transform.getPosition(component.vertecies.get(i).cpy());
+						Vector2 secondPoint = component.getParent().transform.getPosition(
+							i < component.vertecies.size - 1 ? component.vertecies.get(i + 1).cpy() : component.vertecies.get(0).cpy());
+						if (GeometryUtils.isPointNearLine(firstPoint, secondPoint, mousePosition, closestDst)) {
+							float dst = GeometryUtils.dstFromLine(firstPoint, secondPoint, mousePosition);
 							if (dst < 0.3f) {
 								selectedLine = i;
 								closestDst = dst;
@@ -97,8 +82,7 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 				float closestDst = Float.MAX_VALUE;
 				int selectedLine = -1;
 				for (int i = 0; i < component.vertecies.size; i++) {
-					Vector2 position = component.getParent().transform
-						.getPosition(component.vertecies.get(i).cpy());
+					Vector2 position = component.getParent().transform.getPosition(component.vertecies.get(i).cpy());
 					if (position.dst(mousePosition) < 0.5f) {
 						if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
 							component.vertecies.removeIndex(i);
@@ -110,45 +94,33 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 						return -1f;
 					}
 					if (i < component.vertecies.size) {
-						Vector2 firstPoint = component.getParent().transform
-							.getPosition(component.vertecies.get(i).cpy());
-						Vector2 secondPoint = component
-							.getParent().transform
-								.getPosition(i < component.vertecies.size - 1
-									? component.vertecies.get(i + 1).cpy()
-									: component.vertecies.get(0).cpy());
-						if (GeometryUtils.dstFromLine(firstPoint,
-							secondPoint, mousePosition) < closestDst) {
+						Vector2 firstPoint = component.getParent().transform.getPosition(component.vertecies.get(i).cpy());
+						Vector2 secondPoint = component.getParent().transform.getPosition(
+							i < component.vertecies.size - 1 ? component.vertecies.get(i + 1).cpy() : component.vertecies.get(0).cpy());
+						if (GeometryUtils.dstFromLine(firstPoint, secondPoint, mousePosition) < closestDst) {
 							selectedLine = i;
-							closestDst = GeometryUtils.dstFromLine(
-								firstPoint, secondPoint, mousePosition);
+							closestDst = GeometryUtils.dstFromLine(firstPoint, secondPoint, mousePosition);
 						}
 					}
 				}
 				if (closestDst < 1) {
-					component.vertecies.insert(selectedLine + 1,
-						new Vector2(mousePosition));
-					grabbedPoint = component.vertecies
-						.get(selectedLine + 1);
+					component.vertecies.insert(selectedLine + 1, new Vector2(mousePosition));
+					grabbedPoint = component.vertecies.get(selectedLine + 1);
 					isGrabbed = true;
 				}
 				return -1f;
 			case EventType.MouseDrag:
 				if (isGrabbed)
 					if (grabbedPoint != null)
-						grabbedPoint.set(mousePosition
-							.sub(
-								component.getParent().transform.getPosition())
-							.rotate(-component.getParent().transform
-								.getRotation()));
+						grabbedPoint.set(mousePosition.sub(component.getParent().transform.getPosition())
+							.rotate(-component.getParent().transform.getRotation()));
 				return -1f;
 			case EventType.MouseUp:
 				if (isGrabbed) {
 					isGrabbed = false;
 					grabbedPoint = null;
 					component.apply();
-					component.getParent().transform.setRotation(
-						component.getParent().transform.getRotation());
+					component.getParent().transform.setRotation(component.getParent().transform.getRotation());
 				}
 				return -1f;
 		}

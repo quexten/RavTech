@@ -5,9 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
@@ -50,10 +47,8 @@ public class SceneHandler {
 	}
 
 	public void load () {
-		shaderManager = new ShaderManager("",
-			RavTech.files.getAssetManager());
-		shaderManager.add("default",
-			RavTech.files.getAssetHandle("shaders/default.vert"),
+		shaderManager = new ShaderManager("", RavTech.files.getAssetManager());
+		shaderManager.add("default", RavTech.files.getAssetHandle("shaders/default.vert"),
 			RavTech.files.getAssetHandle("shaders/default.frag"));
 		renderer = new SortedRenderer(shaderManager);
 		cameraManager = new CameraManager();
@@ -93,19 +88,16 @@ public class SceneHandler {
 			}
 
 			@Override
-			public void preSolve (Contact contact,
-				Manifold oldManifold) {
+			public void preSolve (Contact contact, Manifold oldManifold) {
 			}
 
 			@Override
-			public void postSolve (Contact contact,
-				ContactImpulse impulse) {
+			public void postSolve (Contact contact, ContactImpulse impulse) {
 			}
 		});
 		box2DRenderer = new Box2DDebugRenderer();
 		lightHandler = new DynamicRayHandler(box2DWorld);
-		lightHandler.resizeFBO(Gdx.graphics.getWidth() / 4,
-			Gdx.graphics.getHeight() / 4);
+		lightHandler.resizeFBO(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
 		lightHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.5f);
 
 		lightHandler.setBlurNum(2);
@@ -118,7 +110,7 @@ public class SceneHandler {
 		Debug.startTimer("box2dUpdateTime");
 		Debug.debugFilledShapes.clear();
 		Debug.debugLineShapes.clear();
-		
+
 		if (paused)
 			box2DWorld.step(0, 8, 3);
 		else
@@ -137,29 +129,23 @@ public class SceneHandler {
 			Array<Body> bodies = new Array<Body>();
 			box2DWorld.getBodies(bodies);
 			for (int i = 0; i < bodies.size; i++)
-				if (bodies.get(i).getUserData() != null
-					&& ((UserData)bodies.get(i)
-						.getUserData()).isFlaggedForDelete)
+				if (bodies.get(i).getUserData() != null && ((UserData)bodies.get(i).getUserData()).isFlaggedForDelete)
 					box2DWorld.destroyBody(bodies.get(i));
 				else
 					for (Fixture f : bodies.get(i).getFixtureList())
-						if (f.getUserData() != null && ((UserData)f
-							.getUserData()).isFlaggedForDelete)
+						if (f.getUserData() != null && ((UserData)f.getUserData()).isFlaggedForDelete)
 							box2DWorld.destroyBody(bodies.get(i));
 		}
 	}
 
 	public void render () {
 		Color clearColor = RavTech.currentScene.renderProperties.backgroundColor;
-		Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b,
-			clearColor.a);
+		Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		int targetFramerate = RavTech.settings
-			.getInt("targetFramerate");
-		//check for vsync
-		if (RavTech.isEditor && Math.abs(Gdx.graphics.getFramesPerSecond()
-			- 1f / targetFramerate) > 2) {
+		int targetFramerate = RavTech.settings.getInt("targetFramerate");
+		// check for vsync
+		if (RavTech.isEditor && Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / targetFramerate) > 2) {
 			accumulator += Gdx.graphics.getDeltaTime();
 			while (accumulator > step) {
 				accumulator -= step;
@@ -167,14 +153,7 @@ public class SceneHandler {
 			}
 		} else
 			update(step);
-		SpriteBatch spriteBatch = RavTech.spriteBatch;
-		ShapeRenderer shapeRenderer = RavTech.shapeRenderer;
-		cameraManager.render(spriteBatch);
-		
-		shapeRenderer.setProjectionMatrix(worldCamera.combined);
-		shapeRenderer.begin(ShapeType.Line);
-		Debug.render(shapeRenderer);
-		shapeRenderer.end();
+		cameraManager.render();
 	}
 
 	public void resize (int width, int height) {
@@ -196,14 +175,14 @@ public class SceneHandler {
 			lightHandler.dispose();
 			box2DRenderer.dispose();
 			box2DWorld.dispose();
+			cameraManager.dispose();
 		}
 	}
 
 	/** Initializes all scripts in the scene */
 	public void initScripts () {
 		for (int i = 0; i < RavTech.currentScene.gameObjects.size; i++)
-			initScripts(
-				RavTech.currentScene.gameObjects.get(i).getComponents());
+			initScripts(RavTech.currentScene.gameObjects.get(i).getComponents());
 	}
 
 	/** Initializes all scripts in the specified list of objects
@@ -231,8 +210,8 @@ public class SceneHandler {
 		System.out.println("LoadState");
 		Array<Body> bodies = new Array<Body>();
 		this.box2DWorld.getBodies(bodies);
-		for(Body body : bodies) {
-			((UserData) body.getUserData()).isFlaggedForDelete = true;
+		for (Body body : bodies) {
+			((UserData)body.getUserData()).isFlaggedForDelete = true;
 		}
 		RavTech.currentScene.dispose();
 		Json json = new Json();
@@ -248,8 +227,7 @@ public class SceneHandler {
 	/** Reloads all scripts in the scene */
 	public void reloadScripts () {
 		for (int i = 0; i < RavTech.currentScene.gameObjects.size; i++)
-			reloadScripts(
-				RavTech.currentScene.gameObjects.get(i).getComponents());
+			reloadScripts(RavTech.currentScene.gameObjects.get(i).getComponents());
 	}
 
 	/** Reloads all scripts in the specified list of objects
@@ -258,8 +236,7 @@ public class SceneHandler {
 		for (int i = 0; i < objects.size; i++) {
 			GameComponent component = objects.get(i);
 			if (component instanceof ScriptComponent)
-				((ScriptComponent)component)
-					.setScript(((ScriptComponent)component).path);
+				((ScriptComponent)component).setScript(((ScriptComponent)component).path);
 			else if (component instanceof GameObject)
 				reloadScripts(((GameObject)component).getComponents());
 		}

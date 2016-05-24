@@ -33,8 +33,7 @@ public class PreferencesWindow extends RavWindow {
 					@Override
 					public void selected (Array<FileHandle> files) {
 						FileHandle handle = files.first();
-						RavTech.settings.setValue(
-							"RavTechDK.android.sdk.dir", handle.path());
+						RavTech.settings.setValue("RavTechDK.android.sdk.dir", handle.path());
 						RavTech.settings.save();
 						AdbManager.initializeAdb();
 						fileLabel.setText(handle.path());
@@ -48,7 +47,7 @@ public class PreferencesWindow extends RavWindow {
 				actor.getStage().addActor(chooser);
 				float width = PreferencesWindow.this.getWidth();
 				float height = PreferencesWindow.this.getHeight();
-				chooser.setSize((int) width, (int) height);
+				chooser.setSize((int)width, (int)height);
 			}
 		});
 		this.add(selectButton);

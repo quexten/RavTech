@@ -15,18 +15,15 @@ public class Shader {
 	Matrix4 matrix = new Matrix4();
 
 	public Shader () {
-		matrix.setToOrtho2D(0, Gdx.graphics.getHeight(),
-			Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		matrix.setToOrtho2D(0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
 	}
 
 	public Shader (Array<String> passes) {
 		this.passes = passes;
-		matrix.setToOrtho2D(0, Gdx.graphics.getHeight(),
-			Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		matrix.setToOrtho2D(0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
 	}
 
-	public FrameBuffer applyPasses (SpriteBatch batch,
-		FrameBuffer inputBuffer, FrameBuffer outputBuffer) {
+	public FrameBuffer applyPasses (SpriteBatch batch, FrameBuffer inputBuffer, FrameBuffer outputBuffer) {
 		batch.begin();
 		batch.setProjectionMatrix(matrix);
 		FrameBuffer iBuffer = inputBuffer;
@@ -35,12 +32,9 @@ public class Shader {
 			oBuffer.begin();
 			Gdx.gl.glClearColor(0, 0, 0, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			batch.setShader(
-				RavTech.sceneHandler.shaderManager.get(passes.get(i)));
-			batch.draw(iBuffer.getColorBufferTexture(), 0, 0,
-				Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-			batch.setShader(
-				RavTech.sceneHandler.shaderManager.get("default"));
+			batch.setShader(RavTech.sceneHandler.shaderManager.get(passes.get(i)));
+			batch.draw(iBuffer.getColorBufferTexture(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+			batch.setShader(RavTech.sceneHandler.shaderManager.get("default"));
 			oBuffer.end();
 			FrameBuffer tempBuffer = oBuffer;
 			oBuffer = iBuffer;

@@ -7,8 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
-public abstract class Renderer extends GameComponent
-	implements Json.Serializable {
+public abstract class Renderer extends GameComponent implements Json.Serializable {
 
 	@Override
 	public ComponentType getType () {
@@ -23,8 +22,7 @@ public abstract class Renderer extends GameComponent
 	public boolean enabled = true;
 
 	@Override
-	public abstract void load (
-		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies);
+	public abstract void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies);
 
 	@Override
 	public abstract void finishedLoading ();

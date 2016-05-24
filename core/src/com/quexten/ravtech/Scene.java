@@ -42,9 +42,7 @@ public class Scene {
 	public GameObject getObjectAt (float x, float y) {
 		GameObject temp = null;
 		for (GameObject object : gameObjects)
-			if (new Vector2(object.transform.getPosition().x,
-				object.transform.getPosition().y)
-					.dst(new Vector2(x, y)) < 0.5) {
+			if (new Vector2(object.transform.getPosition().x, object.transform.getPosition().y).dst(new Vector2(x, y)) < 0.5) {
 				temp = object;
 				break;
 			}
@@ -57,8 +55,7 @@ public class Scene {
 	 * @param endx the right x position
 	 * @param endy the top y position
 	 * @return The GameObjects in that area */
-	public Array<GameObject> getGameObjectsIn (float x, float y,
-		float endx, float endy) {
+	public Array<GameObject> getGameObjectsIn (float x, float y, float endx, float endy) {
 		Array<GameObject> objects = new Array<GameObject>();
 		float lx = x < endx ? x : endx;
 		float ly = y < endy ? y : endy;
@@ -67,8 +64,7 @@ public class Scene {
 		for (GameObject object : gameObjects) {
 			float objectX = object.transform.getPosition().x;
 			float objectY = object.transform.getPosition().y;
-			if (lx < objectX && objectX < hx && ly < objectY
-				&& objectY < hy)
+			if (lx < objectX && objectX < hx && ly < objectY && objectY < hy)
 				objects.add(object);
 		}
 		return objects;

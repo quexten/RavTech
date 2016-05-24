@@ -12,8 +12,7 @@ public class GameObjectTraverseUtil {
 		StringBuilder builder = new StringBuilder();
 		while (object != null) {
 			builder.insert(0, "/");
-			builder.insert(1,
-				object.getName() + "{" + getComponentID(object) + "}");
+			builder.insert(1, object.getName() + "{" + getComponentID(object) + "}");
 			object = object.getParent();
 		}
 		return builder.toString();
@@ -31,8 +30,7 @@ public class GameObjectTraverseUtil {
 		int i = 0;
 		for (int n = 0; n < components.size; n++) {
 			GameComponent tempComponent = components.get(n);
-			if (tempComponent != component
-				&& tempComponent.getName().equals(component.getName()))
+			if (tempComponent != component && tempComponent.getName().equals(component.getName()))
 				i++;
 			else if (tempComponent == component)
 				break;
@@ -40,8 +38,7 @@ public class GameObjectTraverseUtil {
 		return i;
 	}
 
-	static GameComponent getComponentByID (GameObject parent,
-		String component) {
+	static GameComponent getComponentByID (GameObject parent, String component) {
 		Array<GameComponent> components = null;
 		if (parent != null)
 			components = parent.getComponents();
@@ -64,8 +61,7 @@ public class GameObjectTraverseUtil {
 		return null;
 	}
 
-	public static String[] copyOfRange (String[] array,
-		int initialIndex, int endIndex) {
+	public static String[] copyOfRange (String[] array, int initialIndex, int endIndex) {
 		String[] tempArray = new String[endIndex - initialIndex];
 		for (int i = initialIndex; i < endIndex; i++)
 			tempArray[i - initialIndex] = array[i];
@@ -78,13 +74,11 @@ public class GameObjectTraverseUtil {
 		String[] pathNodes = path.split("/");
 		if (pathNodes.length > 1) {
 			pathNodes = copyOfRange(pathNodes, 1, pathNodes.length);
-			GameComponent currentObject = getComponentByID(null,
-				pathNodes[0]);
+			GameComponent currentObject = getComponentByID(null, pathNodes[0]);
 			if (pathNodes.length == 1)
 				return currentObject;
 			for (int i = 1; i < pathNodes.length; i++)
-				currentObject = getComponentByID(
-					(GameObject)currentObject, pathNodes[i]);
+				currentObject = getComponentByID((GameObject)currentObject, pathNodes[i]);
 			return currentObject;
 		}
 		return null;

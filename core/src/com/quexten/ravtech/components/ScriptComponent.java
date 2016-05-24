@@ -10,8 +10,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.scripts.Script;
 
-public class ScriptComponent extends GameComponent
-	implements Json.Serializable {
+public class ScriptComponent extends GameComponent implements Json.Serializable {
 
 	public Script script;
 	public String scriptSource;
@@ -24,9 +23,7 @@ public class ScriptComponent extends GameComponent
 
 	@Override
 	public String getName () {
-		return path != null && !path.isEmpty()
-			? path.substring(path.lastIndexOf('/') > -1
-				? path.lastIndexOf('/') + 1 : 0)
+		return path != null && !path.isEmpty() ? path.substring(path.lastIndexOf('/') > -1 ? path.lastIndexOf('/') + 1 : 0)
 			: "Empty Script Component";
 	}
 
@@ -36,16 +33,14 @@ public class ScriptComponent extends GameComponent
 	@SuppressWarnings("rawtypes")
 	@Override
 	public void load (Array<AssetDescriptor> dependencies) {
-		dependencies
-			.add(new AssetDescriptor<String>(path, String.class));
+		dependencies.add(new AssetDescriptor<String>(path, String.class));
 	}
 
 	@Override
 	public void finishedLoading () {
 		if (RavTech.files.getAssetManager().isLoaded(path))
 			scriptSource = RavTech.files.getAsset(path);
-		script = RavTech.scriptLoader.createScript(scriptSource,
-			getParent());
+		script = RavTech.scriptLoader.createScript(scriptSource, getParent());
 	}
 
 	@Override
@@ -107,9 +102,7 @@ public class ScriptComponent extends GameComponent
 		path = scriptPath;
 		if (RavTech.files.getAssetManager().isLoaded(path))
 			RavTech.files.getAssetManager().unload(path);
-		RavTech.files.getAssetManager()
-			.load(new AssetDescriptor<String>(path, String.class,
-				new AssetLoaderParameters<String>()));
+		RavTech.files.getAssetManager().load(new AssetDescriptor<String>(path, String.class, new AssetLoaderParameters<String>()));
 		RavTech.files.finishLoading();
 		finishedLoading();
 	}

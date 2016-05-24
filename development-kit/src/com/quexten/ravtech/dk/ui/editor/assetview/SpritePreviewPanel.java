@@ -17,13 +17,10 @@ public class SpritePreviewPanel extends AssetPreviewPanel {
 		super(assetPath);
 		RavTech.files.loadAsset(assetPath, Texture.class);
 		RavTech.files.finishLoading();
-		Image image = new Image(
-			(Texture)RavTech.files.getAsset(assetPath));
+		Image image = new Image((Texture)RavTech.files.getAsset(assetPath));
 		image.getDrawable().setMinHeight(100);
 		image.getDrawable().setMinWidth(100);
-		VisLabel label = new VisLabel(assetPath.contains("/")
-			? assetPath.substring(assetPath.lastIndexOf('/') + 1)
-			: assetPath);
+		VisLabel label = new VisLabel(assetPath.contains("/") ? assetPath.substring(assetPath.lastIndexOf('/') + 1) : assetPath);
 		label.setEllipsis(true);
 		add(image).grow().minWidth(100).maxWidth(100).prefWidth(100);
 		row();
@@ -32,10 +29,8 @@ public class SpritePreviewPanel extends AssetPreviewPanel {
 
 	@Override
 	public void addToScene () {
-		Vector2 worldPosition = RavTechDK.mainSceneView.camera
-			.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
-		GameObject object = RavTech.currentScene
-			.addGameObject(worldPosition.x, worldPosition.y);
+		Vector2 worldPosition = RavTechDK.mainSceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		GameObject object = RavTech.currentScene.addGameObject(worldPosition.x, worldPosition.y);
 		SpriteRenderer renderer = new SpriteRenderer();
 		renderer.setTexture(assetPath);
 		object.addComponent(renderer);

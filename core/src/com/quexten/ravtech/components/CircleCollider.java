@@ -11,8 +11,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 
-public class CircleCollider extends Box2dCollider
-	implements Json.Serializable {
+public class CircleCollider extends Box2dCollider implements Json.Serializable {
 
 	@Override
 	public ComponentType getType () {
@@ -51,8 +50,7 @@ public class CircleCollider extends Box2dCollider
 
 	@Override
 	public void apply () {
-		Body body = ((Rigidbody)getParent()
-			.getComponentByType(ComponentType.Rigidbody)).getBody();
+		Body body = ((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).getBody();
 		FixtureDef fixtureDef = new FixtureDef();
 		CircleShape shape = new CircleShape();
 		shape.setPosition(new Vector2(x, y));
@@ -65,30 +63,25 @@ public class CircleCollider extends Box2dCollider
 		if (fixture != null) {
 			dispose();
 			fixture = null;
-			((Rigidbody)getParent()
-				.getComponentByType(ComponentType.Rigidbody)).apply();
+			((Rigidbody)getParent().getComponentByType(ComponentType.Rigidbody)).apply();
 			rebuildAll();
-			getParent().transform
-				.setRotation(getParent().transform.getRotation());
+			getParent().transform.setRotation(getParent().transform.getRotation());
 			return;
 		}
 		fixture = body.createFixture(fixtureDef);
 		fixture.setFilterData(filter);
 		UserData userdata = new UserData();
-		userdata.component = (Rigidbody)getParent()
-			.getComponentByName("Rigidbody");
+		userdata.component = (Rigidbody)getParent().getComponentByName("Rigidbody");
 		fixture.setUserData(userdata);
 	}
 
 	@Override
-	public void load (
-		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 	}
 
 	@Override
 	public void finishedLoading () {
-		if (getParent()
-			.getComponentByType(ComponentType.Rigidbody) == null)
+		if (getParent().getComponentByType(ComponentType.Rigidbody) == null)
 			getParent().addComponent(new Rigidbody());
 		apply();
 	}
@@ -171,8 +164,7 @@ public class CircleCollider extends Box2dCollider
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {density, filter.categoryBits,
-			filter.maskBits, filter.maskBits, friction, isSensor,
-			restitution, x, y, radius};
+		return new Object[] {density, filter.categoryBits, filter.maskBits, filter.maskBits, friction, isSensor, restitution, x, y,
+			radius};
 	}
 }

@@ -47,17 +47,18 @@ public class DesktopLauncher {
 			}
 
 			@Override
-			public void filesDropped (String[] files) {				
+			public void filesDropped (String[] files) {
 			}
 
 		});
 		config.setTitle(engineConfiguration.title);
 		config.setResizable(engineConfiguration.resizable);
-		
+
 		boolean useExternalAssetBundle = engineConfiguration.useAssetBundle;
 
 		RavTech ravtech = new RavTech(useExternalAssetBundle
-			? new ArchiveFileHandleResolver(new Lwjgl3Files().local("assets.ravpack")) : new InternalFileHandleResolver(), engineConfiguration);
+			? new ArchiveFileHandleResolver(new Lwjgl3Files().local("assets.ravpack")) : new InternalFileHandleResolver(),
+			engineConfiguration);
 
 		System.out.println(
 			"Initializing Ravtech - Desktop using " + (useExternalAssetBundle ? " External " : " Internal ") + "FileHandle");

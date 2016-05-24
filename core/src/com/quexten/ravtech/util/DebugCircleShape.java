@@ -10,8 +10,7 @@ public class DebugCircleShape extends DebugShape {
 	Vector2 position;
 	float radius;
 
-	public DebugCircleShape (Vector2 position, float radius,
-		Color color) {
+	public DebugCircleShape (Vector2 position, float radius, Color color) {
 		super(color);
 		this.position = position;
 		this.radius = radius;

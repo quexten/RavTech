@@ -44,18 +44,15 @@ public class Processor {
 	protected ObjectMap<String, Object> uniforms = new ObjectMap<String, Object>();
 	protected Vector2 size;
 
-	public Processor (ShaderManager sm, int w, int h,
-		boolean hasDepth) {
+	public Processor (ShaderManager sm, int w, int h, boolean hasDepth) {
 		this(sm, w, h, null, hasDepth, false);
 	}
 
-	public Processor (ShaderManager sm, int w, int h, boolean hasDepth,
-		boolean saveBytes) {
+	public Processor (ShaderManager sm, int w, int h, boolean hasDepth, boolean saveBytes) {
 		this(sm, w, h, null, hasDepth, saveBytes);
 	}
 
-	public Processor (ShaderManager sm, int w, int h, Format format,
-		boolean hasDepth, boolean saveBytes) {
+	public Processor (ShaderManager sm, int w, int h, Format format, boolean hasDepth, boolean saveBytes) {
 		this.sm = sm;
 		width = w;
 		height = h;
@@ -86,15 +83,13 @@ public class Processor {
 	protected void addUniforms (ShaderProgram program) {
 		for (Entry<String, Object> entry : uniforms.entries())
 			if (entry.value.getClass().isArray()) {
-				addUniformsArray(program, entry.key,
-					(Object[])entry.value);
+				addUniformsArray(program, entry.key, (Object[])entry.value);
 				continue;
 			} else
 				addUniform(program, entry.key, entry.value);
 	}
 
-	protected void addUniform (ShaderProgram program, String key,
-		Object value) {
+	protected void addUniform (ShaderProgram program, String key, Object value) {
 		String cls = value.getClass().getName();
 		// TODO: change that to hashtable? Check performance first!
 		if (cls.equals("java.lang.Integer"))
@@ -106,8 +101,7 @@ public class Processor {
 			int texId = sm.getCurrentTextureId();
 			tex.bind(texId);
 			program.setUniformi(key, texId);
-		} else if (cls.equals("com.thesecretpie.shader.Processor")
-			|| cls.equals("com.thesecretpie.shader.BufferedProcessor")) {
+		} else if (cls.equals("com.thesecretpie.shader.Processor") || cls.equals("com.thesecretpie.shader.BufferedProcessor")) {
 			Texture tex = ((Processor)value).getResult();
 			int texId = sm.getCurrentTextureId();
 			tex.bind(texId);
@@ -126,12 +120,10 @@ public class Processor {
 		else if (cls.equals("com.badlogic.gdx.math.Matrix4"))
 			program.setUniformMatrix(key, (Matrix4)value);
 		else
-			throw new GdxRuntimeException(
-				"Class " + cls + " as uniform: not implemented yet!");
+			throw new GdxRuntimeException("Class " + cls + " as uniform: not implemented yet!");
 	}
 
-	protected void addUniformsArray (ShaderProgram program, String key,
-		Object[] values) {
+	protected void addUniformsArray (ShaderProgram program, String key, Object[] values) {
 		if (values == null || values.length == 0)
 			return;
 		Object val = values[0];
@@ -142,17 +134,13 @@ public class Processor {
 					program.setUniformi(key, (Integer)values[0]);
 					break;
 				case 2:
-					program.setUniformi(key, (Integer)values[0],
-						(Integer)values[1]);
+					program.setUniformi(key, (Integer)values[0], (Integer)values[1]);
 					break;
 				case 3:
-					program.setUniformi(key, (Integer)values[0],
-						(Integer)values[1], (Integer)values[2]);
+					program.setUniformi(key, (Integer)values[0], (Integer)values[1], (Integer)values[2]);
 					break;
 				case 4:
-					program.setUniformi(key, (Integer)values[0],
-						(Integer)values[1], (Integer)values[2],
-						(Integer)values[3]);
+					program.setUniformi(key, (Integer)values[0], (Integer)values[1], (Integer)values[2], (Integer)values[3]);
 					break;
 			}
 		else if (cls.equals("java.lang.Float"))
@@ -161,22 +149,17 @@ public class Processor {
 					program.setUniformf(key, (Float)values[0]);
 					break;
 				case 2:
-					program.setUniformf(key, (Float)values[0],
-						(Float)values[1]);
+					program.setUniformf(key, (Float)values[0], (Float)values[1]);
 					break;
 				case 3:
-					program.setUniformf(key, (Float)values[0],
-						(Float)values[1], (Float)values[2]);
+					program.setUniformf(key, (Float)values[0], (Float)values[1], (Float)values[2]);
 					break;
 				case 4:
-					program.setUniformf(key, (Float)values[0],
-						(Float)values[1], (Float)values[2],
-						(Float)values[3]);
+					program.setUniformf(key, (Float)values[0], (Float)values[1], (Float)values[2], (Float)values[3]);
 					break;
 			}
 		else
-			throw new GdxRuntimeException(
-				"Class " + cls + " as uniform: not implemented yet!");
+			throw new GdxRuntimeException("Class " + cls + " as uniform: not implemented yet!");
 	}
 
 	public void run (ShaderProgram program) {
@@ -189,8 +172,7 @@ public class Processor {
 		addUniforms(program);
 		quad.render(program, GL20.GL_TRIANGLES);
 		if (saveBytes)
-			data = getFrameBufferPixels(0, 0, width, height, false,
-				data);
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		program.end();
 		fbo.end();
 	}
@@ -203,8 +185,7 @@ public class Processor {
 		addUniforms(sm.getCurrent());
 		quad.render(sm.getCurrent(), GL20.GL_TRIANGLES);
 		if (saveBytes)
-			data = getFrameBufferPixels(0, 0, width, height, false,
-				data);
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		sm.end();
 		fbo.end();
 	}
@@ -218,8 +199,7 @@ public class Processor {
 		addUniforms(sm.getCurrent());
 		quad.render(sm.getCurrent(), GL20.GL_TRIANGLES);
 		if (saveBytes)
-			data = getFrameBufferPixels(0, 0, width, height, false,
-				data);
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		sm.end();
 		fbo.end();
 	}
@@ -248,8 +228,7 @@ public class Processor {
 		run("processor_blur");
 	}
 
-	public void draw (TextureRegion spr, float x, float y, float w,
-		float h, float rot) {
+	public void draw (TextureRegion spr, float x, float y, float w, float h, float rot) {
 		setUniform("u_textodraw", spr.getTexture());
 		setUniform("u_textodraw_uv1", spr.getU(), spr.getV());
 		setUniform("u_textodraw_uv2", spr.getU2(), spr.getV2());
@@ -260,13 +239,10 @@ public class Processor {
 	}
 
 	public void draw (Sprite spr) {
-		draw(spr, spr.getX() / width, spr.getY() / height,
-			spr.getWidth() / width, spr.getHeight() / height,
-			spr.getRotation());
+		draw(spr, spr.getX() / width, spr.getY() / height, spr.getWidth() / width, spr.getHeight() / height, spr.getRotation());
 	}
 
-	public void draw (Texture tex, float x, float y, float w, float h,
-		float rot) {
+	public void draw (Texture tex, float x, float y, float w, float h, float rot) {
 		setUniform("u_textodraw", tex);
 		setUniform("u_textodraw_uv1", 0, 0);
 		setUniform("u_textodraw_uv2", 1, 1);
@@ -324,10 +300,8 @@ public class Processor {
 		}
 		fbo.begin();
 		sm.begin("processor");
-		fbo.getColorBufferTexture()
-			.bind(ShaderManager.FRAMEBUFFER_TEXTURE_ID);
-		sm.setUniformi("u_texture",
-			ShaderManager.FRAMEBUFFER_TEXTURE_ID);
+		fbo.getColorBufferTexture().bind(ShaderManager.FRAMEBUFFER_TEXTURE_ID);
+		sm.setUniformi("u_texture", ShaderManager.FRAMEBUFFER_TEXTURE_ID);
 		sm.setUniformf("u_viewport", width, height);
 		quad.render(sm.getCurrent(), GL20.GL_TRIANGLES);
 		ByteBuffer data = getFrameBufferPixels(x, y, 1, 1, false, null);
@@ -358,24 +332,21 @@ public class Processor {
 		fb.end();
 	}
 
-	public static ByteBuffer getFrameBufferPixels (int x, int y, int w,
-		int h, boolean flipY, ByteBuffer lines) {
+	public static ByteBuffer getFrameBufferPixels (int x, int y, int w, int h, boolean flipY, ByteBuffer lines) {
 		Gdx.gl.glPixelStorei(GL20.GL_PACK_ALIGNMENT, 1);
 		// final ByteBuffer pixels = BufferUtils.newByteBuffer(w * h * 4);
 		final int numBytes = w * h * 4;
 		if (lines == null || lines.capacity() == 0)
 			lines = ByteBuffer.allocateDirect(numBytes);
 		lines.position(0);
-		Gdx.gl.glReadPixels(x, y, w, h, GL20.GL_RGBA,
-			GL20.GL_UNSIGNED_BYTE, lines);
+		Gdx.gl.glReadPixels(x, y, w, h, GL20.GL_RGBA, GL20.GL_UNSIGNED_BYTE, lines);
 		// TODO - make it work
 		if (flipY) {
 			ByteBuffer pixels = ByteBuffer.allocate(numBytes);
 			final int numBytesPerLine = w * 4;
 			for (int i = 0; i < h; i++) {
 				lines.position((h - i - 1) * numBytesPerLine);
-				lines.get(pixels.array(), i * numBytesPerLine,
-					numBytesPerLine);
+				lines.get(pixels.array(), i * numBytesPerLine, numBytesPerLine);
 			}
 			return pixels;
 		}
@@ -385,13 +356,9 @@ public class Processor {
 	private void createQuad () {
 		if (quad != null)
 			return;
-		quad = new Mesh(true, 4, 6,
-			new VertexAttribute(Usage.Position, 3, "a_position"),
-			new VertexAttribute(Usage.ColorUnpacked, 4, "a_color"),
-			new VertexAttribute(Usage.TextureCoordinates, 2,
-				"a_texCoords"));
-		quad.setVertices(new float[] {-1, -1, 0, 1, 1, 1, 1, 0, 0, 1,
-			-1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, -1, 1, 0,
+		quad = new Mesh(true, 4, 6, new VertexAttribute(Usage.Position, 3, "a_position"),
+			new VertexAttribute(Usage.ColorUnpacked, 4, "a_color"), new VertexAttribute(Usage.TextureCoordinates, 2, "a_texCoords"));
+		quad.setVertices(new float[] {-1, -1, 0, 1, 1, 1, 1, 0, 0, 1, -1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, -1, 1, 0,
 			1, 1, 1, 1, 0, 1});
 		quad.setIndices(new short[] {0, 1, 2, 2, 3, 0});
 		// quad.setIndices(new short[]{1, 0, 2, 3});
@@ -420,8 +387,7 @@ public class Processor {
 		Gdx.gl20.glClearColor(col.r, col.g, col.b, col.a);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if (saveBytes)
-			data = getFrameBufferPixels(0, 0, width, height, false,
-				data);
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		fbo.end();
 	}
 }

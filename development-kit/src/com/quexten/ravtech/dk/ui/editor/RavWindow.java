@@ -105,8 +105,7 @@ public class RavWindow extends VisWindow {
 			}
 		});
 		window.setPosition((int)getX() + mainWindow.getPositionX(),
-			(int)((mainWindow.getPositionY() + RavTechDK.windowHeight)
-				- getY() - getHeight()));
+			(int)((mainWindow.getPositionY() + RavTechDK.windowHeight) - getY() - getHeight()));
 		((RavWindowAppListener)window.getListener()).externalize();
 	}
 
@@ -116,15 +115,12 @@ public class RavWindow extends VisWindow {
 		setVisible(true);
 		window.setVisible(false);
 
-		setWidth(
-			((RavWindowAppListener)window.getListener()).getWidth());
-		float height = ((RavWindowAppListener)window.getListener())
-			.getHeight();
+		setWidth(((RavWindowAppListener)window.getListener()).getWidth());
+		float height = ((RavWindowAppListener)window.getListener()).getHeight();
 		setHeight(height);
 
 		setPosition(window.getPositionX() - mainWindow.getPositionX(),
-			(mainWindow.getPositionY() + RavTechDK.windowHeight)
-				- (window.getPositionY() + height));
+			(mainWindow.getPositionY() + RavTechDK.windowHeight) - (window.getPositionY() + height));
 		add(rootTable).grow();
 	}
 
@@ -184,8 +180,7 @@ public class RavWindow extends VisWindow {
 		private int height = 100;
 		Stage stage = new Stage(new ScreenViewport() {
 			@Override
-			public void update (int screenWidth, int screenHeight,
-				boolean centerCamera) {
+			public void update (int screenWidth, int screenHeight, boolean centerCamera) {
 				super.update(screenWidth, screenHeight, true);
 			}
 		});
@@ -210,8 +205,7 @@ public class RavWindow extends VisWindow {
 			Gdx.gl.glClearColor(color.r, color.g, color.b, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-			if (RavTech.isEditor && Math.abs(
-				Gdx.graphics.getFramesPerSecond() - 1f / FRAMERATE) > 2) {
+			if (RavTech.isEditor && Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / FRAMERATE) > 2) {
 				accumulator += Gdx.graphics.getDeltaTime();
 				while (accumulator > step) {
 					accumulator -= step;

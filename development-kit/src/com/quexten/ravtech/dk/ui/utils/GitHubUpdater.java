@@ -28,10 +28,8 @@ public class GitHubUpdater extends Updater {
 		super();
 		this.user = user;
 		this.archive = archive;
-		repositoryUrl = "https://codeload.github.com/" + user + "/"
-			+ archive + "/zip/";
-		versionUrl = "https://api.github.com/repos/" + user + "/"
-			+ archive + "/tags";
+		repositoryUrl = "https://codeload.github.com/" + user + "/" + archive + "/zip/";
+		versionUrl = "https://api.github.com/repos/" + user + "/" + archive + "/tags";
 	}
 
 	@Override
@@ -43,30 +41,21 @@ public class GitHubUpdater extends Updater {
 	public boolean isNewVersionAvalible () {
 		if (currentVersion == null)
 			return true;
-		return Float.valueOf(getRemoteVersion() != null
-			? getRemoteVersion() : "0") > Float.valueOf(currentVersion);
+		return Float.valueOf(getRemoteVersion() != null ? getRemoteVersion() : "0") > Float.valueOf(currentVersion);
 	}
 
 	@Override
 	public void update (String version) {
 		try {
-			Debug.logDebug("GitHub",
-				"Updating " + archive + " to Version " + version + "...");
+			Debug.logDebug("GitHub", "Updating " + archive + " to Version " + version + "...");
 			RavTechDK.getPluginsFile(archive + "/").delete();
 			FileUtils.copyURLToFile(new URL(repositoryUrl + version),
-				RavTechDK.getDownloadsFile(
-					"temp-" + user + "-" + archive + ".zip").file());
-			Debug.logDebug("GitHub",
-				"Finished Downloading " + archive + ".");
-			Zipper.extract(
-				RavTechDK.getDownloadsFile(
-					"temp-" + user + "-" + archive + ".zip").file(),
+				RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").file());
+			Debug.logDebug("GitHub", "Finished Downloading " + archive + ".");
+			Zipper.extract(RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").file(),
 				RavTechDK.getDownloadsFile("").file());
-			RavTechDK.getDownloadsFile(archive + "-" + version)
-				.moveTo(RavTechDK.getPluginsFile(archive + "/"));
-			RavTechDK
-				.getDownloadsFile("temp-" + user + "-" + archive + ".zip")
-				.delete();
+			RavTechDK.getDownloadsFile(archive + "-" + version).moveTo(RavTechDK.getPluginsFile(archive + "/"));
+			RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").delete();
 			currentVersion = version;
 			if (updaterEntry != null)
 				updaterEntry.finishedUpdating();
@@ -80,36 +69,29 @@ public class GitHubUpdater extends Updater {
 
 	public void checkRemoteVersion () {
 		HttpRequestBuilder requestBuilder = new HttpRequestBuilder();
-		HttpRequest httpRequest = requestBuilder.newRequest()
-			.method(HttpMethods.GET).url(versionUrl).build();
-		Gdx.net.sendHttpRequest(httpRequest,
-			new HttpResponseListener() {
-				@Override
-				public void handleHttpResponse (
-					HttpResponse httpResponse) {
-					String httpResponseMessage = httpResponse
-						.getResultAsString();
-					int versionStart = httpResponseMessage.indexOf(':');
-					String versionName = httpResponseMessage
-						.substring(versionStart + 2, versionStart + 10);
-					versionName = versionName.substring(0,
-						versionName.indexOf('"'));
-					remoteVersion = versionName;
-					if (GitHubUpdater.this.updaterEntry != null)
-						GitHubUpdater.this.updaterEntry.gotRemoteVersion();
-				}
+		HttpRequest httpRequest = requestBuilder.newRequest().method(HttpMethods.GET).url(versionUrl).build();
+		Gdx.net.sendHttpRequest(httpRequest, new HttpResponseListener() {
+			@Override
+			public void handleHttpResponse (HttpResponse httpResponse) {
+				String httpResponseMessage = httpResponse.getResultAsString();
+				int versionStart = httpResponseMessage.indexOf(':');
+				String versionName = httpResponseMessage.substring(versionStart + 2, versionStart + 10);
+				versionName = versionName.substring(0, versionName.indexOf('"'));
+				remoteVersion = versionName;
+				if (GitHubUpdater.this.updaterEntry != null)
+					GitHubUpdater.this.updaterEntry.gotRemoteVersion();
+			}
 
-				@Override
-				public void failed (Throwable t) {
-					t.printStackTrace();
-				}
+			@Override
+			public void failed (Throwable t) {
+				t.printStackTrace();
+			}
 
-				@Override
-				public void cancelled () {
-					Debug.logDebug("GitHub",
-						archive + " - Failed Checking For Version.");
-				}
-			});
+			@Override
+			public void cancelled () {
+				Debug.logDebug("GitHub", archive + " - Failed Checking For Version.");
+			}
+		});
 	}
 
 }

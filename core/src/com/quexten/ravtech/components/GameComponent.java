@@ -8,8 +8,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.animation.VariableAccessor;
 
-public abstract class GameComponent
-	implements Json.Serializable, VariableAccessor {
+public abstract class GameComponent implements Json.Serializable, VariableAccessor {
 
 	private GameObject parent;
 
@@ -25,8 +24,7 @@ public abstract class GameComponent
 	}
 
 	/** Queues up the dependencies */
-	public abstract void load (
-		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies);
+	public abstract void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies);
 
 	/** Called upon loading finished */
 	public abstract void finishedLoading ();

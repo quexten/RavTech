@@ -51,10 +51,8 @@ public class FontRenderer extends Renderer {
 	}
 
 	@Override
-	public void load (
-		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
-		dependencies.add(
-			new AssetDescriptor<BitmapFont>(path, BitmapFont.class));
+	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+		dependencies.add(new AssetDescriptor<BitmapFont>(path, BitmapFont.class));
 		RavTech.files.addDependency(path, this);
 	}
 
@@ -75,16 +73,14 @@ public class FontRenderer extends Renderer {
 		Matrix4 oldTransformMatrix = batch.getTransformMatrix().cpy();
 
 		fontMatrix.set(resetMatrix);
-		fontMatrix.rotate(Vector3.Z,
-			getParent().transform.getRotation());
+		fontMatrix.rotate(Vector3.Z, getParent().transform.getRotation());
 		Vector2 position = getParent().transform.getPosition();
 		fontMatrix.trn(position.x, position.y, 0);
 		batch.setTransformMatrix(fontMatrix);
 
 		font.setColor(tint);
 		font.getData().setScale(0.05f * xScale, 0.05f * yScale);
-		GlyphLayout layout = font.draw(batch, text,
-			centered ? -xOffset / 2 : 0, centered ? yOffset / 2 : 0);
+		GlyphLayout layout = font.draw(batch, text, centered ? -xOffset / 2 : 0, centered ? yOffset / 2 : 0);
 		xOffset = layout.width;
 		yOffset = layout.height;
 
@@ -127,10 +123,8 @@ public class FontRenderer extends Renderer {
 		json.writeValue("xScale", xScale);
 		json.writeValue("yScale", yScale);
 		JsonUtil.writeColorToJson(json, tint, "tint");
-		json.writeValue("minFilter",
-			minFilter == TextureFilter.Linear ? "Linear" : "Nearest");
-		json.writeValue("magFilter",
-			magFilter == TextureFilter.Linear ? "Linear" : "Nearest");
+		json.writeValue("minFilter", minFilter == TextureFilter.Linear ? "Linear" : "Nearest");
+		json.writeValue("magFilter", magFilter == TextureFilter.Linear ? "Linear" : "Nearest");
 	}
 
 	@Override
@@ -211,14 +205,12 @@ public class FontRenderer extends Renderer {
 
 	@Override
 	public String[] getVariableNames () {
-		return new String[] {"path", "text", "centered", "flipped",
-			"xScale", "yScale", "tint"};
+		return new String[] {"path", "text", "centered", "flipped", "xScale", "yScale", "tint"};
 	}
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {path, text, centered, flipped, xScale,
-			yScale, tint};
+		return new Object[] {path, text, centered, flipped, xScale, yScale, tint};
 	}
 
 	public void setFont (String path) {

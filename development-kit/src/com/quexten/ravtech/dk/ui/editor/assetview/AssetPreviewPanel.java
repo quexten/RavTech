@@ -32,8 +32,7 @@ public abstract class AssetPreviewPanel extends VisTable {
 	public void draw (Batch batch, float alpha) {
 		if (isSelected) {
 			batch.setColor(selectionColor);
-			batch.draw(RavTech.sceneHandler.renderer.ambientTexture,
-				getX(), getY(), getWidth(), getHeight());
+			batch.draw(RavTech.sceneHandler.renderer.ambientTexture, getX(), getY(), getWidth(), getHeight());
 		}
 		super.draw(batch, alpha);
 	}

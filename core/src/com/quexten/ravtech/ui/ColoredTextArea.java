@@ -21,28 +21,22 @@ public class ColoredTextArea extends VisTextArea {
 	}
 
 	@Override
-	protected void drawText (Batch batch, BitmapFont font, float x,
-		float y) {
+	protected void drawText (Batch batch, BitmapFont font, float x, float y) {
 		IntArray linesBreak = null;
 		float alpha = font.getColor().a;
 		try {
-			Field linesBreakField = ClassReflection
-				.getDeclaredField(VisTextArea.class, "linesBreak");
+			Field linesBreakField = ClassReflection.getDeclaredField(VisTextArea.class, "linesBreak");
 			linesBreakField.setAccessible(true);
 			linesBreak = (IntArray)linesBreakField.get(this);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		float offsetY = 0;
-		for (int i = getFirstLineShowing()
-			* 2; i < (getFirstLineShowing() + getLinesShowing()) * 2
-				&& i < linesBreak.size; i += 2) {
+		for (int i = getFirstLineShowing() * 2; i < (getFirstLineShowing() + getLinesShowing()) * 2
+			&& i < linesBreak.size; i += 2) {
 			Color lineColor = lineColors.get(i / 2);
-			font.setColor(
-				new Color(lineColor.r, lineColor.g, lineColor.b, alpha));
-			font.draw(batch, displayText, x, y + offsetY,
-				linesBreak.items[i], linesBreak.items[i + 1], 0,
-				Align.left, false);
+			font.setColor(new Color(lineColor.r, lineColor.g, lineColor.b, alpha));
+			font.draw(batch, displayText, x, y + offsetY, linesBreak.items[i], linesBreak.items[i + 1], 0, Align.left, false);
 			offsetY -= font.getLineHeight();
 		}
 		font.setColor(Color.BLACK);

@@ -14,8 +14,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.RavTech;
 
-public class Rigidbody extends GameComponent
-	implements Json.Serializable {
+public class Rigidbody extends GameComponent implements Json.Serializable {
 
 	@Override
 	public ComponentType getType () {
@@ -29,14 +28,12 @@ public class Rigidbody extends GameComponent
 	Body body;
 
 	public Rigidbody () {
-		body = RavTech.sceneHandler.box2DWorld
-			.createBody(new BodyDef());
+		body = RavTech.sceneHandler.box2DWorld.createBody(new BodyDef());
 		body.setUserData(new UserData());
 	}
 
 	@Override
-	public void load (
-		@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
 		apply();
 	}
 
@@ -47,10 +44,8 @@ public class Rigidbody extends GameComponent
 	@Override
 	public void update () {
 		if (body.getType() != BodyType.StaticBody) {
-			getParent().transform.setPosition(body.getPosition().x,
-				body.getPosition().y);
-			getParent().transform
-				.setRotation((float)Math.toDegrees(body.getAngle()));
+			getParent().transform.setPosition(body.getPosition().x, body.getPosition().y);
+			getParent().transform.setRotation((float)Math.toDegrees(body.getAngle()));
 		}
 	}
 
@@ -65,8 +60,7 @@ public class Rigidbody extends GameComponent
 	public void apply () {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.position.set(getParent().transform.getPosition());
-		bodyDef.angle = (float)Math
-			.toRadians(getParent().transform.getRotation());
+		bodyDef.angle = (float)Math.toRadians(getParent().transform.getRotation());
 		if (body != null) {
 			bodyDef.angularDamping = body.getAngularDamping();
 			bodyDef.bullet = body.isBullet();
@@ -80,32 +74,24 @@ public class Rigidbody extends GameComponent
 		body.setUserData(new UserData());
 	}
 
-	public void onCollisionEnter (final Fixture other,
-		final Contact contact) {
+	public void onCollisionEnter (final Fixture other, final Contact contact) {
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run () {
-				if (getParent().getComponentByType(
-					ComponentType.ScriptComponent) != null)
-					((ScriptComponent)getParent()
-						.getComponentByType(ComponentType.ScriptComponent))
-							.callFunction("onCollisionEnter",
-								new Object[] {other, contact});
+				if (getParent().getComponentByType(ComponentType.ScriptComponent) != null)
+					((ScriptComponent)getParent().getComponentByType(ComponentType.ScriptComponent)).callFunction("onCollisionEnter",
+						new Object[] {other, contact});
 			}
 		});
 	}
 
-	public void onCollisionExit (final Fixture other,
-		final Contact contact) {
+	public void onCollisionExit (final Fixture other, final Contact contact) {
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run () {
-				if (getParent().getComponentByType(
-					ComponentType.ScriptComponent) != null)
-					((ScriptComponent)getParent()
-						.getComponentByType(ComponentType.ScriptComponent))
-							.callFunction("onCollisionExit",
-								new Object[] {other, contact});
+				if (getParent().getComponentByType(ComponentType.ScriptComponent) != null)
+					((ScriptComponent)getParent().getComponentByType(ComponentType.ScriptComponent)).callFunction("onCollisionExit",
+						new Object[] {other, contact});
 			}
 		});
 	}
@@ -135,36 +121,24 @@ public class Rigidbody extends GameComponent
 	public void setVariable (int variableID, Object value) {
 		switch (variableID) {
 			case 0:
-				getBody().setAngularDamping(
-					Float.valueOf(String.valueOf(value)));
+				getBody().setAngularDamping(Float.valueOf(String.valueOf(value)));
 				break;
 			case 1:
-				getBody()
-					.setBullet(Boolean.valueOf(String.valueOf(value)));
+				getBody().setBullet(Boolean.valueOf(String.valueOf(value)));
 				break;
 			case 2:
-				getBody().setFixedRotation(
-					Boolean.valueOf(String.valueOf(value)));
+				getBody().setFixedRotation(Boolean.valueOf(String.valueOf(value)));
 				break;
 			case 3:
-				getBody()
-					.setGravityScale(Float.valueOf(String.valueOf(value)));
+				getBody().setGravityScale(Float.valueOf(String.valueOf(value)));
 				break;
 			case 4:
-				getBody().setLinearDamping(
-					Float.valueOf(String.valueOf(value)));
+				getBody().setLinearDamping(Float.valueOf(String.valueOf(value)));
 				break;
 			case 5:
-				getBody().setType(
-					value.equals("StaticBody") || value.equals("Static")
-						? BodyType.StaticBody
-						: value.equals("DynamicBody")
-							|| value.equals("Dynamic")
-								? BodyType.DynamicBody
-								: value.equals("KinematicBody")
-									|| value.equals("Kinematic")
-										? BodyType.KinematicBody
-										: (BodyType)value);
+				getBody().setType(value.equals("StaticBody") || value.equals("Static") ? BodyType.StaticBody
+					: value.equals("DynamicBody") || value.equals("Dynamic") ? BodyType.DynamicBody
+						: value.equals("KinematicBody") || value.equals("Kinematic") ? BodyType.KinematicBody : (BodyType)value);
 		}
 	}
 
@@ -208,9 +182,7 @@ public class Rigidbody extends GameComponent
 
 	@Override
 	public String[] getVariableNames () {
-		return new String[] {"angularDamping", "bullet",
-			"fixedRotation", "gravityScale", "linearDamping",
-			"bodyType"};
+		return new String[] {"angularDamping", "bullet", "fixedRotation", "gravityScale", "linearDamping", "bodyType"};
 	}
 
 	@Override

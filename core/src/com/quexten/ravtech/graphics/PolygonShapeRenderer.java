@@ -24,8 +24,7 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		pixmap.dispose();
 	}
 
-	void drawRect (float x, float y, float width, float height,
-		int thickness) {
+	void drawRect (float x, float y, float width, float height, int thickness) {
 		draw(texture, x, y, width, thickness);
 		draw(texture, x, y, thickness, height);
 		draw(texture, x, y + height - thickness, width, thickness);
@@ -36,13 +35,10 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		float dx = x1 - x2;
 		float dy = y1 - y2;
 
-		float angle = (float)Math
-			.toDegrees(3.14159f + Math.atan2(dy, dx));
+		float angle = (float)Math.toDegrees(3.14159f + Math.atan2(dy, dx));
 		float length = (float)Math.sqrt(dx * dx + dy * dy);
 
-		draw(texture, x1, y1, 0.0f, 0.0f, length,
-			thickness * camera.zoom, 1, 1, angle, 0, 0, 1, 1, false,
-			false);
+		draw(texture, x1, y1, 0.0f, 0.0f, length, thickness * camera.zoom, 1, 1, angle, 0, 0, 1, 1, false, false);
 	}
 
 	public void line (Vector2 tl, Vector2 tr) {
@@ -53,11 +49,9 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 	 * x,y). */
 	public void polyline (float[] vertices, int offset, int count) {
 		if (count < 4)
-			throw new IllegalArgumentException(
-				"Polylines must contain at least 2 points.");
+			throw new IllegalArgumentException("Polylines must contain at least 2 points.");
 		if (count % 2 != 0)
-			throw new IllegalArgumentException(
-				"Polylines must have an even number of vertices.");
+			throw new IllegalArgumentException("Polylines must have an even number of vertices.");
 
 		for (int i = offset, n = offset + count - 2; i < n; i += 2) {
 			float x1 = vertices[i];
@@ -77,17 +71,13 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		polyline(vertices, 0, vertices.length);
 	}
 
-	public void drawCone (float x, float y, float rotation,
-		float degrees, float length) {
+	public void drawCone (float x, float y, float rotation, float degrees, float length) {
 		int indexcount = 360;
 		float[] indicies = new float[indexcount * 2];
 		for (int i = 0; i < indexcount; i++) {
 			float offset = degrees * (i / (indexcount - 1f));
-			Vector2 endpoint = new Vector2(
-				x + (float)Math.cos(Math.toRadians(rotation + offset))
-					* length,
-				y + (float)Math.sin(Math.toRadians(rotation + offset))
-					* length);
+			Vector2 endpoint = new Vector2(x + (float)Math.cos(Math.toRadians(rotation + offset)) * length,
+				y + (float)Math.sin(Math.toRadians(rotation + offset)) * length);
 			indicies[2 * i] = endpoint.x;
 			indicies[2 * i + 1] = endpoint.y;
 		}

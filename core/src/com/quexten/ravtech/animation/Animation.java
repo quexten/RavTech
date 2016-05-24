@@ -41,8 +41,7 @@ public class Animation implements Json.Serializable {
 
 	public Timeline getTimeline (GameComponent gameComponent, int id) {
 		for (int i = 0; i < timelines.size; i++)
-			if (timelines.get(i).component == gameComponent
-				&& timelines.get(i).variableId == id)
+			if (timelines.get(i).component == gameComponent && timelines.get(i).variableId == id)
 				return timelines.get(i);
 		return null;
 	}

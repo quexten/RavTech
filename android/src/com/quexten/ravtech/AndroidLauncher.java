@@ -22,7 +22,7 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		AndroidEngineConfiguration engineConfiguration = new Json().fromJson(AndroidEngineConfiguration.class,
 			files.getFileHandle("config.json", FileType.Internal).readString());
-		
+
 		int versionCode = 0;
 		try {
 			versionCode = this.getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
@@ -35,8 +35,7 @@ public class AndroidLauncher extends AndroidApplication {
 		RavTech ravtech = new RavTech(useExternalAssetBundle
 			? new ArchiveFileHandleResolver(
 				files.external("Android/obb/" + getPackageName() + "/main." + versionCode + "." + getPackageName() + ".obb"))
-			: new InternalFileHandleResolver(),
-			engineConfiguration);
+			: new InternalFileHandleResolver(), engineConfiguration);
 		RavTech.scriptLoader = new LuaJScriptLoader();
 		initialize(ravtech, config);
 	}

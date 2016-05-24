@@ -96,8 +96,7 @@ public class Curve {
 	 * @throws SpriterException if the type is <code>null</code> */
 	public void setType (Type type) {
 		if (type == null)
-			throw new SpriterException(
-				"The type of a curve cannot be null!");
+			throw new SpriterException("The type of a curve cannot be null!");
 		this.type = type;
 	}
 
@@ -124,28 +123,20 @@ public class Curve {
 			case Quadratic:
 				return quadratic(a, linear(a, b, constraints.c1), b, t);
 			case Cubic:
-				return cubic(a, linear(a, b, constraints.c1),
-					linear(a, b, constraints.c2), b, t);
+				return cubic(a, linear(a, b, constraints.c1), linear(a, b, constraints.c2), b, t);
 			case Quartic:
-				return quartic(a, linear(a, b, constraints.c1),
-					linear(a, b, constraints.c2),
-					linear(a, b, constraints.c3), b, t);
+				return quartic(a, linear(a, b, constraints.c1), linear(a, b, constraints.c2), linear(a, b, constraints.c3), b, t);
 			case Quintic:
-				return quintic(a, linear(a, b, constraints.c1),
-					linear(a, b, constraints.c2),
-					linear(a, b, constraints.c3),
+				return quintic(a, linear(a, b, constraints.c1), linear(a, b, constraints.c2), linear(a, b, constraints.c3),
 					linear(a, b, constraints.c4), b, t);
 			case Bezier:
-				float cubicSolution = solveCubic(
-					3f * (constraints.c1 - constraints.c3) + 1f,
-					3f * (constraints.c3 - 2f * constraints.c1),
-					3f * constraints.c1, -t);
+				float cubicSolution = solveCubic(3f * (constraints.c1 - constraints.c3) + 1f,
+					3f * (constraints.c3 - 2f * constraints.c1), 3f * constraints.c1, -t);
 				if (cubicSolution == NO_SOLUTION)
 					cubicSolution = lastCubicSolution;
 				else
 					lastCubicSolution = cubicSolution;
-				return linear(a, b, bezier(cubicSolution, 0f,
-					constraints.c2, constraints.c4, 1f));
+				return linear(a, b, bezier(cubicSolution, 0f, constraints.c2, constraints.c4, 1f));
 			default:
 				return linear(a, b, t);
 		}
@@ -156,8 +147,7 @@ public class Curve {
 	 * @param b the end point
 	 * @param t the weight which lies between 0.0 and 1.0
 	 * @param target the target point to save the result in */
-	public void tweenPoint (Vector2 a, Vector2 b, float t,
-		Vector2 target) {
+	public void tweenPoint (Vector2 a, Vector2 b, float t, Vector2 target) {
 		target.set(tween(a.x, b.x, t), tween(a.y, b.y, t));
 	}
 
@@ -195,39 +185,30 @@ public class Curve {
 			case Linear:
 				return linearAngle(a, b, t);
 			case Quadratic:
-				return quadraticAngle(a,
-					linearAngle(a, b, constraints.c1), b, t);
+				return quadraticAngle(a, linearAngle(a, b, constraints.c1), b, t);
 			case Cubic:
-				return cubicAngle(a, linearAngle(a, b, constraints.c1),
-					linearAngle(a, b, constraints.c2), b, t);
+				return cubicAngle(a, linearAngle(a, b, constraints.c1), linearAngle(a, b, constraints.c2), b, t);
 			case Quartic:
-				return quarticAngle(a, linearAngle(a, b, constraints.c1),
-					linearAngle(a, b, constraints.c2),
+				return quarticAngle(a, linearAngle(a, b, constraints.c1), linearAngle(a, b, constraints.c2),
 					linearAngle(a, b, constraints.c3), b, t);
 			case Quintic:
-				return quinticAngle(a, linearAngle(a, b, constraints.c1),
-					linearAngle(a, b, constraints.c2),
-					linearAngle(a, b, constraints.c3),
-					linearAngle(a, b, constraints.c4), b, t);
+				return quinticAngle(a, linearAngle(a, b, constraints.c1), linearAngle(a, b, constraints.c2),
+					linearAngle(a, b, constraints.c3), linearAngle(a, b, constraints.c4), b, t);
 			case Bezier:
-				float cubicSolution = solveCubic(
-					3f * (constraints.c1 - constraints.c3) + 1f,
-					3f * (constraints.c3 - 2f * constraints.c1),
-					3f * constraints.c1, -t);
+				float cubicSolution = solveCubic(3f * (constraints.c1 - constraints.c3) + 1f,
+					3f * (constraints.c3 - 2f * constraints.c1), 3f * constraints.c1, -t);
 				if (cubicSolution == NO_SOLUTION)
 					cubicSolution = lastCubicSolution;
 				else
 					lastCubicSolution = cubicSolution;
-				return linearAngle(a, b, bezier(cubicSolution, 0f,
-					constraints.c2, constraints.c4, 1f));
+				return linearAngle(a, b, bezier(cubicSolution, 0f, constraints.c2, constraints.c4, 1f));
 			default:
 				return linearAngle(a, b, t);
 		}
 	}
 
 	public String toString () {
-		return getClass().getSimpleName() + "|[" + type + ":"
-			+ constraints + ", subCurve: " + subCurve + "]";
+		return getClass().getSimpleName() + "|[" + type + ":" + constraints + ", subCurve: " + subCurve + "]";
 	}
 
 	/** Represents constraints for a curve. Constraints are important for curves which have a order higher than 1.
@@ -248,8 +229,7 @@ public class Curve {
 		}
 
 		public String toString () {
-			return getClass().getSimpleName() + "| [c1:" + c1 + ", c2:"
-				+ c2 + ", c3:" + c3 + ", c4:" + c4 + "]";
+			return getClass().getSimpleName() + "| [c1:" + c1 + ", c2:" + c2 + ", c3:" + c3 + ", c4:" + c4 + "]";
 		}
 	}
 }

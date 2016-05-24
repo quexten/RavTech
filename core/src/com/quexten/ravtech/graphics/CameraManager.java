@@ -7,8 +7,9 @@ import com.badlogic.gdx.utils.Array;
 public class CameraManager {
 
 	Array<Camera> cameras = new Array<Camera>();
+	SpriteBatch batch = new SpriteBatch();
 
-	public void render (SpriteBatch batch) {
+	public void render () {
 		for (int i = 0; i < cameras.size; i++) {
 			batch.setProjectionMatrix(cameras.get(i).combined);
 			cameras.get(i).update();
@@ -25,6 +26,13 @@ public class CameraManager {
 	public void destroyCamera (Camera camera) {
 		camera.dispose();
 		cameras.removeValue(camera, true);
+	}
+
+	public void dispose () {
+		batch.dispose();
+		for (int i = 0; i < cameras.size; i++) {
+			cameras.get(i).dispose();
+		}
 	}
 
 }

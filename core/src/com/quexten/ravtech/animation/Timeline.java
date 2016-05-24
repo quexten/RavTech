@@ -16,8 +16,7 @@ import com.quexten.ravtech.util.GameObjectTraverseUtil;
 public class Timeline implements Json.Serializable {
 
 	public Array<Key> keys = new Array<Key>();
-	static final int VAR_TYPE_FLOAT = 0, VAR_TYPE_ANGLE = 1,
-		VAR_TYPE_OBJECT = 2;
+	static final int VAR_TYPE_FLOAT = 0, VAR_TYPE_ANGLE = 1, VAR_TYPE_OBJECT = 2;
 	int variableType = 0;
 	public int variableId;
 	int currentTime;
@@ -52,8 +51,7 @@ public class Timeline implements Json.Serializable {
 
 			@Override
 			public int compare (Key arg0, Key arg1) {
-				return arg0.time > arg1.time ? 1
-					: arg0.time < arg1.time ? -1 : 0;
+				return arg0.time > arg1.time ? 1 : arg0.time < arg1.time ? -1 : 0;
 			}
 		});
 		key.timeline = this;
@@ -79,16 +77,12 @@ public class Timeline implements Json.Serializable {
 	public void write (Json json) {
 		json.writeValue("keys", keys);
 		json.writeValue("variableId", variableId);
-		String componentPath = GameObjectTraverseUtil
-			.pathFromGameComponent(component);
+		String componentPath = GameObjectTraverseUtil.pathFromGameComponent(component);
 		if (componentPath.length() > 0)
-			componentPath = componentPath.substring(
-				GameObjectTraverseUtil
-					.pathFromGameComponent(animator.getParent()).length(),
+			componentPath = componentPath.substring(GameObjectTraverseUtil.pathFromGameComponent(animator.getParent()).length(),
 				componentPath.length());
 		else
-			componentPath = GameObjectTraverseUtil
-				.pathFromGameComponent(animator.getParent());
+			componentPath = GameObjectTraverseUtil.pathFromGameComponent(animator.getParent());
 		json.writeValue("component", componentPath);
 	}
 
@@ -104,10 +98,8 @@ public class Timeline implements Json.Serializable {
 		}
 		variableId = jsonData.getInt("variableId");
 		String componentPath = jsonData.getString("component");
-		String ownPath = GameObjectTraverseUtil
-			.pathFromGameComponent(animator.getParent());
-		component = GameObjectTraverseUtil
-			.gameComponentFromPath(ownPath + componentPath);
+		String ownPath = GameObjectTraverseUtil.pathFromGameComponent(animator.getParent());
+		component = GameObjectTraverseUtil.gameComponentFromPath(ownPath + componentPath);
 		Gdx.app.postRunnable(new Runnable() {
 
 			@Override
@@ -116,17 +108,12 @@ public class Timeline implements Json.Serializable {
 
 					@Override
 					public void run () {
-						String componentPath = jsonData
-							.getString("component");
-						String ownPath = GameObjectTraverseUtil
-							.pathFromGameComponent(animator.getParent());
-						component = GameObjectTraverseUtil
-							.gameComponentFromPath(ownPath + componentPath);
+						String componentPath = jsonData.getString("component");
+						String ownPath = GameObjectTraverseUtil.pathFromGameComponent(animator.getParent());
+						component = GameObjectTraverseUtil.gameComponentFromPath(ownPath + componentPath);
 						if (component == null)
-							animation.timelines.removeValue(Timeline.this,
-								true);
-						if (component instanceof Transform
-							&& variableId == 2)
+							animation.timelines.removeValue(Timeline.this, true);
+						if (component instanceof Transform && variableId == 2)
 							variableType = VAR_TYPE_ANGLE;
 						update(0);
 					}

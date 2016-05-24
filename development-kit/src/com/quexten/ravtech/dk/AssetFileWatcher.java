@@ -45,31 +45,22 @@ public class AssetFileWatcher {
 				while (true)
 					try {
 						WatchKey watchKey = watchService.take();
-						List<WatchEvent<?>> pollEvents = watchKey
-							.pollEvents();
+						List<WatchEvent<?>> pollEvents = watchKey.pollEvents();
 						for (WatchEvent<?> event : pollEvents) {
 							String rootPath = getRootPath();
 							String fileName = event.context().toString();
 							String directory = watchKeys.get(watchKey);
-							String relativeDirectory = directory
-								.replace('\\', '/').replaceAll(rootPath, "");
-							relativeDirectory = relativeDirectory
-								.length() < 8 ? ""
-									: relativeDirectory.substring(8);
-							final String assetPath = relativeDirectory
-								.isEmpty() ? fileName
-									: relativeDirectory + "/" + fileName;
+							String relativeDirectory = directory.replace('\\', '/').replaceAll(rootPath, "");
+							relativeDirectory = relativeDirectory.length() < 8 ? "" : relativeDirectory.substring(8);
+							final String assetPath = relativeDirectory.isEmpty() ? fileName : relativeDirectory + "/" + fileName;
 							if (!fileName.isEmpty())
 								Gdx.app.postRunnable(new Runnable() {
 									@Override
 									public void run () {
 										if (!assetPath.endsWith(".scene"))
-											if (RavTech.files
-												.isLoaded(assetPath))
-												RavTech.files
-													.reloadAsset(assetPath);
-										RavTechDK.assetViewer.assetView
-											.refresh();
+											if (RavTech.files.isLoaded(assetPath))
+												RavTech.files.reloadAsset(assetPath);
+										RavTechDK.assetViewer.assetView.refresh();
 									}
 								});
 						}
@@ -84,38 +75,29 @@ public class AssetFileWatcher {
 
 	private static synchronized void registerWatchServices () {
 		try {
-			Files.walkFileTree(rootDirectory.file().toPath(),
-				new FileVisitor<Path>() {
-					@Override
-					public FileVisitResult preVisitDirectory (Path dir,
-						BasicFileAttributes attributes) throws IOException {
-						watchKeys.put(
-							dir.register(watchService,
-								StandardWatchEventKinds.ENTRY_CREATE,
-								StandardWatchEventKinds.ENTRY_DELETE,
-								StandardWatchEventKinds.ENTRY_MODIFY),
-							dir.toString());
-						return FileVisitResult.CONTINUE;
-					}
+			Files.walkFileTree(rootDirectory.file().toPath(), new FileVisitor<Path>() {
+				@Override
+				public FileVisitResult preVisitDirectory (Path dir, BasicFileAttributes attributes) throws IOException {
+					watchKeys.put(dir.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+						StandardWatchEventKinds.ENTRY_DELETE, StandardWatchEventKinds.ENTRY_MODIFY), dir.toString());
+					return FileVisitResult.CONTINUE;
+				}
 
-					@Override
-					public FileVisitResult visitFile (Path file,
-						BasicFileAttributes attributes) throws IOException {
-						return FileVisitResult.CONTINUE;
-					}
+				@Override
+				public FileVisitResult visitFile (Path file, BasicFileAttributes attributes) throws IOException {
+					return FileVisitResult.CONTINUE;
+				}
 
-					@Override
-					public FileVisitResult visitFileFailed (Path file,
-						IOException ex) throws IOException {
-						return FileVisitResult.CONTINUE;
-					}
+				@Override
+				public FileVisitResult visitFileFailed (Path file, IOException ex) throws IOException {
+					return FileVisitResult.CONTINUE;
+				}
 
-					@Override
-					public FileVisitResult postVisitDirectory (Path dir,
-						IOException ex) throws IOException {
-						return FileVisitResult.CONTINUE;
-					}
-				});
+				@Override
+				public FileVisitResult postVisitDirectory (Path dir, IOException ex) throws IOException {
+					return FileVisitResult.CONTINUE;
+				}
+			});
 		} catch (Exception ex) {
 		}
 	}

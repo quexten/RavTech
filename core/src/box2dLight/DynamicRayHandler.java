@@ -15,10 +15,8 @@ public class DynamicRayHandler extends RayHandler {
 		this.lightMap = lightMap;
 	}
 
-	public DynamicLightMap createLightMap (int initialWidth,
-		int initialHeight) {
-		DynamicLightMap map = new DynamicLightMap(this, initialWidth,
-			initialHeight);
+	public DynamicLightMap createLightMap (int initialWidth, int initialHeight) {
+		DynamicLightMap map = new DynamicLightMap(this, initialWidth, initialHeight);
 		map.lightMapDrawingDisabled = true;
 		return map;
 	}

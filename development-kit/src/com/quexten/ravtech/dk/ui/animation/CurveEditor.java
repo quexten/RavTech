@@ -61,42 +61,35 @@ public class CurveEditor extends JFrame {
 				super.paintComponent(g);
 				Graphics2D g2 = (Graphics2D)g;
 				{
-					AffineTransform transform = AffineTransform
-						.getTranslateInstance(0, getHeight());
+					AffineTransform transform = AffineTransform.getTranslateInstance(0, getHeight());
 					transform.scale(1, -1);
 					g2.setTransform(transform);
 				}
 				int lineCount = 8;
 				g2.setColor(Color.LIGHT_GRAY);
 				for (int i = 0; i < lineCount; i++) {
-					int lineX = Math
-						.round((float)getWidth() / (float)lineCount) * i;
+					int lineX = Math.round((float)getWidth() / (float)lineCount) * i;
 					g2.drawLine(lineX, 0, lineX, getHeight());
 				}
-				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-					RenderingHints.VALUE_ANTIALIAS_ON);
+				g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				g2.setStroke(new BasicStroke(2f));
 				g2.setColor(Color.RED);
 				switch (curve.getType()) {
 					case Instant:
 						g2.drawLine(0, 1, getWidth(), 1);
-						g2.drawLine(getWidth() - 1, 0, getWidth() - 1,
-							getHeight());
+						g2.drawLine(getWidth() - 1, 0, getWidth() - 1, getHeight());
 						break;
 					case Linear:
 						g2.drawLine(0, 0, getWidth(), getHeight());
 						break;
 					case Quadratic:
-						QuadCurve2D.Float quadCurve = new QuadCurve2D.Float(
-							0, 0, getWidth() / 2, points[0] * getHeight(),
-							getWidth(), getHeight());
+						QuadCurve2D.Float quadCurve = new QuadCurve2D.Float(0, 0, getWidth() / 2, points[0] * getHeight(), getWidth(),
+							getHeight());
 						g2.draw(quadCurve);
 						break;
 					case Cubic:
-						CubicCurve2D.Float cubicCurve = new CubicCurve2D.Float(
-							0, 0, getWidth() / 3, points[0] * getHeight(),
-							2 * getWidth() / 3, points[1] * getHeight(),
-							getWidth(), getHeight());
+						CubicCurve2D.Float cubicCurve = new CubicCurve2D.Float(0, 0, getWidth() / 3, points[0] * getHeight(),
+							2 * getWidth() / 3, points[1] * getHeight(), getWidth(), getHeight());
 						g2.draw(cubicCurve);
 						break;
 					default:
@@ -107,11 +100,8 @@ public class CurveEditor extends JFrame {
 							if (i > 1f)
 								newY = 1;
 							float newX = i;
-							g2.draw(new Line2D.Float(
-								new Point(Math.round(lastX * getWidth()),
-									Math.round(lastY * getHeight())),
-								new Point(Math.round(newX * getWidth()),
-									Math.round(newY * getHeight()))));
+							g2.draw(new Line2D.Float(new Point(Math.round(lastX * getWidth()), Math.round(lastY * getHeight())),
+								new Point(Math.round(newX * getWidth()), Math.round(newY * getHeight()))));
 							lastX = newX;
 							lastY = newY;
 						}
@@ -119,25 +109,16 @@ public class CurveEditor extends JFrame {
 				}
 				int radius = 5;
 				for (int i = 0; i < points.length; i++)
-					g2.fillOval(
-						Math.round(
-							1f / (points.length + 1) * (i + 1) * getWidth()
-								- radius + 1),
-						Math.round(points[i] * getHeight() - radius),
-						2 * radius, 2 * radius);
+					g2.fillOval(Math.round(1f / (points.length + 1) * (i + 1) * getWidth() - radius + 1),
+						Math.round(points[i] * getHeight() - radius), 2 * radius, 2 * radius);
 				g2.setStroke(new BasicStroke(1));
 				g2.setColor(Color.LIGHT_GRAY);
 				if (time <= 1.0f) {
-					g2.drawLine(Math.round(time * getWidth()), 0,
-						Math.round(time * getWidth()), getHeight());
-					g2.drawLine(0,
-						Math.round(curve.tween(0, 1, time) * getHeight()),
-						getWidth(),
+					g2.drawLine(Math.round(time * getWidth()), 0, Math.round(time * getWidth()), getHeight());
+					g2.drawLine(0, Math.round(curve.tween(0, 1, time) * getHeight()), getWidth(),
 						Math.round(curve.tween(0, 1, time) * getHeight()));
 					g2.setColor(Color.RED);
-					g2.fillOval(Math.round(time * getWidth() - radius),
-						Math.round(
-							curve.tween(0, 1, time) * getHeight() - radius),
+					g2.fillOval(Math.round(time * getWidth() - radius), Math.round(curve.tween(0, 1, time) * getHeight() - radius),
 						2 * radius, 2 * radius);
 				}
 			}
@@ -149,8 +130,7 @@ public class CurveEditor extends JFrame {
 				int mouseY = graphPanel.getHeight() - arg0.getY();
 				mouseY = Math.min(mouseY, graphPanel.getHeight());
 				mouseY = Math.max(mouseY, 0);
-				float height = (float)mouseY
-					/ (float)graphPanel.getHeight();
+				float height = (float)mouseY / (float)graphPanel.getHeight();
 				points[draggedPointIndex] = height;
 				switch (draggedPointIndex) {
 					case 0:
@@ -202,8 +182,7 @@ public class CurveEditor extends JFrame {
 		constraints.fill = GridBagConstraints.BOTH;
 		constraints.weightx = 1;
 		constraints.weighty = 1;
-		graphPanel
-			.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+		graphPanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 		this.add(graphPanel, constraints);
 		setupOptionsPanel(constraints);
 		new Timer(16, new ActionListener() {
@@ -224,8 +203,7 @@ public class CurveEditor extends JFrame {
 		int closestIndex = 0;
 		int closestDst = 9999999;
 		for (int i = 0; i < points.length; i++) {
-			int pointX = Math
-				.round(1f / (points.length + 1) * (i + 1) * getWidth());
+			int pointX = Math.round(1f / (points.length + 1) * (i + 1) * getWidth());
 			int dst = Math.abs(mouseX - pointX);
 			if (dst < closestDst) {
 				closestIndex = i;
@@ -246,8 +224,7 @@ public class CurveEditor extends JFrame {
 		setupOptionsPanel(constraints);
 	}
 
-	public void setCurveType (
-		com.brashmonkey.spriter.Curve.Type type) {
+	public void setCurveType (com.brashmonkey.spriter.Curve.Type type) {
 		curve.setType(type);
 		switch (curve.getType()) {
 			case Instant:
@@ -302,8 +279,7 @@ public class CurveEditor extends JFrame {
 			optionsConstraints.weightx = labelWeight;
 			optionsConstraints.gridx++;
 			JLabel instantLabel = new JLabel("Instant");
-			instantLabel
-				.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+			instantLabel.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 			instantLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
 			optionsPanel.add(instantLabel, optionsConstraints);
 			optionsConstraints.weightx = checkBoxWeight;
@@ -314,8 +290,7 @@ public class CurveEditor extends JFrame {
 			optionsConstraints.weightx = labelWeight;
 			optionsConstraints.gridx++;
 			JLabel linearLabel = new JLabel("Linear");
-			linearLabel
-				.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+			linearLabel.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 			linearLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
 			optionsPanel.add(linearLabel, optionsConstraints);
 			optionsConstraints.weightx = checkBoxWeight;
@@ -331,8 +306,7 @@ public class CurveEditor extends JFrame {
 			optionsConstraints.weightx = labelWeight;
 			optionsConstraints.gridx++;
 			JLabel curveLabel = new JLabel("1-D Curve (Faster)");
-			curveLabel
-				.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+			curveLabel.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 			curveLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
 			optionsPanel.add(curveLabel, optionsConstraints);
 			optionsConstraints.weightx = checkBoxWeight;
@@ -343,8 +317,7 @@ public class CurveEditor extends JFrame {
 			optionsConstraints.weightx = labelWeight;
 			optionsConstraints.gridx++;
 			JLabel bezierLabel = new JLabel("Bezier (Slower)");
-			bezierLabel
-				.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
+			bezierLabel.setBorder(BorderFactory.createEmptyBorder(2, 0, 0, 0));
 			bezierLabel.setFont(new Font("SansSerif", Font.BOLD, 12));
 			optionsPanel.add(bezierLabel, optionsConstraints);
 			optionsConstraints.weightx = 1;
@@ -362,8 +335,7 @@ public class CurveEditor extends JFrame {
 
 				@Override
 				public void actionPerformed (ActionEvent event) {
-					CurveEditor.this.setCurveType(
-						com.brashmonkey.spriter.Curve.Type.Instant);
+					CurveEditor.this.setCurveType(com.brashmonkey.spriter.Curve.Type.Instant);
 					valuePanel.removeAll();
 					valuePanel.repaint();
 				}
@@ -372,8 +344,7 @@ public class CurveEditor extends JFrame {
 
 				@Override
 				public void actionPerformed (ActionEvent event) {
-					CurveEditor.this.setCurveType(
-						com.brashmonkey.spriter.Curve.Type.Linear);
+					CurveEditor.this.setCurveType(com.brashmonkey.spriter.Curve.Type.Linear);
 					valuePanel.removeAll();
 					valuePanel.repaint();
 				}
@@ -400,8 +371,7 @@ public class CurveEditor extends JFrame {
 
 						@Override
 						public void actionPerformed (ActionEvent event) {
-							CurveEditor.this.setCurveType(
-								com.brashmonkey.spriter.Curve.Type.Quadratic);
+							CurveEditor.this.setCurveType(com.brashmonkey.spriter.Curve.Type.Quadratic);
 						}
 					});
 					valuePanel.add(checkBox, curveConstraints);
@@ -415,8 +385,7 @@ public class CurveEditor extends JFrame {
 
 						@Override
 						public void actionPerformed (ActionEvent event) {
-							CurveEditor.this.setCurveType(
-								com.brashmonkey.spriter.Curve.Type.Cubic);
+							CurveEditor.this.setCurveType(com.brashmonkey.spriter.Curve.Type.Cubic);
 						}
 					});
 					valuePanel.add(checkBox, curveConstraints);
@@ -430,8 +399,7 @@ public class CurveEditor extends JFrame {
 
 						@Override
 						public void actionPerformed (ActionEvent event) {
-							CurveEditor.this.setCurveType(
-								com.brashmonkey.spriter.Curve.Type.Quartic);
+							CurveEditor.this.setCurveType(com.brashmonkey.spriter.Curve.Type.Quartic);
 						}
 					});
 					valuePanel.add(checkBox, curveConstraints);
@@ -445,8 +413,7 @@ public class CurveEditor extends JFrame {
 
 						@Override
 						public void actionPerformed (ActionEvent event) {
-							CurveEditor.this.setCurveType(
-								com.brashmonkey.spriter.Curve.Type.Quintic);
+							CurveEditor.this.setCurveType(com.brashmonkey.spriter.Curve.Type.Quintic);
 						}
 					});
 					valuePanel.add(checkBox, curveConstraints);
@@ -468,13 +435,10 @@ public class CurveEditor extends JFrame {
 					valuePanel.repaint();
 				}
 			});
-			valuePanel.setBorder(
-				BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+			valuePanel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
 			optionsPanel.add(valuePanel, optionsConstraints);
-			for (int i = 0; i < curveCheckBox
-				.getActionListeners().length; i++)
-				curveCheckBox.getActionListeners()[i]
-					.actionPerformed(null);
+			for (int i = 0; i < curveCheckBox.getActionListeners().length; i++)
+				curveCheckBox.getActionListeners()[i].actionPerformed(null);
 			curveCheckBox.setSelected(true);
 			valuePanel.revalidate();
 			valuePanel.repaint();

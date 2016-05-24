@@ -11,8 +11,7 @@ public class SignStep extends PackageStep {
 
 	KeyStoreCredentials credentials;
 
-	public SignStep (BuildReporterDialog buildReporterDialog,
-		KeyStoreCredentials credentials) {
+	public SignStep (BuildReporterDialog buildReporterDialog, KeyStoreCredentials credentials) {
 		super(buildReporterDialog);
 		this.credentials = credentials;
 	}
@@ -21,10 +20,8 @@ public class SignStep extends PackageStep {
 	public void run () {
 		buildReporterDialog.log("Signing...");
 		ApkManager.sign(buildReporterDialog,
-			new File(System.getProperty("user.dir")
-				+ "/builder/android/build/outputs/apk/android-release-unsigned.apk"),
-			credentials.keystoreFile, credentials.keystorePassword,
-			credentials.aliasName, credentials.aliasPassword);
+			new File(System.getProperty("user.dir") + "/builder/android/build/outputs/apk/android-release-unsigned.apk"),
+			credentials.keystoreFile, credentials.keystorePassword, credentials.aliasName, credentials.aliasPassword);
 		buildReporterDialog.printerListeners.add(new PrinterListener() {
 			@Override
 			public void onPrint (String line) {

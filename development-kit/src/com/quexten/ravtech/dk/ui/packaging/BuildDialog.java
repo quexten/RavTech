@@ -40,8 +40,7 @@ public class BuildDialog extends RavWindow {
 	VisTable contentTable = new VisTable();
 	BuildOptions options = new AndroidBuildOptions(AssetType.Internal);
 	VisTable platformTable;
-	
-	
+
 	public BuildDialog () {
 		super("Build");
 		add(contentTable).grow();
@@ -58,7 +57,7 @@ public class BuildDialog extends RavWindow {
 
 	@SuppressWarnings("unchecked")
 	public VisTable createPlatformTable () {
-		
+
 		final VisTable contentTable = new VisTable();
 
 		final VisList<String> platformList = new VisList<String>();
@@ -88,21 +87,19 @@ public class BuildDialog extends RavWindow {
 			public void changed (ChangeEvent event, Actor actor) {
 				if (dropDown.getSelected().equals("Internal"))
 					skipBuildBox.setChecked(false);
-				skipBuildBox.setDisabled(
-					dropDown.getSelected().equals("Internal"));			
+				skipBuildBox.setDisabled(dropDown.getSelected().equals("Internal"));
 			}
 		});
-		
+
 		contentTable.add(optionsTable).growX().top();
 		contentTable.row();
-		
-		
+
 		final VisTable platformPaddingTable = new VisTable();
 		platformTable = Packager.getPlatform(options.targetPlatform).getOptionsTable(options);
 		platformPaddingTable.add(platformTable).growX();
 		optionsTable.add(platformPaddingTable).colspan(2).growX();
 		contentTable.row();
-		
+
 		platformList.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
@@ -112,11 +109,9 @@ public class BuildDialog extends RavWindow {
 				platformPaddingTable.clear();
 				platformTable = Packager.getPlatform(platformList.getSelected()).getOptionsTable(options);
 				platformPaddingTable.add(platformTable).growX();
-			}			
+			}
 		});
-		
-		
-		
+
 		// Bottom Table
 		final VisTable bottomTable = new VisTable();
 		final VisTextButton buildButton = new VisTextButton("Build");
@@ -131,8 +126,7 @@ public class BuildDialog extends RavWindow {
 		});
 		bottomTable.add(buildButton);
 
-		final VisTextButton buildAndRunButton = new VisTextButton(
-			"Build and Run");
+		final VisTextButton buildAndRunButton = new VisTextButton("Build and Run");
 		buildAndRunButton.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
@@ -141,24 +135,21 @@ public class BuildDialog extends RavWindow {
 			}
 		});
 		bottomTable.add(buildAndRunButton);
-				
+
 		contentTable.add(new Actor());
 		contentTable.add(bottomTable).align(Align.right);
-		
+
 		return contentTable;
 	}
 
-	public VisTable createApkOptionsTable (
-		final BuildOptions buildOptions) {
+	public VisTable createApkOptionsTable (final BuildOptions buildOptions) {
 		final VisTable optionsTable = new VisTable();
 		optionsTable.setFillParent(true);
 
 		final VisTable contentTable = new VisTable();
 		final VisTextField keystorePathField = new VisTextField();
-		final VisTextButton keystoreSelectButton = new VisTextButton(
-			"Select");
-		final VisTextButton keystoreCreateTextButton = new VisTextButton(
-			"Create");
+		final VisTextButton keystoreSelectButton = new VisTextButton("Select");
+		final VisTextButton keystoreCreateTextButton = new VisTextButton("Create");
 		final VisTextField keystorePasswordField = new VisTextField();
 		keystorePasswordField.setPasswordMode(true);
 		final VisTextField aliasField = new VisTextField();
@@ -170,8 +161,7 @@ public class BuildDialog extends RavWindow {
 		fileChooser.setFileFilter(new FileFilter() {
 			@Override
 			public boolean accept (File arg0) {
-				return Gdx.files.absolute(arg0.getAbsolutePath())
-					.extension().equals("keystore") || arg0.isDirectory();
+				return Gdx.files.absolute(arg0.getAbsolutePath()).extension().equals("keystore") || arg0.isDirectory();
 			}
 		});
 		fileChooser.setListener(new FileChooserAdapter() {
@@ -201,8 +191,7 @@ public class BuildDialog extends RavWindow {
 
 		// KeyStorePassword
 		contentTable.row();
-		contentTable.add(new VisLabel("Keystore Password:"))
-			.align(Align.left);
+		contentTable.add(new VisLabel("Keystore Password:")).align(Align.left);
 		contentTable.add(keystorePasswordField).growX();
 
 		// KeyStoreAlias
@@ -212,8 +201,7 @@ public class BuildDialog extends RavWindow {
 
 		// KeyStoreAliasPassword
 		contentTable.row();
-		contentTable.add(new VisLabel("Alias Password:"))
-			.align(Align.left);
+		contentTable.add(new VisLabel("Alias Password:")).align(Align.left);
 		contentTable.add(aliasPasswordField).growX();
 
 		// Padding
@@ -230,12 +218,11 @@ public class BuildDialog extends RavWindow {
 		buildButton.addListener(new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
-			/*	buildOptions.credentials = new KeyStoreCredentials(
-					new File(keystorePathField.getText()),
-					keystorePasswordField.getText(), aliasField.getText(),
-					aliasPasswordField.getText());
-				buildOptions.sign = true;
-				BuildDialog.this.build(buildOptions);*/
+				/*
+				 * buildOptions.credentials = new KeyStoreCredentials( new File(keystorePathField.getText()),
+				 * keystorePasswordField.getText(), aliasField.getText(), aliasPasswordField.getText()); buildOptions.sign = true;
+				 * BuildDialog.this.build(buildOptions);
+				 */
 			}
 		});
 		bottomTable.add(buildButton).align(Align.bottomRight);
@@ -246,14 +233,10 @@ public class BuildDialog extends RavWindow {
 		return optionsTable;
 	}
 
-	public VisTable createDeviceSelector (
-		final BuildOptions currentOptions) {
-		RavTechDK.editorAssetManager
-			.load("resources/ui/icons/no-device.png", Texture.class);
+	public VisTable createDeviceSelector (final BuildOptions currentOptions) {
+		RavTechDK.editorAssetManager.load("resources/ui/icons/no-device.png", Texture.class);
 		RavTechDK.editorAssetManager.finishLoading();
-		final Image noDeviceImage = new Image(
-			(Texture)RavTechDK.editorAssetManager
-				.get("resources/ui/icons/no-device.png"));
+		final Image noDeviceImage = new Image((Texture)RavTechDK.editorAssetManager.get("resources/ui/icons/no-device.png"));
 		noDeviceImage.setScaling(Scaling.fillY);
 
 		final VisList<String> deviceList = new VisList<String>();
@@ -261,9 +244,7 @@ public class BuildDialog extends RavWindow {
 
 		final VisTable contentTable = new VisTable();
 
-		contentTable.add(
-			deviceList.getItems().size == 0 ? noDeviceImage : deviceList)
-			.grow();
+		contentTable.add(deviceList.getItems().size == 0 ? noDeviceImage : deviceList).grow();
 		contentTable.row();
 
 		final VisTable bottomTable = new VisTable();
@@ -271,19 +252,16 @@ public class BuildDialog extends RavWindow {
 		bottomTable.add(statusLabel);
 		bottomTable.add().growX();
 
-		final VisTextButton refreshButton = new VisTextButton(
-			"Refresh");
+		final VisTextButton refreshButton = new VisTextButton("Refresh");
 		ChangeListener refreshListener = new ChangeListener() {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				fillList(deviceList);
 				contentTable.clear();
-				contentTable.add(deviceList.getItems().size == 0
-					? noDeviceImage : deviceList).grow();
+				contentTable.add(deviceList.getItems().size == 0 ? noDeviceImage : deviceList).grow();
 				contentTable.row();
 				contentTable.add(bottomTable).fillX();
-				statusLabel.setText(deviceList.getItems().size == 0
-					? "No devices plugged in." : "Select a device.");
+				statusLabel.setText(deviceList.getItems().size == 0 ? "No devices plugged in." : "Select a device.");
 			}
 		};
 		refreshListener.changed(null, null);
@@ -295,9 +273,9 @@ public class BuildDialog extends RavWindow {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				currentOptions.run = true;
-				/*currentOptions.deviceId = deviceList.getSelected()
-					.substring(
-						deviceList.getSelected().lastIndexOf(" ") + 1);*/
+				/*
+				 * currentOptions.deviceId = deviceList.getSelected() .substring( deviceList.getSelected().lastIndexOf(" ") + 1);
+				 */
 				BuildDialog.this.build(currentOptions);
 			}
 		});
@@ -313,8 +291,7 @@ public class BuildDialog extends RavWindow {
 		Array<JadbDevice> devices = AdbManager.getDevices();
 		Array<String> deviceStrings = new Array<String>();
 		for (int i = 0; i < devices.size; i++) {
-			deviceStrings.add(AdbManager.getDeviceName(devices.get(i))
-				+ " | " + devices.get(i).getSerial());
+			deviceStrings.add(AdbManager.getDeviceName(devices.get(i)) + " | " + devices.get(i).getSerial());
 		}
 
 		deviceList.setItems(deviceStrings);
@@ -324,13 +301,11 @@ public class BuildDialog extends RavWindow {
 		BuildReporterDialog buildDialog = new BuildReporterDialog();
 		contentTable.clearChildren();
 		VisScrollPane scrollPane = new VisScrollPane(buildDialog);
-		contentTable.add(scrollPane).grow().pad(10).align(Align.top)
-			.padTop(32);
+		contentTable.add(scrollPane).grow().pad(10).align(Align.top).padTop(32);
 
 		if (options.targetPlatform == "Android" && options.run) {
 			if (!AdbManager.initialized) {
-				com.quexten.ravtech.util.Debug.logError("Adb Error",
-					"Adb Path Not Delcared");
+				com.quexten.ravtech.util.Debug.logError("Adb Error", "Adb Path Not Delcared");
 				AdbManager.initializeAdb();
 			}
 		}

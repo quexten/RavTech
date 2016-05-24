@@ -27,8 +27,7 @@ public class RavTechDKApplication extends RavTech {
 	public float accumulator = 0;
 
 	public RavTechDKApplication () {
-		super(new InternalFileHandleResolver(), new Project(),
-			new EngineConfiguration());
+		super(new InternalFileHandleResolver(), new Project(), new EngineConfiguration());
 	}
 
 	@Override
@@ -49,22 +48,17 @@ public class RavTechDKApplication extends RavTech {
 			}
 		});
 
-		if (RavTech.settings.getString("RavTechDK.project.path")
-			.isEmpty()
-			|| !new Lwjgl3FileHandle(
-				RavTech.settings.getString("RavTechDK.project.path"),
-				FileType.Absolute).child("project.json").exists()) {
+		if (RavTech.settings.getString("RavTechDK.project.path").isEmpty()
+			|| !new Lwjgl3FileHandle(RavTech.settings.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
+				.exists()) {
 			final Project project = new Project();
-			final ProjectSettingsWizard wizard = new ProjectSettingsWizard(
-				project, true);
+			final ProjectSettingsWizard wizard = new ProjectSettingsWizard(project, true);
 			wizard.setSize(330, 330);
 			RavTech.ui.getStage().addActor(wizard);
 		} else {
 			final Preferences preferences = new Lwjgl3Preferences(
-				new Lwjgl3FileHandle(new File(".prefs/", "RavTech"),
-					FileType.External));
-			RavTechDK.setProject(
-				preferences.getString("RavTechDK.project.path"));
+				new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
+			RavTechDK.setProject(preferences.getString("RavTechDK.project.path"));
 		}
 
 		RavTechDK.mainSceneView.camera.drawGrid = true;
@@ -98,13 +92,10 @@ public class RavTechDKApplication extends RavTech {
 		window.setResizable(true);
 		window.addListener(new ClickListener() {
 
-			public void touchUp (InputEvent event, float x, float y,
-				int pointer, int button) {
+			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 				super.touchUp(event, x, y, pointer, button);
-				sceneView.setResolution((int)sceneView.getWidth(),
-					(int)sceneView.getHeight());
-				sceneView.camera.setToOrtho(false, sceneView.getWidth(),
-					sceneView.getHeight());
+				sceneView.setResolution((int)sceneView.getWidth(), (int)sceneView.getHeight());
+				sceneView.camera.setToOrtho(false, sceneView.getWidth(), sceneView.getHeight());
 			}
 
 		});

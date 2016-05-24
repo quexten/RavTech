@@ -43,8 +43,7 @@ public class Calculator {
 	 * @param x2 x coordinate of second point.
 	 * @param y2 y coordinate of second point.
 	 * @return Angle between the two given points. */
-	public static float angleBetween (float x1, float y1, float x2,
-		float y2) {
+	public static float angleBetween (float x1, float y1, float x2, float y2) {
 		return (float)toDegrees(atan2(y2 - y1, x2 - x1));
 	}
 
@@ -53,8 +52,7 @@ public class Calculator {
 	 * @param x2 x coordinate of second point.
 	 * @param y2 y coordinate of second point.
 	 * @return Distance between the two given points. */
-	public static float distanceBetween (float x1, float y1, float x2,
-		float y2) {
+	public static float distanceBetween (float x1, float y1, float x2, float y2) {
 		float xDiff = x2 - x1;
 		float yDiff = y2 - y1;
 		return sqrt(xDiff * xDiff + yDiff * yDiff);
@@ -66,8 +64,7 @@ public class Calculator {
 	 * @param c
 	 * @param d
 	 * @return the solution of the cubic function if it belongs [0, 1], {@link #NO_SOLUTION} otherwise. */
-	public static float solveCubic (float a, float b, float c,
-		float d) {
+	public static float solveCubic (float a, float b, float c, float d) {
 		if (a == 0)
 			return solveQuadratic(b, c, d);
 		if (d == 0)
@@ -189,11 +186,9 @@ public class Calculator {
 
 		static {
 			for (int i = 0; i < SIN_COUNT; i++)
-				table[i] = (float)Math
-					.sin((i + 0.5f) / SIN_COUNT * radFull);
+				table[i] = (float)Math.sin((i + 0.5f) / SIN_COUNT * radFull);
 			for (int i = 0; i < 360; i += 90)
-				table[(int)(i * degToIndex) & SIN_MASK] = (float)Math
-					.sin(i * degreesToRadians);
+				table[(int)(i * degToIndex) & SIN_MASK] = (float)Math.sin(i * degreesToRadians);
 		}
 	}
 
@@ -204,8 +199,7 @@ public class Calculator {
 
 	/** Returns the cosine in radians from a lookup table. */
 	static public final float cos (float radians) {
-		return Sin.table[(int)((radians + PI / 2) * radToIndex)
-			& SIN_MASK];
+		return Sin.table[(int)((radians + PI / 2) * radToIndex) & SIN_MASK];
 	}
 
 	/** Returns the sine in radians from a lookup table. */

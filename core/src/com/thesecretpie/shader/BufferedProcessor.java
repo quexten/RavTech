@@ -20,18 +20,15 @@ public class BufferedProcessor extends Processor {
 
 	public FrameBuffer fbo2;
 
-	public BufferedProcessor (ShaderManager sm, int w, int h,
-		boolean hasDepth) {
+	public BufferedProcessor (ShaderManager sm, int w, int h, boolean hasDepth) {
 		this(sm, w, h, null, hasDepth, false);
 	}
 
-	public BufferedProcessor (ShaderManager sm, int w, int h,
-		boolean hasDepth, boolean saveBytes) {
+	public BufferedProcessor (ShaderManager sm, int w, int h, boolean hasDepth, boolean saveBytes) {
 		this(sm, w, h, null, hasDepth, saveBytes);
 	}
 
-	public BufferedProcessor (ShaderManager sm, int w, int h,
-		Format format, boolean hasDepth, boolean saveBytes) {
+	public BufferedProcessor (ShaderManager sm, int w, int h, Format format, boolean hasDepth, boolean saveBytes) {
 		super(sm, w, h, format, hasDepth, saveBytes);
 		if (format == null) // this is a float format
 			fbo2 = new FloatFrameBuffer(width, height, hasDepth);
@@ -56,8 +53,7 @@ public class BufferedProcessor extends Processor {
 		addUniforms(program);
 		quad.render(program, GL20.GL_TRIANGLES);
 		if (saveBytes)
-			data = getFrameBufferPixels(0, 0, width, height, false,
-				data);
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		program.end();
 		fbo.end();
 		swapBuffers();
@@ -72,8 +68,7 @@ public class BufferedProcessor extends Processor {
 		addUniforms(sm.getCurrent());
 		quad.render(sm.getCurrent(), GL20.GL_TRIANGLES);
 		if (saveBytes)
-			data = getFrameBufferPixels(0, 0, width, height, false,
-				data);
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		sm.end();
 		fbo.end();
 		swapBuffers();
@@ -94,10 +89,8 @@ public class BufferedProcessor extends Processor {
 			return super.getValue(x, y);
 		fbo.begin();
 		sm.begin("processor");
-		fbo2.getColorBufferTexture()
-			.bind(ShaderManager.FRAMEBUFFER_TEXTURE_ID);
-		sm.setUniformi("u_texture",
-			ShaderManager.FRAMEBUFFER_TEXTURE_ID);
+		fbo2.getColorBufferTexture().bind(ShaderManager.FRAMEBUFFER_TEXTURE_ID);
+		sm.setUniformi("u_texture", ShaderManager.FRAMEBUFFER_TEXTURE_ID);
 		sm.setUniformf("u_viewport", width, height);
 		quad.render(sm.getCurrent(), GL20.GL_TRIANGLES);
 		ByteBuffer data = getFrameBufferPixels(x, y, 1, 1, false, null);
@@ -118,8 +111,7 @@ public class BufferedProcessor extends Processor {
 		Gdx.gl20.glClearColor(col.r, col.g, col.b, col.a);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		if (saveBytes)
-			data = getFrameBufferPixels(0, 0, width, height, false,
-				data);
+			data = getFrameBufferPixels(0, 0, width, height, false, data);
 		fbo.end();
 		fbo2.begin();
 		Gdx.gl20.glClearColor(col.r, col.g, col.b, col.a);
