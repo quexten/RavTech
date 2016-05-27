@@ -35,17 +35,17 @@ public class RavTech extends Game {
 	public static RavSettings settings;
 	public static RavInput input;
 	public static RavUI ui;
-
-	public RavTech (FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
-		this(assetResolver, applicationConfig);
-		RavTech.project = project;
-	}
-
+	
 	public RavTech (FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
 		files = new RavFiles(assetResolver);
 		engineConfiguration = applicationConfig;
 	}
-
+	
+	public RavTech (FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
+		this(assetResolver, applicationConfig);
+		RavTech.project = project;
+	}
+	
 	@Override
 	public void create () {
 		Gdx.app.setLogLevel(3);
