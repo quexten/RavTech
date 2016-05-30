@@ -21,7 +21,7 @@ public class RavUI {
 		if (!VisUI.isLoaded())
 			VisUI.load(Gdx.files.internal("mdpi/uiskin.json"));
 		debugConsole = new DebugConsole();
-		Gdx.input.setInputProcessor(screenStage);
+		RavTech.input.addInputProcessor(screenStage);
 		screenStage.addListener(new InputListener() {
 			@Override
 			public boolean keyDown (InputEvent event, int key) {

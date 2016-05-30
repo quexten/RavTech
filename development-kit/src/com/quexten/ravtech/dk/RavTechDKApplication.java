@@ -66,6 +66,7 @@ public class RavTechDKApplication extends RavTech {
 
 	@Override
 	public void render () {
+		input.update();
 		accumulator += Gdx.graphics.getDeltaTime();
 		while (accumulator > step) {
 			accumulator -= step;

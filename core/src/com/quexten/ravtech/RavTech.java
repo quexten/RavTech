@@ -84,6 +84,7 @@ public class RavTech extends Game {
 
 	@Override
 	public void render () {
+		input.update();
 		if (Gdx.app.getType() == ApplicationType.WebGL && !WebGLScriptManager.areLoaded())
 			return;
 		else if (!WebGLScriptManager.initialized)

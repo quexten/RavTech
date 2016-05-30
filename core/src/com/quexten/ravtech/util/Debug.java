@@ -23,8 +23,8 @@ public class Debug {
 
 	public static void log (String tag, Object message) {
 		Gdx.app.log(tag, String.valueOf(message));
-		if (RavTech.isEditor)
-			RavTech.ui.debugConsole.log(tag, String.valueOf(message));
+		//if (RavTech.isEditor)
+		//	RavTech.ui.debugConsole.log(tag, String.valueOf(message));
 	}
 
 	public static void logError (String tag, Object message) {

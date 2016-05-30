@@ -79,7 +79,7 @@ public class RavTechDK {
 		root.row();
 		mainSceneView = new SceneViewWidget(true);
 		root.add(mainSceneView).expand().fill();
-		Gdx.input.setInputProcessor(RavTech.ui.getStage());
+		RavTech.input.addInputProcessor(RavTech.ui.getStage());
 
 		HookApi.onResizeHooks.add(new Runnable() {
 
