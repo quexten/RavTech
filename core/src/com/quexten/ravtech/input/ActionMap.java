@@ -1,40 +1,30 @@
 
 package com.quexten.ravtech.input;
 
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.Json.Serializable;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.ObjectIntMap;
 
-public class ActionMap {
+public class ActionMap extends ObjectIntMap<String> implements Serializable {
 
-	ObjectMap<String, Integer> actionMap = new ObjectMap<String, Integer>();
-	Array<String> deviceTypes = new Array<String>();
-
-	public ActionMap (Array<String> devices) {
-		this.deviceTypes.addAll(devices);
+	@Override
+	public void write (Json json) {
+		for (ObjectIntMap.Entry<String> entry : (ObjectIntMap.Entries<String>)entries())
+			json.writeValue(String.valueOf(entry.key), entry.value);
 	}
 
-	public ActionMap (String... devices) {
-		this.deviceTypes.addAll(devices);
-	}
+	@Override
+	public void read (Json json, JsonValue jsonData) {
+		JsonValue currentValue = jsonData.child();
+		if (currentValue == null)
+			return;
 
-	public void setMapping (String id, int mappedId) {
-		actionMap.put(id, mappedId);
-	}
-
-	public int getId (String id) {
-		return actionMap.get(id);
-	}
-
-	public boolean isFor (InputDevice[] devices) {
-		boolean isSameLength = devices.length == this.deviceTypes.size;
-		if (!isSameLength)
-			return false;
-		boolean isSame = true;
-		for (int i = 0; i < devices.length; i++) {
-			if (!this.deviceTypes.get(i).equals(devices[i].getType()))
-				isSame = false;
+		while (currentValue != null) {
+			String value = currentValue.toString();
+			this.put(value.substring(0, value.lastIndexOf(':')), Integer.valueOf(value.substring(value.lastIndexOf(':') + 2)));
+			currentValue = currentValue.next();
 		}
-		return isSame;
 	}
 
 }

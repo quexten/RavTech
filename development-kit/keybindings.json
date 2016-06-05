@@ -1,0 +1,10 @@
+{
+	"KeyboardMouse": {
+		"Jump": 68,
+		"Test": 43
+	},
+	"GamePad": {
+		"Jump": 0,
+		"Test": 2
+	}
+}

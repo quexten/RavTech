@@ -18,6 +18,7 @@ public class GamePadDevice extends InputDevice {
 	final int buttonAmount;
 	final float[] values;
 	final float[] oldValues;
+	float deadzone = 0.5f;
 
 	public GamePadDevice (Controller gamePad) {
 		this.gamePad = gamePad;
@@ -34,26 +35,31 @@ public class GamePadDevice extends InputDevice {
 			@Override
 			public void connected (Controller controller) {
 			}
-			
+
 			@Override
 			public void disconnected (Controller controller) {
 			}
 
 			@Override
 			public boolean buttonDown (Controller controller, int buttonCode) {
+				GamePadDevice.this.lastPressedKey = buttonCode + GamePadDevice.this.axisAmount;
 				changed();
 				return true;
 			}
 
 			@Override
 			public boolean buttonUp (Controller controller, int buttonCode) {
+				GamePadDevice.this.lastPressedKey = buttonCode + GamePadDevice.this.axisAmount;
 				changed();
 				return true;
 			}
 
 			@Override
 			public boolean axisMoved (Controller controller, int axisCode, float value) {
-				changed();
+				if (Math.abs(value) > GamePadDevice.this.deadzone) {
+					GamePadDevice.this.lastPressedKey = axisCode;
+					changed();
+				}
 				return true;
 			}
 
@@ -75,19 +81,21 @@ public class GamePadDevice extends InputDevice {
 			@Override
 			public boolean accelerometerMoved (Controller controller, int accelerometerCode, Vector3 value) {
 				return true;
-			}		
-			void changed() {
+			}
+
+			void changed () {
+				GamePadDevice.this.justPressed = true;
 				if (GamePadDevice.this.assignedPlayer.primaryDevice != GamePadDevice.this)
 					GamePadDevice.this.assignedPlayer.setPrimaryDevice(GamePadDevice.this);
 			}
 		});
 	}
-	
+
 	@Override
 	public String getType () {
 		return "GamePad";
 	}
-	
+
 	@Override
 	public float getValue (int key) {
 		return values[key];
@@ -97,11 +105,18 @@ public class GamePadDevice extends InputDevice {
 	public float getLastValue (int key) {
 		return oldValues[key];
 	}
-	
+
 	public void update () {
+		if (this.justPressed == true && this.lastJustPressed == false) {
+			this.lastJustPressed = true;
+		} else {
+			this.justPressed = false;
+			this.lastJustPressed = false;
+		}
 		for (int i = 0; i < values.length; i++) {
 			oldValues[i] = values[i];
-			values[i] = i < axisAmount ? gamePad.getAxis(i) : (gamePad.getButton(i - axisAmount) ? 1f : 0f);
+			values[i] = i < axisAmount ? ((Math.abs(gamePad.getAxis(i)) > GamePadDevice.this.deadzone) ? gamePad.getAxis(i) : 0)
+				: (gamePad.getButton(i - axisAmount) ? 1f : 0f);
 		}
 	}
 

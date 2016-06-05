@@ -4,6 +4,8 @@ public abstract class InputDevice {
 	
 	protected Player assignedPlayer;
 	protected int lastPressedKey;	
+	protected boolean lastJustPressed;
+	protected boolean justPressed;
 	
 	public abstract String getType();
 	
@@ -21,6 +23,15 @@ public abstract class InputDevice {
 		return lastPressedKey;
 	}
 	
-	public abstract void update();	
+	public boolean justPressed() {
+		return justPressed;
+	}
+	
+	public abstract void update();
+	
+	@Override
+	public String toString() {
+		return getType();
+	}
 	
 }

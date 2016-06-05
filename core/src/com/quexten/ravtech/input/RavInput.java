@@ -2,7 +2,6 @@
 package com.quexten.ravtech.input;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.controllers.Controller;
@@ -12,14 +11,17 @@ import com.badlogic.gdx.controllers.PovDirection;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.ObjectIntMap;
+import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.util.Debug;
 
 public class RavInput {
 
 	InputMultiplexer multiplexer = new InputMultiplexer();
-	Array<InputDevice> inputDevices = new Array<InputDevice>();
-	Array<ActionMap> actionMaps = new Array<ActionMap>();
+	public Array<InputDevice> inputDevices = new Array<InputDevice>();
+	public ObjectMap<String, ActionMap> actionMaps = new ObjectMap<String, ActionMap>();
 	Array<Player> players = new Array<Player>();
 
 	public RavInput () {
@@ -28,11 +30,19 @@ public class RavInput {
 			@Override
 			public void connected (Controller controller) {
 				GamePadDevice device = new GamePadDevice(controller);
+				RavInput.this.inputDevices.add(device);
 				players.get(0).assignDevice(device, RavInput.this.getActionMapForDevice(device));
 			}
 
 			@Override
 			public void disconnected (Controller controller) {
+				for (int i = 0; i < RavInput.this.inputDevices.size; i++) {
+					InputDevice inputDevice = RavInput.this.inputDevices.get(i);
+					if (inputDevice.getType().equals("GamePad") && ((GamePadDevice)inputDevice).gamePad == controller) {
+						inputDevice.assignedPlayer.unAssignDevice(inputDevice);
+						RavInput.this.inputDevices.removeValue(inputDevice, true);
+					}
+				}
 			}
 
 			@Override
@@ -73,25 +83,39 @@ public class RavInput {
 		inputDevices.add(new KeyboardMouseDevice(multiplexer));
 		for (int i = 0; i < Controllers.getControllers().size; i++)
 			inputDevices.add(new GamePadDevice(Controllers.getControllers().get(i)));
-		ActionMap keyboardMouseMap = new ActionMap("KeyboardMouse");
-		keyboardMouseMap.setMapping("Jump", 6 + Keys.SPACE);
-		actionMaps.add(keyboardMouseMap);
 
-		ActionMap gamePadMap = new ActionMap("GamePad");
-		gamePadMap.setMapping("Jump", 5);
-		actionMaps.add(gamePadMap);
+		if (!RavTech.isEditor) {
+			reload();
+		}
 
-		Player player = new Player();
-		for (int i = 0; i < inputDevices.size; i++)
-			player.assignDevice(inputDevices.get(i), this.getActionMapForDevice(inputDevices.get(i)));
-		players.add(player);
 	}
 
 	public void update () {
 		for (int i = 0; i < inputDevices.size; i++)
 			inputDevices.get(i).update();
-		if (players.get(0).justPressed("Jump"))
-			Debug.log("Jump", players.get(0).getValue("Jump"));
+	}
+
+	@SuppressWarnings("unchecked")
+	public void reload () {
+		if ((!Gdx.files.local("keybindings.json").exists()) || RavTech.isEditor)
+			Gdx.files.local("keybindings.json").writeString(RavTech.files.getAssetHandle("keybindings.json").readString(), false);
+		this.actionMaps.clear();
+		Json json = new Json();
+
+		ObjectMap<String, JsonValue> serializedActionMaps = json.fromJson(ObjectMap.class,
+			Gdx.files.local("keybindings.json").readString());
+		for (ObjectMap.Entry<String, JsonValue> entry : (ObjectMap.Entries<String, JsonValue>)serializedActionMaps.entries()) {
+			ActionMap actionMap = new ActionMap();
+			actionMap.read(json, entry.value);
+			this.actionMaps.put(entry.key, actionMap);
+		}
+		this.actionMaps.putAll(actionMaps);
+
+		this.players.clear();
+		Player player = new Player();
+		for (int i = 0; i < inputDevices.size; i++)
+			player.assignDevice(inputDevices.get(i), this.getActionMapForDevice(inputDevices.get(i)));
+		players.add(player);
 	}
 
 	// Mouse - Touch input
@@ -156,11 +180,9 @@ public class RavInput {
 		return Gdx.input.isKeyJustPressed(key);
 	}
 
-	public ActionMap getActionMapForDevice (InputDevice... devices) {
-		for (int i = 0; i < actionMaps.size; i++) {
-			if (actionMaps.get(i).isFor(devices))
-				return actionMaps.get(i);
-		}
+	public ObjectIntMap<String> getActionMapForDevice (InputDevice device) {
+		if (this.actionMaps.containsKey(device.getType()))
+			return this.actionMaps.get(device.getType());
 		return null;
 	}
 
@@ -170,6 +192,13 @@ public class RavInput {
 
 	public void removeInputProcessor (InputProcessor processor) {
 		this.multiplexer.removeProcessor(processor);
+	}
+
+	public InputDevice getDevice (String device) {
+		for (int i = 0; i < this.inputDevices.size; i++)
+			if (this.inputDevices.get(i).getType().equals(device))
+				return inputDevices.get(i);
+		return null;
 	}
 
 }

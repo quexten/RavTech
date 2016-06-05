@@ -5,8 +5,10 @@ import java.io.File;
 import java.util.Comparator;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -18,6 +20,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop.Target;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.kotcrab.vis.ui.layout.HorizontalFlowGroup;
+import com.kotcrab.vis.ui.widget.MenuItem;
+import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
@@ -175,6 +179,15 @@ public class AssetViewer extends VisTable {
 			}
 
 			upButton.setDisabled(folderHandle.path().equals(RavTechDK.projectHandle.child("assets").path()));
+			this.addListener(new ClickListener(Buttons.RIGHT) {
+				public void clicked (InputEvent event, float x, float y) {
+					PopupMenu menu = new PopupMenu();
+					MenuItem createItem = new MenuItem("Create");
+					menu.addItem(createItem);
+					Vector2 position = AssetViewer.this.localToStageCoordinates(new Vector2(x, y));
+					menu.showMenu(event.getStage(), position.x, position.y);
+				}
+			});
 		}
 
 		public void setSelected (String name) {

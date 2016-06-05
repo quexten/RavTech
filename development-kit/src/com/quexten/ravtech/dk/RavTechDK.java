@@ -131,6 +131,7 @@ public class RavTechDK {
 		window.setPosition(2000, 0);
 		RavTech.ui.getStage().addActor(window);
 		loadScene(project.startScene);
+		RavTech.input.reload();
 	}
 
 	/** Creates Project base directories and base files
@@ -159,6 +160,7 @@ public class RavTechDK {
 		textureHandle.child("error.png")
 			.write(new Lwjgl3FileHandle(new File("resources/ui/icons/error.png"), FileType.Local).read(), false);
 		project.save(projectHandle);
+		assetHandle.child("keybindings.json").writeString("{}", false);
 	}
 
 	public static FileHandle getLocalFile (String path) {

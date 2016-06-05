@@ -178,6 +178,17 @@ public class EditorMenuBar extends MenuBar {
 				});
 				menu.addItem(entry);
 			}
+			{ // Scene Settings
+				entry = new MenuItem("Keybindings Editor");
+				entry.addListener(new ChangeListener() {
+
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						actor.getStage().addActor(new ActionMapEditor(RavTech.input.actionMaps));
+					}
+				});
+				menu.addItem(entry);
+			}
 			addMenu(menu);
 		}
 		{ // Window Menu

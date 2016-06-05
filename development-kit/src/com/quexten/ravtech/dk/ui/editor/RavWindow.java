@@ -200,6 +200,7 @@ public class RavWindow extends VisWindow {
 
 		@Override
 		public void render () {
+			RavWindow.this.act(Gdx.graphics.getDeltaTime());
 
 			Color color = VisUI.getSkin().getColor("rav-background");
 			Gdx.gl.glClearColor(color.r, color.g, color.b, 1);
