@@ -17,6 +17,13 @@ public class Scene {
 	}
 
 	/** Adds new GameObject at the specified coordinates
+	 * @param position - the Position
+	 * @return The new GameObject */
+	public GameObject addGameObject (Vector2 position) {
+		return addGameObject(position.x, position.y);
+	}
+	
+	/** Adds new GameObject at the specified coordinates
 	 * @param x the x coordinate
 	 * @param y the y coordinate
 	 * @return The new GameObject */
@@ -100,4 +107,5 @@ public class Scene {
 			gameObjects.get(i).dispose();
 		gameObjects.clear();
 	}
+	
 }

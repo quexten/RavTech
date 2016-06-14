@@ -7,15 +7,15 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.quexten.ravtech.graphics.Camera;
+import com.quexten.ravtech.graphics.RavCamera;
 
 public class PolygonShapeRenderer extends PolygonSpriteBatch {
 
 	Texture texture;
 	int thickness = 1;
-	Camera camera;
+	RavCamera camera;
 
-	public PolygonShapeRenderer (Camera camera) {
+	public PolygonShapeRenderer (RavCamera camera) {
 		this.camera = camera;
 		Pixmap pixmap = new Pixmap(1, 1, Format.RGB565);
 		pixmap.setColor(Color.WHITE);

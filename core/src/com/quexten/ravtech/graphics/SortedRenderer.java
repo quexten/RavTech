@@ -22,6 +22,7 @@ import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.components.Light;
 import com.quexten.ravtech.components.Renderer;
+import com.quexten.ravtech.util.Debug;
 import com.thesecretpie.shader.ShaderManager;
 
 public class SortedRenderer {
@@ -41,7 +42,7 @@ public class SortedRenderer {
 		pixmap.dispose();
 	}
 
-	public void render (final SpriteBatch spriteBatch, final Camera camera) {
+	public void render (final SpriteBatch spriteBatch, final RavCamera RavCamera, Color clearColor, final boolean renderAmbient) {
 		final ObjectMap<String, Array<Renderer>> renderingLayers = new ObjectMap<String, Array<Renderer>>();
 		final Array<SortingLayer> sortingLayers = RavTech.currentScene.renderProperties.sortingLayers;
 		for (SortingLayer str : sortingLayers)
@@ -49,7 +50,7 @@ public class SortedRenderer {
 		for (int n = 0; n < RavTech.currentScene.gameObjects.size; n++) {
 			GameObject object = RavTech.currentScene.gameObjects.get(n);
 			Array<GameComponent> components = object.getComponentsInChildren(ComponentType.SpriteRenderer, ComponentType.Light,
-				ComponentType.FontRenderer);
+				ComponentType.FontRenderer, ComponentType.Animator, ComponentType.Camera);
 			components.reverse();
 			for (int i = 0; i < components.size; i++) {
 				Renderer renderer = (Renderer)components.get(i);
@@ -63,14 +64,14 @@ public class SortedRenderer {
 		for (int i = 0; i < RavTech.currentScene.renderProperties.sortingLayers.size; i++) {
 			renderingLayers.get(sortingLayers.get(i).name).sort(comparator);
 			Array<Renderable> currentRenderables = new Array<Renderable>();
-			if (camera.drawGrid)
+			if (RavCamera.drawGrid)
 				if (sortingLayers.get(i).name.equals("Default"))
 					currentRenderables.add(new Renderable("default") {
 						@Override
 						public void render () {
 							spriteBatch.begin();
 							spriteBatch.end();
-							Camera worldCamera = camera;
+							RavCamera worldCamera = RavCamera;
 							float camWidth = worldCamera.viewportWidth / (1.0f / worldCamera.zoom);
 							float camHeight = worldCamera.viewportHeight / (1.0f / worldCamera.zoom);
 							float times = worldCamera.zoom < 0.01f ? 0.1f : worldCamera.zoom > 0.2 ? 10 : 1;
@@ -91,18 +92,21 @@ public class SortedRenderer {
 								for (float h = (int)(worldCamera.position.y - camHeight / 2) - 1; h < worldCamera.position.y
 									+ camHeight / 2; h += 0.1f) {
 									shapeRenderer.setColor(greenColor);
-									shapeRenderer.line(worldCamera.position.x + camWidth / 2, h, worldCamera.position.x - camWidth / 2, h);
+									shapeRenderer.line(worldCamera.position.x + camWidth / 2, h,
+										worldCamera.position.x - camWidth / 2, h);
 								}
 							}
 							for (float w = (int)(worldCamera.position.x - camWidth / 2) - 1; w < worldCamera.position.x
 								+ camWidth / 2; w++) {
 								shapeRenderer.setColor(Math.abs(w) % 10 < 0.01f ? redColor : blueColor);
-								shapeRenderer.line(w, worldCamera.position.y + camHeight / 2, w, worldCamera.position.y - camHeight / 2);
+								shapeRenderer.line(w, worldCamera.position.y + camHeight / 2, w,
+									worldCamera.position.y - camHeight / 2);
 							}
 							for (float h = (int)(worldCamera.position.y - camHeight / 2) - 1; h < worldCamera.position.y
 								+ camHeight / 2; h++) {
 								shapeRenderer.setColor(Math.abs(h) % 10 < 0.01f ? redColor : blueColor);
-								shapeRenderer.line(worldCamera.position.x + camWidth / 2, h, worldCamera.position.x - camWidth / 2, h);
+								shapeRenderer.line(worldCamera.position.x + camWidth / 2, h, worldCamera.position.x - camWidth / 2,
+									h);
 							}
 							shapeRenderer.setColor(Color.RED);
 							shapeRenderer.line(worldCamera.position.x + camWidth / 2, 0, worldCamera.position.x - camWidth / 2, 0);
@@ -112,12 +116,22 @@ public class SortedRenderer {
 						}
 					});
 			for (final Renderer renderer : renderingLayers.get(sortingLayers.get(i).name))
-				currentRenderables.add(new Renderable("default") {
-
+				currentRenderables.add(new Renderable(
+					RavTech.sceneHandler.shaderManager.contains(renderer.shader.name) ? renderer.shader.name : "default") {
 					@Override
 					public void render () {
 						spriteBatch.begin();
+						RavTech.sceneHandler.shaderManager.end();
+												
+						
+						
+						RavTech.sceneHandler.shaderManager.begin(this.shaderName);
+						renderer.shader.apply();
+						spriteBatch.setShader(RavTech.sceneHandler.shaderManager.get(this.shaderName));
 						renderer.draw(spriteBatch);
+						spriteBatch.setShader(null);
+						RavTech.sceneHandler.shaderManager.end();
+						RavTech.sceneHandler.shaderManager.begin("default");
 						spriteBatch.end();
 					}
 				});
@@ -132,8 +146,10 @@ public class SortedRenderer {
 							matrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 							spriteBatch.setProjectionMatrix(matrix);
 							spriteBatch.setColor(new Color(RavTech.currentScene.renderProperties.ambientLightColor));
-							spriteBatch.draw(ambientTexture, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(),
-								-Gdx.graphics.getHeight());
+							spriteBatch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
+							if (renderAmbient)
+								spriteBatch.draw(ambientTexture, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(),
+									-Gdx.graphics.getHeight());
 							spriteBatch.setColor(Color.WHITE);
 							spriteBatch.end();
 							int srcfn = spriteBatch.getBlendSrcFunc();
@@ -144,21 +160,20 @@ public class SortedRenderer {
 								Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
 							spriteBatch.end();
 							spriteBatch.setBlendFunction(srcfn, dstfn);
-							spriteBatch.setProjectionMatrix(camera.combined);
+							spriteBatch.setProjectionMatrix(RavCamera.combined);
 						}
 					});
 			renderables.addAll(currentRenderables);
 		}
-		if (camera.cameraBuffer != null) {
-			camera.cameraBuffer.begin();
-			Color clearColor = RavTech.currentScene.renderProperties.backgroundColor;
+		if (RavCamera.cameraBuffer != null) {
+			RavCamera.cameraBuffer.begin();
 			Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			spriteBatch.setProjectionMatrix(camera.combined);
+			spriteBatch.setProjectionMatrix(RavCamera.combined);
 			renderRunnables(renderables);
 			for (int i = 0; i < HookApi.onRenderHooks.size; i++)
 				HookApi.onRenderHooks.get(i).run();
-			camera.cameraBuffer.end();
+			RavCamera.cameraBuffer.end();
 		} else {
 			renderRunnables(renderables);
 

@@ -10,7 +10,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Mesh;
@@ -27,8 +26,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.badlogic.gdx.utils.ObjectMap.Entries;
+import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.util.Debug;
 
 /** @author Przemek Muller This class simplifies usage of shaders and framebuffers. It can load shaders from files, fix them for
  *         GLES specifics and reload them at runtime. */
@@ -143,7 +145,7 @@ public class ShaderManager {
 		screenQuad.setIndices(new short[] {0, 1, 2, 2, 3, 0});
 	}
 
-	public Camera getScreenCamera () {
+	public OrthographicCamera getScreenCamera () {
 		return screenCamera;
 	}
 
@@ -336,7 +338,7 @@ public class ShaderManager {
 		return currentTextureId++;
 	}
 
-	/** Resizes internal camera for framebuffer use, call this in you ApplicationListener's resize.
+	/** Resizes internal RavCamera for framebuffer use, call this in you ApplicationListener's resize.
 	 * @param width - new screen width
 	 * @param height - new screen height
 	 * @param resizeFramebuffers - whether all of the framebuffers should be recreated to match new screen size */
@@ -363,7 +365,7 @@ public class ShaderManager {
 		createScreenQuad();
 	}
 
-	/** Resizes internal camera for framebuffer use, call this in you ApplicationListener's resize.
+	/** Resizes internal RavCamera for framebuffer use, call this in you ApplicationListener's resize.
 	 * @param width - new screen width
 	 * @param height - new screen height */
 	public void resize (int width, int height) {
@@ -575,6 +577,10 @@ public class ShaderManager {
 		if (shaders.containsKey(name))
 			return shaders.get(name);
 		throw new GdxRuntimeException("No shader named '" + name + "' in ShaderManager!");
+	}
+
+	public boolean contains (String name) {
+		return shaders.containsKey(name);
 	}
 
 	/** Returns current shader from ShaderManager.
@@ -875,5 +881,21 @@ public class ShaderManager {
 			return currentShader;
 		} else
 			throw new IllegalArgumentException("Can't set uniform before calling begin()!");
+	}
+
+	public String[] getFrameBuffers () {
+		String[] frameBufferNames = new String[frameBuffers.size];
+		Entries<String, FrameBuffer> entries = frameBuffers.iterator();
+		int i = 0;
+		while (entries.hasNext) {
+			Entry<String, FrameBuffer> entry = entries.next();
+			frameBufferNames[i] = entry.key;
+			i++;
+		}
+		return frameBufferNames;
+	}
+
+	public boolean containsFB (String value) {
+		return this.frameBuffers.containsKey(value);
 	}
 }

@@ -12,6 +12,8 @@ import com.badlogic.gdx.utils.Json;
 import com.kotcrab.vis.ui.widget.Menu;
 import com.kotcrab.vis.ui.widget.MenuBar;
 import com.kotcrab.vis.ui.widget.MenuItem;
+import com.kotcrab.vis.ui.widget.VisCheckBox;
+import com.kotcrab.vis.ui.widget.VisSelectBox;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
@@ -235,6 +237,48 @@ public class EditorMenuBar extends MenuBar {
 					}
 				});
 				menu.addItem(entry);
+				
+				entry = new MenuItem("Add Buffer View");
+				entry.addListener(new ChangeListener() {
+					@Override
+					public void changed (ChangeEvent event, Actor actor) {
+						Gdx.app.postRunnable(new Runnable() {
+							@Override
+							public void run () {
+								RavWindow window = new RavWindow("Scene", true);
+								window.addCloseButton();
+								window.setSize(320, 180);
+								
+								final VisSelectBox<String> selectBox = new VisSelectBox<String>();
+								selectBox.setItems(RavTech.sceneHandler.shaderManager.getFrameBuffers());
+								
+								final BufferViewWidget widget = new BufferViewWidget(RavTech.sceneHandler.shaderManager.getFrameBuffers()[0]);
+								
+								selectBox.addListener(new ChangeListener() {
+									@Override
+									public void changed (ChangeEvent event, Actor actor) {
+										widget.setBuffer(selectBox.getSelected());
+									}
+								});
+								window.add(selectBox).growX();
+								final VisCheckBox renderAlpha = new VisCheckBox("RenderAlpha");
+								renderAlpha.addListener(new ChangeListener() {
+									@Override
+									public void changed (ChangeEvent event, Actor actor) {
+										widget.renderAlphaMap = renderAlpha.isChecked();
+									}									
+								});
+								window.add(renderAlpha);							
+								window.row();
+								window.add(widget).colspan(2).grow();							
+								window.toFront();
+								window.setVisible(true);
+								RavTech.ui.getStage().addActor(window);
+							}
+						});
+					}
+				});
+				menu.addItem(entry);				
 			}
 			addMenu(menu);
 		}

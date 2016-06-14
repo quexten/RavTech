@@ -24,7 +24,7 @@ import com.quexten.ravtech.components.SpriteRenderer;
 import com.quexten.ravtech.components.Transform;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.RavTechDK.EditingMode;
-import com.quexten.ravtech.graphics.Camera;
+import com.quexten.ravtech.graphics.RavCamera;
 import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 
@@ -35,13 +35,13 @@ public class GizmoHandler {
 	Gizmo<? extends GameComponent> closestGizmo;
 	Gizmo<? extends GameComponent> exclusiveGizmo;
 
-	Camera camera;
+	RavCamera RavCamera;
 	PolygonShapeRenderer renderer;
 	public static final Texture whiteTexture = new Texture(RavTechDK.getLocalFile("resources/ui/icons/white.png"));
 
-	public GizmoHandler (Camera camera) {
-		this.camera = camera;
-		this.renderer = new PolygonShapeRenderer(camera);
+	public GizmoHandler (RavCamera RavCamera) {
+		this.RavCamera = RavCamera;
+		this.renderer = new PolygonShapeRenderer(RavCamera);
 	}
 
 	/** Renders the currently active gizmos

@@ -22,7 +22,7 @@ public class Timeline implements Json.Serializable {
 	int currentTime;
 	public GameComponent component;
 	public Animator animator;
-	public Animation animation;
+	public TweenAnimation animation;
 
 	public Timeline () {
 	}

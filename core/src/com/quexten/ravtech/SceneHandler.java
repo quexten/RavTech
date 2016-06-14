@@ -20,8 +20,8 @@ import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.components.ScriptComponent;
 import com.quexten.ravtech.components.UserData;
-import com.quexten.ravtech.graphics.Camera;
 import com.quexten.ravtech.graphics.CameraManager;
+import com.quexten.ravtech.graphics.RavCamera;
 import com.quexten.ravtech.graphics.SortedRenderer;
 import com.quexten.ravtech.util.Debug;
 import com.thesecretpie.shader.ShaderManager;
@@ -41,7 +41,7 @@ public class SceneHandler {
 	public SortedRenderer renderer;
 	private String storedState;
 	private InputProcessor storedProcessor;
-	public Camera worldCamera;
+	public RavCamera worldCamera;
 
 	public SceneHandler () {
 	}

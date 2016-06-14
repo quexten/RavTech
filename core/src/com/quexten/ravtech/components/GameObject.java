@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.animation.Animation;
 import com.quexten.ravtech.components.Light.LightType;
+import com.quexten.ravtech.spriter.SpriterAnimator;
 import com.quexten.ravtech.util.PrefabManager;
 
 public class GameObject extends GameComponent implements Json.Serializable {
@@ -135,7 +136,11 @@ public class GameObject extends GameComponent implements Json.Serializable {
 			component = new CircleCollider();
 		else if (classname.equals("FontRenderer"))
 			component = new FontRenderer();
-
+		else if (classname.equals("Animator"))
+			component = new SpriterAnimator();
+		else if (classname.equals("Camera"))
+			component = new Camera();
+		
 		if (!classname.equals("Transform")) {
 			addComponent(component);
 			component.read(json, currententry);
@@ -252,9 +257,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 				Entries<String, Animation> iter = animator.animations.iterator();
 				while (iter.hasNext()) {
 					Entry<String, Animation> next = iter.next();
-					for (int i = 0; i < next.value.timelines.size; i++)
-						if (next.value.timelines.get(i).component.isDescendantOf((GameObject)component))
-							next.value.timelines.removeIndex(i);
+					next.value.removeComponent(component);
 				}
 			}
 		component.dispose();

@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.IntFloatMap;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Field;
+import com.quexten.ravtech.util.Debug;
 
 public class GamePadDevice extends InputDevice {
 
@@ -22,7 +23,7 @@ public class GamePadDevice extends InputDevice {
 
 	public GamePadDevice (Controller gamePad) {
 		this.gamePad = gamePad;
-		axisAmount = getAxisAmount();
+		axisAmount = getAxisAmount() * 2;
 		buttonAmount = getButtonAmount();
 		values = new float[axisAmount + buttonAmount];
 		oldValues = new float[axisAmount + buttonAmount];
@@ -57,7 +58,7 @@ public class GamePadDevice extends InputDevice {
 			@Override
 			public boolean axisMoved (Controller controller, int axisCode, float value) {
 				if (Math.abs(value) > GamePadDevice.this.deadzone) {
-					GamePadDevice.this.lastPressedKey = axisCode;
+					GamePadDevice.this.lastPressedKey = axisCode * 2 + (value < 0 ? 1 : 0);
 					changed();
 				}
 				return true;
@@ -115,9 +116,17 @@ public class GamePadDevice extends InputDevice {
 		}
 		for (int i = 0; i < values.length; i++) {
 			oldValues[i] = values[i];
-			values[i] = i < axisAmount ? ((Math.abs(gamePad.getAxis(i)) > GamePadDevice.this.deadzone) ? gamePad.getAxis(i) : 0)
-				: (gamePad.getButton(i - axisAmount) ? 1f : 0f);
+			values[i] = i < axisAmount ? getAxis(i) : (gamePad.getButton(i - axisAmount) ? 1f : 0f);
 		}
+	}
+
+	float getAxis (int index) {
+		if (Math.abs(gamePad.getAxis((int)Math.floor(index / 2))) > GamePadDevice.this.deadzone) {
+			float value = gamePad.getAxis((int)Math.floor(index / 2));
+			boolean even = index % 2 == 0;
+			return (((even && value > 0) || (!even && value < 0)) ? Math.abs(value) : 0);
+		} else
+			return 0;
 	}
 
 	public int getAxisAmount () {

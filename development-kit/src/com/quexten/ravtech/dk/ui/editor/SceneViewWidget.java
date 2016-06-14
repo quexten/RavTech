@@ -18,18 +18,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import com.kotcrab.vis.ui.VisUI;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.Camera;
+import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.RavTechDK.EditingMode;
 import com.quexten.ravtech.dk.actions.CopyAction;
 import com.quexten.ravtech.dk.actions.DeleteAction;
 import com.quexten.ravtech.dk.actions.PasteAction;
-import com.quexten.ravtech.graphics.Camera;
+import com.quexten.ravtech.graphics.RavCamera;
+import com.quexten.ravtech.spriter.SpriterAnimator;
 import com.quexten.ravtech.util.Debug;
 import com.quexten.ravtech.util.EventType;
 
 public class SceneViewWidget extends Widget {
 
-	public Camera camera;
+	public RavCamera camera;
 	Vector2 dragAnchorPosition;
 	boolean hasToLerpZoom;
 	boolean hasToLerpPosition;
@@ -57,7 +60,6 @@ public class SceneViewWidget extends Widget {
 		});
 
 		addListener(new ClickListener() {
-
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
@@ -170,6 +172,21 @@ public class SceneViewWidget extends Widget {
 				if (keycode == Keys.R) {
 					RavTechDK.setEditingMode(EditingMode.Scale);
 				}
+
+				// Tesing
+				if (keycode == Keys.F1) {
+					GameObject testObject = RavTech.currentScene.addGameObject(RavTech.input.getWorldPosition());
+					SpriterAnimator animator = new SpriterAnimator();
+					animator.path = "animations/triangle.scml";
+					animator.animation = "Run";
+					animator.finishedLoading();
+					testObject.addComponent(animator);
+				}
+				
+				if (keycode == Keys.F2) {
+					GameObject testObject = RavTech.currentScene.addGameObject(RavTech.input.getWorldPosition());
+					testObject.addComponent(new Camera());
+				}
 				return false;
 			}
 		});
@@ -179,6 +196,7 @@ public class SceneViewWidget extends Widget {
 			@Override
 			public void run () {
 				SceneViewWidget.this.resize();
+				camera.clearColor = RavTech.currentScene.renderProperties.backgroundColor;
 			}
 
 		});

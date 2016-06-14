@@ -144,7 +144,7 @@ public class RavWindow extends VisWindow {
 	public void clear () {
 		rootTable.clear();
 	}
-
+	
 	@Override
 	public void setVisible (boolean visible) {
 		this.visible = visible;
@@ -180,7 +180,7 @@ public class RavWindow extends VisWindow {
 		private int height = 100;
 		Stage stage = new Stage(new ScreenViewport() {
 			@Override
-			public void update (int screenWidth, int screenHeight, boolean centerCamera) {
+			public void update (int screenWidth, int screenHeight, boolean centerRavCamera) {
 				super.update(screenWidth, screenHeight, true);
 			}
 		});

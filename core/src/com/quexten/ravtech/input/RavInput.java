@@ -200,5 +200,9 @@ public class RavInput {
 				return inputDevices.get(i);
 		return null;
 	}
+	
+	public Player getPlayer() {
+		return players.first();
+	}
 
 }

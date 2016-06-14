@@ -1,6 +1,7 @@
 
 package com.quexten.ravtech.graphics;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,21 +15,23 @@ import com.quexten.ravtech.util.Debug;
 
 import box2dLight.DynamicLightMap;
 
-public class Camera extends OrthographicCamera {
+public class RavCamera extends OrthographicCamera {
 
 	int resolutionX;
 	int resolutionY;
 	FrameBuffer cameraBuffer;
 	FrameBuffer cameraPingPongBuffer;
 	DynamicLightMap lightMap;
-	Array<Shader> shaders = new Array<Shader>();
-	String cameraBufferName = "TestCameraBuffer";
-	String cameraPingPongBufferName = "TestCameraPingPongBufferName";
-	boolean renderToFramebuffer = RavTech.isEditor;
+	Array<PostProcessingEffect> effects = new Array<PostProcessingEffect>();
+	String cameraBufferName = "TestRavCameraBuffer";
+	String cameraPingPongBufferName = "TestRavCameraPingPongBufferName";
+	public Color clearColor = new Color(0,0,0,0);
+	public boolean renderToFramebuffer = RavTech.isEditor;
 	public boolean drawGrid;
+	public boolean renderAmbient = true;
 	public static int camId;
 
-	public Camera (int width, int height) {
+	public RavCamera (int width, int height) {
 		super(width, height);
 		camId++;
 		cameraBufferName = cameraBufferName + camId;
@@ -54,12 +57,12 @@ public class Camera extends OrthographicCamera {
 			RavTech.sceneHandler.lightHandler.updateAndRender();
 		}
 
-		RavTech.sceneHandler.renderer.render(spriteBatch, this);
+		RavTech.sceneHandler.renderer.render(spriteBatch, this, renderToFramebuffer ? clearColor : RavTech.currentScene.renderProperties.backgroundColor, renderAmbient);
 		int passes = 0;
-		for (int i = 0; i < shaders.size; i++) {
-			shaders.get(i).applyPasses(spriteBatch, passes % 2 == 0 ? cameraBuffer : cameraPingPongBuffer,
+		for (int i = 0; i < effects.size; i++) {
+			effects.get(i).applyPasses(spriteBatch, passes % 2 == 0 ? cameraBuffer : cameraPingPongBuffer,
 				passes % 2 == 1 ? cameraBuffer : cameraPingPongBuffer);
-			passes += shaders.get(i).getShaderPassCount();
+			passes += effects.get(i).getEffectPassCount();
 		}
 	}
 
@@ -72,14 +75,14 @@ public class Camera extends OrthographicCamera {
 		lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
 		if (RavTech.sceneHandler.shaderManager != null && renderToFramebuffer && width > 0 && height > 0) {
 
-			float downSample = 0.5f;
+			float downSample = 1f;
 			RavTech.sceneHandler.shaderManager.createFB(cameraBufferName, (int)(resolutionX / downSample),
 				(int)(resolutionY / downSample));
 			RavTech.sceneHandler.shaderManager.createFB(cameraPingPongBufferName, (int)(resolutionX / downSample),
 				(int)(resolutionY / downSample));
 			cameraBuffer = RavTech.sceneHandler.shaderManager.getFB(cameraBufferName);
 			cameraPingPongBuffer = RavTech.sceneHandler.shaderManager.getFB(cameraPingPongBufferName);
-			shaders.clear();
+			effects.clear();
 		}
 	}
 

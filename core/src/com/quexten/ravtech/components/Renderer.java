@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.quexten.ravtech.graphics.Shader;
 
 public abstract class Renderer extends GameComponent implements Json.Serializable {
 
@@ -20,6 +21,7 @@ public abstract class Renderer extends GameComponent implements Json.Serializabl
 	public int sortingOrder = 0;
 	public String sortingLayerName = "Default";
 	public boolean enabled = true;
+	public Shader shader = new Shader("default");
 
 	@Override
 	public abstract void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies);
@@ -41,6 +43,7 @@ public abstract class Renderer extends GameComponent implements Json.Serializabl
 		json.writeValue("sortingLayerName", sortingLayerName);
 		json.writeValue("sortingOrder", sortingOrder);
 		json.writeValue("enabled", enabled);
+		json.writeValue("shader", shader);
 	}
 
 	@Override
@@ -51,6 +54,11 @@ public abstract class Renderer extends GameComponent implements Json.Serializabl
 			sortingOrder = jsonData.getInt("sortingOrder");
 		if (jsonData.has("enabled"))
 			enabled = jsonData.getBoolean("enabled");
+		if (jsonData.has("shader")) {
+			Shader shader = new Shader("");
+			shader.read(json, jsonData.get("shader"));
+			this.shader = shader;
+		}
 	}
 
 	@Override

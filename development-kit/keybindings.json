@@ -1,10 +1,12 @@
 {
-	"KeyboardMouse": {
-		"Jump": 68,
-		"Test": 43
-	},
-	"GamePad": {
-		"Jump": 0,
-		"Test": 2
-	}
+"KeyboardMouse": {
+	"Jump": 3,
+	"Left": 0,
+	"Right": 2
+},
+"GamePad": {
+	"Jump": 10,
+	"Left": 1,
+	"Right": 0
+}
 }

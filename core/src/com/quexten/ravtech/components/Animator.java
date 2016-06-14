@@ -9,9 +9,9 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.animation.Animation;
-import com.quexten.ravtech.animation.Timeline;
+import com.quexten.ravtech.animation.TweenAnimation;
 
-public class Animator extends GameComponent implements Json.Serializable {
+public class Animator extends Renderer implements Json.Serializable {
 
 	@Override
 	public ComponentType getType () {
@@ -55,7 +55,7 @@ public class Animator extends GameComponent implements Json.Serializable {
 	}
 
 	public void addAnimation (String animation) {
-		animations.put(animation, new Animation());
+		animations.put(animation, new TweenAnimation());
 	}
 
 	@Override
@@ -68,15 +68,15 @@ public class Animator extends GameComponent implements Json.Serializable {
 	public void read (Json json, JsonValue jsonData) {
 		for (int i = 0; i < jsonData.get("animations").size; i++) {
 			JsonValue animationValue = jsonData.get("animations").get(i);
-			Animation animation = new Animation();
-			animation.animator = this;
+			Animation animation = new TweenAnimation();
+			animation.setAnimator(this);
 			animations.put(animationValue.name, animation);
 			animation.read(json, animationValue);
 		}
 		if (animations.size == 0) {
-			animations.put("Default", new Animation());
+			animations.put("Default", new TweenAnimation());
 			setAnimation("Default");
-			currentAnimation.animator = this;
+			currentAnimation.setAnimator(this);
 		} else
 			setAnimation(jsonData.getString("currentAnimation"));
 	}
@@ -84,13 +84,13 @@ public class Animator extends GameComponent implements Json.Serializable {
 	@Override
 	public String toString () {
 		String returnString = "Animation: {\n";
-		returnString += "Timelines.size = " + currentAnimation.timelines.size;
+		/*returnString += "Timelines.size = " + currentAnimation.timelines.size;
 		for (Timeline timeline : currentAnimation.timelines) {
 			returnString += "TimeLine: {";
 			for (int i = 0; i < timeline.keys.size; i++)
 				returnString += "Key:" + timeline.keys.get(i).time + "\n";
 			returnString += "}\n";
-		}
+		}*/
 		returnString += "}";
 		return returnString;
 	}
