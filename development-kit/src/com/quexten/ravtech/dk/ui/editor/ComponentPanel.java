@@ -29,11 +29,12 @@ public abstract class ComponentPanel {
 	ObjectMap<String, Runnable> valueChangedListeners = new ObjectMap<String, Runnable>();
 	GameComponent component;
 
-	public void addSliderLabel (VisTable table, String variableName) {
+	public void addSliderLabel (VisTable table, String variableName, float amplitude) {
 		final String variable = variableName;
 		final GameComponent gameComponent = component;
 		final LabelNumberPair label = new LabelNumberPair(variable.substring(0, 1).toUpperCase() + variable.substring(1) + ":",
 			Float.valueOf(String.valueOf(component.getVariable(component.getVariableId(variable)))));
+		label.amplitude = amplitude;
 		table.add(label.label).padLeft(6).growX();
 		table.add(label.pairedComponent).growX();
 		table.setFillParent(true);
@@ -58,6 +59,10 @@ public abstract class ComponentPanel {
 				label.label.setText(String.valueOf(component.getVariable(component.getVariableId(variable))));
 			}
 		});
+	}
+	
+	public void addSliderLabel (VisTable table, String variableName) {
+		addSliderLabel(table, variableName, 1.0f);
 	}
 
 	public void addDropdown (VisTable table, String variableName, String[] options) {

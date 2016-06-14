@@ -10,6 +10,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.BoxCollider;
+import com.quexten.ravtech.components.Camera;
 import com.quexten.ravtech.components.CircleCollider;
 import com.quexten.ravtech.components.ComponentType;
 import com.quexten.ravtech.components.FontRenderer;
@@ -197,6 +198,19 @@ public class ComponentPanels {
 					}
 
 				}, "lua");
+				return table;
+			}
+		});
+		ComponentPanels.registerComponent(Camera.class, new ComponentPanel() {
+			@Override
+			public VisTable createTable (final GameComponent component) {
+				this.component = component;
+				VisTable table = new VisTable();
+				addSliderLabel(table, "resolutionX");
+				addSliderLabel(table, "resolutionY");
+				addSliderLabel(table, "zoom");
+				addSliderLabel(table, "viewportWidth", 10);
+				addSliderLabel(table, "viewportHeight", 10);
 				return table;
 			}
 		});

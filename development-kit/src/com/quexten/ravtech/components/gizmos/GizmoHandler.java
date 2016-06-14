@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.ObjectMap.Values;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.BoxCollider;
+import com.quexten.ravtech.components.Camera;
 import com.quexten.ravtech.components.CircleCollider;
 import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.components.GameObject;
@@ -199,6 +200,8 @@ public class GizmoHandler {
 			gizmo = new PolygonColliderGizmo((PolygonCollider)component);
 		else if (iteratedComponentClass.equals(SpriteRenderer.class))
 			gizmo = new SpriteRendererGizmo((SpriteRenderer)component);
+		else if (iteratedComponentClass.equals(Camera.class))
+			gizmo = new CameraGizmo((Camera) component);
 		return gizmo;
 	}
 

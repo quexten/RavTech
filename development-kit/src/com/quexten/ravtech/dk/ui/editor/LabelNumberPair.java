@@ -7,7 +7,9 @@ import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
 
 public class LabelNumberPair extends LabelActorPair<Float> {
-
+	
+	float amplitude = 1.0f;
+	
 	public LabelNumberPair (String labelText, float value) {
 		super(labelText, new VisTextField(String.valueOf(value)), true);
 		((VisTextField)pairedComponent).setFocusTraversal(false);
@@ -35,7 +37,7 @@ public class LabelNumberPair extends LabelActorPair<Float> {
 	}
 
 	void dragged (float x, float y) {
-		dragValue = oldValue + x / 100f;
+		dragValue = oldValue + x / 100f * amplitude;
 		((VisTextField)pairedComponent).setText(String.valueOf(dragValue));
 	}
 

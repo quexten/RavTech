@@ -83,6 +83,13 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		}
 		polyline(indicies);
 	}
+	
+	public void box (float x, float y, float viewportWidth, float viewportHeight) {
+		line(x - viewportWidth / 2, y - viewportHeight / 2, x + viewportWidth / 2, y - viewportHeight / 2);
+		line(x - viewportWidth / 2, y + viewportHeight / 2, x + viewportWidth / 2, y + viewportHeight / 2);
+		line(x - viewportWidth / 2, y - viewportHeight / 2, x - viewportWidth / 2, y + viewportHeight / 2);
+		line(x + viewportWidth / 2, y - viewportHeight / 2, x + viewportWidth / 2, y + viewportHeight / 2);
+	}
 
 	public void setThickness (int thickness) {
 		this.thickness = thickness;
