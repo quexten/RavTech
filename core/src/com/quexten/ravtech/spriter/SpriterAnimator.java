@@ -43,7 +43,7 @@ public class SpriterAnimator extends Animator {
 		Data data = new SCMLReader(handle.read()).getData();
 
 		loader = new LibGdxLoader(data);
-		loader.load(handle.file());
+		loader.load(handle);
 
 		drawer = new LibGdxDrawer(loader);
 

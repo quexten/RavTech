@@ -59,7 +59,6 @@ public class JavaToJavascript {
                                                  Keys.BACKSLASH = @com.badlogic.gdx.Input.Keys::BACKSLASH;
                                                  Keys.C = @com.badlogic.gdx.Input.Keys::C;
                                                  Keys.CALL = @com.badlogic.gdx.Input.Keys::CALL;
-                                                 Keys.RavCamera = @com.badlogic.gdx.Input.Keys::RavCamera;
                                                  Keys.CLEAR = @com.badlogic.gdx.Input.Keys::CLEAR;
                                                  Keys.COMMA = @com.badlogic.gdx.Input.Keys::COMMA;
                                                  Keys.D = @com.badlogic.gdx.Input.Keys::D;

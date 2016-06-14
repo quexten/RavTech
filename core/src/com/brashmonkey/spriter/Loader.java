@@ -2,6 +2,9 @@ package com.brashmonkey.spriter;
 
 import java.util.HashMap;
 
+import com.badlogic.gdx.files.FileHandle;
+import com.quexten.ravtech.util.Debug;
+
 /**
  * A loader is responsible for loading all resources.
  * Since this library is meant to be as generic as possible, it cannot be assumed how to load a resource. Because of this this class has to be abstract.
@@ -82,8 +85,8 @@ public abstract class Loader<R> {
 	 * Loads all resources indicated by {@link #data}.
 	 * @param file the previously loaded Spriter SCML file
 	 */
-	public void load(java.io.File file){
-		this.load(file.getParent());
+	public void load(FileHandle file){
+		this.load(file.parent().path());
 	}
 	
 	/**

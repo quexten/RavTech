@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.reflect.ClassReflection;
+import com.quexten.ravtech.RavTech;
 
 /**
  * A utility class for managing multiple {@link Loader} and {@link Player} instances.
@@ -74,34 +76,15 @@ public class Spriter {
 	public static void init(Class<? extends Loader> loaderClass, Class<? extends Drawer> drawerClass){
 		Spriter.loaderClass = loaderClass;
 		try {
-			drawer = drawerClass.getDeclaredConstructor(drawerTypes).newInstance(drawerDependencies);
+			drawer = (Drawer<?>)ClassReflection.getDeclaredConstructor(drawerClass, drawerTypes).newInstance(drawerDependencies);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		initialized = drawer != null;
 	}
 	
-	/**
-	 * Loads a SCML file with the given path.
-	 * @param scmlFile the path to the SCML file
-	 */
-	public static void load(String scmlFile){
-		load(new File(scmlFile));
-	}
 	
-	/**
-	 * Loads the given SCML file.
-	 * @param scmlFile the scml file
-	 */
-	public static void load(File scmlFile){
-		try {
-			load(new FileInputStream(scmlFile), scmlFile.getPath().replaceAll("\\\\", "/"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/**
+		/**
 	 * Loads the given SCML stream pointing to a file saved at the given path.
 	 * @param stream the SCML stream
 	 * @param scmlFile the path to the SCML file
@@ -112,8 +95,8 @@ public class Spriter {
 		loadedData.put(scmlFile, data);
 		loaderDependencies[0] = data;
 		try {
-			Loader loader = loaderClass.getDeclaredConstructor(loaderTypes).newInstance(loaderDependencies);
-			loader.load(new File(scmlFile));
+			Loader loader = (Loader)ClassReflection.getDeclaredConstructor(loaderClass, loaderTypes).newInstance(loaderDependencies);
+			loader.load(RavTech.files.getAssetHandle(scmlFile));
 			loaders.add(loader);
 			for(Entity entity: data.entities)
 				entityToLoader.put(entity, loader);
@@ -144,7 +127,7 @@ public class Spriter {
 	public static Player newPlayer(String scmlFile, int entityIndex, Class<? extends Player> playerClass){
 		if(!loadedData.containsKey(scmlFile)) throw new SpriterException("You have to load \""+scmlFile+"\" before using it!");
 		try {
-			Player player = playerClass.getDeclaredConstructor(Entity.class).newInstance(loadedData.get(scmlFile).getEntity(entityIndex));
+			Player player = (Player)ClassReflection.getDeclaredConstructor(playerClass, Entity.class).newInstance(loadedData.get(scmlFile).getEntity(entityIndex));
 			players.add(player);
 			return player;
 		} catch (Exception e) {
