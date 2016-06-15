@@ -13,7 +13,6 @@ import com.quexten.ravtech.graphics.RavCamera;
 public class Camera extends Renderer {
 
 	public RavCamera camera;
-	Array<String> layers = new Array<String>();
 
 	@Override
 	public ComponentType getType () {
@@ -26,16 +25,6 @@ public class Camera extends Renderer {
 	}
 
 	public Camera () {
-		Gdx.app.postRunnable(new Runnable() {
-			@Override
-			public void run () {
-				camera = RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
-				camera.renderToFramebuffer = true;
-				camera.setResolution(512, 512);
-				camera.zoom = 0.01f;
-				camera.renderAmbient = false;
-			}
-		});
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -46,6 +35,11 @@ public class Camera extends Renderer {
 
 	@Override
 	public void finishedLoading () {
+		camera = RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
+		camera.setRenderToFramebuffer(true);
+		camera.setResolution(512, 512);
+		camera.zoom = 0.01f;
+		camera.setRenderAmbientLightColor(false);
 	}
 
 	@Override
@@ -67,7 +61,7 @@ public class Camera extends Renderer {
 
 	@Override
 	public void write (Json json) {
-		json.writeValue("layers", layers);
+		json.writeValue("layers", camera.getLayers());
 		json.writeValue("resolutionX", (int)camera.getResolution().x);
 		json.writeValue("resolutionY", (int)camera.getResolution().y);
 		json.writeValue("zoom", camera.zoom);
@@ -80,8 +74,8 @@ public class Camera extends Renderer {
 	public void read (Json json, JsonValue jsonData) {
 		String layersString = jsonData.get("layers").toString();
 		layersString = layersString.substring(layersString.indexOf('['));
-		this.layers.addAll(json.fromJson(Array.class, layersString));
 
+		final String layers = layersString;
 		final int resolutionX = jsonData.has("resolutionX") ? jsonData.getInt("resolutionX") : 512;
 		final int resolutionY = jsonData.has("resolutionY") ? jsonData.getInt("resolutionY") : 512;
 		final float zoom = jsonData.has("zoom") ? jsonData.getFloat("zoom") : 0.05f;
@@ -91,6 +85,7 @@ public class Camera extends Renderer {
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run () {
+				camera.setLayers(new Json().fromJson(Array.class, layers));
 				camera.setResolution(resolutionX, resolutionY);
 				camera.zoom = zoom;
 				camera.viewportWidth = viewportWidth;
@@ -104,13 +99,15 @@ public class Camera extends Renderer {
 	public void setVariable (int variableId, Object value) {
 		switch (variableId) {
 			case 0:
-				this.layers = (Array<String>)value;
+				this.camera.setLayers((Array<String>)value);
 				break;
 			case 1:
-				camera.setResolution(Integer.valueOf(String.valueOf(value)), (int)camera.getResolution().y);
+				int resolutionX = Integer.valueOf(String.valueOf(value).contains(".") ? String.valueOf(value).substring(0,  String.valueOf(value).lastIndexOf('.')) : String.valueOf(value));
+				camera.setResolution(resolutionX, (int)camera.getResolution().y);
 				break;
 			case 2:
-				camera.setResolution((int)camera.getResolution().x, Integer.valueOf(String.valueOf(value)));
+				int resolutionY = Integer.valueOf(String.valueOf(value).contains(".") ? String.valueOf(value).substring(0,  String.valueOf(value).lastIndexOf('.')) : String.valueOf(value));
+				camera.setResolution((int)camera.getResolution().x, resolutionY);
 				break;
 			case 3:
 				camera.zoom = Float.valueOf(String.valueOf(value));
@@ -155,8 +152,8 @@ public class Camera extends Renderer {
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {this.layers, camera.getResolution().x, camera.getResolution().y, camera.zoom, camera.viewportWidth,
-			camera.viewportHeight};
+		return new Object[] {this.camera.getLayers(), camera.getResolution().x, camera.getResolution().y, camera.zoom,
+			camera.viewportWidth, camera.viewportHeight};
 	}
 
 }

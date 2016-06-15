@@ -8,7 +8,6 @@ import com.badlogic.gdx.controllers.Controller;
 import com.badlogic.gdx.controllers.ControllerListener;
 import com.badlogic.gdx.controllers.Controllers;
 import com.badlogic.gdx.controllers.PovDirection;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
@@ -149,14 +148,6 @@ public class RavInput {
 
 	public int getDeltaY (int pointer) {
 		return Gdx.input.getDeltaY(pointer);
-	}
-
-	public Vector2 getWorldPosition () {
-		return RavTech.sceneHandler.worldCamera.unproject(new Vector2(getX(), getY()));
-	}
-
-	public Vector2 getWorldPosition (int pointer) {
-		return RavTech.sceneHandler.worldCamera.unproject(new Vector2(getX(pointer), getY(pointer)));
 	}
 
 	public boolean isTouched () {

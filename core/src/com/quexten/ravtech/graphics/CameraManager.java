@@ -18,14 +18,14 @@ public class CameraManager {
 	}
 
 	public RavCamera createCamera (int width, int height) {
-		RavCamera RavCamera = new RavCamera(width, height);
-		cameras.add(RavCamera);
-		return RavCamera;
+		RavCamera camera = new RavCamera(width, height);
+		cameras.add(camera);
+		return camera;
 	}
 
-	public void destroyCamera (RavCamera RavCamera) {
-		RavCamera.dispose();
-		cameras.removeValue(RavCamera, true);
+	public void destroyCamera (RavCamera camera) {
+		camera.dispose();
+		cameras.removeValue(camera, true);
 	}
 
 	public void dispose () {

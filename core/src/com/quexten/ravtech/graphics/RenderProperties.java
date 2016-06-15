@@ -12,13 +12,12 @@ public class RenderProperties implements Serializable {
 
 	public Color backgroundColor = new Color(0.5f, 0.5f, 0.5f, 1);
 	public Color ambientLightColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
-	public Array<SortingLayer> sortingLayers = new Array<SortingLayer>();
+	public Array<String> sortingLayers = new Array<String>();
 
 	public RenderProperties () {
 		backgroundColor = Color.GRAY;
-		SortingLayer layer = new SortingLayer("Default");
-		sortingLayers.add(layer);
-		sortingLayers.add(new SortingLayer("Foreground"));
+		sortingLayers.add("Default");
+		sortingLayers.add("Foreground");
 	}
 
 	@Override
@@ -37,7 +36,7 @@ public class RenderProperties implements Serializable {
 		JsonValue sortingLayersValue = jsonData.get("sortingLayers");
 		JsonValue currentLayerValue = sortingLayersValue.child();
 		while (currentLayerValue != null) {
-			sortingLayers.add(json.fromJson(SortingLayer.class, currentLayerValue.toString()));
+			sortingLayers.add(currentLayerValue.asString());
 			currentLayerValue = currentLayerValue.next();
 		}
 		backgroundColor = JsonUtil.readColorFromJson(jsonData, "backgroundColor");

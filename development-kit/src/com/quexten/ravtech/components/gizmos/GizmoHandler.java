@@ -88,7 +88,7 @@ public class GizmoHandler {
 						if (!((RavTechDK.getEditingMode() == EditingMode.Other) ? true : giz instanceof TransformGizmo))
 							continue;
 						if (gizDst > 0 && gizDst < closestDst
-							&& Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f * RavTech.sceneHandler.worldCamera.zoom
+							&& Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f //TODO WorldCamera zoom
 							&& !giz.isExclusive) {
 							closestDst = gizDst;
 							closestGizmo = giz;

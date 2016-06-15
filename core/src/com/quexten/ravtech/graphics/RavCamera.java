@@ -19,17 +19,19 @@ public class RavCamera extends OrthographicCamera {
 
 	int resolutionX;
 	int resolutionY;
+	boolean renderAmbient = true;
+	boolean renderToFramebuffer = RavTech.isEditor;
+	String cameraBufferName = "TestRavCameraBuffer";
+	String cameraPingPongBufferName = "TestRavCameraPingPongBufferName";
+	Color clearColor = new Color(0, 0, 0, 0);
+	Array<String> layers = new Array<String>();
+	Array<PostProcessingEffect> effects = new Array<PostProcessingEffect>();
+
 	FrameBuffer cameraBuffer;
 	FrameBuffer cameraPingPongBuffer;
 	DynamicLightMap lightMap;
-	Array<PostProcessingEffect> effects = new Array<PostProcessingEffect>();
-	String cameraBufferName = "TestRavCameraBuffer";
-	String cameraPingPongBufferName = "TestRavCameraPingPongBufferName";
-	public Color clearColor = new Color(0,0,0,0);
-	public boolean renderToFramebuffer = RavTech.isEditor;
-	public boolean drawGrid;
-	public boolean renderAmbient = true;
 	public static int camId;
+	public boolean drawGrid;
 
 	public RavCamera (int width, int height) {
 		super(width, height);
@@ -37,17 +39,9 @@ public class RavCamera extends OrthographicCamera {
 		cameraBufferName = cameraBufferName + camId;
 		cameraPingPongBufferName = cameraPingPongBufferName + camId;
 		lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
+
+		layers.addAll(RavTech.currentScene.renderProperties.sortingLayers);
 		setResolution(width, height);
-	}
-
-	public float getRotation () { // converts from -180|180 to 0|359
-		float camAngle = -(float)Math.atan2(up.x, up.y) * MathUtils.radiansToDegrees + 180;
-		return camAngle;
-	}
-
-	public void setRotation (float rotation) {
-		rotate(getRotation() - rotation + 180);
-		update();
 	}
 
 	public void render (SpriteBatch spriteBatch) {
@@ -57,13 +51,31 @@ public class RavCamera extends OrthographicCamera {
 			RavTech.sceneHandler.lightHandler.updateAndRender();
 		}
 
-		RavTech.sceneHandler.renderer.render(spriteBatch, this, renderToFramebuffer ? clearColor : RavTech.currentScene.renderProperties.backgroundColor, renderAmbient);
+		RavTech.sceneHandler.renderer.render(spriteBatch, this);
+
 		int passes = 0;
 		for (int i = 0; i < effects.size; i++) {
 			effects.get(i).applyPasses(spriteBatch, passes % 2 == 0 ? cameraBuffer : cameraPingPongBuffer,
 				passes % 2 == 1 ? cameraBuffer : cameraPingPongBuffer);
 			passes += effects.get(i).getEffectPassCount();
 		}
+	}
+
+	public void dispose () {
+		if (RavTech.sceneHandler.shaderManager != null && RavTech.sceneHandler.shaderManager.getFB(cameraBufferName) != null) {
+			RavTech.sceneHandler.shaderManager.disposeFB(cameraBufferName);
+			RavTech.sceneHandler.shaderManager.disposeFB(cameraPingPongBufferName);
+		}
+	}
+
+	public void setRotation (float rotation) {
+		rotate(getRotation() - rotation + 180);
+		update();
+	}
+
+	public float getRotation () { // converts from -180|180 to 0|359
+		float camAngle = -(float)Math.atan2(up.x, up.y) * MathUtils.radiansToDegrees + 180;
+		return camAngle;
 	}
 
 	public void setResolution (int width, int height) {
@@ -86,19 +98,41 @@ public class RavCamera extends OrthographicCamera {
 		}
 	}
 
-	public void dispose () {
-		if (RavTech.sceneHandler.shaderManager != null && RavTech.sceneHandler.shaderManager.getFB(cameraBufferName) != null) {
-			RavTech.sceneHandler.shaderManager.disposeFB(cameraBufferName);
-			RavTech.sceneHandler.shaderManager.disposeFB(cameraPingPongBufferName);
-		}
-	}
-
-	public Texture getCameraBufferTexture () {
-		return cameraBuffer.getColorBufferTexture();
-	}
-
 	public Vector2 getResolution () {
 		return new Vector2(resolutionX, resolutionY);
+	}
+
+	public void setRenderToFramebuffer (boolean renderToFramebuffer) {
+		this.renderToFramebuffer = renderToFramebuffer;
+	}
+
+	public boolean getRenderToFramebuffer () {
+		return this.renderToFramebuffer;
+	}
+
+	public void setRenderAmbientLightColor(boolean renderAmbientLightColor) {
+		this.renderAmbient = renderAmbientLightColor;
+	}
+	
+	public boolean getRenderAmbientLightColor() {
+		return this.renderAmbient;
+	}
+	
+	public void setLayers(Array<String> layers) {
+		this.layers.clear();
+		this.layers.addAll(layers);
+	}
+	
+	public Array<String> getLayers() {
+		return this.layers;
+	}
+	
+	public void setClearColor (Color clearColor) {
+		this.clearColor = clearColor;
+	}
+	
+	public Texture getCameraBufferTexture () {
+		return cameraBuffer.getColorBufferTexture();
 	}
 
 	@Override
@@ -122,6 +156,10 @@ public class RavCamera extends OrthographicCamera {
 	public Vector2 unproject (Vector2 screenCoords) {
 		Vector3 unprojection = unproject(new Vector3(screenCoords.x, screenCoords.y, 0));
 		return screenCoords.set(unprojection.x, unprojection.y);
+	}
+
+	public Vector2 getMousePosition () {
+		return this.unproject(new Vector2(RavTech.input.getX(), RavTech.input.getY()));
 	}
 
 }

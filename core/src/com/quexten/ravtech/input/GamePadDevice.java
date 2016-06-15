@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.IntFloatMap;
 import com.badlogic.gdx.utils.IntIntMap;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.Field;
-import com.quexten.ravtech.util.Debug;
 
 public class GamePadDevice extends InputDevice {
 

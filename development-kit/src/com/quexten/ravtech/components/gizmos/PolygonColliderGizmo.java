@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.PolygonCollider;
+import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 import com.quexten.ravtech.util.GeometryUtils;
@@ -25,7 +26,7 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 	@Override
 	public void draw (PolygonShapeRenderer renderer, boolean selected) {
 		renderer.setColor(Color.LIGHT_GRAY);
-		Vector2 mousePosition = RavTech.input.getWorldPosition();
+		Vector2 mousePosition = RavTechDK.editorCamera.getMousePosition();
 		/*
 		 * for (int i = 0; i < component.vertecies.size; i++) renderCircle(renderer, component.vertecies.get(i), mousePosition,
 		 * true);

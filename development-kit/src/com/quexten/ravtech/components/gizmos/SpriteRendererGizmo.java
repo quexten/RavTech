@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.SpriteRenderer;
+import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 import com.quexten.ravtech.util.GeometryUtils;
@@ -131,7 +132,7 @@ public class SpriteRendererGizmo extends Gizmo<SpriteRenderer> {
 				positions.add(tr);
 				positions.add(br);
 				positions.add(bl);
-				float camFactor = RavTech.sceneHandler.worldCamera.zoom * 20f;
+				float camFactor = RavTechDK.editorCamera.zoom * 20f;
 				float lDst = GeometryUtils.isInBoundingBox(tl, tr, mousePosition, camFactor)
 					? GeometryUtils.dstFromLine(tl, tr, mousePosition) : Float.MAX_VALUE;
 				float tDst = GeometryUtils.isInBoundingBox(tr, br, mousePosition, camFactor)

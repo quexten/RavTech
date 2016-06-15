@@ -33,20 +33,24 @@ import com.quexten.ravtech.dk.ui.editor.UpdaterWidget;
 import com.quexten.ravtech.dk.ui.editor.assetview.AssetViewer;
 import com.quexten.ravtech.dk.ui.utils.UpdateManager;
 import com.quexten.ravtech.dk.zerobrane.ZeroBraneUtil;
+import com.quexten.ravtech.graphics.RavCamera;
 import com.quexten.ravtech.project.Project;
 import com.quexten.ravtech.util.Debug;
 import com.quexten.ravtech.util.ResourceFileHandleResolver;
 
 public class RavTechDK {
 
-	public static final int majorVersion = 0;
-	public static final int minorVersion = 2;
-	public static final int microVersion = 0;
-
 	public static String getVersionString () {
-		return "V " + majorVersion + "." + minorVersion + "." + microVersion;
+		return "V " + RavTech.majorVersion + "." + RavTech.minorVersion + "." + RavTech.microVersion;
 	}
 
+	public enum EditingMode {
+		Move, Rotate, Scale, Other
+	};
+
+	private static EditingMode currentEditingMode = EditingMode.Move;
+
+	public static RavCamera editorCamera;
 	public static Project project;
 	public static FileHandle projectHandle;
 	public static GizmoHandler gizmoHandler;
@@ -57,12 +61,6 @@ public class RavTechDK {
 	public static UpdaterWidget updateWidget;
 
 	public static Array<GameObject> selectedObjects = new Array<GameObject>();
-
-	public enum EditingMode {
-		Move, Rotate, Scale, Other
-	};
-
-	private static EditingMode currentEditingMode = EditingMode.Move;
 
 	public static int windowWidth;
 	public static int windowHeight;
@@ -113,8 +111,7 @@ public class RavTechDK {
 				return Gdx.files.absolute(resolver);
 			}
 		});
-		// ui.ravtechDKFrame.setTitle(ui.ravtechDKFrame.getFullTitle());
-		// ui.ravtechDKFrame.view.setPath(projectRootPath);
+
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
 			public void run () {

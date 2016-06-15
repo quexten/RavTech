@@ -84,9 +84,9 @@ public class TransformGizmo extends Gizmo<Transform> {
 				float deltaScaleY = 0;
 				if (Gdx.input.isTouched() && selected) {
 					if ((selectedAxis & AXIS_X) > 0)
-						deltaScaleX = RavTech.input.getWorldPosition().x - (positionX + grabOffset.x);
+						deltaScaleX = RavTechDK.editorCamera.getMousePosition().x - (positionX + grabOffset.x);
 					if ((selectedAxis & AXIS_Y) > 0)
-						deltaScaleY = RavTech.input.getWorldPosition().y - (positionY + grabOffset.y);
+						deltaScaleY = RavTechDK.editorCamera.getMousePosition().y - (positionY + grabOffset.y);
 				}
 				// Draw X Axis
 				batch.setColor((selectedAxis & AXIS_X) == 0 || !selected ? Color.RED : Color.YELLOW);

@@ -22,7 +22,6 @@ import com.quexten.ravtech.components.ScriptComponent;
 import com.quexten.ravtech.components.SpriteRenderer;
 import com.quexten.ravtech.components.Transform;
 import com.quexten.ravtech.dk.RavTechDK;
-import com.quexten.ravtech.graphics.SortingLayer;
 
 public class ComponentPanels {
 
@@ -65,10 +64,10 @@ public class ComponentPanels {
 				addSliderLabel(table, "originY");
 				addDropdown(table, "minFilter", new String[] {"Linear", "Nearest"});
 				addDropdown(table, "magFilter", new String[] {"Linear", "Nearest"});
-				Array<SortingLayer> layers = RavTech.currentScene.renderProperties.sortingLayers;
+				Array<String> layers = RavTech.currentScene.renderProperties.sortingLayers;
 				String[] layernames = new String[layers.size];
 				for (int i = 0; i < layers.size; i++)
-					layernames[i] = layers.get(i).name;
+					layernames[i] = layers.get(i);
 				addDropdown(table, "sortingLayer", layernames);
 				addSliderLabel(table, "sortingOrder");
 				addColorPicker(table, "tint");

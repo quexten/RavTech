@@ -2,8 +2,8 @@
 package com.quexten.ravtech.components.gizmos;
 
 import com.badlogic.gdx.math.Vector2;
-import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.CircleCollider;
+import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.ui.utils.ColorUtils;
 import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.history.ChangeManager;
@@ -29,7 +29,7 @@ public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 		switch (eventtype) {
 			case EventType.MouseMoved:
 				float distanceToMiddle = getMiddleDistance(x, y);
-				if (Math.abs(distanceToMiddle - component.radius) < RavTech.sceneHandler.worldCamera.zoom * 3)
+				if (Math.abs(distanceToMiddle - component.radius) < RavTechDK.editorCamera.zoom * 3)
 					return distanceToMiddle;
 				else
 					return -1;

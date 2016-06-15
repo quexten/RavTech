@@ -48,8 +48,10 @@ public class SceneViewWidget extends Widget {
 	int oldWidth, oldHeight;
 
 	public SceneViewWidget (boolean main) {
-		camera = main ? RavTech.sceneHandler.worldCamera : RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
+		camera = RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
 		camera.zoom = 0.05f;
+		if(main)
+			RavTechDK.editorCamera = camera;
 
 		addListener(new InputListener() {
 			public boolean mouseMoved (InputEvent event, float x, float y) {
@@ -175,7 +177,7 @@ public class SceneViewWidget extends Widget {
 
 				// Tesing
 				if (keycode == Keys.F1) {
-					GameObject testObject = RavTech.currentScene.addGameObject(RavTech.input.getWorldPosition());
+					GameObject testObject = RavTech.currentScene.addGameObject(new Vector2());
 					SpriterAnimator animator = new SpriterAnimator();
 					animator.path = "animations/triangle.scml";
 					animator.animation = "Run";
@@ -184,7 +186,7 @@ public class SceneViewWidget extends Widget {
 				}
 				
 				if (keycode == Keys.F2) {
-					GameObject testObject = RavTech.currentScene.addGameObject(RavTech.input.getWorldPosition());
+					GameObject testObject = RavTech.currentScene.addGameObject(new Vector2());
 					testObject.addComponent(new Camera());
 				}
 				return false;
@@ -196,7 +198,7 @@ public class SceneViewWidget extends Widget {
 			@Override
 			public void run () {
 				SceneViewWidget.this.resize();
-				camera.clearColor = RavTech.currentScene.renderProperties.backgroundColor;
+				camera.setClearColor(RavTech.currentScene.renderProperties.backgroundColor);
 			}
 
 		});

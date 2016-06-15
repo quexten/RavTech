@@ -32,7 +32,6 @@ public class Shader implements Serializable {
 	public Shader () {
 		individualShaders = true;
 		this.manager = RavTech.sceneHandler.shaderManager;
-		this.name = name;
 	}
 
 	public void setFloat (String valueName, float value) {

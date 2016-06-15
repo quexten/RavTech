@@ -44,7 +44,7 @@ public class RavTechDKApplication extends RavTech {
 		HookApi.onRenderHooks.add(new Runnable() {
 			@Override
 			public void run () {
-				RavTechDK.gizmoHandler.render();
+				
 			}
 		});
 
@@ -75,6 +75,7 @@ public class RavTechDKApplication extends RavTech {
 
 		RavTech.sceneHandler.render();
 		RavTech.ui.getStage().draw();
+		RavTechDK.gizmoHandler.render();
 	}
 
 	public void resize (int width, int height) {
