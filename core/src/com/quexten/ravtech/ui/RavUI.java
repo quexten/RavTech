@@ -17,8 +17,6 @@ public class RavUI {
 	public DebugConsole debugConsole;
 
 	public RavUI () {
-		if (!RavTech.isEditor)
-			return;
 		if (!VisUI.isLoaded())
 			VisUI.load(Gdx.files.internal("mdpi/uiskin.json"));
 		debugConsole = new DebugConsole();
