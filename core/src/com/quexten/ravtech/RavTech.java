@@ -35,17 +35,17 @@ public class RavTech extends Game {
 	public static RavSettings settings;
 	public static RavInput input;
 	public static RavUI ui;
-	
+
 	public RavTech (FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
 		files = new RavFiles(assetResolver);
 		engineConfiguration = applicationConfig;
 	}
-	
+
 	public RavTech (FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
 		this(assetResolver, applicationConfig);
 		RavTech.project = project;
 	}
-	
+
 	@Override
 	public void create () {
 		Gdx.app.setLogLevel(3);
@@ -80,6 +80,8 @@ public class RavTech extends Game {
 		sceneHandler.paused = false;
 		if (Gdx.app.getType() != ApplicationType.WebGL && !isEditor)
 			sceneHandler.initScripts();
+
+		HookApi.runHooks(HookApi.onBootHooks);
 	}
 
 	@Override

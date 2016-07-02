@@ -97,6 +97,7 @@ public class AdbManager {
 	}
 
 	public static void installBuild (String deviceId) {
+		Debug.log("Install Build", deviceId);
 		try {
 			new PackageManager(getDevice(deviceId)).forceInstall(RavTechDK.getLocalFile("builds/android/build.apk").file());
 		} catch (Exception ex) {

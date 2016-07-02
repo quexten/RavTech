@@ -1,7 +1,6 @@
 
-package com.quexten.ravtech.spriter;
+package com.quexten.ravtech.components;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,7 +15,6 @@ import com.brashmonkey.spriter.Player;
 import com.brashmonkey.spriter.PlayerTweener;
 import com.brashmonkey.spriter.SCMLReader;
 import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.components.Animator;
 
 public class SpriterAnimator extends Animator {
 
@@ -53,10 +51,12 @@ public class SpriterAnimator extends Animator {
 			animations.put(data.getEntity(0).getAnimation(i).name, player);
 		}
 		setAnimation(animation);
+		currentPlayer.setScale(0.01f);
 	}
 
 	@Override
 	public void update () {
+		currentPlayer.update(RavTech.sceneHandler.step);
 	}
 
 	@Override
@@ -65,9 +65,7 @@ public class SpriterAnimator extends Animator {
 			Math.abs(this.getParent().transform.getLocalScale().y));
 		currentPlayer.setScale(0.01f * scale);
 		currentPlayer.setPosition(this.getParent().transform.getPosition());
-		currentPlayer.update(Gdx.graphics.getDeltaTime());
-
-		
+		currentPlayer.update(0);
 		boolean flippedX = getParent().transform.getLocalScale().x < 0;
 		boolean flippedY = getParent().transform.getLocalScale().y < 0;
 

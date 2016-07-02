@@ -36,13 +36,13 @@ public class GizmoHandler {
 	Gizmo<? extends GameComponent> closestGizmo;
 	Gizmo<? extends GameComponent> exclusiveGizmo;
 
-	RavCamera RavCamera;
+	RavCamera camera;
 	PolygonShapeRenderer renderer;
 	public static final Texture whiteTexture = new Texture(RavTechDK.getLocalFile("resources/ui/icons/white.png"));
 
-	public GizmoHandler (RavCamera RavCamera) {
-		this.RavCamera = RavCamera;
-		this.renderer = new PolygonShapeRenderer(RavCamera);
+	public GizmoHandler (RavCamera camera) {
+		this.camera = camera;
+		this.renderer = new PolygonShapeRenderer(camera);
 	}
 
 	/** Renders the currently active gizmos

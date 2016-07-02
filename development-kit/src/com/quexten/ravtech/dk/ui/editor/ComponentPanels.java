@@ -205,6 +205,9 @@ public class ComponentPanels {
 			public VisTable createTable (final GameComponent component) {
 				this.component = component;
 				VisTable table = new VisTable();
+				addCheckBox(table, "renderAmbient");
+				addCheckBox(table, "renderToFramebuffer");
+				addColorPicker(table, "clearColor");
 				addSliderLabel(table, "resolutionX");
 				addSliderLabel(table, "resolutionY");
 				addSliderLabel(table, "zoom");

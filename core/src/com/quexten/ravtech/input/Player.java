@@ -3,7 +3,6 @@ package com.quexten.ravtech.input;
 
 import com.badlogic.gdx.utils.ObjectIntMap;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.quexten.ravtech.util.Debug;
 
 public class Player {
 
@@ -32,7 +31,6 @@ public class Player {
 	}
 
 	public void setPrimaryDevice (InputDevice device) {
-		Debug.log("SetPrimaryDevice", device);
 		this.primaryDevice = device;
 	}
 

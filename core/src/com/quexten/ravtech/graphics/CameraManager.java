@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class CameraManager {
 
-	Array<RavCamera> cameras = new Array<RavCamera>();
+	public Array<RavCamera> cameras = new Array<RavCamera>();
 	SpriteBatch batch = new SpriteBatch();
 
 	public void render () {

@@ -82,7 +82,7 @@ public class RavInput {
 		inputDevices.add(new KeyboardMouseDevice(multiplexer));
 		for (int i = 0; i < Controllers.getControllers().size; i++)
 			inputDevices.add(new GamePadDevice(Controllers.getControllers().get(i)));
-
+			
 		if (!RavTech.isEditor) {
 			reload();
 		}

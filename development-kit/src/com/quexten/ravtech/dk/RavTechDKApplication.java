@@ -75,7 +75,6 @@ public class RavTechDKApplication extends RavTech {
 
 		RavTech.sceneHandler.render();
 		RavTech.ui.getStage().draw();
-		RavTechDK.gizmoHandler.render();
 	}
 
 	public void resize (int width, int height) {

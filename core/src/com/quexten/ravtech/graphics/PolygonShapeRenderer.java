@@ -83,7 +83,7 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		}
 		polyline(indicies);
 	}
-	
+
 	public void box (float x, float y, float viewportWidth, float viewportHeight) {
 		line(x - viewportWidth / 2, y - viewportHeight / 2, x + viewportWidth / 2, y - viewportHeight / 2);
 		line(x - viewportWidth / 2, y + viewportHeight / 2, x + viewportWidth / 2, y + viewportHeight / 2);
@@ -105,4 +105,19 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		super.begin();
 	}
 
+	public void circle (float x, float y, float radius, int lineCount) {
+		float lastX = 0;
+		float lastY = 1;
+		for (int i = 0; i < lineCount + 1; i++) {
+			float currentX = (float)Math.sin(Math.toRadians(i * 360f / lineCount)) * radius;
+			float currentY = (float)Math.cos(Math.toRadians(i * 360f / lineCount)) * radius;
+			this.line(x + lastX, y + lastY, x + currentX, y + currentY);
+			lastX = currentX;
+			lastY = currentY;
+		}
+	}
+
+	public void circle (Vector2 position, float radius, int lineCount) {
+		circle(position.x, position.y, radius, lineCount);
+	}
 }

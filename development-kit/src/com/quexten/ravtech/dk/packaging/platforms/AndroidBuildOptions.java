@@ -6,7 +6,7 @@ import com.quexten.ravtech.dk.packaging.platforms.android.KeyStoreCredentials;
 public class AndroidBuildOptions extends BuildOptions {
 
 	boolean sign;
-	String deviceId;
+	public String deviceId;
 	KeyStoreCredentials credentials;
 
 	public AndroidBuildOptions (AssetType assetType) {

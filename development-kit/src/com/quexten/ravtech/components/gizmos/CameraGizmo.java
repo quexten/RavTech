@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.quexten.ravtech.components.Camera;
 import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.graphics.RavCamera;
-import com.quexten.ravtech.util.Debug;
 
 public class CameraGizmo extends Gizmo<Camera> {
 
@@ -16,8 +15,6 @@ public class CameraGizmo extends Gizmo<Camera> {
 	public void draw (PolygonShapeRenderer batch, boolean selected) {
 		Vector2 position = component.getParent().transform.getPosition();
 		RavCamera camera = component.camera;
-		Debug.log("Position", position.x + " | " + position.y);
-		Debug.log("Viewport", camera.viewportWidth * camera.zoom + " | " + camera.viewportHeight * camera.zoom);
 		batch.box(position.x, position.y, camera.viewportWidth * camera.zoom, camera.viewportHeight * camera.zoom);
 	}
 

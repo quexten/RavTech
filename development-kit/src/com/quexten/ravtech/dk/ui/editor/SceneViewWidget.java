@@ -20,13 +20,13 @@ import com.kotcrab.vis.ui.VisUI;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.Camera;
 import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.components.SpriterAnimator;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.RavTechDK.EditingMode;
 import com.quexten.ravtech.dk.actions.CopyAction;
 import com.quexten.ravtech.dk.actions.DeleteAction;
 import com.quexten.ravtech.dk.actions.PasteAction;
 import com.quexten.ravtech.graphics.RavCamera;
-import com.quexten.ravtech.spriter.SpriterAnimator;
 import com.quexten.ravtech.util.Debug;
 import com.quexten.ravtech.util.EventType;
 
@@ -48,10 +48,23 @@ public class SceneViewWidget extends Widget {
 	int oldWidth, oldHeight;
 
 	public SceneViewWidget (boolean main) {
-		camera = RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
-		camera.zoom = 0.05f;
-		if(main)
+		if (!main) {
+			camera = RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
+			camera.zoom = 0.05f;
+		} else {
+			camera = new RavCamera(1280, 720) {
+				@Override
+				public void render (SpriteBatch spriteBatch) {
+					super.render(spriteBatch);
+					this.getCameraBuffer().begin();
+					RavTechDK.gizmoHandler.render();
+					this.getCameraBuffer().end();
+				}
+			};
+			camera.zoom = 0.05f;
+			RavTech.sceneHandler.cameraManager.cameras.add(camera);
 			RavTechDK.editorCamera = camera;
+		}
 
 		addListener(new InputListener() {
 			public boolean mouseMoved (InputEvent event, float x, float y) {
@@ -147,6 +160,7 @@ public class SceneViewWidget extends Widget {
 			}
 
 		});
+				
 		addListener(new InputListener() {
 			public boolean keyDown (InputEvent event, int keycode) {
 				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C)
@@ -184,12 +198,14 @@ public class SceneViewWidget extends Widget {
 					animator.finishedLoading();
 					testObject.addComponent(animator);
 				}
-				
+
 				if (keycode == Keys.F2) {
 					GameObject testObject = RavTech.currentScene.addGameObject(new Vector2());
+
 					testObject.addComponent(new Camera());
+					testObject.finishedLoading();
 				}
-				return false;
+				return true;
 			}
 		});
 
@@ -207,7 +223,6 @@ public class SceneViewWidget extends Widget {
 	public void resize () {
 		if (!(getWidth() > 0 && getHeight() > 0))
 			return;
-		Debug.logDebug("setToOrtho", getWidth() + "|" + getHeight());
 		camera.setToOrtho(false, getWidth(), getHeight());
 		camera.update();
 		camera.setResolution((int)getWidth(), (int)getHeight());

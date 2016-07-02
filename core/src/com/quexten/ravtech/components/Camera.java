@@ -3,12 +3,14 @@ package com.quexten.ravtech.components;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.graphics.RavCamera;
+import com.quexten.ravtech.util.JsonUtil;
 
 public class Camera extends Renderer {
 
@@ -62,6 +64,9 @@ public class Camera extends Renderer {
 	@Override
 	public void write (Json json) {
 		json.writeValue("layers", camera.getLayers());
+		json.writeValue("renderAmbient", camera.getRenderAmbientLightColor());
+		json.writeValue("renderToFramebuffer", camera.getRenderToFramebuffer());
+		json.writeValue("clearColor", camera.getClearColor());
 		json.writeValue("resolutionX", (int)camera.getResolution().x);
 		json.writeValue("resolutionY", (int)camera.getResolution().y);
 		json.writeValue("zoom", camera.zoom);
@@ -76,6 +81,9 @@ public class Camera extends Renderer {
 		layersString = layersString.substring(layersString.indexOf('['));
 
 		final String layers = layersString;
+		final boolean renderAmbient =  jsonData.has("renderAmbient") ? jsonData.getBoolean("renderAmbient") : true;
+		final boolean renderToFramebuffer = jsonData.has("renderToFramebuffer") ? jsonData.getBoolean("renderToFramebuffer") : true;
+		final Color clearColor =  jsonData.has("clearColor") ? JsonUtil.readColorFromJson(jsonData, "clearColor") : Color.WHITE.cpy();
 		final int resolutionX = jsonData.has("resolutionX") ? jsonData.getInt("resolutionX") : 512;
 		final int resolutionY = jsonData.has("resolutionY") ? jsonData.getInt("resolutionY") : 512;
 		final float zoom = jsonData.has("zoom") ? jsonData.getFloat("zoom") : 0.05f;
@@ -86,6 +94,9 @@ public class Camera extends Renderer {
 			@Override
 			public void run () {
 				camera.setLayers(new Json().fromJson(Array.class, layers));
+				camera.setRenderAmbientLightColor(renderAmbient);
+				camera.setRenderToFramebuffer(renderToFramebuffer);
+				camera.setClearColor(clearColor);
 				camera.setResolution(resolutionX, resolutionY);
 				camera.zoom = zoom;
 				camera.viewportWidth = viewportWidth;
@@ -102,20 +113,29 @@ public class Camera extends Renderer {
 				this.camera.setLayers((Array<String>)value);
 				break;
 			case 1:
+				camera.setRenderAmbientLightColor(Boolean.valueOf(String.valueOf(value)));
+				break;
+			case 2:
+				camera.setRenderToFramebuffer(Boolean.valueOf(String.valueOf(value)));
+				break;
+			case 3:
+				camera.setClearColor((Color) value);
+				break;
+			case 4:
 				int resolutionX = Integer.valueOf(String.valueOf(value).contains(".") ? String.valueOf(value).substring(0,  String.valueOf(value).lastIndexOf('.')) : String.valueOf(value));
 				camera.setResolution(resolutionX, (int)camera.getResolution().y);
 				break;
-			case 2:
+			case 5:
 				int resolutionY = Integer.valueOf(String.valueOf(value).contains(".") ? String.valueOf(value).substring(0,  String.valueOf(value).lastIndexOf('.')) : String.valueOf(value));
 				camera.setResolution((int)camera.getResolution().x, resolutionY);
 				break;
-			case 3:
+			case 6:
 				camera.zoom = Float.valueOf(String.valueOf(value));
 				break;
-			case 4:
+			case 7:
 				camera.viewportWidth = Float.valueOf(String.valueOf(value));
 				break;
-			case 5:
+			case 8:
 				camera.viewportHeight = Float.valueOf(String.valueOf(value));
 				break;
 		}
@@ -126,16 +146,22 @@ public class Camera extends Renderer {
 		switch (variableName) {
 			case "layers":
 				return 0;
-			case "resolutionX":
+			case "renderAmbient":
 				return 1;
-			case "resolutionY":
+			case "renderToFramebuffer":
 				return 2;
-			case "zoom":
+			case "clearColor":
 				return 3;
-			case "viewportWidth":
+			case "resolutionX":
 				return 4;
-			case "viewportHeight":
+			case "resolutionY":
 				return 5;
+			case "zoom":
+				return 6;
+			case "viewportWidth":
+				return 7;
+			case "viewportHeight":
+				return 8;
 		}
 		return -1;
 	}
@@ -147,12 +173,12 @@ public class Camera extends Renderer {
 
 	@Override
 	public String[] getVariableNames () {
-		return new String[] {"layers", "resolutionX", "resolutionY", "zoom", "viewportWidth", "viewportHeight"};
+		return new String[] {"layers", "renderAmbient", "renderToFramebuffer", "clearColor", "resolutionX", "resolutionY", "zoom", "viewportWidth", "viewportHeight"};
 	}
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {this.camera.getLayers(), camera.getResolution().x, camera.getResolution().y, camera.zoom,
+		return new Object[] {this.camera.getLayers(), camera.getRenderAmbientLightColor(), camera.getRenderToFramebuffer(), camera.getClearColor(), camera.getResolution().x, camera.getResolution().y, camera.zoom,
 			camera.viewportWidth, camera.viewportHeight};
 	}
 

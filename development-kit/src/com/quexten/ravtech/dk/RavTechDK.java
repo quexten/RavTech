@@ -5,6 +5,8 @@ import java.io.File;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
@@ -66,6 +68,7 @@ public class RavTechDK {
 	public static int windowHeight;
 
 	public static void initialize () {
+		RavCamera.camId --;
 		Packager.registerPlatform("Desktop", new DesktopPlatform());
 		Packager.registerPlatform("Android", new AndroidPlatform());
 
@@ -77,8 +80,8 @@ public class RavTechDK {
 		root.row();
 		mainSceneView = new SceneViewWidget(true);
 		root.add(mainSceneView).expand().fill();
-		RavTech.input.addInputProcessor(RavTech.ui.getStage());
-
+		RavTech.input.addInputProcessor(RavTech.ui.getStage());		
+		
 		HookApi.onResizeHooks.add(new Runnable() {
 
 			@Override

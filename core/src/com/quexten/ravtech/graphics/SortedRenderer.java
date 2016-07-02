@@ -63,7 +63,7 @@ public class SortedRenderer {
 		}
 		Array<Renderable> renderables = new Array<Renderable>();
 		for (int i = 0; i < RavTech.currentScene.renderProperties.sortingLayers.size; i++) {
-			if(!renderingLayers.containsKey(sortingLayers.get(i)))
+			if (!renderingLayers.containsKey(sortingLayers.get(i)))
 				continue;
 			renderingLayers.get(sortingLayers.get(i)).sort(comparator);
 			Array<Renderable> currentRenderables = new Array<Renderable>();
@@ -88,8 +88,7 @@ public class SortedRenderer {
 								for (float w = (int)(camera.position.x - camWidth / 2) - 1; w < camera.position.x
 									+ camWidth / 2; w += 0.1f) {
 									shapeRenderer.setColor(greenColor);
-									shapeRenderer.line(w, camera.position.y + camHeight / 2, w,
-										camera.position.y - camHeight / 2);
+									shapeRenderer.line(w, camera.position.y + camHeight / 2, w, camera.position.y - camHeight / 2);
 								}
 								for (float h = (int)(camera.position.y - camHeight / 2) - 1; h < camera.position.y
 									+ camHeight / 2; h += 0.1f) {
@@ -97,13 +96,11 @@ public class SortedRenderer {
 									shapeRenderer.line(camera.position.x + camWidth / 2, h, camera.position.x - camWidth / 2, h);
 								}
 							}
-							for (float w = (int)(camera.position.x - camWidth / 2) - 1; w < camera.position.x
-								+ camWidth / 2; w++) {
+							for (float w = (int)(camera.position.x - camWidth / 2) - 1; w < camera.position.x + camWidth / 2; w++) {
 								shapeRenderer.setColor(Math.abs(w) % 10 < 0.01f ? redColor : blueColor);
 								shapeRenderer.line(w, camera.position.y + camHeight / 2, w, camera.position.y - camHeight / 2);
 							}
-							for (float h = (int)(camera.position.y - camHeight / 2) - 1; h < camera.position.y
-								+ camHeight / 2; h++) {
+							for (float h = (int)(camera.position.y - camHeight / 2) - 1; h < camera.position.y + camHeight / 2; h++) {
 								shapeRenderer.setColor(Math.abs(h) % 10 < 0.01f ? redColor : blueColor);
 								shapeRenderer.line(camera.position.x + camWidth / 2, h, camera.position.x - camWidth / 2, h);
 							}
@@ -163,14 +160,16 @@ public class SortedRenderer {
 			renderables.addAll(currentRenderables);
 		}
 		if (camera.cameraBuffer != null) {
-			camera.cameraBuffer.begin();
+			if (camera.renderToFramebuffer)
+				camera.cameraBuffer.begin();
 			Gdx.gl.glClearColor(camera.clearColor.r, camera.clearColor.g, camera.clearColor.b, camera.clearColor.a);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			spriteBatch.setProjectionMatrix(camera.combined);
 			renderRunnables(renderables);
 			for (int i = 0; i < HookApi.onRenderHooks.size; i++)
 				HookApi.onRenderHooks.get(i).run();
-			camera.cameraBuffer.end();
+			if (camera.renderToFramebuffer)
+				camera.cameraBuffer.end();
 		} else {
 			renderRunnables(renderables);
 

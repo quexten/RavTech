@@ -1,8 +1,8 @@
 {
 "KeyboardMouse": {
-	"Jump": 3,
-	"Left": 0,
-	"Right": 2
+	"Jump": 68,
+	"Left": 35,
+	"Right": 38
 },
 "GamePad": {
 	"Jump": 10,

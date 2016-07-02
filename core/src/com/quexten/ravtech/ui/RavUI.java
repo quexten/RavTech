@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.kotcrab.vis.ui.VisUI;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.util.Debug;
 
 public class RavUI {
 
@@ -27,7 +28,7 @@ public class RavUI {
 			public boolean keyDown (InputEvent event, int key) {
 				if (key == Keys.F1)
 					debugConsole.toggleVisible();
-				return false;
+				return true;
 			}
 		});
 		screenStage.addActor(debugConsole);

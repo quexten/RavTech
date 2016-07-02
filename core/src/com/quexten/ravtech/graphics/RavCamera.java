@@ -79,7 +79,6 @@ public class RavCamera extends OrthographicCamera {
 	}
 
 	public void setResolution (int width, int height) {
-		Debug.logDebug("SetResolution", width + "|" + height);
 		dispose();
 		resolutionX = width;
 		resolutionY = height;
@@ -131,6 +130,14 @@ public class RavCamera extends OrthographicCamera {
 		this.clearColor = clearColor;
 	}
 	
+	public Color getClearColor () {
+		return this.clearColor;
+	}
+	
+	public FrameBuffer getCameraBuffer() {
+		return this.cameraBuffer;
+	}
+	
 	public Texture getCameraBufferTexture () {
 		return cameraBuffer.getColorBufferTexture();
 	}
@@ -160,6 +167,6 @@ public class RavCamera extends OrthographicCamera {
 
 	public Vector2 getMousePosition () {
 		return this.unproject(new Vector2(RavTech.input.getX(), RavTech.input.getY()));
-	}
+	}	
 
 }
