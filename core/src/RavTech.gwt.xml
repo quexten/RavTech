@@ -4,6 +4,9 @@
 	<source path="com/quexten/ravtech" >
 	<exclude name="**/lua/**" />	
 	<exclude name="**/zip/**" />
+	<exclude name="**/kryonet/**" />
+	<exclude name="**/ZipUtil**"
+	<exclude name="**/remoteedit/**" />
 	</source>
 	
 	<source path="com/thesecretpie/shader"/>

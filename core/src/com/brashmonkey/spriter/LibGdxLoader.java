@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.quexten.ravtech.RavTech;
 
 public class LibGdxLoader extends Loader<Sprite> implements Disposable{
 	
@@ -57,7 +58,7 @@ public class LibGdxLoader extends Loader<Sprite> implements Disposable{
 		String path = pathPrefix + data.getFile(ref).name;
 		switch(Gdx.app.getType()){
 		case iOS: f = Gdx.files.absolute(path); break;
-		default: f = Gdx.files.internal(path); break;
+		default: f = RavTech.files.getAssetHandle(path); break;
 		}
 		
 		if(!f.exists()) throw new GdxRuntimeException("Could not find file handle "+ path + "! Please check your paths.");

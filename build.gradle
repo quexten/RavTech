@@ -1,7 +1,7 @@
 buildscript {
     repositories {
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }        
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         jcenter()
     }
     dependencies {
@@ -34,23 +34,7 @@ allprojects {
 }
 
 project(":development-kit") {
-    apply plugin: "java"	
-	
-    dependencies {
-        compile project(":core")                
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"        
-        compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        compile "com.badlogicgames.gdx:gdx-controllers-lwjgl3:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"   
-       	compile 'commons-io:commons-io:2.4'      	
-		compile 'com.github.Quexten:jadb:d1420aa7d5'
-    }
-}
-
-project(":desktop") {
     apply plugin: "java"
-
 
     dependencies {
         compile project(":core")
@@ -59,6 +43,33 @@ project(":desktop") {
         compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
         compile "com.badlogicgames.gdx:gdx-controllers-lwjgl3:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
+       	compile 'commons-io:commons-io:2.4'
+		compile 'com.github.Quexten:jadb:d1420aa7d5'
+    }
+}
+
+
+project(":desktop") {
+    apply plugin: "java"
+
+    dependencies {
+        compile project(":core")
+        compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-controllers-lwjgl3:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
+    }
+}
+
+project(":headless") {
+    apply plugin: "java"
+
+    dependencies {
+        compile project(":core")
+        compile "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
     }
 }
 
@@ -106,13 +117,16 @@ project(":ios") {
 project(":html") {
     apply plugin: "gwt"
     apply plugin: "war"
-	
+
     dependencies {
      	configurations.compile.exclude module: 'luaj-jse'
-		     	sourceSets {
+     	configurations.compile.exclude module: 'kryonet'
+
+		sourceSets {
 		  main {
 		    java {
 		      exclude 'com/quexten/ravtech/scripts/lua/**'
+		      exclude 'com/quexten/ravtech/remoteedit/**'
 		    }
 		  }
 		}
@@ -126,17 +140,17 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion:sources"
-        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"        
-        compile "com.kotcrab.vis:vis-ui:0.9.5:sources"        
+        compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion:sources"
+        compile "com.kotcrab.vis:vis-ui:0.9.5:sources"
     }
 }
 
 project(":core") {
     apply plugin: "java"
-    
+
     sourceCompatibility = 1.7
     targetCompatibility = 1.7
-    
+
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
@@ -145,6 +159,7 @@ project(":core") {
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "com.kotcrab.vis:vis-ui:1.0.1"
         compile "org.luaj:luaj-jse:3.0"
+        compile "com.github.anubiann00b:kryonet:b6b71d4"
     }
 }
 

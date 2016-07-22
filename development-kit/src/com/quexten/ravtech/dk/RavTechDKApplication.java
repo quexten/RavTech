@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.kotcrab.vis.ui.VisUI;
 import com.quexten.ravtech.EngineConfiguration;
+import com.quexten.ravtech.Hook;
 import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.adb.AdbManager;
@@ -20,6 +21,7 @@ import com.quexten.ravtech.dk.project.ProjectSettingsWizard;
 import com.quexten.ravtech.dk.ui.editor.RavWindow;
 import com.quexten.ravtech.dk.ui.editor.SceneViewWidget;
 import com.quexten.ravtech.project.Project;
+import com.quexten.ravtech.util.ZipUtil;
 
 public class RavTechDKApplication extends RavTech {
 
@@ -41,13 +43,7 @@ public class RavTechDKApplication extends RavTech {
 			VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 
 		RavTechDK.initialize();
-		HookApi.onRenderHooks.add(new Runnable() {
-			@Override
-			public void run () {
-				
-			}
-		});
-
+	
 		if (RavTech.settings.getString("RavTechDK.project.path").isEmpty()
 			|| !new Lwjgl3FileHandle(RavTech.settings.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
 				.exists()) {
@@ -62,6 +58,21 @@ public class RavTechDKApplication extends RavTech {
 		}
 
 		RavTechDK.mainSceneView.camera.drawGrid = true;
+		
+		Gdx.app.postRunnable(new Runnable() {
+			@Override
+			public void run() {
+				RavTech.net.lobby.onJoinedHooks.insert(0, new Hook() {
+					@Override
+					public void run(Object arg) {
+						RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
+						new ZipUtil().zipFolder(RavTechDK.projectHandle.child("assets").path(), RavTechDK.getLocalFile("temp/build.ravpack").path());
+						RavTechDK.projectHandle.child("assets").child("project.json").delete();
+					}
+				});
+			}
+		});
+		//HookApi.runHooks(HookApi.onBootHooks);
 	}
 
 	@Override

@@ -7,8 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
+import com.quexten.ravtech.Hook;
+import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.adb.AdbManager;
+import com.quexten.ravtech.net.kryonet.KryonetTransportLayer;
+import com.quexten.ravtech.remoteedit.RemoteEdit;
 import com.quexten.ravtech.scripts.lua.LuaJScriptLoader;
 import com.quexten.ravtech.settings.SettingsValueListener;
 import com.quexten.ravtech.util.Debug;
@@ -56,6 +60,15 @@ public class Launcher {
 			}
 		});
 		RavTech.scriptLoader = new LuaJScriptLoader();
+				
+		HookApi.onBootHooks.add(new Hook() {
+			@Override
+			public void run() {
+				RavTech.net.transportLayers.add(new KryonetTransportLayer(RavTech.net));
+				RemoteEdit.host();
+			}
+		});
+		
 		new Lwjgl3Application(ravtech, config);
 
 		Gdx.app.postRunnable(new Runnable() {

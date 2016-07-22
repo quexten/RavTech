@@ -50,7 +50,8 @@ public class RavCamera extends OrthographicCamera {
 			RavTech.sceneHandler.lightHandler.setCombinedMatrix(this);
 			RavTech.sceneHandler.lightHandler.updateAndRender();
 		}
-
+		
+		spriteBatch.setProjectionMatrix(this.combined);
 		RavTech.sceneHandler.renderer.render(spriteBatch, this);
 
 		int passes = 0;

@@ -29,33 +29,25 @@ public class SceneHandler {
 	public boolean paused = false;
 	public float step = 1f / 60f;
 	public float accumulator = 0;
-	
+
 	public World box2DWorld;
-	public DynamicRayHandler lightHandler;	
+	public DynamicRayHandler lightHandler;
 	public ShaderManager shaderManager;
 	public SortedRenderer renderer;
 	public CameraManager cameraManager;
-	
-	public SceneHandler () {
+
+	public SceneHandler() {
 	}
 
-	public void load () {
-		shaderManager = new ShaderManager("", RavTech.files.getAssetManager());
-		shaderManager.add("default", RavTech.files.getAssetHandle("shaders/default.vert"),
-			RavTech.files.getAssetHandle("shaders/default.frag"));
-		
-		renderer = new SortedRenderer(shaderManager);
-		
-		cameraManager = new CameraManager();
-
+	public void load() {
 		box2DWorld = new World(new Vector2(0, -9.81f), false);
 		box2DWorld.setContactListener(new ContactListener() {
 			@Override
-			public void beginContact (Contact contact) {
+			public void beginContact(Contact contact) {
 				Fixture fixtureA = contact.getFixtureA();
 				Fixture fixtureB = contact.getFixtureB();
-				UserData fixtureDataA = (UserData)fixtureA.getUserData();
-				UserData fixtureDataB = (UserData)fixtureB.getUserData();
+				UserData fixtureDataA = (UserData) fixtureA.getUserData();
+				UserData fixtureDataB = (UserData) fixtureB.getUserData();
 				if (fixtureDataA != null && fixtureDataB != null) {
 					if (fixtureDataA.component != null)
 						fixtureDataA.component.onCollisionEnter(fixtureB, contact);
@@ -63,12 +55,13 @@ public class SceneHandler {
 						fixtureDataB.component.onCollisionEnter(fixtureA, contact);
 				}
 			}
+
 			@Override
-			public void endContact (Contact contact) {
+			public void endContact(Contact contact) {
 				Fixture fixtureA = contact.getFixtureA();
 				Fixture fixtureB = contact.getFixtureB();
-				UserData fixtureDataA = (UserData)fixtureA.getUserData();
-				UserData fixtureDataB = (UserData)fixtureB.getUserData();
+				UserData fixtureDataA = (UserData) fixtureA.getUserData();
+				UserData fixtureDataB = (UserData) fixtureB.getUserData();
 				if (fixtureDataA != null && fixtureDataB != null) {
 					if (fixtureDataA.component != null)
 						fixtureDataA.component.onCollisionExit(fixtureB, contact);
@@ -77,65 +70,73 @@ public class SceneHandler {
 				}
 				contact.setEnabled(false);
 			}
+
 			@Override
-			public void preSolve (Contact contact, Manifold oldManifold) {
+			public void preSolve(Contact contact, Manifold oldManifold) {
 			}
+
 			@Override
-			public void postSolve (Contact contact, ContactImpulse impulse) {
+			public void postSolve(Contact contact, ContactImpulse impulse) {
 			}
 		});
-		
-		lightHandler = new DynamicRayHandler(box2DWorld);
-		lightHandler.resizeFBO(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
-		lightHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.5f);
-		lightHandler.setBlurNum(2);
-		lightHandler.setLightMapRendering(false);
-		lightHandler.setCulling(true);
+
+		if (!RavTech.isHeadless()) {
+			shaderManager = new ShaderManager("", RavTech.files.getAssetManager());
+			shaderManager.add("default", RavTech.files.getAssetHandle("shaders/default.vert"),
+					RavTech.files.getAssetHandle("shaders/default.frag"));
+
+			renderer = new SortedRenderer(shaderManager);
+
+			cameraManager = new CameraManager();
+
+			lightHandler = new DynamicRayHandler(box2DWorld);
+			lightHandler.resizeFBO(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
+			lightHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.5f);
+			lightHandler.setBlurNum(2);
+			lightHandler.setLightMapRendering(false);
+			lightHandler.setCulling(true);
+		}
 	}
 
-	public void update (float delta) {
-		//Clean Up Debug Rendering
+	public void update(float delta) {
+		// Clean Up Debug Rendering
 		Debug.debugFilledShapes.clear();
 		Debug.debugLineShapes.clear();
-		
+
 		Debug.startTimer("box2dUpdateTime");
 		if (paused)
 			box2DWorld.step(0, 8, 3);
 		else
 			box2DWorld.step(delta, 8, 3);
 		Debug.endTimer("box2dUpdateTime");
-		
+
 		Debug.startTimer("updateTime");
 		if (!paused)
 			for (int i = 0; i < RavTech.currentScene.gameObjects.size; i++)
 				RavTech.currentScene.gameObjects.get(i).update();
 		Debug.endTimer("updateTime");
-		
-		//Clean Up Dead Box2d Bodies
+
+		// Clean Up Dead Box2d Bodies
 		removeBox2DBodies();
 	}
 
-	private void removeBox2DBodies () {
+	private void removeBox2DBodies() {
 		if (!box2DWorld.isLocked()) {
 			Array<Body> bodies = new Array<Body>();
 			box2DWorld.getBodies(bodies);
 			for (int i = 0; i < bodies.size; i++)
-				if (bodies.get(i).getUserData() != null && ((UserData)bodies.get(i).getUserData()).isFlaggedForDelete)
+				if (bodies.get(i).getUserData() != null && ((UserData) bodies.get(i).getUserData()).isFlaggedForDelete)
 					box2DWorld.destroyBody(bodies.get(i));
 				else
 					for (Fixture f : bodies.get(i).getFixtureList())
-						if (f.getUserData() != null && ((UserData)f.getUserData()).isFlaggedForDelete)
+						if (f.getUserData() != null && ((UserData) f.getUserData()).isFlaggedForDelete)
 							box2DWorld.destroyBody(bodies.get(i));
 		}
 	}
 
-	public void render () {
-		Color clearColor = RavTech.currentScene.renderProperties.backgroundColor;
-		Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+	public void render() {
 		int targetFramerate = RavTech.settings.getInt("targetFramerate");
-		
+
 		if (RavTech.isEditor && Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / targetFramerate) > 2) {
 			accumulator += Gdx.graphics.getDeltaTime();
 			while (accumulator > step) {
@@ -144,15 +145,22 @@ public class SceneHandler {
 			}
 		} else
 			update(step);
+
+		if (RavTech.isHeadless())
+			return;
+
+		Color clearColor = RavTech.currentScene.renderProperties.backgroundColor;
+		Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		cameraManager.render();
 	}
 
-	public void resize (int width, int height) {
+	public void resize(int width, int height) {
 		for (int i = 0; i < HookApi.onResizeHooks.size; i++)
 			HookApi.onResizeHooks.get(i).run();
 	}
 
-	public void dispose () {
+	public void dispose() {
 		if (lightHandler != null) {
 			lightHandler.dispose();
 			box2DWorld.dispose();
@@ -161,38 +169,46 @@ public class SceneHandler {
 	}
 
 	/** Initializes all scripts in the scene */
-	public void initScripts () {
+	public void initScripts() {
 		for (int i = 0; i < RavTech.currentScene.gameObjects.size; i++)
 			initScripts(RavTech.currentScene.gameObjects.get(i).getComponents());
 	}
 
-	/** Initializes all scripts in the specified list of objects
-	 * @param array - the objects */
-	public void initScripts (Array<GameComponent> objects) {
+	/**
+	 * Initializes all scripts in the specified list of objects
+	 * 
+	 * @param array
+	 *            - the objects
+	 */
+	public void initScripts(Array<GameComponent> objects) {
 		for (int i = 0; i < objects.size; i++) {
 			GameComponent component = objects.get(i);
 			if (component instanceof ScriptComponent)
-				((ScriptComponent)component).script.init();
+				((ScriptComponent) component).script.init();
 			else if (component instanceof GameObject)
-				initScripts(((GameObject)component).getComponents());
+				initScripts(((GameObject) component).getComponents());
 		}
 	}
 
 	/** Reloads all scripts in the scene */
-	public void reloadScripts () {
+	public void reloadScripts() {
 		for (int i = 0; i < RavTech.currentScene.gameObjects.size; i++)
 			reloadScripts(RavTech.currentScene.gameObjects.get(i).getComponents());
 	}
 
-	/** Reloads all scripts in the specified list of objects
-	 * @param array - the objects */
-	public void reloadScripts (Array<GameComponent> objects) {
+	/**
+	 * Reloads all scripts in the specified list of objects
+	 * 
+	 * @param array
+	 *            - the objects
+	 */
+	public void reloadScripts(Array<GameComponent> objects) {
 		for (int i = 0; i < objects.size; i++) {
 			GameComponent component = objects.get(i);
 			if (component instanceof ScriptComponent)
-				((ScriptComponent)component).setScript(((ScriptComponent)component).path);
+				((ScriptComponent) component).setScript(((ScriptComponent) component).path);
 			else if (component instanceof GameObject)
-				reloadScripts(((GameObject)component).getComponents());
+				reloadScripts(((GameObject) component).getComponents());
 		}
 	}
 }

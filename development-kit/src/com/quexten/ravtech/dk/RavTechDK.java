@@ -5,8 +5,6 @@ import java.io.File;
 
 import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.AbsoluteFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
@@ -19,6 +17,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.reflect.ClassReflection;
 import com.badlogic.gdx.utils.reflect.ReflectionException;
+import com.quexten.ravtech.Hook;
 import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.Scene;
@@ -82,7 +81,7 @@ public class RavTechDK {
 		root.add(mainSceneView).expand().fill();
 		RavTech.input.addInputProcessor(RavTech.ui.getStage());		
 		
-		HookApi.onResizeHooks.add(new Runnable() {
+		HookApi.onResizeHooks.add(new Hook() {
 
 			@Override
 			public void run () {

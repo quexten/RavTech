@@ -13,7 +13,6 @@ import com.badlogic.gdx.Net.HttpResponseListener;
 import com.badlogic.gdx.net.HttpRequestBuilder;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.util.Debug;
-import com.quexten.ravtech.util.Zipper;
 
 public class GitHubUpdater extends Updater {
 
@@ -52,8 +51,8 @@ public class GitHubUpdater extends Updater {
 			FileUtils.copyURLToFile(new URL(repositoryUrl + version),
 				RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").file());
 			Debug.logDebug("GitHub", "Finished Downloading " + archive + ".");
-			Zipper.extract(RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").file(),
-				RavTechDK.getDownloadsFile("").file());
+			//ZipUtil.extract(RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").file(),
+			//	RavTechDK.getDownloadsFile("").file());
 			RavTechDK.getDownloadsFile(archive + "-" + version).moveTo(RavTechDK.getPluginsFile(archive + "/"));
 			RavTechDK.getDownloadsFile("temp-" + user + "-" + archive + ".zip").delete();
 			currentVersion = version;

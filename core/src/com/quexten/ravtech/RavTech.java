@@ -13,6 +13,7 @@ import com.quexten.ravtech.scripts.ScriptLoader;
 import com.quexten.ravtech.scripts.WebGLScriptManager;
 import com.quexten.ravtech.settings.RavSettings;
 import com.quexten.ravtech.ui.RavUI;
+import com.quexten.ravtech.net.RavNetwork;
 
 public class RavTech extends Game {
 
@@ -35,19 +36,20 @@ public class RavTech extends Game {
 	public static RavSettings settings;
 	public static RavInput input;
 	public static RavUI ui;
+	public static RavNetwork net;
 
-	public RavTech (FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
+	public RavTech(FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
 		files = new RavFiles(assetResolver);
 		engineConfiguration = applicationConfig;
 	}
 
-	public RavTech (FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
+	public RavTech(FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
 		this(assetResolver, applicationConfig);
 		RavTech.project = project;
 	}
 
 	@Override
-	public void create () {
+	public void create() {
 		Gdx.app.setLogLevel(3);
 		if (!isEditor) {
 			files.loadAsset("project.json", Project.class);
@@ -63,6 +65,7 @@ public class RavTech extends Game {
 		ui = new RavUI();
 		settings = new RavSettings();
 		settings.save();
+		net = new RavNetwork();
 		sceneHandler = new SceneHandler();
 		sceneHandler.load();
 
@@ -85,7 +88,7 @@ public class RavTech extends Game {
 	}
 
 	@Override
-	public void render () {
+	public void render() {
 		input.update();
 		if (Gdx.app.getType() == ApplicationType.WebGL && !WebGLScriptManager.areLoaded())
 			return;
@@ -97,9 +100,15 @@ public class RavTech extends Game {
 
 		super.render();
 
-		for (int i = 0; i < HookApi.onRenderHooks.size; i++)
-			HookApi.onRenderHooks.get(i).run();
+		if (!RavTech.isHeadless()) {
+			for (int i = 0; i < HookApi.onRenderHooks.size; i++)
+				HookApi.onRenderHooks.get(i).run();
+			
+			ui.render();
+		}
+	}
 
-		ui.render();
+	public static boolean isHeadless() {
+		return Gdx.app.getType() == ApplicationType.HeadlessDesktop;
 	}
 }

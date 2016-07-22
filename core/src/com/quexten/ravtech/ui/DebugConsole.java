@@ -7,13 +7,10 @@ import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
 import com.kotcrab.vis.ui.widget.VisWindow;
-import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.scripts.Script;
 
 public class DebugConsole extends VisWindow {
 
 	ColoredTextArea textArea;
-	Script script;
 	boolean visible;
 
 	public DebugConsole () {
@@ -29,12 +26,8 @@ public class DebugConsole extends VisWindow {
 		textField.setTextFieldListener(new TextFieldListener() {
 			@Override
 			public void keyTyped (VisTextField textField, char c) {
-				if (script == null)
-					script = RavTech.scriptLoader.createScript("", null);
-
 				if (c == '\n' || c == '\r') {
-					script.loadChunk("function init() \n " + textField.getText() + "\n end");
-					script.init();
+					com.quexten.ravtech.util.Debug.runScript(textField.getText());
 					textField.setText("");
 				}
 			}

@@ -54,12 +54,7 @@ public class HtmlLauncher extends GwtApplication {
         });
         RavTech ravtech = new RavTech(new InternalFileHandleResolver(), new HtmlEngineConfiguration());
         RavTech.files.getAssetManager().setLoader(Script.class, new MoonshineJSScriptLoader(RavTech.files.getResolver()));
-        HookApi.onRenderHooks.add(new Runnable() {
-
-            @Override
-            public void run () {
-            }
-        });
+        
         return ravtech;
     }
 

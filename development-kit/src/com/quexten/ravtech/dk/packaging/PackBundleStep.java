@@ -5,7 +5,7 @@ import java.io.File;
 
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
-import com.quexten.ravtech.util.Zipper;
+import com.quexten.ravtech.util.ZipUtil;
 
 public class PackBundleStep extends PackageStep {
 
@@ -16,7 +16,7 @@ public class PackBundleStep extends PackageStep {
 	@Override
 	public void run () {
 		buildReporterDialog.log("Packaging...");
-		Zipper zipper = new Zipper(buildReporterDialog);
+		ZipUtil zipper = new ZipUtil();
 		new File(System.getProperty("user.dir") + "/temp/").mkdir();
 		zipper.zipFolder(RavTechDK.projectHandle.child("assets").path(), System.getProperty("user.dir") + "/temp/build.ravpack");
 		buildReporterDialog.log("Packaged.");
