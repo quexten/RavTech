@@ -18,6 +18,7 @@
 package com.brashmonkey.spriter;
 
 /** Utility class for various interpolation techniques, Spriter is using.
+ * 
  * @author Trixt0r */
 public class Interpolator {
 

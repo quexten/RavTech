@@ -106,6 +106,7 @@ public class GamePadDevice extends InputDevice {
 		return oldValues[key];
 	}
 
+	@Override
 	public void update () {
 		if (this.justPressed == true && this.lastJustPressed == false) {
 			this.lastJustPressed = true;

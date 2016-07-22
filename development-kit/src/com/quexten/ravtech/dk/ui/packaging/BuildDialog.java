@@ -273,7 +273,8 @@ public class BuildDialog extends RavWindow {
 			@Override
 			public void changed (ChangeEvent event, Actor actor) {
 				currentOptions.run = true;
-				((AndroidBuildOptions) currentOptions).deviceId = deviceList.getSelected().substring(deviceList.getSelected().indexOf("|") + 2);
+				((AndroidBuildOptions)currentOptions).deviceId = deviceList.getSelected()
+					.substring(deviceList.getSelected().indexOf("|") + 2);
 				BuildDialog.this.build(currentOptions);
 			}
 		});
@@ -296,16 +297,16 @@ public class BuildDialog extends RavWindow {
 	}
 
 	public void build (BuildOptions options) {
-		if (options.targetPlatform == "Android" && options.run && ((AndroidBuildOptions) options).deviceId == null) {
+		if (options.targetPlatform == "Android" && options.run && ((AndroidBuildOptions)options).deviceId == null) {
 			if (!AdbManager.initialized) {
 				com.quexten.ravtech.util.Debug.logError("Adb Error", "Adb Path Not Delcared");
 				AdbManager.initializeAdb();
-			}	
+			}
 			contentTable.clearChildren();
 			contentTable.add(createDeviceSelector(options)).grow().pad(10).align(Align.top).padTop(32);
 			return;
 		}
-		
+
 		BuildReporterDialog buildDialog = new BuildReporterDialog();
 		contentTable.clearChildren();
 		VisScrollPane scrollPane = new VisScrollPane(buildDialog);

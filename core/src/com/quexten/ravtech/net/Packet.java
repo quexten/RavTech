@@ -18,16 +18,16 @@ public class Packet {
 		boolean accepted = false;
 		int ownerid;
 	}
-	
+
 	public static class Packet_StreamHeader {
-		
-		public int streamId = (int) (Math.random() * Integer.MAX_VALUE);
+
+		public int streamId = (int)(Math.random() * Integer.MAX_VALUE);
 		public String type;
 
 		public int streamLength;
 
 		// Can be used for ravviewid's for the gamestate, file directory for
-		// assets or otherwise		
+		// assets or otherwise
 		public Object additionalInfo;
 	}
 
@@ -97,8 +97,8 @@ public class Packet {
 	public static class Packet_DeleteLobbyData extends LobbyPacket {
 		public String key;
 	}
-	
+
 	public static class Packet_GameStateRequest {
 	}
-	
+
 }

@@ -1,19 +1,13 @@
 
 package com.quexten.ravtech.net.kryonet;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.minlog.Log;
-import com.quexten.ravtech.Hook;
 import com.quexten.ravtech.HookApi;
-import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.net.Player;
 import com.quexten.ravtech.net.Packet.NetViewPacket;
 import com.quexten.ravtech.net.Packet.Packet_DKChangeable;
 import com.quexten.ravtech.net.Packet.Packet_Instantiate;
@@ -27,14 +21,15 @@ public class ServerListener extends Listener {
 	static final String LOG_TAG = "RavNetwork-Server";
 
 	KryonetTransportLayer layer;
+
 	IntArray trustedConnections = new IntArray();
 
-	public ServerListener(KryonetTransportLayer layer) {
+	public ServerListener (KryonetTransportLayer layer) {
 		this.layer = layer;
 	}
 
 	@Override
-	public void connected(Connection connection) {
+	public void connected (Connection connection) {
 		Debug.logDebug(LOG_TAG, connection.getRemoteAddressTCP() + " is trying to conntect!");
 		connection.updateReturnTripTime();
 
@@ -49,62 +44,37 @@ public class ServerListener extends Listener {
 	}
 
 	@Override
-	public void disconnected(Connection connection) {
-		trustedConnections.removeValue(connection.getID());
-		Log.info("[Server]" + connection.getRemoteAddressTCP() + " disconnected.");
+	public void disconnected (Connection connection) {
+		Debug.logDebug(LOG_TAG, connection.getRemoteAddressTCP() + " disconnected.");
 
-		Gdx.app.postRunnable(new Runnable() {
-			@Override
-			public void run() {
-				HookApi.runHooks(layer.net.lobby.onLeftHooks);
-			}
-		});
+		trustedConnections.removeValue(connection.getID());
+		HookApi.postHooks(layer.net.lobby.onLeftHooks);
 	}
 
 	@Override
-	public void received(final Connection connection, final Object packet) {
-		if (packet instanceof NetViewPacket || packet instanceof Packet_Instantiate
-				|| packet instanceof Packet_DKChangeable)
+	public void received (final Connection connection, final Object packet) {
+		if (packet instanceof NetViewPacket || packet instanceof Packet_Instantiate || packet instanceof Packet_DKChangeable)
 			if (trustedConnections.contains(connection.getID()))
-				sendToAllExcept(connection.getID(), packet, false);
+				// sendToAllExcept(connection.getID(), packet, false); //TODO
+				// make this layer independent
 
-		if (packet instanceof Packet_LoginRequest)
-			if (layer.net.lobby.checkPassword(((Packet_LoginRequest) packet).password)) {
+				if (packet instanceof Packet_LoginRequest)
+					if (layer.net.lobby.checkPassword(((Packet_LoginRequest)packet).password)) {
+						Debug.logDebug(LOG_TAG, "Authentification of " + connection.getRemoteAddressTCP() + " successful as: "
+							+ ((Packet_LoginRequest)packet).username);
 
-				Debug.log(LOG_TAG, "Authentification of " + connection.getRemoteAddressTCP() + " successful as: "
-						+ ((Packet_LoginRequest) packet).username);
-				trustedConnections.add(connection.getID());
+						trustedConnections.add(connection.getID());
 
-				Packet_LoginAnswer answer = new Packet_LoginAnswer();
-				
-				layer.net.lobby.playerJoined(connection, ((Packet_LoginRequest) packet).username)
-				.send(answer, true);
-				
-				Gdx.app.postRunnable(new Runnable() {
-					@Override
-					public void run() {
-						HookApi.runHooks(layer.net.lobby.onJoinedHooks,
-								layer.net.lobby.getPlayerForConnection(connection));
+						Packet_LoginAnswer answer = new Packet_LoginAnswer();
+						layer.net.lobby.playerJoined(connection, ((Packet_LoginRequest)packet).username).send(answer, true);
+
+						HookApi.postHooks(layer.net.lobby.onJoinedHooks, layer.net.lobby.getPlayerForConnection(connection));
+					} else {
+						Debug.log(LOG_TAG, "Authentification failed for " + connection.getRemoteAddressTCP());
+						connection.close();
 					}
-				});		
-			} else {
-				Debug.log(LOG_TAG, "Authentification failed for " + connection.getRemoteAddressTCP());
-				connection.close();
-			}
 		if (trustedConnections.contains(connection.getID()))
 			layer.net.processPacket(packet, layer.net.transportLayers.get(0), layer.net.lobby.getPlayerForConnection(connection));
-	}
-
-	private void sendToAllExcept(int connectionIdentifier, Object packet, boolean reliable) {
-		if (layer.isHost)
-			for (int i = 0; i < trustedConnections.size; i++) {
-				int connectionId = trustedConnections.get(i);
-				if (connectionId != (int) connectionIdentifier)
-					if (reliable)
-						layer.server.sendToTCP(connectionId, packet);
-					else
-						layer.server.sendToUDP(connectionId, packet);
-			}
 	}
 
 }

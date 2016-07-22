@@ -19,89 +19,89 @@ import com.quexten.ravtech.scripts.luajs.MoonshineJSScriptLoader;
 
 public class HtmlLauncher extends GwtApplication {
 
-    static final int WIDTH = 1600;
-    static final int HEIGHT = 900;
-    static HtmlLauncher instance;
+	static final int WIDTH = 1600;
+	static final int HEIGHT = 900;
+	static HtmlLauncher instance;
 
-    @Override
-    public GwtApplicationConfiguration getConfig () {
-        GwtApplicationConfiguration config = new GwtApplicationConfiguration(1600, 900);
-        Element element = Document.get().getElementById("embed-html");
-        VerticalPanel panel = new VerticalPanel();
-        // panel.setWidth("100%");
-        // panel.setHeight("100%");
-        panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
-        panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
-        element.appendChild(panel.getElement());
-        config.rootPanel = panel;
-        return config;
-    }
+	@Override
+	public GwtApplicationConfiguration getConfig () {
+		GwtApplicationConfiguration config = new GwtApplicationConfiguration(1600, 900);
+		Element element = Document.get().getElementById("embed-html");
+		VerticalPanel panel = new VerticalPanel();
+		// panel.setWidth("100%");
+		// panel.setHeight("100%");
+		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);
+		element.appendChild(panel.getElement());
+		config.rootPanel = panel;
+		return config;
+	}
 
-    @Override
-    public ApplicationListener getApplicationListener () {
-        instance = this;
-        setLoadingListener(new LoadingListener() {
+	@Override
+	public ApplicationListener getApplicationListener () {
+		instance = this;
+		setLoadingListener(new LoadingListener() {
 
-            @Override
-            public void beforeSetup () {
-            }
+			@Override
+			public void beforeSetup () {
+			}
 
-            @Override
-            public void afterSetup () {
-                // scaleCanvas();
-                // setupResizeHook();
-            }
-        });
-        RavTech ravtech = new RavTech(new InternalFileHandleResolver(), new HtmlEngineConfiguration());
-        RavTech.files.getAssetManager().setLoader(Script.class, new MoonshineJSScriptLoader(RavTech.files.getResolver()));
-        
-        return ravtech;
-    }
+			@Override
+			public void afterSetup () {
+				// scaleCanvas();
+				// setupResizeHook();
+			}
+		});
+		RavTech ravtech = new RavTech(new InternalFileHandleResolver(), new HtmlEngineConfiguration());
+		RavTech.files.getAssetManager().setLoader(Script.class, new MoonshineJSScriptLoader(RavTech.files.getResolver()));
 
-    void scaleCanvas () {
-        Element element = Document.get().getElementById("embed-html");
-        int innerWidth = getWindowInnerWidth();
-        int innerHeight = getWindowInnerHeight();
-        int newWidth = innerWidth;
-        int newHeight = innerHeight;
-        float ratio = innerWidth / (float)innerHeight;
-        float viewRatio = WIDTH / (float)HEIGHT;
-        if (ratio > viewRatio)
-            newWidth = (int)(innerHeight * viewRatio);
-        else
-            newHeight = (int)(innerWidth / viewRatio);
-        NodeList<Element> nl = element.getElementsByTagName("canvas");
-        if (nl != null && nl.getLength() > 0) {
-            Element canvas = nl.getItem(0);
-            canvas.setAttribute("width", "" + newWidth + "px");
-            canvas.setAttribute("height", "" + newHeight + "px");
-            canvas.getStyle().setWidth(newWidth, Style.Unit.PX);
-            canvas.getStyle().setHeight(newHeight, Style.Unit.PX);
-            canvas.getStyle().setTop((int)((innerHeight - newHeight) * 0.5f), Style.Unit.PX);
-            canvas.getStyle().setLeft((int)((innerWidth - newWidth) * 0.5f), Style.Unit.PX);
-            canvas.getStyle().setPosition(Style.Position.ABSOLUTE);
-        }
-    }
+		return ravtech;
+	}
 
-    native int getWindowInnerWidth () /*-{
-                                      return $wnd.innerWidth;
-                                      }-*/;
+	void scaleCanvas () {
+		Element element = Document.get().getElementById("embed-html");
+		int innerWidth = getWindowInnerWidth();
+		int innerHeight = getWindowInnerHeight();
+		int newWidth = innerWidth;
+		int newHeight = innerHeight;
+		float ratio = innerWidth / (float)innerHeight;
+		float viewRatio = WIDTH / (float)HEIGHT;
+		if (ratio > viewRatio)
+			newWidth = (int)(innerHeight * viewRatio);
+		else
+			newHeight = (int)(innerWidth / viewRatio);
+		NodeList<Element> nl = element.getElementsByTagName("canvas");
+		if (nl != null && nl.getLength() > 0) {
+			Element canvas = nl.getItem(0);
+			canvas.setAttribute("width", "" + newWidth + "px");
+			canvas.setAttribute("height", "" + newHeight + "px");
+			canvas.getStyle().setWidth(newWidth, Style.Unit.PX);
+			canvas.getStyle().setHeight(newHeight, Style.Unit.PX);
+			canvas.getStyle().setTop((int)((innerHeight - newHeight) * 0.5f), Style.Unit.PX);
+			canvas.getStyle().setLeft((int)((innerWidth - newWidth) * 0.5f), Style.Unit.PX);
+			canvas.getStyle().setPosition(Style.Position.ABSOLUTE);
+		}
+	}
 
-    native int getWindowInnerHeight () /*-{
-                                       return $wnd.innerHeight;
-                                       }-*/;
+	native int getWindowInnerWidth () /*-{
+													return $wnd.innerWidth;
+													}-*/;
 
-    native void setupResizeHook () /*-{
-                                   var htmlLauncher_onWindowResize = $entry(@com.quexten.ravtech.client.HtmlLauncher::handleResize());
-                                   $wnd.addEventListener('resize', htmlLauncher_onWindowResize, false);
-                                   }-*/;
+	native int getWindowInnerHeight () /*-{
+													return $wnd.innerHeight;
+													}-*/;
 
-    public static void handleResize () {
-        instance.scaleCanvas();
-    }
+	native void setupResizeHook () /*-{
+												var htmlLauncher_onWindowResize = $entry(@com.quexten.ravtech.client.HtmlLauncher::handleResize());
+												$wnd.addEventListener('resize', htmlLauncher_onWindowResize, false);
+												}-*/;
 
-    @Override
-    public ApplicationListener createApplicationListener () {
-        return this.getApplicationListener();
-    }
+	public static void handleResize () {
+		instance.scaleCanvas();
+	}
+
+	@Override
+	public ApplicationListener createApplicationListener () {
+		return this.getApplicationListener();
+	}
 }

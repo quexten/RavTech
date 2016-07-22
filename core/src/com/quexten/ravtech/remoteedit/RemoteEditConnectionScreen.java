@@ -4,6 +4,7 @@ package com.quexten.ravtech.remoteedit;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
@@ -27,18 +28,18 @@ public class RemoteEditConnectionScreen implements Screen {
 	Stage screenStage;
 	VisList<String> connectionList = new VisList<String>();
 
-	public RemoteEditConnectionScreen() {
+	public RemoteEditConnectionScreen () {
 	}
 
 	@Override
-	public void show() {
-		BitmapFont font = new BitmapFont(Gdx.files.internal("font.fnt"));
+	public void show () {
+		BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
 		if (Gdx.app.getType() == ApplicationType.Android)
 			font.getData().setScale(2);
 
 		screenStage = new Stage();
 		RavTech.input.addInputProcessor(screenStage);
-		connectionList.setItems("192.168.0.1 - Quexten", "localhost - Quexten");
+		connectionList.setItems("");
 		connectionList.getStyle().font = font;
 		connectionList.getStyle().selection.setTopHeight(50);
 		connectionList.getStyle().selection.setBottomHeight(50);
@@ -51,14 +52,13 @@ public class RemoteEditConnectionScreen implements Screen {
 		VisTextButton connectButton = new VisTextButton("Connect");
 		connectButton.addListener(new ChangeListener() {
 			@Override
-			public void changed(ChangeEvent event, Actor actor) {
+			public void changed (ChangeEvent event, Actor actor) {
 				RemoteEdit.connect(connectionList.getSelected());
-				RavTech.sceneHandler.cameraManager.createCamera(Gdx.graphics.getWidth(),
-						Gdx.graphics.getHeight()).zoom = 0.05f;
+				RavTech.sceneHandler.cameraManager.createCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()).zoom = 0.05f;
 				final TouchDebugController controller = new TouchDebugController();
 				HookApi.onUpdateHooks.add(new Hook() {
 					@Override
-					public void run() {
+					public void run () {
 						controller.update();
 					}
 				});
@@ -68,7 +68,7 @@ public class RemoteEditConnectionScreen implements Screen {
 		VisTextButton refreshButton = new VisTextButton("Refresh");
 		refreshButton.addListener(new ChangeListener() {
 			@Override
-			public void changed(ChangeEvent event, Actor actor) {
+			public void changed (ChangeEvent event, Actor actor) {
 				RavTech.net.discoverHosts();
 			}
 		});
@@ -91,37 +91,37 @@ public class RemoteEditConnectionScreen implements Screen {
 	}
 
 	@Override
-	public void render(float delta) {
+	public void render (float delta) {
 		if (RavTech.net.transportLayers.size > 0)
 			connectionList.setItems(RavTech.net.transportLayers.first().hosts);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
-		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		screenStage.act(delta);
 		screenStage.draw();
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void resize (int width, int height) {
 		screenStage.getViewport().apply();
 	}
 
 	@Override
-	public void pause() {
+	public void pause () {
 
 	}
 
 	@Override
-	public void resume() {
+	public void resume () {
 
 	}
 
 	@Override
-	public void hide() {
+	public void hide () {
 
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose () {
 		screenStage.dispose();
 	}
 

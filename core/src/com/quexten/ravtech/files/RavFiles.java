@@ -32,12 +32,14 @@ public class RavFiles {
 	}
 
 	/** Gets the filehandle resolver
+	 * 
 	 * @return The resolver */
 	public FileHandleResolver getResolver () {
 		return assetManager.getFileHandleResolver();
 	}
 
 	/** Gets filehandle of the specified asset
+	 * 
 	 * @param path - the path to the asset
 	 * @return The filehandle of the asset */
 	public FileHandle getAssetHandle (String path) {
@@ -45,6 +47,7 @@ public class RavFiles {
 	}
 
 	/** Starts loading the file
+	 * 
 	 * @param path - the path to the asset
 	 * @param assetType - the type of the asset
 	 * @param parameters - parameters to pass the loader */
@@ -53,6 +56,7 @@ public class RavFiles {
 	}
 
 	/** Starts loading the file
+	 * 
 	 * @param path - the path to the asset
 	 * @param assetType - the type of the asset
 	 * @param finish - whether to wait for the asset to finish loading */
@@ -63,6 +67,7 @@ public class RavFiles {
 	}
 
 	/** Starts loading the file
+	 * 
 	 * @param path - the path to the asset
 	 * @param assetType - the type of the asset */
 	public <T> void loadAsset (String path, Class<T> assetType) {
@@ -70,6 +75,7 @@ public class RavFiles {
 	}
 
 	/** Starts loading all assets specified
+	 * 
 	 * @param dependencies - the assets to load */
 	@SuppressWarnings("rawtypes")
 	public void loadAssets (Array<AssetDescriptor> dependencies) {
@@ -78,6 +84,7 @@ public class RavFiles {
 	}
 
 	/** Reloads the specified asset
+	 * 
 	 * @param fileName - the file name of the asset */
 	public void reloadAsset (String path) {
 		Class<?> type = getAssetManager().getAssetType(path);
@@ -91,6 +98,7 @@ public class RavFiles {
 	}
 
 	/** Gets the asset
+	 * 
 	 * @param path - the path to the asset
 	 * @return The asset */
 	public <T> T getAsset (String path) {
@@ -98,6 +106,7 @@ public class RavFiles {
 	}
 
 	/** Checks whether the asset is Loaded
+	 * 
 	 * @param filePath - the path to the asset
 	 * @return Whether the asset is Loaded */
 	public boolean isLoaded (String filePath) {
@@ -110,12 +119,14 @@ public class RavFiles {
 	}
 
 	/** Serializes currently active Scene
+	 * 
 	 * @return The Scene as a String. */
 	public String storeState () {
 		return new Json().toJson(RavTech.currentScene);
 	}
 
 	/** Loads the specified scene as the current Scene
+	 * 
 	 * @param sceneString - the Scene to load */
 	public void loadState (final String sceneString) {
 		String scenePath = getAssetManager().getAssetFileName(RavTech.currentScene);

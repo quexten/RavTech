@@ -60,15 +60,15 @@ public class Launcher {
 			}
 		});
 		RavTech.scriptLoader = new LuaJScriptLoader();
-				
+
 		HookApi.onBootHooks.add(new Hook() {
 			@Override
-			public void run() {
+			public void run () {
 				RavTech.net.transportLayers.add(new KryonetTransportLayer(RavTech.net));
 				RemoteEdit.host();
 			}
 		});
-		
+
 		new Lwjgl3Application(ravtech, config);
 
 		Gdx.app.postRunnable(new Runnable() {

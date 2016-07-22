@@ -27,6 +27,7 @@ public class RemoveChangeable extends Changeable {
 		redo();
 	}
 
+	@Override
 	public void redo () {
 		GameObject component = (GameObject)GameObjectTraverseUtil.gameComponentFromPath(pathToComponent);
 		JsonValue jsonData = new JsonReader().parse(gameComponent);
@@ -40,6 +41,7 @@ public class RemoveChangeable extends Changeable {
 		component.destroy();
 	}
 
+	@Override
 	public void undo () {
 		JsonValue jsonData = new JsonReader().parse(gameComponent);
 		Json json = new Json();

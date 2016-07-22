@@ -79,6 +79,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	/** Sets the absolute position of the transform.
+	 * 
 	 * @param x - the x component of the position
 	 * @param y - the y component of the position */
 	public void setPosition (float x, float y) {
@@ -91,12 +92,14 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	/** Sets the absolute position of the transform.
+	 * 
 	 * @param position - the position */
 	public void setPosition (Vector2 position) {
 		setPosition(position.x, position.y);
 	}
 
 	/** Calculates the absolute position of the transform.
+	 * 
 	 * @return - the position */
 	public Vector2 getPosition () {
 		if (getParent().getParent() != null) {
@@ -108,6 +111,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	/** Sets the local position of the transform.
+	 * 
 	 * @param x - the x component of the position
 	 * @param y - the y component of the position */
 	public void setLocalPosition (float x, float y) {
@@ -119,24 +123,28 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	/** Sets the local position of the transform.
+	 * 
 	 * @param position - the position */
 	public void setLocalPosition (Vector2 position) {
 		setLocalPosition(position.x, position.y);
 	}
 
 	/** Calculates the local position of the transform.
+	 * 
 	 * @return - the position */
 	public Vector2 getLocalPosition () {
 		return position;
 	}
 
 	/** Sets the absolute rotation of the transform.
+	 * 
 	 * @param rotation - the rotation */
 	public void setRotation (float rotation) {
 		setLocalRotation(rotation - (getParent().getParent() != null ? getParent().getParent().transform.getRotation() : 0));
 	}
 
 	/** Calculates the absolute rotation of the transform.
+	 * 
 	 * @return - the absolute Rotation */
 	public float getRotation () {
 		float rotation = getParent().getParent() != null ? getParent().getParent().transform.getRotation() + getLocalRotation()
@@ -145,6 +153,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	/** Sets the local rotation of the transform.
+	 * 
 	 * @param rotation - the rotation */
 	public void setLocalRotation (float rotation) {
 		this.rotation = rotation;
@@ -158,12 +167,14 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	/** Calculates the local rotation of the transform.
+	 * 
 	 * @return - the local rotation of the transform */
 	public float getLocalRotation () {
 		return rotation;
 	}
 
 	/** Sets the local scale
+	 * 
 	 * @param x - the scale along the x axis
 	 * @param y - the scale along the y axis */
 	public void setLocalScale (float x, float y) {
@@ -177,6 +188,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	/** rotates the transform towards the given point
+	 * 
 	 * @param target - the point the transform is rotated towards */
 	public void rotateTo (Vector2 toPoint) {
 		Vector2 temp = getPosition().sub(toPoint);
@@ -184,6 +196,7 @@ public class Transform extends GameComponent implements Json.Serializable, Varia
 	}
 
 	/** gets absolute position derrived from coordinates in local coordinate system from transform
+	 * 
 	 * @param localPosition - the position in the local coordinate system
 	 * @return - the absolute position of the specified point */
 	public Vector2 getPosition (Vector2 localPosition) {

@@ -1,12 +1,10 @@
 
 package com.quexten.ravtech;
 
-import com.badlogic.gdx.Files.FileType;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidFiles;
-import com.badlogic.gdx.utils.Json;
 import com.quexten.ravtech.android.AndroidEngineConfiguration;
 import com.quexten.ravtech.files.zip.ArchiveFileHandleResolver;
 import com.quexten.ravtech.net.kryonet.KryonetTransportLayer;
@@ -23,8 +21,8 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidFiles files = new AndroidFiles(this.getAssets());
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		AndroidEngineConfiguration engineConfiguration = new AndroidEngineConfiguration();
-		//		new Json().fromJson(AndroidEngineConfiguration.class,
-		//	files.getFileHandle("config.json", FileType.Internal).readString());
+		// new Json().fromJson(AndroidEngineConfiguration.class,
+		// files.getFileHandle("config.json", FileType.Internal).readString());
 
 		int versionCode = 0;
 		try {
@@ -39,16 +37,16 @@ public class AndroidLauncher extends AndroidApplication {
 			? new ArchiveFileHandleResolver(
 				files.external("Android/obb/" + getPackageName() + "/main." + versionCode + "." + getPackageName() + ".obb"))
 			: new InternalFileHandleResolver(), engineConfiguration);
-		
+
 		HookApi.onBootHooks.add(new Hook() {
 			@Override
-			public void run() {
+			public void run () {
 				RavTech.net.transportLayers.add(new KryonetTransportLayer(RavTech.net));
 				ravtech.setScreen(new RemoteEditConnectionScreen());
 				RavTech.ui.debugConsole.setVisible(false);
 			}
 		});
-		
+
 		RavTech.scriptLoader = new LuaJScriptLoader();
 		initialize(ravtech, config);
 	}

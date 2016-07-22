@@ -17,13 +17,15 @@ public class Scene {
 	}
 
 	/** Adds new GameObject at the specified coordinates
+	 * 
 	 * @param position - the Position
 	 * @return The new GameObject */
 	public GameObject addGameObject (Vector2 position) {
 		return addGameObject(position.x, position.y);
 	}
-	
+
 	/** Adds new GameObject at the specified coordinates
+	 * 
 	 * @param x the x coordinate
 	 * @param y the y coordinate
 	 * @return The new GameObject */
@@ -35,6 +37,7 @@ public class Scene {
 	}
 
 	/** Adds already created GameObject to the Scene
+	 * 
 	 * @param object the object to add
 	 * @return The added GameObject */
 	public GameObject addGameObject (GameObject object) {
@@ -43,6 +46,7 @@ public class Scene {
 	}
 
 	/** Gets the GameObject at the specified position within a 0.5 radius
+	 * 
 	 * @param x - the x coordinate
 	 * @param y - the y coordinate
 	 * @return The GameObject or null if no GameObject is close by */
@@ -57,6 +61,7 @@ public class Scene {
 	}
 
 	/** Gets all GameObjects within the specified rectangle area
+	 * 
 	 * @param x the left x position
 	 * @param y the bottom y position
 	 * @param endx the right x position
@@ -78,6 +83,7 @@ public class Scene {
 	}
 
 	/** Gets the first GameObject that matches the specified name
+	 * 
 	 * @param name the name to search for
 	 * @return The GameObject or null if none is found */
 	public GameObject getObjectByName (String name) {
@@ -91,6 +97,7 @@ public class Scene {
 	}
 
 	/** Gets all GameObjects that match the specified name
+	 * 
 	 * @param name the name to search for
 	 * @return The GameObjects or null if none are found */
 	public Array<GameObject> getObjectsByName (String name) {
@@ -107,5 +114,5 @@ public class Scene {
 			gameObjects.get(i).dispose();
 		gameObjects.clear();
 	}
-	
+
 }

@@ -1,3 +1,4 @@
+
 package com.quexten.ravtech.dk.ui.editor;
 
 import com.badlogic.gdx.Gdx;
@@ -15,20 +16,21 @@ public class BufferViewWidget extends Widget {
 	FrameBuffer buffer;
 	ShaderProgram shader;
 	boolean renderAlphaMap;
-	
+
 	public BufferViewWidget (String buffer) {
 		setBuffer(buffer);
-		shader = new ShaderProgram(RavTechDK.getLocalFile("resources/shaders/default.vert"), RavTechDK.getLocalFile("resources/shaders/alpha.frag"));
+		shader = new ShaderProgram(RavTechDK.getLocalFile("resources/shaders/default.vert"),
+			RavTechDK.getLocalFile("resources/shaders/alpha.frag"));
 	}
-	
-	public void setBuffer(String buffer) {
+
+	public void setBuffer (String buffer) {
 		this.buffer = RavTech.sceneHandler.shaderManager.getFB(buffer);
 	}
-	
+
 	@Override
-	public void draw(Batch batch, float alpha) {
+	public void draw (Batch batch, float alpha) {
 		super.draw(batch, alpha);
-		
+
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(Gdx.gl.GL_COLOR_BUFFER_BIT);
 		batch.setColor(Color.WHITE);
@@ -37,6 +39,6 @@ public class BufferViewWidget extends Widget {
 		((SpriteBatch)batch).draw(buffer.getColorBufferTexture(), 0, getHeight(), getWidth(), -getHeight());
 		batch.setShader(null);
 		batch.enableBlending();
-	}	
+	}
 
 }

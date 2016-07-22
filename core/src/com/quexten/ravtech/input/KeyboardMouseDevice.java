@@ -15,7 +15,7 @@ public class KeyboardMouseDevice extends InputDevice {
 	boolean[] justPressedStates = new boolean[255];
 
 	public InputProcessor processor;
-	
+
 	public KeyboardMouseDevice (InputMultiplexer multiplexer) {
 		processor = new InputProcessor() {
 			int lastX;

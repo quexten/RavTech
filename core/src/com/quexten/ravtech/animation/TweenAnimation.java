@@ -22,6 +22,7 @@ public class TweenAnimation implements Animation {
 	public TweenAnimation (GameObject object) {
 	}
 
+	@Override
 	public void update (float deltaTime) {
 		setTime(currentTime + Math.round(deltaTime * 1000));
 	}
@@ -36,6 +37,7 @@ public class TweenAnimation implements Animation {
 			timelines.get(i).update(currentTime);
 	}
 
+	@Override
 	public int getTime () {
 		return currentTime;
 	}
@@ -75,6 +77,7 @@ public class TweenAnimation implements Animation {
 		length = valueOf;
 	}
 
+	@Override
 	public int getLength () {
 		return length;
 	}
@@ -85,7 +88,7 @@ public class TweenAnimation implements Animation {
 
 	@Override
 	public void draw (SpriteBatch batch) {
-		
+
 	}
 
 	@Override

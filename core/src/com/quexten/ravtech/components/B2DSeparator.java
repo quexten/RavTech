@@ -33,6 +33,7 @@ public class B2DSeparator {
 	 * <li>There must be no overlapping segments and no "holes".</li>
 	 * </ul>
 	 * <p/>
+	 * 
 	 * @param body The Body, in which the new fixtures will be stored.
 	 * @param fixtureDef A FixtureDef, containing all the properties (friction, density, etc.) which the new fixtures will inherit.
 	 * @param verticesVec The vertices of the non-convex polygon, in clockwise order.
@@ -80,6 +81,7 @@ public class B2DSeparator {
 	 * specifically, it makes sure there are no overlapping segments and the vertices are in clockwise order). It is recommended
 	 * that you use this method for debugging only, because it may cost more CPU usage.
 	 * <p/>
+	 * 
 	 * @param verticesVec The vertices to be validated.
 	 * @return An integer which can have the following values:
 	 *         <ul>

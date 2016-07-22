@@ -7,6 +7,7 @@ public class DynamicLightMap extends LightMap {
 		super(rayHandler, fboWidth, fboHeight);
 	}
 
+	@Override
 	public void dispose () {
 		super.dispose();
 	}

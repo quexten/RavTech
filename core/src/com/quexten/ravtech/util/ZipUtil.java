@@ -1,7 +1,6 @@
 
 package com.quexten.ravtech.util;
 
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -18,24 +17,24 @@ import com.badlogic.gdx.utils.StreamUtils;
 public class ZipUtil {
 
 	private static final int BUFFER_SIZE = 4096;
-	
+
 	private String outputZipFile = "";
 	private String sourceFolder = "";
 	private List<String> fileList = new ArrayList<String>();
 
 	public ZipUtil () {
-		
+
 	}
-	
+
 	public void zipFolder (String SourceFolderPath, String OutputFilePath) {
 		outputZipFile = OutputFilePath;
 		sourceFolder = SourceFolderPath;
 		genFileListForFolderContents(new File(sourceFolder));
-		
+
 		byte[] buffer = new byte[1024];
 		FileOutputStream fos = null;
 		ZipOutputStream zos = null;
-		
+
 		try {
 			try {
 				sourceFolder.substring(sourceFolder.lastIndexOf("\\") + 1, sourceFolder.length());
@@ -67,13 +66,13 @@ public class ZipUtil {
 			}
 		}
 	}
-	
+
 	void genFileListForFolderContents (File node) {
 		File[] nodes = node.listFiles();
 		for (File file : nodes)
 			generateFileList(file);
 	}
-	
+
 	void generateFileList (File node) {
 		if (node.isFile())
 			fileList.add(generateZipEntry(node.toString()));
@@ -86,14 +85,15 @@ public class ZipUtil {
 
 	private String generateZipEntry (String file) {
 		return file.substring(sourceFolder.length() + 1, file.length());
-	}	
-	
+	}
+
 	private static String dirpart (String name) {
 		int s = name.lastIndexOf(File.separatorChar);
 		return s == -1 ? null : name.substring(0, s);
 	}
 
 	/*** Extract zipfile to outdir with complete directory structure
+	 * 
 	 * @param zipfile Input .zip file
 	 * @param outdir Output directory */
 	public static void extract (FileHandle zipfile, FileHandle outdir) {
@@ -123,12 +123,12 @@ public class ZipUtil {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private static void extractFile (ZipInputStream in, FileHandle outdir, String name) throws IOException {
-		Debug.log("Extract", outdir.path() + "\\" +name);
+		Debug.log("Extract", outdir.path() + "\\" + name);
 		byte[] buffer = new byte[BUFFER_SIZE];
 		outdir.child(name).delete();
-			
+
 		StreamUtils.copyStream(in, outdir.child(name).write(true));
 	}
 

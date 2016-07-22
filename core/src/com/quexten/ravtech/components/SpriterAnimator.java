@@ -82,6 +82,7 @@ public class SpriterAnimator extends Animator {
 	public void dispose () {
 	}
 
+	@Override
 	public void setAnimation (String animation) {
 		this.animation = animation;
 		currentPlayer = animations.get(animation);

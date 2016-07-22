@@ -10,7 +10,7 @@ public class ActionMap extends ObjectIntMap<String> implements Serializable {
 
 	@Override
 	public void write (Json json) {
-		for (ObjectIntMap.Entry<String> entry : (ObjectIntMap.Entries<String>)entries())
+		for (ObjectIntMap.Entry<String> entry : entries())
 			json.writeValue(String.valueOf(entry.key), entry.value);
 	}
 

@@ -12,23 +12,23 @@ import com.quexten.ravtech.scripts.ScriptLoaderParameter;
 
 public class MoonshineJSScriptLoader extends AsynchronousAssetLoader<Script, ScriptLoaderParameter> {
 
-    public MoonshineJSScriptLoader(FileHandleResolver resolver) {
-        super(resolver);
-    }
+	public MoonshineJSScriptLoader (FileHandleResolver resolver) {
+		super(resolver);
+	}
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, ScriptLoaderParameter parameter) {
-        return new Array<AssetDescriptor>();
-    }
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, ScriptLoaderParameter parameter) {
+		return new Array<AssetDescriptor>();
+	}
 
-    @Override
-    public void loadAsync (AssetManager manager, String fileName, FileHandle file, ScriptLoaderParameter parameter) {
-    }
+	@Override
+	public void loadAsync (AssetManager manager, String fileName, FileHandle file, ScriptLoaderParameter parameter) {
+	}
 
-    @Override
-    public Script loadSync (AssetManager manager, String fileName, FileHandle file, ScriptLoaderParameter parameter) {
-        MoonshineJSScript script = new MoonshineJSScript(file.readString(), parameter.selfObject);
-        return script;
-    }
+	@Override
+	public Script loadSync (AssetManager manager, String fileName, FileHandle file, ScriptLoaderParameter parameter) {
+		MoonshineJSScript script = new MoonshineJSScript(file.readString(), parameter.selfObject);
+		return script;
+	}
 }

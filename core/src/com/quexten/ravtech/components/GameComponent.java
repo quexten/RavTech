@@ -39,18 +39,21 @@ public abstract class GameComponent implements Json.Serializable, VariableAccess
 	public abstract void dispose ();
 
 	/** Sets the parent gameobject of the component
+	 * 
 	 * @param parent - the new parent */
 	public void setParent (GameObject parent) {
 		this.parent = parent;
 	}
 
 	/** Gets the parent of the component
+	 * 
 	 * @return The parent of the component */
 	public GameObject getParent () {
 		return parent;
 	}
 
 	/** Checks whether the component is a descendant of the object
+	 * 
 	 * @param object - the GameObject
 	 * @return Whether the component is a descendant of the object. */
 	public boolean isDescendantOf (GameObject object) {

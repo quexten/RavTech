@@ -64,6 +64,7 @@ public class DebugConsole extends VisWindow {
 	}
 
 	/** Fade outs this window, when fade out animation is completed, window is removed from Stage */
+	@Override
 	public void fadeOut (float time) {
 		addAction(Actions.sequence(Actions.fadeOut(time, Interpolation.fade)));
 		visible = false;

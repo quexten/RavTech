@@ -30,7 +30,6 @@ import com.badlogic.gdx.utils.ObjectMap.Entries;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
 import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.util.Debug;
 
 /** @author Przemek Muller This class simplifies usage of shaders and framebuffers. It can load shaders from files, fix them for
  *         GLES specifics and reload them at runtime. */
@@ -54,6 +53,7 @@ public class ShaderManager {
 	private AssetManager am;
 
 	/** Created new ShaderManager.
+	 * 
 	 * @param shaderDir - path to the shader dir, set to "" if you just want to use built-in shaders
 	 * @param am - your app's AssetManager instance */
 	public ShaderManager (String shaderDir, AssetManager am) {
@@ -86,12 +86,14 @@ public class ShaderManager {
 	}
 
 	/** Path to the shader dir, set to "" if you just want to use built-in shaders
+	 * 
 	 * @param shaderDir */
 	public void setShaderDir (String shaderDir) {
 		this.shaderDir = shaderDir;
 	}
 
 	/** Creates a new Framebuffer with given params.
+	 * 
 	 * @param fbIdn - this framebuffer's identifier
 	 * @param format - pixel format of this framebuffer
 	 * @param fbWidth - desired width
@@ -108,6 +110,7 @@ public class ShaderManager {
 	}
 
 	/** Creates a new Framebuffer with given params and no depth buffer.
+	 * 
 	 * @param fbIdn - this framebuffer's identifier
 	 * @param format - pixel format of this framebuffer
 	 * @param fbWidth - desired width
@@ -117,6 +120,7 @@ public class ShaderManager {
 	}
 
 	/** Creates a new Framebuffer with given params, pixel format of RGBA8888 and no depth buffer.
+	 * 
 	 * @param fbIdn - this framebuffer's identifier
 	 * @param fbWidth - desired width
 	 * @param fbHeight - desired height */
@@ -125,6 +129,7 @@ public class ShaderManager {
 	}
 
 	/** Creates a new Framebuffer with given params, screen resolution, pixel format of RGBA8888 and no depth buffer.
+	 * 
 	 * @param fbIdn - this framebuffer's identifier */
 	public void createFB (String fbIdn) {
 		createFB(fbIdn, Format.RGBA8888, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -150,6 +155,7 @@ public class ShaderManager {
 	}
 
 	/** Call this to start rendering using given shader.
+	 * 
 	 * @param shadIdn - a shader with this identifier must be loaded earlier
 	 * @return this ShaderProgram for chaining */
 	public ShaderProgram begin (String shadIdn) {
@@ -177,6 +183,7 @@ public class ShaderManager {
 	}
 
 	/** Call this to start rendering to given framebuffer.
+	 * 
 	 * @param fb - framebuffer to render to
 	 * @param clearColor - clear color for this framebuffer */
 	private void beginFB (FrameBuffer fb, Color clearColor) {
@@ -192,6 +199,7 @@ public class ShaderManager {
 	}
 
 	/** Call this to start rendering to given framebuffer.
+	 * 
 	 * @param fbIdn - framebuffer identifier to render to
 	 * @param clearColor - clear color for this framebuffer */
 	public void beginFB (String fbIdn, Color clearColor) {
@@ -200,6 +208,7 @@ public class ShaderManager {
 	}
 
 	/** Call this to start rendering to given framebuffer, using a BLACK clearing color.
+	 * 
 	 * @param fbIdn - framebuffer identifier to render to */
 	public void beginFB (String fbIdn) {
 		beginFB(fbIdn, Color.BLACK);
@@ -219,6 +228,7 @@ public class ShaderManager {
 	}
 
 	/** Renders given framebuffer onto given Mesh.
+	 * 
 	 * @param fb - FrameBuffer to render
 	 * @param out - a Mesh to render the framebuffer to
 	 * @param textureUniformName - the name of the texture2d uniform parameter in the fragment shader
@@ -233,6 +243,7 @@ public class ShaderManager {
 	}
 
 	/** Renders given framebuffer onto given Mesh.
+	 * 
 	 * @param fbIdn
 	 * @param out - a Mesh to render the framebuffer to
 	 * @param textureUniformName - the name of the texture2d uniform parameter in the fragment shader
@@ -244,6 +255,7 @@ public class ShaderManager {
 	}
 
 	/** Renders given framebuffer onto given Mesh.
+	 * 
 	 * @param fb - FrameBuffer to render
 	 * @param out - a Mesh to render the framebuffer to */
 	public void renderFB (FrameBuffer fb, Mesh out) {
@@ -251,6 +263,7 @@ public class ShaderManager {
 	}
 
 	/** Renders given framebuffer onto given Mesh.
+	 * 
 	 * @param fbIdn
 	 * @param out - a Mesh to render the framebuffer to */
 	public void renderFB (String fbIdn, Mesh out) {
@@ -258,6 +271,7 @@ public class ShaderManager {
 	}
 
 	/** Renders given framebuffer into entire screen.
+	 * 
 	 * @param fb - FrameBuffer
 	 * @param textureUniformName - the name of the texture2d uniform parameter in the fragment shader
 	 * @param textureId - which texture number should be used */
@@ -266,6 +280,7 @@ public class ShaderManager {
 	}
 
 	/** Renders given framebuffer into entire screen.
+	 * 
 	 * @param fbIdn
 	 * @param textureUniformName - the name of the texture2d uniform parameter in the fragment shader
 	 * @param textureId - which texture number should be used */
@@ -274,18 +289,21 @@ public class ShaderManager {
 	}
 
 	/** Renders given framebuffer into entire screen.
+	 * 
 	 * @param fb - FrameBuffer to render */
 	public void renderFB (FrameBuffer fb) {
 		renderFB(fb, screenQuad, "u_texture", FRAMEBUFFER_TEXTURE_ID);
 	}
 
 	/** Renders given framebuffer into entire screen.
+	 * 
 	 * @param fbIdn */
 	public void renderFB (String fbIdn) {
 		renderFB(fbIdn, screenQuad, "u_texture", FRAMEBUFFER_TEXTURE_ID);
 	}
 
 	/** Renders given framebuffer into entire screen using default shader.
+	 * 
 	 * @param fb - FrameBuffer to render */
 	public void renderFBDefault (FrameBuffer fb) {
 		begin("default");
@@ -294,6 +312,7 @@ public class ShaderManager {
 	}
 
 	/** Renders given framebuffer into entire screen using default shader.
+	 * 
 	 * @param fbIdn */
 	public void renderFBDefault (String fbIdn) {
 		begin("default");
@@ -307,6 +326,7 @@ public class ShaderManager {
 	}
 
 	/** Sets given framebuffer.
+	 * 
 	 * @param fbIdn
 	 * @param framebuffer to set */
 	public void setFB (String fbIdn, FrameBuffer fb) {
@@ -314,6 +334,7 @@ public class ShaderManager {
 	}
 
 	/** Gets requested framebuffer.
+	 * 
 	 * @param fbIdn
 	 * @return */
 	public FrameBuffer getFB (String fbIdn) {
@@ -324,6 +345,7 @@ public class ShaderManager {
 	}
 
 	/** Gets requested framebuffer's texture.
+	 * 
 	 * @param fbIdn
 	 * @return */
 	public Texture getFBTexture (String fbIdn) {
@@ -339,6 +361,7 @@ public class ShaderManager {
 	}
 
 	/** Resizes internal RavCamera for framebuffer use, call this in you ApplicationListener's resize.
+	 * 
 	 * @param width - new screen width
 	 * @param height - new screen height
 	 * @param resizeFramebuffers - whether all of the framebuffers should be recreated to match new screen size */
@@ -357,8 +380,10 @@ public class ShaderManager {
 				float factorX = 1f * width / screenCamera.viewportWidth;
 				float factorY = 1f * height / screenCamera.viewportHeight;
 				createFB(key, format, (int)(factorX * oldWidth), (int)(factorY * oldHeight));
-				// System.out.println("Recreated FB '" + key + "' from " + oldWidth + "x" + oldHeight + " to " +
-				// frameBuffers.get(key).getWidth() + "x" + frameBuffers.get(key).getHeight());
+				// System.out.println("Recreated FB '" + key + "' from " +
+				// oldWidth + "x" + oldHeight + " to " +
+				// frameBuffers.get(key).getWidth() + "x" +
+				// frameBuffers.get(key).getHeight());
 			}
 		}
 		screenCamera = new OrthographicCamera(width, height);
@@ -366,6 +391,7 @@ public class ShaderManager {
 	}
 
 	/** Resizes internal RavCamera for framebuffer use, call this in you ApplicationListener's resize.
+	 * 
 	 * @param width - new screen width
 	 * @param height - new screen height */
 	public void resize (int width, int height) {
@@ -395,6 +421,7 @@ public class ShaderManager {
 	}
 
 	/** Add new shader to ShaderManager
+	 * 
 	 * @param fh */
 	@Deprecated
 	public void add (FileHandle fh) {
@@ -442,6 +469,7 @@ public class ShaderManager {
 	}
 
 	/** Add new shader to ShaderManager
+	 * 
 	 * @param filePath */
 	@Deprecated
 	public void add (String filePath) {
@@ -449,6 +477,7 @@ public class ShaderManager {
 	}
 
 	/** Adds new shader to ShaderManager.
+	 * 
 	 * @param key - shader identifier
 	 * @param fh - FileHandle to vertex shader source
 	 * @param fh2 - FileHandle to fragment shader source */
@@ -463,6 +492,7 @@ public class ShaderManager {
 	}
 
 	/** Adds new shader to ShaderManager.
+	 * 
 	 * @param key - shader identifier
 	 * @param vertPath - path to vertex shader source
 	 * @param fragPath - path to fragment shader source */
@@ -474,6 +504,7 @@ public class ShaderManager {
 	}
 
 	/** Adds new shader to ShaderManager, loads it using AssetManager.
+	 * 
 	 * @param am - AssetManager instance
 	 * @param key - shader identifier
 	 * @param baseVertPath - path to vertex shader source
@@ -506,7 +537,8 @@ public class ShaderManager {
 		// TODO dirty...
 		while (!am.isLoaded(vertPath) || !am.isLoaded(fragPath))
 			am.update();
-		// Gdx.app.log("ShaderManager", am.getProgress() + ", " + am.getLoadedAssets() + "/" + am.getQueuedAssets());
+		// Gdx.app.log("ShaderManager", am.getProgress() + ", " +
+		// am.getLoadedAssets() + "/" + am.getQueuedAssets());
 		String vert = am.get(vertPath, String.class);
 		String frag = am.get(fragPath, String.class);
 		if (init(key, vert, frag))
@@ -514,6 +546,7 @@ public class ShaderManager {
 	}
 
 	/** Adds GLES specifics (if needed) and compiles shaders.
+	 * 
 	 * @param key - shader identifier
 	 * @param vert - vertex shader source
 	 * @param frag - fragment shader source
@@ -571,6 +604,7 @@ public class ShaderManager {
 	}
 
 	/** Returns given shader from ShaderManager.
+	 * 
 	 * @param name - shader identifier
 	 * @return requested shader */
 	public ShaderProgram get (String name) {
@@ -584,6 +618,7 @@ public class ShaderManager {
 	}
 
 	/** Returns current shader from ShaderManager.
+	 * 
 	 * @return requested shader */
 	public ShaderProgram getCurrent () {
 		if (currentShader != null)
@@ -592,6 +627,7 @@ public class ShaderManager {
 	}
 
 	/** Returns the vertex shader source for requested shader
+	 * 
 	 * @param name - shader identifier
 	 * @return vertex shader source */
 	public String getSourceVert (String name) {
@@ -601,6 +637,7 @@ public class ShaderManager {
 	}
 
 	/** Returns the fragment shader source for requested shader
+	 * 
 	 * @param name - shader identifier
 	 * @return fragment shader source */
 	public String getSourceFrag (String name) {

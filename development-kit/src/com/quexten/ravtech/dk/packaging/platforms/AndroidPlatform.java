@@ -41,12 +41,11 @@ public class AndroidPlatform extends Platform<AndroidBuildOptions, AndroidBuildO
 	@Override
 	public PackageStep addBuildEngineStep (BuildReporterDialog dialog, PackageStep currentStep, AndroidBuildOptions options) {
 		PackageStep tempStep = null;
-		
+
 		BuildPlatformStep buildPlatformStep = new BuildPlatformStep(dialog, new AndroidPlatform(), options);
-		if(options.sign)
+		if (options.sign)
 			buildPlatformStep.setNextStep(new AlignStep(dialog));
-		tempStep = currentStep.setNextStep(new ApkPreparationStep(dialog))
-			.setNextStep(buildPlatformStep);
+		tempStep = currentStep.setNextStep(new ApkPreparationStep(dialog)).setNextStep(buildPlatformStep);
 
 		if (options.sign)
 			tempStep = tempStep.setNextStep(new SignStep(dialog, options.credentials));

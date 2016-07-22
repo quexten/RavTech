@@ -84,13 +84,11 @@ public class Animator extends Renderer implements Json.Serializable {
 	@Override
 	public String toString () {
 		String returnString = "Animation: {\n";
-		/*returnString += "Timelines.size = " + currentAnimation.timelines.size;
-		for (Timeline timeline : currentAnimation.timelines) {
-			returnString += "TimeLine: {";
-			for (int i = 0; i < timeline.keys.size; i++)
-				returnString += "Key:" + timeline.keys.get(i).time + "\n";
-			returnString += "}\n";
-		}*/
+		/*
+		 * returnString += "Timelines.size = " + currentAnimation.timelines.size; for (Timeline timeline :
+		 * currentAnimation.timelines) { returnString += "TimeLine: {"; for (int i = 0; i < timeline.keys.size; i++) returnString +=
+		 * "Key:" + timeline.keys.get(i).time + "\n"; returnString += "}\n"; }
+		 */
 		returnString += "}";
 		return returnString;
 	}

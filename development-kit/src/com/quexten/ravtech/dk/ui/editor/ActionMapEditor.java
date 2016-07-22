@@ -129,14 +129,14 @@ public class ActionMapEditor extends RavWindow {
 		String key;
 		int value;
 		boolean isFocused;
-		
+
 		public TextNumberPair (String key, int value) {
 			this.key = key;
 			this.value = value;
 
 			numberField = new VisTextField(String.valueOf(value)) {
 				int lastIndex;
-				
+
 				@Override
 				public void act (float delta) {
 					super.act(delta);
@@ -144,7 +144,7 @@ public class ActionMapEditor extends RavWindow {
 						if (RavTech.input.getDevice(dropDown.getSelected()).getLastPressed() != lastIndex) {
 							this.setText(String.valueOf(RavTech.input.getDevice(dropDown.getSelected()).getLastPressed()));
 						}
-						lastIndex = RavTech.input.getDevice(dropDown.getSelected()).getLastPressed();
+					lastIndex = RavTech.input.getDevice(dropDown.getSelected()).getLastPressed();
 				}
 
 				@Override

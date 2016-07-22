@@ -67,14 +67,13 @@ public class KryonetTransportLayer extends TransportLayer {
 	ByteBufferOutput output = new ByteBufferOutput(bufferSize);
 	ByteBuffer writeBuffer = ByteBuffer.allocateDirect(bufferSize);
 
-	
-	public KryonetTransportLayer(RavNetwork net, int udpPort, int tcpPort) {
+	public KryonetTransportLayer (RavNetwork net, int udpPort, int tcpPort) {
 		this(net);
 		this.udpPort = udpPort;
 		this.tcpPort = tcpPort;
 	}
 
-	public KryonetTransportLayer(RavNetwork net) {
+	public KryonetTransportLayer (RavNetwork net) {
 		super(net);
 		server = new Server(bufferSize, bufferSize);
 		client = new Client(bufferSize, bufferSize);
@@ -91,11 +90,11 @@ public class KryonetTransportLayer extends TransportLayer {
 	}
 
 	@Override
-	public void udpate() {
+	public void udpate () {
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose () {
 		try {
 			server.close();
 			client.close();
@@ -107,7 +106,7 @@ public class KryonetTransportLayer extends TransportLayer {
 	}
 
 	@Override
-	public void discoverHosts() {
+	public void discoverHosts () {
 		for (InetAddress address : client.discoverHosts(udpPort, timeout)) {
 			String trimmedAdress = String.valueOf(address).substring(1);
 			KryonetDiscoveryRequest request = new KryonetDiscoveryRequest();
@@ -124,7 +123,7 @@ public class KryonetTransportLayer extends TransportLayer {
 	}
 
 	@Override
-	public void send(Object packet, boolean reliable) {
+	public void send (Object packet, boolean reliable) {
 		if (isHost)
 			for (int i = 0; i < serverListener.trustedConnections.size; i++) {
 				int connectionId = serverListener.trustedConnections.get(i);
@@ -141,9 +140,9 @@ public class KryonetTransportLayer extends TransportLayer {
 	}
 
 	@Override
-	public void sendTo(Object connectionIdentifier, Object packet, boolean reliable) {
-		int connectionId = connectionIdentifier instanceof Connection ? ((Connection) connectionIdentifier).getID()
-				: (int) connectionIdentifier;	
+	public void sendTo (Object connectionIdentifier, Object packet, boolean reliable) {
+		int connectionId = connectionIdentifier instanceof Connection ? ((Connection)connectionIdentifier).getID()
+			: (int)connectionIdentifier;
 		if (isHost) {
 			if (reliable)
 				server.sendToTCP(connectionId, packet);
@@ -154,46 +153,48 @@ public class KryonetTransportLayer extends TransportLayer {
 		else
 			client.sendUDP(packet);
 	}
-	
+
 	@Override
-	public void sendLargeTo(Object connectionInformation, String type, Object additionalInformation, Object object) {
+	public void sendLargeTo (Object connectionInformation, String type, Object additionalInformation, Object object) {
 		Debug.log("ConnectionInformation", connectionInformation);
 		Debug.log("Type", type);
 		Debug.log("Packet", object);
 		Debug.log("Additional Info", additionalInformation);
-		
+
 		ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 		writeBuffer.clear();
-		
+
 		output.setOutputStream(outputStream);
 		streamKryo.writeClassAndObject(output, object);
-		output.flush();		
-				
+		output.flush();
+
 		byte[] buffer = null;
 		try {
-			buffer = ((String) object).getBytes("UTF-8");
+			buffer = ((String)object).getBytes("UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		Debug.log("BufferLength", buffer.length);
 		sendStreamTo(connectionInformation, type, additionalInformation, new ByteArrayInputStream(buffer), buffer.length);
 	}
-	
+
 	@Override
-	public void sendStreamTo (Object connectionInformation, String type, Object additionalInformation, InputStream stream, int size) {
-		
-		final int streamId = (int) (Math.random() * Integer.MAX_VALUE);	//TODO Replace random streamId with negotiated streaId
-		
+	public void sendStreamTo (Object connectionInformation, String type, Object additionalInformation, InputStream stream,
+		int size) {
+
+		final int streamId = (int)(Math.random() * Integer.MAX_VALUE);
+
 		Packet_StreamHeader streamHeader = new Packet_StreamHeader();
 		streamHeader.additionalInfo = additionalInformation;
 		streamHeader.streamId = streamId;
 		streamHeader.type = type;
 		streamHeader.streamLength = size;
 		sendTo(connectionInformation, streamHeader, true);
-		
+
 		// Send data in 512 byte chunks.
-		((Connection) connectionInformation).addListener(new InputStreamSender(stream, 512) {
-			protected Object next(byte[] bytes) {
+		((Connection)connectionInformation).addListener(new InputStreamSender(stream, 512) {
+			@Override
+			protected Object next (byte[] bytes) {
 				Packet_StreamChunk chunkPacket = new Packet_StreamChunk();
 				chunkPacket.streamId = streamId;
 				chunkPacket.chunkBytes = bytes;
@@ -201,11 +202,11 @@ public class KryonetTransportLayer extends TransportLayer {
 			}
 		});
 	}
-	
+
 	@Override
-	public void createLobby(Object connectionInformation) {
+	public void createLobby (Object connectionInformation) {
 		this.isHost = true;
-		
+
 		System.out.println("CreateLobby Tcp: " + tcpPort + " Udp: " + udpPort);
 		server.start();
 		System.out.println("Server started");
@@ -218,7 +219,7 @@ public class KryonetTransportLayer extends TransportLayer {
 	}
 
 	@Override
-	public boolean joinLobby(Object connectionInformation) {
+	public boolean joinLobby (Object connectionInformation) {
 		this.isHost = false;
 		client.start();
 		try {
@@ -230,13 +231,13 @@ public class KryonetTransportLayer extends TransportLayer {
 	}
 
 	@Override
-	public void leaveLobby() {
+	public void leaveLobby () {
 		server.stop();
 		client.stop();
 	}
 
 	@Override
-	public void onSetLobbyData(String key, Object value) {
+	public void onSetLobbyData (String key, Object value) {
 		if (isHost) {
 			Packet_SetLobbyData packet = new Packet_SetLobbyData();
 			packet.key = key;
@@ -246,7 +247,7 @@ public class KryonetTransportLayer extends TransportLayer {
 	}
 
 	@Override
-	public void onDeleteLobbyData(String key) {
+	public void onDeleteLobbyData (String key) {
 		if (isHost) {
 			Packet_DeleteLobbyData packet = new Packet_DeleteLobbyData();
 			packet.key = key;
@@ -255,10 +256,10 @@ public class KryonetTransportLayer extends TransportLayer {
 	}
 
 	@Override
-	public void onLobbyDataUpdate() {
+	public void onLobbyDataUpdate () {
 	}
 
-	public void register(Kryo kryo) {
+	public void register (Kryo kryo) {
 		// Game Packets
 		kryo.register(Packet_LoginRequest.class);
 		kryo.register(Packet_LoginAnswer.class);
@@ -301,10 +302,10 @@ public class KryonetTransportLayer extends TransportLayer {
 		public String ipAdress;
 
 		@Override
-		public String toString() {
+		public String toString () {
 			return ipAdress + " - " + this.hostName;
 		}
 
 	}
-	
+
 }

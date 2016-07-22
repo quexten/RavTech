@@ -81,9 +81,10 @@ public class Camera extends Renderer {
 		layersString = layersString.substring(layersString.indexOf('['));
 
 		final String layers = layersString;
-		final boolean renderAmbient =  jsonData.has("renderAmbient") ? jsonData.getBoolean("renderAmbient") : true;
+		final boolean renderAmbient = jsonData.has("renderAmbient") ? jsonData.getBoolean("renderAmbient") : true;
 		final boolean renderToFramebuffer = jsonData.has("renderToFramebuffer") ? jsonData.getBoolean("renderToFramebuffer") : true;
-		final Color clearColor =  jsonData.has("clearColor") ? JsonUtil.readColorFromJson(jsonData, "clearColor") : Color.WHITE.cpy();
+		final Color clearColor = jsonData.has("clearColor") ? JsonUtil.readColorFromJson(jsonData, "clearColor")
+			: Color.WHITE.cpy();
 		final int resolutionX = jsonData.has("resolutionX") ? jsonData.getInt("resolutionX") : 512;
 		final int resolutionY = jsonData.has("resolutionY") ? jsonData.getInt("resolutionY") : 512;
 		final float zoom = jsonData.has("zoom") ? jsonData.getFloat("zoom") : 0.05f;
@@ -119,14 +120,16 @@ public class Camera extends Renderer {
 				camera.setRenderToFramebuffer(Boolean.valueOf(String.valueOf(value)));
 				break;
 			case 3:
-				camera.setClearColor((Color) value);
+				camera.setClearColor((Color)value);
 				break;
 			case 4:
-				int resolutionX = Integer.valueOf(String.valueOf(value).contains(".") ? String.valueOf(value).substring(0,  String.valueOf(value).lastIndexOf('.')) : String.valueOf(value));
+				int resolutionX = Integer.valueOf(String.valueOf(value).contains(".")
+					? String.valueOf(value).substring(0, String.valueOf(value).lastIndexOf('.')) : String.valueOf(value));
 				camera.setResolution(resolutionX, (int)camera.getResolution().y);
 				break;
 			case 5:
-				int resolutionY = Integer.valueOf(String.valueOf(value).contains(".") ? String.valueOf(value).substring(0,  String.valueOf(value).lastIndexOf('.')) : String.valueOf(value));
+				int resolutionY = Integer.valueOf(String.valueOf(value).contains(".")
+					? String.valueOf(value).substring(0, String.valueOf(value).lastIndexOf('.')) : String.valueOf(value));
 				camera.setResolution((int)camera.getResolution().x, resolutionY);
 				break;
 			case 6:
@@ -173,13 +176,15 @@ public class Camera extends Renderer {
 
 	@Override
 	public String[] getVariableNames () {
-		return new String[] {"layers", "renderAmbient", "renderToFramebuffer", "clearColor", "resolutionX", "resolutionY", "zoom", "viewportWidth", "viewportHeight"};
+		return new String[] {"layers", "renderAmbient", "renderToFramebuffer", "clearColor", "resolutionX", "resolutionY", "zoom",
+			"viewportWidth", "viewportHeight"};
 	}
 
 	@Override
 	public Object[] getValiables () {
-		return new Object[] {this.camera.getLayers(), camera.getRenderAmbientLightColor(), camera.getRenderToFramebuffer(), camera.getClearColor(), camera.getResolution().x, camera.getResolution().y, camera.zoom,
-			camera.viewportWidth, camera.viewportHeight};
+		return new Object[] {this.camera.getLayers(), camera.getRenderAmbientLightColor(), camera.getRenderToFramebuffer(),
+			camera.getClearColor(), camera.getResolution().x, camera.getResolution().y, camera.zoom, camera.viewportWidth,
+			camera.viewportHeight};
 	}
 
 }

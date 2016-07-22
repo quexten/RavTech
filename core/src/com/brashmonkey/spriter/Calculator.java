@@ -31,6 +31,7 @@ public class Calculator {
 	public final static float NO_SOLUTION = -1;
 
 	/** Calculates the smallest difference between angle a and b.
+	 * 
 	 * @param a first angle (in degrees)
 	 * @param b second angle (in degrees)
 	 * @return Smallest difference between a and b (between 180� and -180�). */
@@ -59,6 +60,7 @@ public class Calculator {
 	}
 
 	/** Solves the equation a*x^3 + b*x^2 + c*x +d = 0.
+	 * 
 	 * @param a
 	 * @param b
 	 * @param c
@@ -113,6 +115,7 @@ public class Calculator {
 	}
 
 	/** Solves the equation a*x^2 + b*x + c = 0
+	 * 
 	 * @param a
 	 * @param b
 	 * @param c
@@ -132,6 +135,7 @@ public class Calculator {
 	}
 
 	/** Returns the square of the given value.
+	 * 
 	 * @param f the value
 	 * @return the square of the value */
 	public static float squared (float f) {
@@ -139,6 +143,7 @@ public class Calculator {
 	}
 
 	/** Returns the cubed value of the given one.
+	 * 
 	 * @param f the value
 	 * @return the cubed value */
 	public static float cubed (float f) {
@@ -146,6 +151,7 @@ public class Calculator {
 	}
 
 	/** Returns the cubic root of the given value.
+	 * 
 	 * @param f the value
 	 * @return the cubic root */
 	public static float cubicRoot (float f) {
@@ -153,6 +159,7 @@ public class Calculator {
 	}
 
 	/** Returns the square root of the given value.
+	 * 
 	 * @param x the value
 	 * @return the square root */
 	public static float sqrt (float x) {
@@ -160,6 +167,7 @@ public class Calculator {
 	}
 
 	/** Returns the arc cosine at the given value.
+	 * 
 	 * @param x the value
 	 * @return the arc cosine */
 	public static float acos (float x) {

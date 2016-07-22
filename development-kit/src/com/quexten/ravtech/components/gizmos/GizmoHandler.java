@@ -87,8 +87,8 @@ public class GizmoHandler {
 						float gizDst = giz.input(x, y, 0, EventType.MouseMoved);
 						if (!((RavTechDK.getEditingMode() == EditingMode.Other) ? true : giz instanceof TransformGizmo))
 							continue;
-						if (gizDst > 0 && gizDst < closestDst
-							&& Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f //TODO WorldCamera zoom
+						if (gizDst > 0 && gizDst < closestDst && Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f // TODO WorldCamera
+																																				// zoom
 							&& !giz.isExclusive) {
 							closestDst = gizDst;
 							closestGizmo = giz;
@@ -201,7 +201,7 @@ public class GizmoHandler {
 		else if (iteratedComponentClass.equals(SpriteRenderer.class))
 			gizmo = new SpriteRendererGizmo((SpriteRenderer)component);
 		else if (iteratedComponentClass.equals(Camera.class))
-			gizmo = new CameraGizmo((Camera) component);
+			gizmo = new CameraGizmo((Camera)component);
 		return gizmo;
 	}
 

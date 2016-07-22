@@ -21,6 +21,7 @@ public class Rigidbody extends GameComponent implements Json.Serializable {
 		return ComponentType.Rigidbody;
 	}
 
+	@Override
 	public String getName () {
 		return getType().toString();
 	}

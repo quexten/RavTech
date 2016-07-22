@@ -95,6 +95,7 @@ public class PolygonShapeRenderer extends PolygonSpriteBatch {
 		this.thickness = thickness;
 	}
 
+	@Override
 	public void dispose () {
 		texture.dispose();
 	}

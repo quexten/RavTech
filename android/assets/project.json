@@ -1,0 +1,11 @@
+{
+"developerName": "Quexten",
+"appName": "Test App",
+"buildVersion": 1,
+"majorVersion": 1,
+"microVersion": 0,
+"minorVersion": 0,
+"startScene": "empty.scene",
+"versionName": "Release",
+"appId": "com.quexten.testapp"
+}

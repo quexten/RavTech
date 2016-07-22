@@ -160,7 +160,7 @@ public class SceneViewWidget extends Widget {
 			}
 
 		});
-				
+
 		addListener(new InputListener() {
 			public boolean keyDown (InputEvent event, int keycode) {
 				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C)

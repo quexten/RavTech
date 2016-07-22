@@ -38,18 +38,18 @@ public class RavTech extends Game {
 	public static RavUI ui;
 	public static RavNetwork net;
 
-	public RavTech(FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
+	public RavTech (FileHandleResolver assetResolver, EngineConfiguration applicationConfig) {
 		files = new RavFiles(assetResolver);
 		engineConfiguration = applicationConfig;
 	}
 
-	public RavTech(FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
+	public RavTech (FileHandleResolver assetResolver, Project project, EngineConfiguration applicationConfig) {
 		this(assetResolver, applicationConfig);
 		RavTech.project = project;
 	}
 
 	@Override
-	public void create() {
+	public void create () {
 		Gdx.app.setLogLevel(3);
 		if (!isEditor) {
 			files.loadAsset("project.json", Project.class);
@@ -88,7 +88,7 @@ public class RavTech extends Game {
 	}
 
 	@Override
-	public void render() {
+	public void render () {
 		input.update();
 		if (Gdx.app.getType() == ApplicationType.WebGL && !WebGLScriptManager.areLoaded())
 			return;
@@ -103,12 +103,12 @@ public class RavTech extends Game {
 		if (!RavTech.isHeadless()) {
 			for (int i = 0; i < HookApi.onRenderHooks.size; i++)
 				HookApi.onRenderHooks.get(i).run();
-			
+
 			ui.render();
 		}
 	}
 
-	public static boolean isHeadless() {
+	public static boolean isHeadless () {
 		return Gdx.app.getType() == ApplicationType.HeadlessDesktop;
 	}
 }

@@ -43,7 +43,7 @@ public class RavTechDKApplication extends RavTech {
 			VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
 
 		RavTechDK.initialize();
-	
+
 		if (RavTech.settings.getString("RavTechDK.project.path").isEmpty()
 			|| !new Lwjgl3FileHandle(RavTech.settings.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
 				.exists()) {
@@ -58,21 +58,22 @@ public class RavTechDKApplication extends RavTech {
 		}
 
 		RavTechDK.mainSceneView.camera.drawGrid = true;
-		
+
 		Gdx.app.postRunnable(new Runnable() {
 			@Override
-			public void run() {
+			public void run () {
 				RavTech.net.lobby.onJoinedHooks.insert(0, new Hook() {
 					@Override
-					public void run(Object arg) {
+					public void run (Object arg) {
 						RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
-						new ZipUtil().zipFolder(RavTechDK.projectHandle.child("assets").path(), RavTechDK.getLocalFile("temp/build.ravpack").path());
+						new ZipUtil().zipFolder(RavTechDK.projectHandle.child("assets").path(),
+							RavTechDK.getLocalFile("temp/build.ravpack").path());
 						RavTechDK.projectHandle.child("assets").child("project.json").delete();
 					}
 				});
 			}
 		});
-		//HookApi.runHooks(HookApi.onBootHooks);
+		// HookApi.runHooks(HookApi.onBootHooks);
 	}
 
 	@Override

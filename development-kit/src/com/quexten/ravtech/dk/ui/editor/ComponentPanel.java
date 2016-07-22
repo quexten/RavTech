@@ -60,7 +60,7 @@ public abstract class ComponentPanel {
 			}
 		});
 	}
-	
+
 	public void addSliderLabel (VisTable table, String variableName) {
 		addSliderLabel(table, variableName, 1.0f);
 	}

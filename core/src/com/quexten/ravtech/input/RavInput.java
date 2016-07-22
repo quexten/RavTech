@@ -82,7 +82,7 @@ public class RavInput {
 		inputDevices.add(new KeyboardMouseDevice(multiplexer));
 		for (int i = 0; i < Controllers.getControllers().size; i++)
 			inputDevices.add(new GamePadDevice(Controllers.getControllers().get(i)));
-			
+
 		if (!RavTech.isEditor) {
 			reload();
 		}
@@ -103,7 +103,7 @@ public class RavInput {
 
 		ObjectMap<String, JsonValue> serializedActionMaps = json.fromJson(ObjectMap.class,
 			Gdx.files.local("keybindings.json").readString());
-		for (ObjectMap.Entry<String, JsonValue> entry : (ObjectMap.Entries<String, JsonValue>)serializedActionMaps.entries()) {
+		for (ObjectMap.Entry<String, JsonValue> entry : serializedActionMaps.entries()) {
 			ActionMap actionMap = new ActionMap();
 			actionMap.read(json, entry.value);
 			this.actionMaps.put(entry.key, actionMap);
@@ -191,8 +191,8 @@ public class RavInput {
 				return inputDevices.get(i);
 		return null;
 	}
-	
-	public Player getPlayer() {
+
+	public Player getPlayer () {
 		return players.first();
 	}
 

@@ -36,16 +36,19 @@ import com.badlogic.gdx.math.Vector2;
 /** Represents a curve in a Spriter SCML file. An instance of this class is responsible for tweening given data. The most
  * important method of this class is {@link #tween(float, float, float)}. Curves can be changed with sub curves
  * {@link Curve#subCurve}.
+ * 
  * @author Trixt0r */
 public class Curve {
 
 	/** Represents a curve type in a Spriter SCML file.
+	 * 
 	 * @author Trixt0r */
 	public static enum Type {
 		Instant, Linear, Quadratic, Cubic, Quartic, Quintic, Bezier;
 	}
 
 	/** Returns a curve type based on the given curve name.
+	 * 
 	 * @param name the name of the curve
 	 * @return the curve type. {@link Type#Linear} is returned as a default type. */
 	public static Type getType (String name) {
@@ -78,12 +81,14 @@ public class Curve {
 	}
 
 	/** Creates a new curve with the given type.
+	 * 
 	 * @param type the curve type */
 	public Curve (Type type) {
 		this(type, null);
 	}
 
 	/** Creates a new curve with the given type and sub cuve.
+	 * 
 	 * @param type the curve type
 	 * @param subCurve the sub curve. Can be <code>null</code> */
 	public Curve (Type type, Curve subCurve) {
@@ -92,6 +97,7 @@ public class Curve {
 	}
 
 	/** Sets the type of this curve.
+	 * 
 	 * @param type the curve type.
 	 * @throws SpriterException if the type is <code>null</code> */
 	public void setType (Type type) {
@@ -101,6 +107,7 @@ public class Curve {
 	}
 
 	/** Returns the type of this curve.
+	 * 
 	 * @return the curve type */
 	public Type getType () {
 		return type;
@@ -109,6 +116,7 @@ public class Curve {
 	private float lastCubicSolution = 0f;
 
 	/** Returns a new value based on the given values. Tweens the weight with the set sub curve.
+	 * 
 	 * @param a the start value
 	 * @param b the end value
 	 * @param t the weight which lies between 0.0 and 1.0
@@ -143,6 +151,7 @@ public class Curve {
 	}
 
 	/** Interpolates the given two points with the given weight and saves the result in the target point.
+	 * 
 	 * @param a the start point
 	 * @param b the end point
 	 * @param t the weight which lies between 0.0 and 1.0
@@ -159,6 +168,7 @@ public class Curve {
 	}
 
 	/** Returns a tweened angle based on the given angles, weight and the spin.
+	 * 
 	 * @param a the start angle
 	 * @param b the end angle
 	 * @param t the weight which lies between 0.0 and 1.0
@@ -207,11 +217,13 @@ public class Curve {
 		}
 	}
 
+	@Override
 	public String toString () {
 		return getClass().getSimpleName() + "|[" + type + ":" + constraints + ", subCurve: " + subCurve + "]";
 	}
 
 	/** Represents constraints for a curve. Constraints are important for curves which have a order higher than 1.
+	 * 
 	 * @author Trixt0r */
 	public static class Constraints {
 
@@ -228,6 +240,7 @@ public class Curve {
 			this.c4 = c4;
 		}
 
+		@Override
 		public String toString () {
 			return getClass().getSimpleName() + "| [c1:" + c1 + ", c2:" + c2 + ", c3:" + c3 + ", c4:" + c4 + "]";
 		}

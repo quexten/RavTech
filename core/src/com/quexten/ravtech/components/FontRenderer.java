@@ -92,6 +92,7 @@ public class FontRenderer extends Renderer {
 	}
 
 	/** Sets the text
+	 * 
 	 * @param text - the text */
 	public void setText (String text) {
 		this.text = text;
@@ -103,6 +104,7 @@ public class FontRenderer extends Renderer {
 	}
 
 	/** Sets the Tint
+	 * 
 	 * @param color - the tint */
 	public void setColor (Color color) {
 		tint = color;

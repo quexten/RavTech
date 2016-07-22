@@ -1,3 +1,4 @@
+
 package com.brashmonkey.spriter;
 
 import java.io.File;
@@ -18,26 +19,26 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.quexten.ravtech.RavTech;
 
-public class LibGdxLoader extends Loader<Sprite> implements Disposable{
-	
+public class LibGdxLoader extends Loader<Sprite> implements Disposable {
+
 	public static int standardAtlasWidth = 2048, standardAtlasHeight = 2048;
-	
+
 	private PixmapPacker packer;
-	private HashMap<FileReference, Pixmap> pixmaps;	
+	private HashMap<FileReference, Pixmap> pixmaps;
 	private HashMap<Pixmap, Boolean> pixmapsToDispose;
 	private boolean pack;
 	private int atlasWidth, atlasHeight;
-	
-	public LibGdxLoader(Data data){
+
+	public LibGdxLoader (Data data) {
 		this(data, true);
 	}
-	
-	public LibGdxLoader(Data data, boolean pack){
+
+	public LibGdxLoader (Data data, boolean pack) {
 		this(data, standardAtlasWidth, standardAtlasHeight);
 		this.pack = pack;
 	}
 
-	public LibGdxLoader(Data data, int atlasWidth, int atlasHeight) {
+	public LibGdxLoader (Data data, int atlasWidth, int atlasHeight) {
 		super(data);
 		this.pack = true;
 		this.atlasWidth = atlasWidth;
@@ -47,93 +48,102 @@ public class LibGdxLoader extends Loader<Sprite> implements Disposable{
 	}
 
 	@Override
-	protected Sprite loadResource(FileReference ref) {
+	protected Sprite loadResource (FileReference ref) {
 		FileHandle f;
 		String pathPrefix;
-		if(super.root == null || super.root.equals("")) {
+		if (super.root == null || super.root.equals("")) {
 			pathPrefix = "";
 		} else {
 			pathPrefix = super.root + File.separator;
 		}
 		String path = pathPrefix + data.getFile(ref).name;
-		switch(Gdx.app.getType()){
-		case iOS: f = Gdx.files.absolute(path); break;
-		default: f = RavTech.files.getAssetHandle(path); break;
+		switch (Gdx.app.getType()) {
+			case iOS:
+				f = Gdx.files.absolute(path);
+				break;
+			default:
+				f = RavTech.files.getAssetHandle(path);
+				break;
 		}
-		
-		if(!f.exists()) throw new GdxRuntimeException("Could not find file handle "+ path + "! Please check your paths.");
-		if(this.packer == null && this.pack)
+
+		if (!f.exists())
+			throw new GdxRuntimeException("Could not find file handle " + path + "! Please check your paths.");
+		if (this.packer == null && this.pack)
 			this.packer = new PixmapPacker(this.atlasWidth, this.atlasHeight, Pixmap.Format.RGBA8888, 2, true);
 		final Pixmap pix = new Pixmap(f);
 		this.pixmaps.put(ref, pix);
 		return null;
 	}
-	
-	/**
-	 * Packs all loaded sprites into an atlas. Has to called after loading all sprites.
-	 */
-	protected void generatePackedSprites(){
-		if(this.packer == null) return;
+
+	/** Packs all loaded sprites into an atlas. Has to called after loading all sprites. */
+	protected void generatePackedSprites () {
+		if (this.packer == null)
+			return;
 		TextureAtlas tex = this.packer.generateTextureAtlas(TextureFilter.Linear, TextureFilter.Linear, false);
 		Set<FileReference> keys = this.resources.keySet();
 		this.disposeNonPackedTextures();
-		for(FileReference ref: keys){
+		for (FileReference ref : keys) {
 			TextureRegion texReg = tex.findRegion(data.getFile(ref).name);
-			texReg.setRegionWidth((int) data.getFile(ref).size.width);
-			texReg.setRegionHeight((int) data.getFile(ref).size.height);
+			texReg.setRegionWidth((int)data.getFile(ref).size.width);
+			texReg.setRegionHeight((int)data.getFile(ref).size.height);
 			super.resources.put(ref, new Sprite(texReg));
 		}
 	}
-	
-	private void disposeNonPackedTextures(){
-		for(Entry<FileReference, Sprite> entry: super.resources.entrySet())
+
+	private void disposeNonPackedTextures () {
+		for (Entry<FileReference, Sprite> entry : super.resources.entrySet())
 			entry.getValue().getTexture().dispose();
 	}
 
 	@Override
-	public void dispose() {
-		if(this.pack && this.packer != null) this.packer.dispose();
-		else this.disposeNonPackedTextures();
+	public void dispose () {
+		if (this.pack && this.packer != null)
+			this.packer.dispose();
+		else
+			this.disposeNonPackedTextures();
 		super.dispose();
 	}
-	
-	protected void finishLoading() {
+
+	@Override
+	protected void finishLoading () {
 		Set<FileReference> refs = this.resources.keySet();
-		for(FileReference ref: refs){
+		for (FileReference ref : refs) {
 			Pixmap pix = this.pixmaps.get(ref);
 			this.pixmapsToDispose.put(pix, false);
 			this.createSprite(ref, pix);
-			
-			if(this.packer != null)	packer.pack(data.getFile(ref).name, pix);
+
+			if (this.packer != null)
+				packer.pack(data.getFile(ref).name, pix);
 		}
-		if(this.pack) generatePackedSprites();
+		if (this.pack)
+			generatePackedSprites();
 		this.disposePixmaps();
 	}
-	
-	protected void createSprite(FileReference ref, Pixmap image){
+
+	protected void createSprite (FileReference ref, Pixmap image) {
 		Texture tex = new Texture(image);
 		tex.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		int width = (int) data.getFile(ref.folder, ref.file).size.width;
-		int height = (int) data.getFile(ref.folder, ref.file).size.height;
+		int width = (int)data.getFile(ref.folder, ref.file).size.width;
+		int height = (int)data.getFile(ref.folder, ref.file).size.height;
 		TextureRegion texRegion = new TextureRegion(tex, width, height);
 		super.resources.put(ref, new Sprite(texRegion));
 		pixmapsToDispose.put(image, true);
 	}
-	
-	protected void disposePixmaps(){
+
+	protected void disposePixmaps () {
 		Pixmap[] maps = new Pixmap[this.pixmapsToDispose.size()];
 		this.pixmapsToDispose.keySet().toArray(maps);
-		for(Pixmap pix: maps){
-			try{
-				while(pixmapsToDispose.get(pix)){
+		for (Pixmap pix : maps) {
+			try {
+				while (pixmapsToDispose.get(pix)) {
 					pix.dispose();
 					pixmapsToDispose.put(pix, false);
 				}
-			} catch(GdxRuntimeException e){
+			} catch (GdxRuntimeException e) {
 				System.err.println("Pixmap was already disposed!");
 			}
 		}
 		pixmapsToDispose.clear();
 	}
-	
+
 }

@@ -28,6 +28,7 @@ public class CreateChangeable extends Changeable {
 		redo();
 	}
 
+	@Override
 	public void redo () {
 		GameComponent parent = GameObjectTraverseUtil.gameComponentFromPath(pathToComponent);
 		JsonValue jsonData = new JsonReader().parse(gameComponent);
@@ -47,6 +48,7 @@ public class CreateChangeable extends Changeable {
 		componentType = jsonData.getString("componenttype");
 	}
 
+	@Override
 	public void undo () {
 		GameObject component = (GameObject)GameObjectTraverseUtil.gameComponentFromPath(removePath);
 		component.destroy();

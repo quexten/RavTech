@@ -30,25 +30,29 @@ public class GamePadListener implements ControllerListener {
 
 	@Override
 	public boolean buttonDown (Controller controller, int buttonCode) {
-		// RavTech.input.controllerStates.get(indexFor(controller)).buttonValues.put(buttonCode, true);
+		// RavTech.input.controllerStates.get(indexFor(controller)).buttonValues.put(buttonCode,
+		// true);
 		return false;
 	}
 
 	@Override
 	public boolean buttonUp (Controller controller, int buttonCode) {
-		// RavTech.input.controllerStates.get(indexFor(controller)).buttonValues.put(buttonCode, false);
+		// RavTech.input.controllerStates.get(indexFor(controller)).buttonValues.put(buttonCode,
+		// false);
 		return false;
 	}
 
 	@Override
 	public boolean axisMoved (Controller controller, int axisCode, float value) {
-		// RavTech.input.controllerStates.get(indexFor(controller)).axisValues.put(axisCode, value);
+		// RavTech.input.controllerStates.get(indexFor(controller)).axisValues.put(axisCode,
+		// value);
 		return false;
 	}
 
 	@Override
 	public boolean povMoved (Controller controller, int povCode, PovDirection value) {
-		// RavTech.input.controllerStates.get(indexFor(controller)).povDirection = value;
+		// RavTech.input.controllerStates.get(indexFor(controller)).povDirection
+		// = value;
 		return false;
 	}
 

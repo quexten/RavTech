@@ -25,6 +25,7 @@ public class Key implements Json.Serializable {
 	}
 
 	/** Updates the Key
+	 * 
 	 * @param nextKeyTime - time of the next key in milliseconds
 	 * @param currentTime - current time of animation in milliseconds */
 	public void update (int nextKeyTime, int currentTime) {
@@ -58,6 +59,7 @@ public class Key implements Json.Serializable {
 			timeline.component.setVariable(timeline.variableId, value);
 	}
 
+	@Override
 	public String toString () {
 		return time + "|" + value + "|" + timeline;
 	}

@@ -30,7 +30,8 @@ public abstract class Box2dCollider extends GameComponent implements Json.Serial
 			if (component instanceof Box2dCollider) {
 				Box2dCollider collider = (Box2dCollider)component;
 				collider.fixture = null;
-				// if (collider instanceof PolygonCollider) ((PolygonCollider)collider).fixtures.clear();
+				// if (collider instanceof PolygonCollider)
+				// ((PolygonCollider)collider).fixtures.clear();
 				collider.apply();
 			}
 		}

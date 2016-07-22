@@ -19,10 +19,10 @@ public class Player {
 		device.assignPlayer(this);
 	}
 
-	public void unAssignDevice (InputDevice inputDevice) {		
+	public void unAssignDevice (InputDevice inputDevice) {
 		inputDevices.remove(inputDevice);
 		if (primaryDevice == inputDevice) {
-			if(inputDevices.size > 0) {
+			if (inputDevices.size > 0) {
 				primaryDevice = inputDevices.keys().next();
 			} else {
 				primaryDevice = null;

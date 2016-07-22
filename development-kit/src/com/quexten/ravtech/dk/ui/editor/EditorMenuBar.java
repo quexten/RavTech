@@ -144,12 +144,13 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-					/*	CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
-							"{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
-								+ RavTech.sceneHandler.worldCamera.position.x + ",\"y\":" + RavTech.sceneHandler.worldCamera.position.y
-								+ ",\"rotation\":0,\"scale\":1}]}");
-						ChangeManager.addChangeable(changeable);
-//						RavTechDK.setSelectedObjects(RavTech.currentScene.gameObjects.peek());*/
+						/*
+						 * CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
+						 * "{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
+						 * + RavTech.sceneHandler.worldCamera.position.x + ",\"y\":" + RavTech.sceneHandler.worldCamera.position.y +
+						 * ",\"rotation\":0,\"scale\":1}]}"); ChangeManager.addChangeable(changeable); //
+						 * RavTechDK.setSelectedObjects(RavTech.currentScene.gameObjects.peek());
+						 */
 					}
 				});
 				menu.addItem(entry);
@@ -237,7 +238,7 @@ public class EditorMenuBar extends MenuBar {
 					}
 				});
 				menu.addItem(entry);
-				
+
 				entry = new MenuItem("Add Buffer View");
 				entry.addListener(new ChangeListener() {
 					@Override
@@ -248,12 +249,13 @@ public class EditorMenuBar extends MenuBar {
 								RavWindow window = new RavWindow("Scene", true);
 								window.addCloseButton();
 								window.setSize(320, 180);
-								
+
 								final VisSelectBox<String> selectBox = new VisSelectBox<String>();
 								selectBox.setItems(RavTech.sceneHandler.shaderManager.getFrameBuffers());
-								
-								final BufferViewWidget widget = new BufferViewWidget(RavTech.sceneHandler.shaderManager.getFrameBuffers()[0]);
-								
+
+								final BufferViewWidget widget = new BufferViewWidget(
+									RavTech.sceneHandler.shaderManager.getFrameBuffers()[0]);
+
 								selectBox.addListener(new ChangeListener() {
 									@Override
 									public void changed (ChangeEvent event, Actor actor) {
@@ -266,11 +268,11 @@ public class EditorMenuBar extends MenuBar {
 									@Override
 									public void changed (ChangeEvent event, Actor actor) {
 										widget.renderAlphaMap = renderAlpha.isChecked();
-									}									
+									}
 								});
-								window.add(renderAlpha);							
+								window.add(renderAlpha);
 								window.row();
-								window.add(widget).colspan(2).grow();							
+								window.add(widget).colspan(2).grow();
 								window.toFront();
 								window.setVisible(true);
 								RavTech.ui.getStage().addActor(window);
@@ -278,7 +280,7 @@ public class EditorMenuBar extends MenuBar {
 						});
 					}
 				});
-				menu.addItem(entry);				
+				menu.addItem(entry);
 			}
 			addMenu(menu);
 		}

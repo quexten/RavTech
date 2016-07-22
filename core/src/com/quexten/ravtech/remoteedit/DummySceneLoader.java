@@ -1,10 +1,10 @@
+
 package com.quexten.ravtech.remoteedit;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
@@ -15,7 +15,7 @@ public class DummySceneLoader extends AsynchronousAssetLoader<Scene, AssetLoader
 
 	Scene scene;
 	String serializedScene;
-	
+
 	public DummySceneLoader (String serializedScene) {
 		super(RavTech.files.getResolver());
 		this.serializedScene = serializedScene;

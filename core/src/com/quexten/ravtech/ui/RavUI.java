@@ -15,8 +15,8 @@ public class RavUI {
 	Stage screenStage;
 	public DebugConsole debugConsole;
 
-	public RavUI() {
-		if(!RavTech.isHeadless()) {
+	public RavUI () {
+		if (!RavTech.isHeadless()) {
 			if (!VisUI.isLoaded() && !RavTech.isHeadless())
 				VisUI.load(Gdx.files.internal("mdpi/uiskin.json"));
 			screenStage = new Stage(new ScreenViewport());
@@ -24,7 +24,7 @@ public class RavUI {
 			RavTech.input.addInputProcessor(screenStage);
 			screenStage.addListener(new InputListener() {
 				@Override
-				public boolean keyDown(InputEvent event, int key) {
+				public boolean keyDown (InputEvent event, int key) {
 					if (key == Keys.F1)
 						debugConsole.toggleVisible();
 					return true;
@@ -34,12 +34,12 @@ public class RavUI {
 		}
 	}
 
-	public void render() {
+	public void render () {
 		screenStage.act();
 		screenStage.draw();
 	}
 
-	public Stage getStage() {
+	public Stage getStage () {
 		return screenStage;
 	}
 

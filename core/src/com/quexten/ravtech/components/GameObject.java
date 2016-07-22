@@ -139,7 +139,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 			component = new SpriterAnimator();
 		else if (classname.equals("Camera"))
 			component = new Camera();
-		
+
 		if (!classname.equals("Transform")) {
 			addComponent(component);
 			component.read(json, currententry);
@@ -151,6 +151,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	}
 
 	/** Creates an instance of the given prefab
+	 * 
 	 * @param prefabpath - path to the prefab in the project
 	 * @param position - position of the Instantiated prefab
 	 * @param rotation - rotation of the Instantiated prefab
@@ -166,6 +167,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 	}
 
 	/** Adds the GameComponent and sets the GameObject as parent.
+	 * 
 	 * @param component - the component to add
 	 * @return The GameObjects for chaining. */
 	public GameObject addComponent (GameComponent component) {

@@ -12,10 +12,12 @@ import com.quexten.ravtech.util.Debug;
 
 public class AudioEmitter extends GameComponent implements Json.Serializable {
 
+	@Override
 	public ComponentType getType () {
 		return ComponentType.AudioEmitter;
 	}
 
+	@Override
 	public String getName () {
 		return getType().toString();
 	}

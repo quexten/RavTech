@@ -11,8 +11,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.util.Debug;
-
 import box2dLight.DynamicLightMap;
 
 public class RavCamera extends OrthographicCamera {
@@ -50,7 +48,7 @@ public class RavCamera extends OrthographicCamera {
 			RavTech.sceneHandler.lightHandler.setCombinedMatrix(this);
 			RavTech.sceneHandler.lightHandler.updateAndRender();
 		}
-		
+
 		spriteBatch.setProjectionMatrix(this.combined);
 		RavTech.sceneHandler.renderer.render(spriteBatch, this);
 
@@ -110,35 +108,35 @@ public class RavCamera extends OrthographicCamera {
 		return this.renderToFramebuffer;
 	}
 
-	public void setRenderAmbientLightColor(boolean renderAmbientLightColor) {
+	public void setRenderAmbientLightColor (boolean renderAmbientLightColor) {
 		this.renderAmbient = renderAmbientLightColor;
 	}
-	
-	public boolean getRenderAmbientLightColor() {
+
+	public boolean getRenderAmbientLightColor () {
 		return this.renderAmbient;
 	}
-	
-	public void setLayers(Array<String> layers) {
+
+	public void setLayers (Array<String> layers) {
 		this.layers.clear();
 		this.layers.addAll(layers);
 	}
-	
-	public Array<String> getLayers() {
+
+	public Array<String> getLayers () {
 		return this.layers;
 	}
-	
+
 	public void setClearColor (Color clearColor) {
 		this.clearColor = clearColor;
 	}
-	
+
 	public Color getClearColor () {
 		return this.clearColor;
 	}
-	
-	public FrameBuffer getCameraBuffer() {
+
+	public FrameBuffer getCameraBuffer () {
 		return this.cameraBuffer;
 	}
-	
+
 	public Texture getCameraBufferTexture () {
 		return cameraBuffer.getColorBufferTexture();
 	}
@@ -156,6 +154,7 @@ public class RavCamera extends OrthographicCamera {
 		return screenCoords;
 	}
 
+	@Override
 	public Vector3 unproject (Vector3 screenCoords) {
 		unproject(screenCoords, 0, 0, resolutionX, resolutionY);
 		return screenCoords;
@@ -168,6 +167,6 @@ public class RavCamera extends OrthographicCamera {
 
 	public Vector2 getMousePosition () {
 		return this.unproject(new Vector2(RavTech.input.getX(), RavTech.input.getY()));
-	}	
+	}
 
 }

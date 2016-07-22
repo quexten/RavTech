@@ -60,7 +60,7 @@ public class AssetFileWatcher {
 										if (!assetPath.endsWith(".scene"))
 											if (RavTech.files.isLoaded(assetPath))
 												RavTech.files.reloadAsset(assetPath);
-										if(assetPath.endsWith(".frag") || assetPath.endsWith(".vert"))
+										if (assetPath.endsWith(".frag") || assetPath.endsWith(".vert"))
 											RavTech.sceneHandler.shaderManager.reload();
 										RavTechDK.assetViewer.assetView.refresh();
 									}

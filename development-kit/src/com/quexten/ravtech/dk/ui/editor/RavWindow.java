@@ -144,7 +144,7 @@ public class RavWindow extends VisWindow {
 	public void clear () {
 		rootTable.clear();
 	}
-	
+
 	@Override
 	public void setVisible (boolean visible) {
 		this.visible = visible;

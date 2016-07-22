@@ -67,7 +67,7 @@ public class RavTechDK {
 	public static int windowHeight;
 
 	public static void initialize () {
-		RavCamera.camId --;
+		RavCamera.camId--;
 		Packager.registerPlatform("Desktop", new DesktopPlatform());
 		Packager.registerPlatform("Android", new AndroidPlatform());
 
@@ -79,8 +79,8 @@ public class RavTechDK {
 		root.row();
 		mainSceneView = new SceneViewWidget(true);
 		root.add(mainSceneView).expand().fill();
-		RavTech.input.addInputProcessor(RavTech.ui.getStage());		
-		
+		RavTech.input.addInputProcessor(RavTech.ui.getStage());
+
 		HookApi.onResizeHooks.add(new Hook() {
 
 			@Override
