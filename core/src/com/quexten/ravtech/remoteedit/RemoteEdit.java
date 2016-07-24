@@ -32,7 +32,7 @@ public class RemoteEdit {
 			public void run (Object arg) {
 				Player player = (Player)arg;
 				player.sendStream("Assets", "", Gdx.files.local("temp/build.ravpack").read(),
-					(int)Gdx.files.local("temp/build.ravpack").length());
+					(int)Gdx.files.local("temp/build.ravpack").length());				
 			}
 		});
 
@@ -49,7 +49,9 @@ public class RemoteEdit {
 
 	public static void connect (String connectionId) {
 		final FileHandle cacheAssetFile = Gdx.files.local("cache").child("assets.ravpack");
-
+		
+		final RemoteEditLoadingScreen loadingScreen = new RemoteEditLoadingScreen();
+				
 		RavTech.net.joinLobby(connectionId);
 		RavTech.net.addProcessor(new PacketProcessor() {
 
@@ -64,6 +66,13 @@ public class RemoteEdit {
 					if (streamHeader.type.equals("Assets")) {
 						recievingStreamId = streamHeader.streamId;
 						length = streamHeader.streamLength;
+						
+						Gdx.app.postRunnable(new Runnable() {
+							@Override
+							public void run() {
+								((RavTech) Gdx.app.getApplicationListener()).setScreen(loadingScreen);
+							}
+						});												
 						return true;
 					} else {
 						return false;
@@ -75,13 +84,15 @@ public class RemoteEdit {
 					if (streamChunk.streamId == recievingStreamId) {
 						cacheAssetFile.writeBytes(streamChunk.chunkBytes, true);
 						recievedLength += streamChunk.chunkBytes.length;
+						
+						loadingScreen.percentage = (float) recievedLength / (float) length;
+						Debug.log("Percentage", loadingScreen.percentage);
 						// Debug.log("Recieved", (float) recievedLength + "/" +
 						// (float) length + " "
 						// + ((float) recievedLength / (float) length) * 100 +
 						// "%");
 						if (recievedLength == length) {
 							ZipUtil.extract(cacheAssetFile, Gdx.files.local("cache"));
-							Debug.log("Ziputil", "done");
 							final FileHandle cacheHandle = Gdx.files.local("cache");
 
 							RavTech.files.setResolver(new FileHandleResolver() {
@@ -91,14 +102,12 @@ public class RemoteEdit {
 								}
 							});
 
-							Debug.log("Cache files", cacheHandle);
-
 							RavTech.files.loadAsset("project.json", Project.class);
 							RavTech.files.finishLoading();
 							RavTech.project = RavTech.files.getAsset("project.json");
 							player.send(new Packet_GameStateRequest(), true);
 						}
-						return true;
+						return false;
 					}
 				}
 				return false;
@@ -142,8 +151,9 @@ public class RemoteEdit {
 							buffer[i] = streamChunk.chunkBytes[i - recievedLength];
 						}
 						recievedLength += streamChunk.chunkBytes.length;
-						Debug.log("Recieved",
-							(float)recievedLength + "/" + (float)length + " " + ((float)recievedLength / (float)length) * 100 + "%");
+						
+						loadingScreen.percentage = 1 + (float) recievedLength / (float) length;
+						
 						if (recievedLength == length) {
 							input.setInputStream(new ByteArrayInputStream(buffer));
 							Gdx.app.postRunnable(new Runnable() {
@@ -179,7 +189,6 @@ public class RemoteEdit {
 									((RavTech)Gdx.app.getApplicationListener()).setScreen(new PlayScreen());
 									RavTech.sceneHandler.paused = true;
 									RavTech.sceneHandler.update(0);
-									RavTech.sceneHandler.paused = false;
 								}
 							});
 

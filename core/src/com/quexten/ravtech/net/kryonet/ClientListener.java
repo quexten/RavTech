@@ -38,23 +38,24 @@ public class ClientListener extends Listener {
 	}
 
 	@Override
-	public void received (Connection connection, final Object o) {
-		if (!(o instanceof Packet_StreamChunk))
-			Debug.logDebug(LOG_TAG, "Recieved:" + o);
-		if (o instanceof LobbyPacket) {
-			if (o instanceof Packet_SetLobbyData)
-				layer.net.lobby.values.put(((Packet_SetLobbyData)o).key, ((Packet_SetLobbyData)o).value);
-			if (o instanceof Packet_DeleteLobbyData)
-				layer.net.lobby.values.remove(((Packet_DeleteLobbyData)o).key);
+	public void received (Connection connection, final Object packet) {
+		if (!(packet instanceof Packet_StreamChunk))
+			Debug.logDebug(LOG_TAG, "Recieved:" + packet);
+
+		if (packet instanceof LobbyPacket) {
+			if (packet instanceof Packet_SetLobbyData)
+				layer.net.lobby.values.put(((Packet_SetLobbyData)packet).key, ((Packet_SetLobbyData)packet).value);
+			if (packet instanceof Packet_DeleteLobbyData)
+				layer.net.lobby.values.remove(((Packet_DeleteLobbyData)packet).key);
 			return;
 		}
-
-		if (o instanceof Packet_LoginAnswer) {
-			layer.net.lobby.playerJoined(connection, "Host");
+ 
+		if (packet instanceof Packet_LoginAnswer) {
+			 layer.net.lobby.playerJoined(connection, "quexten");
 		}
-
+		
 		if (layer.net.lobby != null)
-			layer.net.processPacket(o, layer.net.transportLayers.get(0), layer.net.lobby.getPlayerForConnection(connection));
+			layer.net.processPacket(packet, layer.net.transportLayers.get(0), layer.net.lobby.getPlayerForConnection(connection));
 	}
 
 }

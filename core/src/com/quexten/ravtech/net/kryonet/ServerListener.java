@@ -53,8 +53,8 @@ public class ServerListener extends Listener {
 
 	@Override
 	public void received (final Connection connection, final Object packet) {
-		if (packet instanceof NetViewPacket || packet instanceof Packet_Instantiate || packet instanceof Packet_DKChangeable)
-			if (trustedConnections.contains(connection.getID()))
+	//	if (packet instanceof NetViewPacket || packet instanceof Packet_Instantiate || packet instanceof Packet_DKChangeable)
+			//if (trustedConnections.contains(connection.getID()))
 				// sendToAllExcept(connection.getID(), packet, false); //TODO
 				// make this layer independent
 

@@ -192,7 +192,7 @@ public class KryonetTransportLayer extends TransportLayer {
 		sendTo(connectionInformation, streamHeader, true);
 
 		// Send data in 512 byte chunks.
-		((Connection)connectionInformation).addListener(new InputStreamSender(stream, 512) {
+		((Connection)connectionInformation).addListener(new InputStreamSender(stream, 1024) {
 			@Override
 			protected Object next (byte[] bytes) {
 				Packet_StreamChunk chunkPacket = new Packet_StreamChunk();

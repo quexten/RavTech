@@ -4,6 +4,7 @@ package com.quexten.ravtech.net;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.history.Changeable;
 
@@ -16,18 +17,17 @@ public class Packet {
 
 	public static class Packet_LoginAnswer {
 		boolean accepted = false;
-		int ownerid;
+		String message;
+		public IntMap<Player> players;
+		
 	}
 
 	public static class Packet_StreamHeader {
-
 		public int streamId = (int)(Math.random() * Integer.MAX_VALUE);
 		public String type;
 
 		public int streamLength;
 
-		// Can be used for ravviewid's for the gamestate, file directory for
-		// assets or otherwise
 		public Object additionalInfo;
 	}
 
