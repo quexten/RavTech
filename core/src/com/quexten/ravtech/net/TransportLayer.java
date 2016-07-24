@@ -25,15 +25,17 @@ public abstract class TransportLayer {
 
 	public abstract void discoverHosts ();
 
-	// Sending Methods
-	public abstract void send (Object packet, boolean reliable);
+	// Sending / Recieving Methods
+	public abstract void send (Packet packet, boolean reliable);
 
-	public abstract void sendTo (Object connectionIdentifier, Object packet, boolean reliable);
+	public abstract void sendTo (Object connectionIdentifier, Packet packet, boolean reliable);
 
-	public abstract void sendLargeTo (Object connectionInformation, String type, Object additionalInformation, Object packet);
+	public abstract void sendLargeTo (Object connectionInformation, Packet packet, String type, Object additionalInformation);
 
-	public abstract void sendStreamTo (Object connectionInformation, String type, Object additionalInformation, InputStream stream,
-		int size);
+	public abstract void sendStreamTo (Object connectionInformation, InputStream stream, int size, String type,
+		Object additionalInformation);
+
+	public abstract void recieve (Packet packet);
 
 	// Lobby Methods
 	public abstract void createLobby (Object lobbyInformation);

@@ -8,9 +8,7 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.quexten.ravtech.HookApi;
-import com.quexten.ravtech.net.Packet.NetViewPacket;
-import com.quexten.ravtech.net.Packet.Packet_DKChangeable;
-import com.quexten.ravtech.net.Packet.Packet_Instantiate;
+import com.quexten.ravtech.net.Packet;
 import com.quexten.ravtech.net.Packet.Packet_LobbyData;
 import com.quexten.ravtech.net.Packet.Packet_LoginAnswer;
 import com.quexten.ravtech.net.Packet.Packet_LoginRequest;
@@ -52,29 +50,28 @@ public class ServerListener extends Listener {
 	}
 
 	@Override
-	public void received (final Connection connection, final Object packet) {
-	//	if (packet instanceof NetViewPacket || packet instanceof Packet_Instantiate || packet instanceof Packet_DKChangeable)
-			//if (trustedConnections.contains(connection.getID()))
-				// sendToAllExcept(connection.getID(), packet, false); //TODO
-				// make this layer independent
+	public void received (final Connection connection, Object object) {
+		if(!(object instanceof Packet))
+			return;
+		Packet packet = ((Packet)object);
 
-				if (packet instanceof Packet_LoginRequest)
-					if (layer.net.lobby.checkPassword(((Packet_LoginRequest)packet).password)) {
-						Debug.logDebug(LOG_TAG, "Authentification of " + connection.getRemoteAddressTCP() + " successful as: "
-							+ ((Packet_LoginRequest)packet).username);
+		if (packet instanceof Packet_LoginRequest)
+			if (layer.net.lobby.checkPassword(((Packet_LoginRequest)packet).password)) {
+				Debug.logDebug(LOG_TAG, "Authentification of " + connection.getRemoteAddressTCP() + " successful as: "
+					+ ((Packet_LoginRequest)packet).username);
 
-						trustedConnections.add(connection.getID());
+				trustedConnections.add(connection.getID());
 
-						Packet_LoginAnswer answer = new Packet_LoginAnswer();
-						layer.net.lobby.playerJoined(connection, ((Packet_LoginRequest)packet).username).send(answer, true);
+				Packet_LoginAnswer answer = new Packet_LoginAnswer();
+				layer.net.lobby.playerJoined(connection, ((Packet_LoginRequest)packet).username).send(answer, true);
 
-						HookApi.postHooks(layer.net.lobby.onJoinedHooks, layer.net.lobby.getPlayerForConnection(connection));
-					} else {
-						Debug.log(LOG_TAG, "Authentification failed for " + connection.getRemoteAddressTCP());
-						connection.close();
-					}
+				HookApi.postHooks(layer.net.lobby.onJoinedHooks, layer.net.lobby.getPlayerForConnection(connection));
+			} else {
+				Debug.log(LOG_TAG, "Authentification failed for " + connection.getRemoteAddressTCP());
+				connection.close();
+			}
 		if (trustedConnections.contains(connection.getID()))
-			layer.net.processPacket(packet, layer.net.transportLayers.get(0), layer.net.lobby.getPlayerForConnection(connection));
+			layer.recieve(packet);
 	}
 
 }

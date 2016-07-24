@@ -10,19 +10,20 @@ import com.quexten.ravtech.history.Changeable;
 
 public class Packet {
 
-	public static class Packet_LoginRequest {
+	public int senderId;
+
+	public static class Packet_LoginRequest extends Packet {
 		public String username;
 		public String password;
 	}
 
-	public static class Packet_LoginAnswer {
-		boolean accepted = false;
-		String message;
+	public static class Packet_LoginAnswer extends Packet {
+		public boolean accepted;
+		public String message;
 		public IntMap<Player> players;
-		
 	}
 
-	public static class Packet_StreamHeader {
+	public static class Packet_StreamHeader extends Packet {
 		public int streamId = (int)(Math.random() * Integer.MAX_VALUE);
 		public String type;
 
@@ -31,19 +32,19 @@ public class Packet {
 		public Object additionalInfo;
 	}
 
-	public static class Packet_StreamChunk {
+	public static class Packet_StreamChunk extends Packet {
 		public int streamId;
 		public byte[] chunkBytes;
 	}
 
-	public static class Packet_Instantiate {
+	public static class Packet_Instantiate extends Packet {
 		public String prefabPath;
 		Vector2 position;
 		float rotation;
 		IntArray ravViewIDs;
 	}
 
-	public static class NetViewPacket {
+	public static class NetViewPacket extends Packet {
 		public int id;
 	}
 
@@ -74,18 +75,18 @@ public class Packet {
 		public String function;
 	}
 
-	public static class Packet_DKChangeable {
+	public static class Packet_DKChangeable extends Packet {
 		public Changeable changeable;
 	}
 
-	public static class Packet_PlayingState {
+	public static class Packet_PlayingState extends Packet {
 		public boolean playing;
 	}
 
-	public static class LobbyPacket {
+	public static class LobbyPacket extends Packet {
 	}
 
-	public static class Packet_LobbyData {
+	public static class Packet_LobbyData extends Packet {
 		public ObjectMap<String, Object> values;
 	}
 
@@ -98,7 +99,20 @@ public class Packet {
 		public String key;
 	}
 
-	public static class Packet_GameStateRequest {
+	public static class Packet_GameStateRequest extends Packet {
+	}
+
+	public static class Packet_GameState extends Packet {
+		public String state;
+		public String path;
+
+		public Packet_GameState () {
+		}
+
+		public Packet_GameState (String state, String path) {
+			this.state = state;
+			this.path = path;
+		}
 	}
 
 }

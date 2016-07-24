@@ -16,16 +16,16 @@ public class Player {
 		this.username = username;
 	}
 
-	public void send (Object packet, boolean reliable) {
+	public void send (Packet packet, boolean reliable) {
 		lobby.network.sendTo(connectionInformation, packet, reliable);
 	}
 
-	public void sendStream (String type, Object additionalInformation, InputStream stream, int size) {
-		lobby.network.sendStreamTo(connectionInformation, type, additionalInformation, stream, size);
+	public void sendStream (InputStream stream, int size, String type, Object additionalInformation) {
+		lobby.network.sendStreamTo(connectionInformation, stream, size, type, additionalInformation);
 	}
 
-	public void sendLargePacket (String type, Object additionalInformation, Object packet) {
-		lobby.network.sendLargePacketTo(connectionInformation, type, additionalInformation, packet);
+	public void sendLargePacket (Packet packet, String type, Object additionalInformation) {
+		lobby.network.sendLargePacketTo(connectionInformation, packet, type, additionalInformation);
 	}
 
 }

@@ -4,9 +4,12 @@ package com.quexten.ravtech.net;
 import java.io.InputStream;
 
 import com.badlogic.gdx.utils.Array;
+import com.quexten.ravtech.net.Packet.Packet_LoginAnswer;
 import com.quexten.ravtech.util.Debug;
 
 public class RavNetwork {
+
+	public static final String LARGE_PACKET_HEADER_TYPE = "LARGE_PACKET";
 
 	public Array<TransportLayer> transportLayers = new Array<TransportLayer>();
 	public Lobby lobby;
@@ -64,31 +67,36 @@ public class RavNetwork {
 		return lobby != null;
 	}
 
-	public void send (Object packet, boolean reliable) {
+	public void send (Packet packet, boolean reliable) {
 		for (int i = 0; i < transportLayers.size; i++)
 			transportLayers.get(i).send(packet, reliable);
 	}
 
-	public void sendTo (Object connectionIdentifier, Object packet, boolean reliable) {
+	public void sendTo (Object connectionIdentifier, Packet packet, boolean reliable) {
 		for (int i = 0; i < transportLayers.size; i++)
 			transportLayers.get(i).sendTo(connectionIdentifier, packet, reliable);
 	}
 
-	public void sendStreamTo (Object connectionInformation, String type, Object additionalInformation, InputStream stream,
-		int size) {
+	public void sendStreamTo (Object connectionInformation, InputStream stream, int size, String type,
+		Object additionalInformation) {
 		for (int i = 0; i < transportLayers.size; i++)
-			transportLayers.get(i).sendStreamTo(connectionInformation, type, additionalInformation, stream, size);
+			transportLayers.get(i).sendStreamTo(connectionInformation, stream, size, type, additionalInformation);
 	}
 
-	public void sendLargePacketTo (Object connectionInformation, String type, Object additionalInformation, Object packet) {
+	public void sendLargePacketTo (Object connectionInformation, Packet packet, String type, Object additionalInformation) {
 		for (int i = 0; i < transportLayers.size; i++) {
-			transportLayers.get(i).sendLargeTo(connectionInformation, type, additionalInformation, packet);
+			transportLayers.get(i).sendLargeTo(connectionInformation, packet, type, additionalInformation);
 		}
 	}
 
-	public void processPacket (final Object packet, TransportLayer layer, Player player) {
+	public void processPacket (Packet packet, Player player) {
 		if (lobby == null)
 			lobby = new Lobby(this, 4, false);
+
+		if (packet instanceof Packet_LoginAnswer) {
+			// Packet_LoginAnswer loginAnswer = ((Packet_LoginAnswer) packet);
+			// lobby.playerJoined(player.connectionInformation, "quexten");
+		}
 
 		for (int i = 0; i < processors.size; i++) {
 			if (processors.get(i).process(player, packet))

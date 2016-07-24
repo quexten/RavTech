@@ -3,6 +3,7 @@ package com.quexten.ravtech.net.kryonet;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.quexten.ravtech.net.Packet;
 import com.quexten.ravtech.net.Packet.LobbyPacket;
 import com.quexten.ravtech.net.Packet.Packet_DeleteLobbyData;
 import com.quexten.ravtech.net.Packet.Packet_LoginAnswer;
@@ -38,10 +39,11 @@ public class ClientListener extends Listener {
 	}
 
 	@Override
-	public void received (Connection connection, final Object packet) {
-		if (!(packet instanceof Packet_StreamChunk))
-			Debug.logDebug(LOG_TAG, "Recieved:" + packet);
-
+	public void received (Connection connection, final Object object) {
+		if(!(object instanceof Packet))
+			return;
+		Packet packet = ((Packet)object);
+		
 		if (packet instanceof LobbyPacket) {
 			if (packet instanceof Packet_SetLobbyData)
 				layer.net.lobby.values.put(((Packet_SetLobbyData)packet).key, ((Packet_SetLobbyData)packet).value);
@@ -49,13 +51,13 @@ public class ClientListener extends Listener {
 				layer.net.lobby.values.remove(((Packet_DeleteLobbyData)packet).key);
 			return;
 		}
- 
+
 		if (packet instanceof Packet_LoginAnswer) {
-			 layer.net.lobby.playerJoined(connection, "quexten");
+			layer.net.lobby.playerJoined(connection, "quexten");
 		}
-		
+
 		if (layer.net.lobby != null)
-			layer.net.processPacket(packet, layer.net.transportLayers.get(0), layer.net.lobby.getPlayerForConnection(connection));
+			layer.recieve(packet);
 	}
 
 }
