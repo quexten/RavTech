@@ -141,6 +141,11 @@ public class RavCamera extends OrthographicCamera {
 		return cameraBuffer.getColorBufferTexture();
 	}
 
+	public Vector2 project (Vector2 worldCoords) {
+		Vector3 projection = project(new Vector3(worldCoords.x, worldCoords.y, 0));
+		return new Vector2(projection.x, projection.y);
+	}
+	
 	@Override
 	public Vector3 unproject (Vector3 screenCoords, float viewportX, float viewportY, float viewportWidth, float viewportHeight) {
 		float x = screenCoords.x, y = screenCoords.y;

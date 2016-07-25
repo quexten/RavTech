@@ -4,6 +4,7 @@ package com.quexten.ravtech.remoteedit;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.graphics.RavCamera;
 import com.quexten.ravtech.util.Debug;
@@ -12,20 +13,24 @@ public class TouchDebugController implements GestureListener {
 
 	float velX, velY;
 	boolean flinging = false;
-	float initialScale = 1;
-
+	float initialZoom = 1;
+	
 	RavCamera camera = RavTech.sceneHandler.cameraManager.cameras.get(0);
 
+	public TouchDebugController() {
+	}
+	
 	@Override
 	public boolean touchDown (float x, float y, int pointer, int button) {
 		flinging = false;
-		initialScale = camera.zoom;
+
+		initialZoom = camera.zoom;
 		return false;
 	}
 
 	@Override
 	public boolean tap (float x, float y, int count, int button) {
-		Gdx.app.log("GestureDetectorTest", "tap at " + x + ", " + y + ", count: " + count);
+		Gdx.app.log("GestureDetectorTest", "tap at " + x + ", " + y + ", count: " + count);		
 		return false;
 	}
 
@@ -58,18 +63,23 @@ public class TouchDebugController implements GestureListener {
 
 	@Override
 	public boolean zoom (float originalDistance, float currentDistance) {
-		float ratio = originalDistance / currentDistance;
-		camera.zoom = initialScale * ratio;
-		System.out.println(camera.zoom);
 		return false;
 	}
 
 	@Override
-	public boolean pinch (Vector2 initialFirstPointer, Vector2 initialSecondPointer, Vector2 firstPointer, Vector2 secondPointer) {
-		Debug.log("Pinch", initialFirstPointer);
-		Debug.log("Initial scond pointer", initialSecondPointer);
-		Debug.log("firstpointer", firstPointer);
-		Debug.log("second pointer", secondPointer);
+	public boolean pinch (Vector2 initialFirstPointer, Vector2 initialSecondPointer, Vector2 firstPointer, Vector2 secondPointer) {				
+		float initialDistance = initialFirstPointer.dst(initialSecondPointer);
+		float distance = firstPointer.dst(secondPointer);
+		
+		float lastZoom = camera.zoom;
+		camera.zoom = initialZoom * (initialDistance / distance);
+		
+		Vector2 lastposition = new Vector2(camera.position.x, camera.position.y);
+		
+		Vector2 worldPos = camera.unproject(new Vector2((firstPointer.x + secondPointer.x) / 2, (firstPointer.y + secondPointer.y) / 2));
+		worldPos = worldPos.add(lastposition.sub(worldPos).scl(camera.zoom / lastZoom));
+		camera.position.x = worldPos.x;
+		camera.position.y = worldPos.y;
 		return false;
 	}
 
