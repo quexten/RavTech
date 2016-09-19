@@ -6,11 +6,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.util.Debug;
+
 import box2dLight.DynamicLightMap;
 
 public class RavCamera extends OrthographicCamera {
@@ -24,7 +28,8 @@ public class RavCamera extends OrthographicCamera {
 	Color clearColor = new Color(0, 0, 0, 0);
 	Array<String> layers = new Array<String>();
 	Array<PostProcessingEffect> effects = new Array<PostProcessingEffect>();
-
+	ShapeRenderer renderer;
+	
 	FrameBuffer cameraBuffer;
 	FrameBuffer cameraPingPongBuffer;
 	DynamicLightMap lightMap;
@@ -33,6 +38,8 @@ public class RavCamera extends OrthographicCamera {
 
 	public RavCamera (int width, int height) {
 		super(width, height);
+		renderer = new ShapeRenderer();
+		renderer.setAutoShapeType(true);
 		camId++;
 		cameraBufferName = cameraBufferName + camId;
 		cameraPingPongBufferName = cameraPingPongBufferName + camId;
@@ -57,6 +64,17 @@ public class RavCamera extends OrthographicCamera {
 			effects.get(i).applyPasses(spriteBatch, passes % 2 == 0 ? cameraBuffer : cameraPingPongBuffer,
 				passes % 2 == 1 ? cameraBuffer : cameraPingPongBuffer);
 			passes += effects.get(i).getEffectPassCount();
+		}
+		
+		if(this.renderToFramebuffer) {
+			this.cameraBuffer.begin();
+		}
+		
+		renderer.setProjectionMatrix(combined);
+		Debug.render(renderer);
+		
+		if(this.renderToFramebuffer) {
+			this.cameraBuffer.end();
 		}
 	}
 
@@ -126,7 +144,7 @@ public class RavCamera extends OrthographicCamera {
 	}
 
 	public void setClearColor (Color clearColor) {
-		this.clearColor = clearColor;
+		this.clearColor.set(clearColor);
 	}
 
 	public Color getClearColor () {
