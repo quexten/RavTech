@@ -3,6 +3,8 @@ package com.quexten.ravtech.net;
 
 import java.io.InputStream;
 
+import com.quexten.ravtech.RavTech;
+
 public class Player {
 
 	Lobby lobby;
@@ -17,6 +19,7 @@ public class Player {
 	}
 
 	public void send (Packet packet, boolean reliable) {
+		packet.senderId = RavTech.net.lobby.ownId;
 		lobby.network.sendTo(connectionInformation, packet, reliable);
 	}
 

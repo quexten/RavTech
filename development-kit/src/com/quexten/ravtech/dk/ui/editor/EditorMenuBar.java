@@ -144,13 +144,12 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						/*
-						 * CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
-						 * "{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
-						 * + RavTech.sceneHandler.worldCamera.position.x + ",\"y\":" + RavTech.sceneHandler.worldCamera.position.y +
-						 * ",\"rotation\":0,\"scale\":1}]}"); ChangeManager.addChangeable(changeable); //
-						 * RavTechDK.setSelectedObjects(RavTech.currentScene.gameObjects.peek());
-						 */
+						CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
+							"{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
+								+ RavTechDK.editorCamera.position.x + ",\"y\":" + RavTechDK.editorCamera.position.y
+								+ ",\"rotation\":0,\"scale\":1}]}");
+						ChangeManager.addChangeable(changeable); //
+						RavTechDK.setSelectedObjects(RavTech.currentScene.gameObjects.peek());
 					}
 				});
 				menu.addItem(entry);

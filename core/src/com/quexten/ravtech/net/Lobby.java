@@ -19,6 +19,7 @@ public class Lobby {
 	int currentId;
 	public int maximumPlayers;
 	public boolean isOwner;
+	public int ownId;
 	public ObjectMap<String, Object> values;
 	public IntMap<Player> players;
 	private String passwordHash;

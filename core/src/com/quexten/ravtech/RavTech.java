@@ -1,10 +1,16 @@
 
 package com.quexten.ravtech;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Net.HttpRequest;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.maps.Map;
+import com.badlogic.gdx.net.HttpParametersUtils;
 import com.quexten.ravtech.files.RavFiles;
 import com.quexten.ravtech.input.RavInput;
 import com.quexten.ravtech.project.Project;
@@ -85,6 +91,7 @@ public class RavTech extends Game {
 			sceneHandler.initScripts();
 
 		HookApi.runHooks(HookApi.onBootHooks);
+		
 	}
 
 	@Override

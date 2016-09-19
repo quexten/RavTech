@@ -12,6 +12,7 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.StreamUtils;
 
 public class ZipUtil {
@@ -26,9 +27,9 @@ public class ZipUtil {
 
 	}
 
-	public void zipFolder (String SourceFolderPath, String OutputFilePath) {
-		outputZipFile = OutputFilePath;
-		sourceFolder = SourceFolderPath;
+	public void zipFolder (String inputPath, String outputPath, Array<String> paths) {
+		outputZipFile = outputPath;
+		sourceFolder = inputPath;
 		genFileListForFolderContents(new File(sourceFolder));
 
 		byte[] buffer = new byte[1024];
@@ -44,6 +45,12 @@ public class ZipUtil {
 			zos = new ZipOutputStream(fos);
 			FileInputStream in = null;
 			for (String file : fileList) {
+				String path = file.replace(inputPath, "").replace('\\', '/');
+				Debug.log("Path", path);
+				if (!paths.contains(path, false))
+					continue;
+				Debug.log("file", file);
+				
 				ZipEntry ze = new ZipEntry(file);
 				zos.putNextEntry(ze);
 				try {
@@ -65,6 +72,10 @@ public class ZipUtil {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	public void zipFolder (String inputPath, String outputPath) {
+		zipFolder(inputPath, outputPath, null);
 	}
 
 	void genFileListForFolderContents (File node) {
@@ -109,10 +120,8 @@ public class ZipUtil {
 					outdir.child(name).mkdirs();
 					continue;
 				}
-				/*
-				 * this part is necessary because file entry can come before directory entry where is file located i.e.: /foo/foo.txt
-				 * /foo/
-				 */
+				/* this part is necessary because file entry can come before directory entry where is file located i.e.: /foo/foo.txt
+				 * /foo/ */
 				dir = dirpart(name);
 				if (dir != null)
 					outdir.child(dir).mkdirs();
@@ -137,4 +146,5 @@ public class ZipUtil {
 		if (!d.exists())
 			d.mkdirs();
 	}
+
 }

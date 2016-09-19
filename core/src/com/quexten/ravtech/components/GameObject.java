@@ -163,7 +163,7 @@ public class GameObject extends GameComponent implements Json.Serializable {
 		object.transform.setRotation(rotation);
 		if (!RavTech.sceneHandler.paused && initScripts)
 			RavTech.sceneHandler.initScripts(object.getComponents());
-		return null;
+		return object;
 	}
 
 	/** Adds the GameComponent and sets the GameObject as parent.

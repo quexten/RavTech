@@ -3,6 +3,7 @@ package com.quexten.ravtech.ui;
 
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.kotcrab.vis.ui.widget.ScrollableTextArea;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
@@ -10,16 +11,15 @@ import com.kotcrab.vis.ui.widget.VisWindow;
 
 public class DebugConsole extends VisWindow {
 
-	ColoredTextArea textArea;
+	ScrollableTextArea textArea;
 	boolean visible;
 
 	public DebugConsole () {
 		super("Debug Console");
 
-		textArea = new ColoredTextArea();
+		textArea = new ScrollableTextArea ("Test");
 		textArea.setFocusTraversal(false);
-		textArea.setDisabled(true);
-		VisScrollPane scrollPane = new VisScrollPane(textArea);
+		textArea.setDisabled(false);		
 
 		VisTextField textField = new VisTextField();
 		textField.setFocusTraversal(false);
@@ -32,7 +32,7 @@ public class DebugConsole extends VisWindow {
 				}
 			}
 		});
-		this.add(scrollPane).grow();
+		this.add(new VisScrollPane(textArea)).grow();
 		row();
 		this.add(textField).growX();
 		setSize(600, 300);
@@ -41,15 +41,15 @@ public class DebugConsole extends VisWindow {
 	}
 
 	public void log (String tag, String message) {
-		textArea.log(com.quexten.ravtech.util.Debug.logColor, "[" + tag + "] : " + message + "\n");
+		textArea.appendText("[" + tag + "] : " + message + "\n");
 	}
 
 	public void logError (String tag, String message) {
-		textArea.log(com.quexten.ravtech.util.Debug.errorColor, "[" + tag + "] : " + message + "\n");
+		textArea.appendText("[" + tag + "] : " + message + "\n");
 	}
 
 	public void logDebug (String tag, String message) {
-		textArea.log(com.quexten.ravtech.util.Debug.debugColor, "[" + tag + "] : " + message + "\n");
+		textArea.appendText("[" + tag + "] : " + message + "\n");
 	}
 
 	public void toggleVisible () {

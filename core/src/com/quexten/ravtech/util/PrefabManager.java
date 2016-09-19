@@ -54,6 +54,7 @@ public class PrefabManager {
 		object.load(dependencies);
 		for (int i = 0; i < dependencies.size; i++)
 			RavTech.files.getAssetManager().load(dependencies.get(i));
+		RavTech.files.finishLoading();
 		object.finishedLoading();
 		return object;
 	}

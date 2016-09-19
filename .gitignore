@@ -19,6 +19,7 @@ www-test/
 
 ## Desktop
 desktop/assets.ravpack
+desktop/cache/
 
 ## Android Studio and Intellij and Android in general
 android/libs/armeabi/

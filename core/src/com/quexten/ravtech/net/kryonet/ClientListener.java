@@ -3,13 +3,8 @@ package com.quexten.ravtech.net.kryonet;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.net.Packet;
-import com.quexten.ravtech.net.Packet.LobbyPacket;
-import com.quexten.ravtech.net.Packet.Packet_DeleteLobbyData;
-import com.quexten.ravtech.net.Packet.Packet_LoginAnswer;
-import com.quexten.ravtech.net.Packet.Packet_LoginRequest;
-import com.quexten.ravtech.net.Packet.Packet_SetLobbyData;
-import com.quexten.ravtech.net.Packet.Packet_StreamChunk;
 import com.quexten.ravtech.util.Debug;
 
 public class ClientListener extends Listener {
@@ -26,7 +21,7 @@ public class ClientListener extends Listener {
 	public void connected (Connection connection) {
 		Debug.logDebug(LOG_TAG, "Connection established, sending login request");
 
-		Packet_LoginRequest request = new Packet_LoginRequest();
+		Packet.LoginRequest request = new Packet.LoginRequest();
 		request.username = System.getProperty("user.name");
 		connection.sendTCP(request);
 	}
@@ -44,16 +39,18 @@ public class ClientListener extends Listener {
 			return;
 		Packet packet = ((Packet)object);
 		
-		if (packet instanceof LobbyPacket) {
-			if (packet instanceof Packet_SetLobbyData)
-				layer.net.lobby.values.put(((Packet_SetLobbyData)packet).key, ((Packet_SetLobbyData)packet).value);
-			if (packet instanceof Packet_DeleteLobbyData)
-				layer.net.lobby.values.remove(((Packet_DeleteLobbyData)packet).key);
+		if (packet instanceof Packet.LobbyPacket) {
+			if (packet instanceof Packet.SetLobbyData)
+				layer.net.lobby.values.put(((Packet.SetLobbyData)packet).key, ((Packet.SetLobbyData)packet).value);
+			if (packet instanceof Packet.DeleteLobbyData)
+				layer.net.lobby.values.remove(((Packet.DeleteLobbyData)packet).key);
 			return;
 		}
 
-		if (packet instanceof Packet_LoginAnswer) {
+		if (packet instanceof Packet.LoginAnswer) {
 			layer.net.lobby.playerJoined(connection, "quexten");
+			layer.net.lobby.ownId = ((Packet.LoginAnswer)packet).id;
+			HookApi.postHooks(layer.net.lobby.onJoinedHooks, layer.net.lobby.getPlayerForConnection(connection));
 		}
 
 		if (layer.net.lobby != null)

@@ -38,14 +38,14 @@ public class AndroidLauncher extends AndroidApplication {
 				files.external("Android/obb/" + getPackageName() + "/main." + versionCode + "." + getPackageName() + ".obb"))
 			: new InternalFileHandleResolver(), engineConfiguration);
 
-		HookApi.onBootHooks.add(new Hook() {
+		/*HookApi.onBootHooks.add(new Hook() {
 			@Override
 			public void run () {
 				RavTech.net.transportLayers.add(new KryonetTransportLayer(RavTech.net));
 				ravtech.setScreen(new RemoteEditConnectionScreen());
 				RavTech.ui.debugConsole.setVisible(false);
 			}
-		});
+		});*/
 
 		RavTech.scriptLoader = new LuaJScriptLoader();
 		initialize(ravtech, config);

@@ -13,10 +13,6 @@ public class ChangeManager {
 	}
 
 	public static void addChangeable (Changeable changeable) {
-		/*
-		 * if (RavTech.net.isInLobby() && changeable instanceof Changeable && changeable.isLocal) { Packet_DKChangeable packet = new
-		 * Packet_DKChangeable(); packet.changeable = changeable; RavTech.net.sendToAll(packet, false); }
-		 */
 		if (!changeable.isDummy) {
 			if (currentChangeable == changeables.size) {
 				changeables.add(changeable);

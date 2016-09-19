@@ -164,7 +164,7 @@ public class RavFiles {
 	}
 
 	public void removeDependency (String path, GameComponent component) {
-		Debug.logDebug("RemoveDependency", path);
+		//Debug.logDebug("RemoveDependency", path);
 		if (componentDependencies.get(path) == null)
 			return;
 		componentDependencies.get(path).removeValue(component, true);

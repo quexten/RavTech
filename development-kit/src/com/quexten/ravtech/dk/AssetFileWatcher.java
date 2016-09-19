@@ -16,8 +16,15 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.components.ComponentType;
+import com.quexten.ravtech.components.GameComponent;
+import com.quexten.ravtech.components.ScriptComponent;
+import com.quexten.ravtech.scripts.lua.LuaJScript;
+import com.quexten.ravtech.scripts.lua.LuaJScriptLoader;
+import com.quexten.ravtech.util.Debug;
 
 public class AssetFileWatcher {
 
@@ -62,6 +69,18 @@ public class AssetFileWatcher {
 												RavTech.files.reloadAsset(assetPath);
 										if (assetPath.endsWith(".frag") || assetPath.endsWith(".vert"))
 											RavTech.sceneHandler.shaderManager.reload();
+										for(int i = 0; i < RavTech.currentScene.gameObjects.size; i++) {
+											Array<GameComponent> scriptComponents = RavTech.currentScene.gameObjects.get(i).getComponentsInChildren(ComponentType.ScriptComponent);
+											for(int n = 0; n < scriptComponents.size; n++) {
+												ScriptComponent component = ((ScriptComponent) scriptComponents.get(n));
+												if(assetPath.contains(component.path)) {
+													((LuaJScriptLoader) RavTech.scriptLoader).createScript(component.scriptSource, component.path, null);
+													Debug.log("Script Reload", component.path);
+												}
+											}
+												
+										}
+										
 										RavTechDK.assetViewer.assetView.refresh();
 									}
 								});

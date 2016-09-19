@@ -59,8 +59,10 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 
 	@Override
 	public void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies) {
+		if(!RavTech.files.isLoaded(texturePath)) {
 		dependencies.add(new AssetDescriptor<Texture>(texturePath, Texture.class));
 		RavTech.files.addDependency(texturePath, this);
+		}
 	}
 
 	@Override

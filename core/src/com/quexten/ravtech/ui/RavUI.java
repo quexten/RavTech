@@ -18,7 +18,7 @@ public class RavUI {
 	public RavUI () {
 		if (!RavTech.isHeadless()) {
 			if (!VisUI.isLoaded() && !RavTech.isHeadless())
-				VisUI.load(Gdx.files.internal("mdpi/uiskin.json"));
+				VisUI.load();
 			screenStage = new Stage(new ScreenViewport());
 			debugConsole = new DebugConsole();
 			RavTech.input.addInputProcessor(screenStage);

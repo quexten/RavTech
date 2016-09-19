@@ -18,7 +18,7 @@ public class Debug {
 	public static Color debugColor = Color.valueOf("2196F3");
 
 	public static boolean debugPerformance = false;
-	public static boolean debugLogging = true;
+	public static boolean debugLogging = false;
 	public static Array<DebugShape> debugLineShapes = new Array<DebugShape>();
 	public static Array<DebugShape> debugFilledShapes = new Array<DebugShape>();
 
@@ -29,8 +29,8 @@ public class Debug {
 			Gdx.app.log(tag, String.valueOf(message));
 		else
 			System.out.println(tag + ": " + message);
-		// if (RavTech.isEditor)
-		// RavTech.ui.debugConsole.log(tag, String.valueOf(message));
+		if (RavTech.isEditor)
+		 RavTech.ui.debugConsole.log(tag, String.valueOf(message));
 	}
 
 	public static void logError (String tag, Object message) {
@@ -52,7 +52,7 @@ public class Debug {
 
 	public static void runScript (String scriptSource) {
 		if (script == null)
-			script = RavTech.scriptLoader.createScript("", null);
+			script = RavTech.scriptLoader.createScript("", "Debug", null);
 
 		script.loadChunk("function init() \n " + scriptSource + "\n end");
 		script.init();
@@ -75,6 +75,7 @@ public class Debug {
 	}
 
 	public static void render (ShapeRenderer renderer) {
+		renderer.begin();
 		renderer.set(ShapeType.Filled);
 		for (int i = 0; i < debugFilledShapes.size; i++) {
 			DebugShape shape = debugFilledShapes.get(i);

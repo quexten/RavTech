@@ -27,8 +27,11 @@ import com.quexten.ravtech.dk.actions.CopyAction;
 import com.quexten.ravtech.dk.actions.DeleteAction;
 import com.quexten.ravtech.dk.actions.PasteAction;
 import com.quexten.ravtech.graphics.RavCamera;
+import com.quexten.ravtech.remoteedit.FileHasher;
 import com.quexten.ravtech.util.Debug;
 import com.quexten.ravtech.util.EventType;
+import com.quexten.ravtech.util.PrefabManager;
+import com.quexten.ravtech.util.ZipUtil;
 
 public class SceneViewWidget extends Widget {
 
@@ -188,22 +191,9 @@ public class SceneViewWidget extends Widget {
 				if (keycode == Keys.R) {
 					RavTechDK.setEditingMode(EditingMode.Scale);
 				}
-
-				// Tesing
-				if (keycode == Keys.F1) {
-					GameObject testObject = RavTech.currentScene.addGameObject(new Vector2());
-					SpriterAnimator animator = new SpriterAnimator();
-					animator.path = "animations/triangle.scml";
-					animator.animation = "Run";
-					animator.finishedLoading();
-					testObject.addComponent(animator);
-				}
-
+				
 				if (keycode == Keys.F2) {
-					GameObject testObject = RavTech.currentScene.addGameObject(new Vector2());
-
-					testObject.addComponent(new Camera());
-					testObject.finishedLoading();
+					System.out.println(PrefabManager.makePrefab(RavTechDK.selectedObjects.first()));
 				}
 				return true;
 			}

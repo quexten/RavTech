@@ -80,7 +80,7 @@ public class RavTechDK {
 		mainSceneView = new SceneViewWidget(true);
 		root.add(mainSceneView).expand().fill();
 		RavTech.input.addInputProcessor(RavTech.ui.getStage());
-
+		
 		HookApi.onResizeHooks.add(new Hook() {
 
 			@Override

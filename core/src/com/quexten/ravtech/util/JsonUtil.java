@@ -19,7 +19,7 @@ public class JsonUtil {
 	public static Color readColorFromJson (JsonValue jsonData, String name) {
 		JsonValue colordata = jsonData.getChild(name);
 		if (colordata == null)
-			return null;
+			return Color.BLACK;
 		float r = 0;
 		float g = 0;
 		float b = 0;

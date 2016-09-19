@@ -4,12 +4,11 @@ package com.quexten.ravtech.net;
 import java.io.InputStream;
 
 import com.badlogic.gdx.utils.Array;
-import com.quexten.ravtech.net.Packet.Packet_LoginAnswer;
 import com.quexten.ravtech.util.Debug;
 
 public class RavNetwork {
 
-	public static final String LARGE_PACKET_HEADER_TYPE = "LARGE_PACKET";
+	public static final String LARGE_Packet_HEADER_TYPE = "LARGE_PACKET";
 
 	public Array<TransportLayer> transportLayers = new Array<TransportLayer>();
 	public Lobby lobby;
@@ -93,8 +92,8 @@ public class RavNetwork {
 		if (lobby == null)
 			lobby = new Lobby(this, 4, false);
 
-		if (packet instanceof Packet_LoginAnswer) {
-			// Packet_LoginAnswer loginAnswer = ((Packet_LoginAnswer) packet);
+		if (packet instanceof Packet.LoginAnswer) {
+			// Packet.LoginAnswer loginAnswer = ((Packet.LoginAnswer) packet);
 			// lobby.playerJoined(player.connectionInformation, "quexten");
 		}
 

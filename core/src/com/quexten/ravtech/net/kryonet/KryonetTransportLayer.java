@@ -15,7 +15,6 @@ import com.badlogic.gdx.utils.IntArray;
 import com.badlogic.gdx.utils.IntMap;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.ByteBufferInput;
-import com.esotericsoftware.kryo.io.ByteBufferInputStream;
 import com.esotericsoftware.kryo.io.ByteBufferOutput;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -25,23 +24,6 @@ import com.quexten.ravtech.history.CreateChangeable;
 import com.quexten.ravtech.history.ModifyChangeable;
 import com.quexten.ravtech.history.RemoveChangeable;
 import com.quexten.ravtech.net.Packet;
-import com.quexten.ravtech.net.Packet.Packet_BodyAngularVelocity;
-import com.quexten.ravtech.net.Packet.Packet_BodyLinearVelocity;
-import com.quexten.ravtech.net.Packet.Packet_DKChangeable;
-import com.quexten.ravtech.net.Packet.Packet_DeleteLobbyData;
-import com.quexten.ravtech.net.Packet.Packet_GameStateRequest;
-import com.quexten.ravtech.net.Packet.Packet_Instantiate;
-import com.quexten.ravtech.net.Packet.Packet_LobbyData;
-import com.quexten.ravtech.net.Packet.Packet_LoginAnswer;
-import com.quexten.ravtech.net.Packet.Packet_LoginRequest;
-import com.quexten.ravtech.net.Packet.Packet_ObjectPosition;
-import com.quexten.ravtech.net.Packet.Packet_ObjectRotation;
-import com.quexten.ravtech.net.Packet.Packet_PlayingState;
-import com.quexten.ravtech.net.Packet.Packet_RPC;
-import com.quexten.ravtech.net.Packet.Packet_RavNetStream;
-import com.quexten.ravtech.net.Packet.Packet_SetLobbyData;
-import com.quexten.ravtech.net.Packet.Packet_StreamChunk;
-import com.quexten.ravtech.net.Packet.Packet_StreamHeader;
 import com.quexten.ravtech.net.RavNetwork;
 import com.quexten.ravtech.net.TransportLayer;
 import com.quexten.ravtech.util.Debug;
@@ -183,7 +165,7 @@ public class KryonetTransportLayer extends TransportLayer {
 
 		final int streamId = (int)(Math.random() * Integer.MAX_VALUE);
 
-		Packet_StreamHeader streamHeader = new Packet_StreamHeader();
+		Packet.StreamHeader streamHeader = new Packet.StreamHeader();
 		streamHeader.additionalInfo = additionalInformation;
 		streamHeader.streamId = streamId;
 		streamHeader.type = type;
@@ -194,7 +176,7 @@ public class KryonetTransportLayer extends TransportLayer {
 		((Connection)connectionInformation).addListener(new InputStreamSender(stream, 1024) {
 			@Override
 			protected Object next (byte[] bytes) {
-				Packet_StreamChunk chunkPacket = new Packet_StreamChunk();
+				Packet.StreamChunk chunkPacket = new Packet.StreamChunk();
 				chunkPacket.streamId = streamId;
 				chunkPacket.chunkBytes = bytes;
 				return chunkPacket;
@@ -204,15 +186,15 @@ public class KryonetTransportLayer extends TransportLayer {
 
 	@Override
 	public void recieve (Packet packet) {
-		if (packet instanceof Packet_StreamHeader) {
-			Packet_StreamHeader streamHeader = ((Packet_StreamHeader)packet);
-			if (streamHeader.type.equals(RavNetwork.LARGE_PACKET_HEADER_TYPE)) {
+		if (packet instanceof Packet.StreamHeader) {
+			Packet.StreamHeader streamHeader = ((Packet.StreamHeader)packet);
+			if (streamHeader.type.equals(RavNetwork.LARGE_Packet_HEADER_TYPE)) {
 				this.largePacketBuffers.put(streamHeader.streamId, new LargePacketBuffer(streamHeader));
 			}
 		}
 
-		if (packet instanceof Packet_StreamChunk) {
-			Packet_StreamChunk streamChunk = ((Packet_StreamChunk)packet);
+		if (packet instanceof Packet.StreamChunk) {
+			Packet.StreamChunk streamChunk = ((Packet.StreamChunk)packet);
 			Debug.log("StreamChunk", streamChunk.streamId);
 			if (this.largePacketBuffers.containsKey(streamChunk.streamId)) {
 				this.largePacketBuffers.get(streamChunk.streamId).addChunk(streamChunk.chunkBytes);
@@ -260,7 +242,7 @@ public class KryonetTransportLayer extends TransportLayer {
 	@Override
 	public void onSetLobbyData (String key, Object value) {
 		if (isHost) {
-			Packet_SetLobbyData packet = new Packet_SetLobbyData();
+			Packet.SetLobbyData packet = new Packet.SetLobbyData();
 			packet.key = key;
 			packet.value = value;
 			server.sendToAllTCP(packet);
@@ -270,7 +252,7 @@ public class KryonetTransportLayer extends TransportLayer {
 	@Override
 	public void onDeleteLobbyData (String key) {
 		if (isHost) {
-			Packet_DeleteLobbyData packet = new Packet_DeleteLobbyData();
+			Packet.DeleteLobbyData packet = new Packet.DeleteLobbyData();
 			packet.key = key;
 			server.sendToAllTCP(packet);
 		}
@@ -282,28 +264,28 @@ public class KryonetTransportLayer extends TransportLayer {
 
 	public void register (Kryo kryo) {
 		// Game Packets
-		kryo.register(Packet_LoginRequest.class);
-		kryo.register(Packet_LoginAnswer.class);
-		kryo.register(Packet_ObjectPosition.class);
-		kryo.register(Packet_ObjectRotation.class);
-		kryo.register(Packet_BodyLinearVelocity.class);
-		kryo.register(Packet_BodyAngularVelocity.class);
-		kryo.register(Packet_RavNetStream.class);
-		kryo.register(Packet_Instantiate.class);
-		kryo.register(Packet_RPC.class);
-		kryo.register(Packet_StreamHeader.class);
-		kryo.register(Packet_StreamChunk.class);
-		kryo.register(Packet_LobbyData.class);
-		kryo.register(Packet_SetLobbyData.class);
-		kryo.register(Packet_DeleteLobbyData.class);
-		kryo.register(Packet_GameStateRequest.class);
+		kryo.register(Packet.LoginRequest.class);
+		kryo.register(Packet.LoginAnswer.class);
+		kryo.register(Packet.ObjectPosition.class);
+		kryo.register(Packet.ObjectRotation.class);
+		kryo.register(Packet.BodyLinearVelocity.class);
+		kryo.register(Packet.BodyAngularVelocity.class);
+		kryo.register(Packet.RavNetStream.class);
+		kryo.register(Packet.Instantiate.class);
+		kryo.register(Packet.RPC.class);
+		kryo.register(Packet.StreamHeader.class);
+		kryo.register(Packet.StreamChunk.class);
+		kryo.register(Packet.LobbyData.class);
+		kryo.register(Packet.SetLobbyData.class);
+		kryo.register(Packet.DeleteLobbyData.class);
+		kryo.register(Packet.GameStateRequest.class);
 
 		// Net Debug/Edit packets
-		kryo.register(Packet_DKChangeable.class);
+		kryo.register(Packet.DKChangeable.class);
 		kryo.register(ModifyChangeable.class);
 		kryo.register(CreateChangeable.class);
 		kryo.register(RemoveChangeable.class);
-		kryo.register(Packet_PlayingState.class);
+		kryo.register(Packet.PlayingState.class);
 		kryo.register(Color.class);
 		kryo.register(TextureFilter.class);
 
@@ -331,11 +313,11 @@ public class KryonetTransportLayer extends TransportLayer {
 
 	class LargePacketBuffer {
 
-		Packet_StreamHeader streamHeader;
+		Packet.StreamHeader streamHeader;
 		byte[] buffer;
 		int recievedByteCount;
 
-		public LargePacketBuffer (Packet_StreamHeader streamHeader) {
+		public LargePacketBuffer (Packet.StreamHeader streamHeader) {
 			this.streamHeader = streamHeader;
 			this.buffer = new byte[streamHeader.streamLength];
 			Debug.log("CreateLargePacket", streamHeader.type);
