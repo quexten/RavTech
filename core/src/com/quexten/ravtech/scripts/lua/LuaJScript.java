@@ -3,52 +3,32 @@ package com.quexten.ravtech.scripts.lua;
 
 import org.luaj.vm2.Globals;
 import org.luaj.vm2.LuaError;
+import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
-import org.luaj.vm2.lib.jse.JsePlatform;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.badlogic.gdx.utils.ObjectMap.Entries;
-import com.badlogic.gdx.utils.ObjectMap.Entry;
-import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.components.ComponentType;
 import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.scripts.Script;
 import com.quexten.ravtech.util.Debug;
 
 public class LuaJScript extends Script {
 
-	Globals globals;
-	LuaValue chunk;
+	LuaJScriptLoader loader;
+	
+	Globals context;
+	
 	String script;
-
-	public LuaJScript (String script) {
+	String name;
+	
+	public LuaJScript (LuaJScriptLoader scriptLoader, String script, String name) {
 		this.script = script;
+		this.loader = scriptLoader;
+		this.name = name;
 	}
 
-	public LuaJScript (String script, GameObject selfObject) {
-		this(script);
-		ObjectMap<String, Object> values = new ObjectMap<String, Object>();
-		values.put("this", selfObject);
-		values.put("Keys", Keys.class);
-		values.put("Input", RavTech.input);
-		values.put("Debug", Debug.class);
-		values.put("Vector2", Vector2.class);
-		values.put("Color", Color.class);
-		values.put("Buttons", Buttons.class);
-		values.put("GameObject", GameObject.class);
-		values.put("ComponentType", ComponentType.class);
-		values.put("RavTech", RavTech.class);
-		values.put("Settings", RavTech.settings);
-		values.put("Graphics", Gdx.graphics);
-		values.put("Box2DWorld", RavTech.sceneHandler.box2DWorld);
-		values.put("Net", Gdx.net);
-		setEnviroment(values);
+	public LuaJScript (LuaJScriptLoader scriptLoader, String script, String name, GameObject selfObject) {
+		this(scriptLoader, script, name);
 	}
 
 	@Override
@@ -64,12 +44,7 @@ public class LuaJScript extends Script {
 
 	@Override
 	public void setEnviroment (ObjectMap<String, Object> values) {
-		globals = JsePlatform.standardGlobals();
-		Entries<String, Object> entries = values.iterator();
-		while (entries.hasNext) {
-			Entry<String, Object> entry = entries.next();
-			globals.set(entry.key, entry.value instanceof LuaValue ? (LuaValue)entry.value : CoerceJavaToLua.coerce(entry.value));
-		}
+		
 	}
 
 	@Override
@@ -79,7 +54,7 @@ public class LuaJScript extends Script {
 
 	@Override
 	public Object callFunction (String name, Object[] args) {
-		LuaValue function = globals.get(name);
+		LuaValue function = loader.globals.get(name);
 		if (function == LuaValue.NIL)
 			return LuaValue.NIL;
 		LuaValue returnValue = null;
@@ -103,16 +78,30 @@ public class LuaJScript extends Script {
 
 	@Override
 	public Object getVariable (String name) {
-		return globals.get(name);
+		return loader.globals.get(name);
 	}
 
 	void invokeFunction (String name) {
 		try {
-			globals.get(name).invoke();
+			loader.globals.get(name).invoke();
 		} catch (LuaError luaError) {
 			printLuaError(luaError);
 			return;
 		}
+	}
+	
+	static void printTable (String key, LuaValue value, int layer) {
+		if ( layer > 1)
+			return;
+		for (int i = 0; i < layer; i++)
+			System.out.print("  ");
+		System.out.println(key + "|" + value.typename() + "|" + value.tojstring());
+			
+		if (value.istable()) 
+			for (int i = 0; i < ((LuaTable)value).keyCount(); i++) {
+				String newKey = ((LuaTable)value).keys()[i].tojstring();
+				printTable(newKey, ((LuaTable)value).get(newKey), layer + 1);
+			}
 	}
 
 	void printLuaError (LuaError error) {
@@ -130,7 +119,8 @@ public class LuaJScript extends Script {
 	@Override
 	public void loadChunk (String source) {
 		try {
-			chunk = globals.load(source);
+			LuaValue chunk = loader.globals.load(source);
+			loader.initEnvironment(loader.globals);
 			chunk.call();
 		} catch (LuaError luaError) {
 			printLuaError(luaError);

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.scripts.Script;
+import com.quexten.ravtech.util.Debug;
 
 public class ScriptComponent extends GameComponent implements Json.Serializable {
 
@@ -23,8 +24,14 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 
 	@Override
 	public String getName () {
-		return path != null && !path.isEmpty() ? path.substring(path.lastIndexOf('/') > -1 ? path.lastIndexOf('/') + 1 : 0)
-			: "Empty Script Component";
+		String scriptName;
+		if(path != null && !path.isEmpty()) {
+			scriptName = path.substring(path.lastIndexOf('/') > -1 ? path.lastIndexOf('/') + 1 : 0);
+			scriptName = scriptName.substring(0, scriptName.length() - 4);
+		} else {
+			scriptName = "Empty Script Component";
+		}
+		return scriptName;
 	}
 
 	public ScriptComponent () {
@@ -40,7 +47,7 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 	public void finishedLoading () {
 		if (RavTech.files.getAssetManager().isLoaded(path))
 			scriptSource = RavTech.files.getAsset(path);
-		script = RavTech.scriptLoader.createScript(scriptSource, getParent());
+		script = RavTech.scriptLoader.createScript(scriptSource, getName(), getParent());
 	}
 
 	@Override
