@@ -202,7 +202,7 @@ public class RavWindow extends VisWindow {
 		public void render () {
 			RavWindow.this.act(Gdx.graphics.getDeltaTime());
 
-			Color color = Color.WHITE;//VisUI.getSkin().getColor("rav-background");
+			Color color = VisUI.getSkin().getColor("t-medium");
 			Gdx.gl.glClearColor(color.r, color.g, color.b, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

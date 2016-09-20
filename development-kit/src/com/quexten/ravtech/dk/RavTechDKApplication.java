@@ -10,6 +10,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -48,8 +49,9 @@ public class RavTechDKApplication extends RavTech {
 		AdbManager.initializeAdb();
 
 		RavTech.sceneHandler.paused = true;
-		if (!VisUI.isLoaded()) VisUI.load(Gdx.files.local("resources/ui/mdpi/uiskin.json"));
-
+		VisUI.dispose();
+		VisUI.load(Gdx.files.internal("tinted/x1/tinted.json"));
+				
 		RavTechDK.initialize();
 
 		if (RavTech.settings.getString("RavTechDK.project.path").isEmpty()

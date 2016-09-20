@@ -1,7 +1,6 @@
 
 package com.quexten.ravtech.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -15,10 +14,16 @@ public class RavUI {
 	Stage screenStage;
 	public DebugConsole debugConsole;
 
-	public RavUI () {
+	/**
+	 * @param path - the path to the skin
+	 */
+	public RavUI (String path) {
 		if (!RavTech.isHeadless()) {
 			if (!VisUI.isLoaded() && !RavTech.isHeadless())
-				VisUI.load();
+				if(path.length() > 0)
+					VisUI.load(path);
+				else
+					VisUI.load();
 			screenStage = new Stage(new ScreenViewport());
 			debugConsole = new DebugConsole();
 			RavTech.input.addInputProcessor(screenStage);
@@ -33,7 +38,11 @@ public class RavUI {
 			screenStage.addActor(debugConsole);
 		}
 	}
-
+	
+	public RavUI() {
+		this("");
+	}
+	
 	public void render () {
 		screenStage.act();
 		screenStage.draw();

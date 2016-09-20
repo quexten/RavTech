@@ -250,7 +250,7 @@ public class SceneViewWidget extends Widget {
 				getHeight());
 			selectionEndProjection.sub(selectionStartProjection);
 			batch.setColor(new Color(1, 1, 1, 0.5f));
-			batch.draw(VisUI.getSkin().getRegion("window-bg"), selectionStartProjection.x, selectionStartProjection.y,
+			batch.draw(VisUI.getSkin().getRegion("t-dot"), selectionStartProjection.x, selectionStartProjection.y,
 				selectionEndProjection.x, selectionEndProjection.y);
 		}
 	}
