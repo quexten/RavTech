@@ -16,10 +16,10 @@ import com.quexten.ravtech.scripts.ScriptLoader;
 
 public class LuaJScriptLoader extends ScriptLoader {
 	
-	Globals globals; 
+	//Globals globals; 
 		
 	public LuaJScriptLoader() {
-		globals = JsePlatform.standardGlobals();		
+		//globals = JsePlatform.standardGlobals();		
 	}
 	
 	public void initEnvironment(Globals globals) {

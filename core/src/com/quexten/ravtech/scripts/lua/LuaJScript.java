@@ -6,6 +6,7 @@ import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.CoerceJavaToLua;
+import org.luaj.vm2.lib.jse.JsePlatform;
 
 import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.components.GameObject;
@@ -17,18 +18,24 @@ public class LuaJScript extends Script {
 	LuaJScriptLoader loader;
 	
 	Globals context;
+	LuaTable scriptTable;
 	
 	String script;
 	String name;
+	
+	GameObject object;
 	
 	public LuaJScript (LuaJScriptLoader scriptLoader, String script, String name) {
 		this.script = script;
 		this.loader = scriptLoader;
 		this.name = name;
+		this.context = JsePlatform.standardGlobals();
+		this.scriptTable = new LuaTable();
 	}
 
 	public LuaJScript (LuaJScriptLoader scriptLoader, String script, String name, GameObject selfObject) {
 		this(scriptLoader, script, name);
+		this.object = selfObject;
 	}
 
 	@Override
@@ -54,7 +61,7 @@ public class LuaJScript extends Script {
 
 	@Override
 	public Object callFunction (String name, Object[] args) {
-		LuaValue function = loader.globals.get(name);
+		LuaValue function = scriptTable.get(name);
 		if (function == LuaValue.NIL)
 			return LuaValue.NIL;
 		LuaValue returnValue = null;
@@ -78,12 +85,12 @@ public class LuaJScript extends Script {
 
 	@Override
 	public Object getVariable (String name) {
-		return loader.globals.get(name);
+		return context.get(name);
 	}
 
 	void invokeFunction (String name) {
 		try {
-			loader.globals.get(name).invoke();
+			scriptTable.get(name).invoke(scriptTable);
 		} catch (LuaError luaError) {
 			printLuaError(luaError);
 			return;
@@ -119,8 +126,10 @@ public class LuaJScript extends Script {
 	@Override
 	public void loadChunk (String source) {
 		try {
-			LuaValue chunk = loader.globals.load(source);
-			loader.initEnvironment(loader.globals);
+			LuaValue chunk = context.load(source);
+			loader.initEnvironment(context);
+			context.set("Script", scriptTable);
+			scriptTable.set("object", CoerceJavaToLua.coerce(object));
 			chunk.call();
 		} catch (LuaError luaError) {
 			printLuaError(luaError);
