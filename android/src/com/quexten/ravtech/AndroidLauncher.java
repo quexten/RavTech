@@ -1,6 +1,7 @@
 
 package com.quexten.ravtech;
 
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
@@ -32,11 +33,15 @@ public class AndroidLauncher extends AndroidApplication {
 		}
 
 		boolean useExternalAssetBundle = engineConfiguration.useAssetBundle;
-
-		final RavTech ravtech = new RavTech(useExternalAssetBundle
+		
+		FileHandleResolver resolver = useExternalAssetBundle
 			? new ArchiveFileHandleResolver(
 				files.external("Android/obb/" + getPackageName() + "/main." + versionCode + "." + getPackageName() + ".obb"))
-			: new InternalFileHandleResolver(), engineConfiguration);
+			: new InternalFileHandleResolver();
+		
+		engineConfiguration.assetResolver = resolver;
+			
+		final RavTech ravtech = new RavTech(engineConfiguration);
 
 		/*HookApi.onBootHooks.add(new Hook() {
 			@Override

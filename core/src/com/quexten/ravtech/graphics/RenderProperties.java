@@ -15,7 +15,7 @@ public class RenderProperties implements Serializable {
 	public Array<String> sortingLayers = new Array<String>();
 
 	public RenderProperties () {
-		backgroundColor = Color.GRAY;
+		backgroundColor = Color.WHITE;
 		sortingLayers.add("Default");
 		sortingLayers.add("Foreground");
 	}

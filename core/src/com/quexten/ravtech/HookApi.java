@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Array;
 
 public class HookApi {
 
+	public static Array<Hook> onPreBootHooks = new Array<Hook>();
 	public static Array<Hook> onBootHooks = new Array<Hook>();
 	public static Array<Hook> onUpdateHooks = new Array<Hook>();
 	public static Array<Hook> onRenderHooks = new Array<Hook>();

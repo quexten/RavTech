@@ -2,6 +2,8 @@
 package com.quexten.ravtech.client;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
@@ -12,9 +14,11 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.quexten.ravtech.Hook;
 import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.scripts.Script;
+import com.quexten.ravtech.scripts.WebGLScriptManager;
 import com.quexten.ravtech.scripts.luajs.MoonshineJSScriptLoader;
 
 public class HtmlLauncher extends GwtApplication {
@@ -52,9 +56,24 @@ public class HtmlLauncher extends GwtApplication {
 				// setupResizeHook();
 			}
 		});
-		RavTech ravtech = new RavTech(new InternalFileHandleResolver(), new HtmlEngineConfiguration());
+		
+		HtmlEngineConfiguration config = new HtmlEngineConfiguration();
+		config.assetResolver = new InternalFileHandleResolver();
+		
+		RavTech ravtech = new RavTech(config);
 		RavTech.files.getAssetManager().setLoader(Script.class, new MoonshineJSScriptLoader(RavTech.files.getResolver()));
-
+		
+		HookApi.onRenderHooks.add(new Hook() {
+			@Override
+			public void run() {
+				if (!WebGLScriptManager.areLoaded())
+					return;
+				else if (!WebGLScriptManager.initialized)
+					WebGLScriptManager.initialize();
+				}
+		});
+		
+		
 		return ravtech;
 	}
 

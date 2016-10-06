@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.util.Debug;
 
 import box2dLight.DynamicLightMap;
