@@ -1,11 +1,14 @@
 
 package com.quexten.ravtech.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.github.czyzby.lml.parser.LmlParser;
+import com.github.czyzby.lml.vis.util.VisLml;
 import com.kotcrab.vis.ui.VisUI;
 import com.quexten.ravtech.RavTech;
 
@@ -50,6 +53,12 @@ public class RavUI {
 
 	public Stage getStage () {
 		return screenStage;
+	}
+	
+	public void loadLml() {
+		screenStage.clear();
+		LmlParser parser = VisLml.parser().build();
+		parser.fillStage(screenStage, RavTech.files.getAssetHandle("test.lml"));
 	}
 
 }

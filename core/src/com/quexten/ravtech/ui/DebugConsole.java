@@ -41,15 +41,15 @@ public class DebugConsole extends VisWindow {
 	}
 
 	public void log (String tag, String message) {
-		textArea.appendText("[" + tag + "] : " + message + "\n");
+		//textArea.appendText("[" + tag + "] : " + message + "\n");
 	}
 
 	public void logError (String tag, String message) {
-		textArea.appendText("[" + tag + "] : " + message + "\n");
+		//textArea.appendText("[" + tag + "] : " + message + "\n");
 	}
 
 	public void logDebug (String tag, String message) {
-		textArea.appendText("[" + tag + "] : " + message + "\n");
+		//textArea.appendText("[" + tag + "] : " + message + "\n");
 	}
 
 	public void toggleVisible () {

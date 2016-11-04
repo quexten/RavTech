@@ -98,8 +98,8 @@ public class Launcher {
 		HookApi.onPreBootHooks.add(new Hook() {
 			@Override
 			public void run() {
-				VisUI.dispose();
-				VisUI.load(Gdx.files.internal("tinted/x1/tinted.json"));				
+				//VisUI.dispose();
+				//VisUI.load(Gdx.files.internal("tinted/x1/tinted.json"));				
 			}
 		});
 		
@@ -112,7 +112,6 @@ public class Launcher {
 				final Preferences preferences = new Lwjgl3Preferences(
 					new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
 				RavTechDK.setProject(preferences.getString("RavTechDK.project.path"));
-				
 			}
 		});
 		new Lwjgl3Application(ravtech, config);

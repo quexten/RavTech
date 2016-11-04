@@ -99,6 +99,8 @@ public class RavTechDK {
 			@Override
 			public void run () {
 				mainSceneView.resize();
+				//RavTech.ui.getStage().getViewport().update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+
 			}
 
 		});
@@ -155,7 +157,7 @@ public class RavTechDK {
 								Debug.log("StringHandle", stringHandles.get(i));
 							}
 							
-							//stringHandles.add("project.json");
+							stringHandles.add("project.json");
 							RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
 							new ZipUtil().zipFolder(RavTechDK.projectHandle.child("assets").path(),
 								RavTechDK.getLocalFile("temp/build.ravpack").path(), stringHandles);

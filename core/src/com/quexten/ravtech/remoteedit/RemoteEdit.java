@@ -14,6 +14,7 @@ import com.quexten.ravtech.history.ChangeListener;
 import com.quexten.ravtech.history.ChangeManager;
 import com.quexten.ravtech.history.Changeable;
 import com.quexten.ravtech.net.Packet;
+import com.quexten.ravtech.net.Packet.AssetData;
 import com.quexten.ravtech.net.PacketProcessor;
 import com.quexten.ravtech.net.Player;
 import com.quexten.ravtech.net.RavNetwork;
@@ -32,6 +33,7 @@ public class RemoteEdit {
 			public boolean process (Player player, Packet packet) {
 				if (packet instanceof Packet.AssetRequest) {
 					Debug.log("Server", "Recieved assetrequest" + player);
+					Debug.log("temp", Gdx.files.local("temp/build.ravpack").length());
 					player.sendStream(Gdx.files.local("temp/build.ravpack").read(),
 						(int)Gdx.files.local("temp/build.ravpack").length(), "Assets", "");
 				}
@@ -115,10 +117,10 @@ public class RemoteEdit {
 					if (streamChunk.streamId == recievingStreamId) {
 						cacheAssetFile.writeBytes(streamChunk.chunkBytes, true);
 						recievedLength += streamChunk.chunkBytes.length;
-
 						loadingScreen.percentage = (float)recievedLength / (float)length;
+						Debug.log("Recieved-Stream", recievedLength + "/" + length + " " + loadingScreen.percentage + "%");						
 						if (recievedLength == length) {
-							Gdx.files.local("cach").child("project.json").delete();
+							Gdx.files.local("cache").child("project.json").delete();
 							ZipUtil.extract(cacheAssetFile, Gdx.files.local("cache"));
 							final FileHandle cacheHandle = Gdx.files.local("cache");
 
@@ -165,6 +167,7 @@ public class RemoteEdit {
 							((RavTech)Gdx.app.getApplicationListener()).setScreen(new PlayScreen());
 							RavTech.sceneHandler.paused = true;
 							RavTech.sceneHandler.update(0);
+							
 						}
 					});
 				}
@@ -172,6 +175,25 @@ public class RemoteEdit {
 			}
 		});
 
+		RavTech.net.addProcessor(new PacketProcessor() {
+			@Override
+			public boolean process (Player player, Packet packet) {
+				if(packet instanceof AssetData) {
+					AssetData assetData = ((AssetData) packet);
+					Gdx.files.local("cache").child(assetData.path).writeBytes(assetData.data, false);
+					if(RavTech.files.isLoaded(assetData.path))
+					RavTech.files.reloadAsset(assetData.path);
+					Gdx.app.postRunnable(new Runnable() {
+						@Override
+						public void run() {
+							RavTech.ui.loadLml();
+						}
+					});					
+				}
+				return false;
+			}
+		});
+		
 		RavTech.net.addProcessor(new PacketProcessor() {
 			@Override
 			public boolean process (Player player, final Packet packet) {

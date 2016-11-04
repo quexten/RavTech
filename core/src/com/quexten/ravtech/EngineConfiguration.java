@@ -7,5 +7,6 @@ public class EngineConfiguration {
 
 	public String title;
 	public FileHandleResolver assetResolver;
+	public boolean remoteEdit;
 
 }

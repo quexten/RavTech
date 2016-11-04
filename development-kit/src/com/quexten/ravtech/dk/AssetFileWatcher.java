@@ -17,11 +17,16 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntMap.Entry;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.ComponentType;
 import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.components.ScriptComponent;
+import com.quexten.ravtech.net.Packet;
+import com.quexten.ravtech.net.Player;
+import com.quexten.ravtech.net.RavNetwork;
+import com.quexten.ravtech.net.TransportLayer;
 import com.quexten.ravtech.scripts.lua.LuaJScript;
 import com.quexten.ravtech.scripts.lua.LuaJScriptLoader;
 import com.quexten.ravtech.util.Debug;
@@ -64,6 +69,11 @@ public class AssetFileWatcher {
 								Gdx.app.postRunnable(new Runnable() {
 									@Override
 									public void run () {
+										System.out.println("assetPath" + assetPath);
+										if(assetPath.endsWith(".lml")) {
+											System.out.println("changed");
+											RavTech.ui.loadLml();
+										}
 										if (!assetPath.endsWith(".scene"))
 											if (RavTech.files.isLoaded(assetPath))
 												RavTech.files.reloadAsset(assetPath);
@@ -82,6 +92,15 @@ public class AssetFileWatcher {
 										}
 										
 										RavTechDK.assetViewer.assetView.refresh();
+										
+										Debug.log("contains", assetPath.contains("."));
+										Debug.log("project", !assetPath.contains("project.json"));
+										if(assetPath.contains(".") && !assetPath.contains("project.json")) {
+											Debug.log("send", assetPath);
+											for(Entry<Player> player : RavTech.net.lobby.players) {
+												player.value.sendLargePacket(new Packet.AssetData(assetPath, RavTech.files.getAssetHandle(assetPath).readBytes()), RavNetwork.LARGE_Packet_HEADER_TYPE, null);
+											}	
+										}
 									}
 								});
 						}

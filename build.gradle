@@ -159,7 +159,9 @@ project(":core") {
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         compile "com.kotcrab.vis:vis-ui:1.1.5"
         compile "org.luaj:luaj-jse:3.0"
-        compile "com.github.anubiann00b:kryonet:b6b71d4"
+        compile "com.github.anubiann00b:kryonet:b6b71d4"       
+        compile "com.kotcrab.vis:vis-ui:1.2.3"
+        compile "com.github.czyzby:gdx-lml-vis:1.7.1.9.3"
     }
 }
 

@@ -13,8 +13,11 @@ import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.Scene;
 import com.quexten.ravtech.files.zip.ArchiveFileHandleResolver;
+import com.quexten.ravtech.net.kryonet.KryonetTransportLayer;
 import com.quexten.ravtech.project.Project;
+import com.quexten.ravtech.remoteedit.RemoteEditConnectionScreen;
 import com.quexten.ravtech.scripts.lua.LuaJScriptLoader;
+import com.quexten.ravtech.settings.RavSettings;
 import com.quexten.ravtech.util.Debug;
 
 public class DesktopLauncher {
@@ -64,21 +67,45 @@ public class DesktopLauncher {
 		engineConfiguration.assetResolver = useExternalAssetBundle
 			? new ArchiveFileHandleResolver(new Lwjgl3Files().local("assets.ravpack")) : new InternalFileHandleResolver();
 
-		RavTech ravtech = new RavTech(engineConfiguration);
-
-		HookApi.onBootHooks.add(new Hook() {
-			@Override
-			public void run() {
-				RavTech.files.loadAsset("project.json", Project.class);
-				RavTech.files.finishLoading();
-				RavTech.project = RavTech.files.getAsset("project.json");
-				
-				RavTech.files.loadAsset(RavTech.project.startScene, Scene.class);
-				RavTech.files.finishLoading();
-				RavTech.currentScene = RavTech.files.getAsset(RavTech.project.startScene);
-				Debug.log("RavTech", "BootUp");
-			}
-		});
+		final RavTech ravtech = new RavTech(engineConfiguration);
+		
+		engineConfiguration.remoteEdit = true;
+		if(!engineConfiguration.remoteEdit)
+			HookApi.onBootHooks.add(new Hook() {
+				@Override
+				public void run() {
+					RavTech.files.loadAsset("project.json", Project.class);
+					RavTech.files.finishLoading();
+					RavTech.project = RavTech.files.getAsset("project.json");
+					
+					RavTech.files.loadAsset(RavTech.project.startScene, Scene.class);
+					RavTech.files.finishLoading();
+					RavTech.currentScene = RavTech.files.getAsset(RavTech.project.startScene);
+					Debug.log("RavTech", "BootUp");
+				}
+			});
+		else
+			HookApi.onBootHooks.add(new Hook() {
+				@Override
+				public void run() {
+					Project project = new Project();
+					project.appId = "com.quexten.ravtech.remoteedit";
+					project.appName = "RavTech-RemoteEdit";
+					project.buildVersion = 1;
+					project.developerName = "quexten";
+					project.majorVersion = 0;
+					project.minorVersion = 0;
+					project.microVersion = 1;
+					project.startScene = "";
+					project.versionName = "Alpha";
+					
+					RavTech.project = project;					
+					RavTech.settings = new RavSettings(project.appName);
+					RavTech.net.transportLayers.add(new KryonetTransportLayer(RavTech.net));
+					ravtech.setScreen(new RemoteEditConnectionScreen());
+					RavTech.ui.debugConsole.setVisible(false);
+				}
+			});
 		
 		System.out.println(
 			"Initializing Ravtech - Desktop using " + (useExternalAssetBundle ? " External " : " Internal ") + "FileHandle");
