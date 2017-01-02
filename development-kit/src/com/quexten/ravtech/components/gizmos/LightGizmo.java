@@ -13,8 +13,8 @@ public class LightGizmo extends Gizmo<Light> {
 
 	boolean raySelected;
 
-	public LightGizmo (Light light) {
-		super(light);
+	public LightGizmo (GizmoHandler handler, Light light) {
+		super(handler, light);
 	}
 
 	@Override

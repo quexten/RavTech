@@ -2,6 +2,7 @@
 package com.quexten.ravtech.dk.packaging.platforms;
 
 import com.badlogic.gdx.Gdx;
+import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.adb.AdbManager;
 import com.quexten.ravtech.dk.packaging.AndroidPushStep;
@@ -28,7 +29,7 @@ public class AndroidPlatform extends Platform<AndroidBuildOptions, AndroidBuildO
 			AdbManager.installBuild(options.deviceId);
 		if (options.isExternal())
 			new AndroidPushStep(buildReporterDialog, RavTechDK.getLocalFile("/temp/build.ravpack").path(), "/sdcard/Android/obb/"
-				+ RavTechDK.project.appId + "/main." + RavTechDK.project.buildVersion + "." + RavTechDK.project.appId + ".obb").run();
+				+ RavTech.project.appId + "/main." + RavTech.project.buildVersion + "." + RavTech.project.appId + ".obb").run();
 
 		AdbManager.launchBuild(options.deviceId);
 	}
@@ -57,7 +58,7 @@ public class AndroidPlatform extends Platform<AndroidBuildOptions, AndroidBuildO
 			.setNextStep(new CopyStep(dialog,
 				Gdx.files.absolute(System.getProperty("user.dir") + "/builder/android/build/outputs/apk/"
 					+ (options.sign ? releaseFile : debugFile) + ".apk"),
-			RavTechDK.getLocalFile("builds/android").child("build.apk")));
+			RavTech.files.getAssetHandle("").parent().child("builds").child("android").child("build.apk")));
 	}
 
 	@Override

@@ -8,8 +8,8 @@ import com.quexten.ravtech.graphics.RavCamera;
 
 public class CameraGizmo extends Gizmo<Camera> {
 
-	public CameraGizmo (Camera component) {
-		super(component);
+	public CameraGizmo (GizmoHandler handler, Camera component) {
+		super(handler, component);
 	}
 
 	@Override

@@ -158,8 +158,7 @@ public class SceneHandler {
 	}
 
 	public void resize (int width, int height) {
-		for (int i = 0; i < HookApi.onResizeHooks.size; i++)
-			HookApi.onResizeHooks.get(i).run();
+		HookApi.runHooks("onResize");
 	}
 
 	public void dispose () {

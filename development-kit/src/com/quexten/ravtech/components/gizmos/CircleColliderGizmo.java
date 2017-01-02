@@ -14,8 +14,8 @@ public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 
 	float oldRadius = -1f;
 
-	public CircleColliderGizmo (CircleCollider circleCollider) {
-		super(circleCollider);
+	public CircleColliderGizmo (GizmoHandler handler, CircleCollider circleCollider) {
+		super(handler, circleCollider);
 		isExclusive = true;
 	}
 
@@ -30,7 +30,7 @@ public class CircleColliderGizmo extends Gizmo<CircleCollider> {
 		switch (eventtype) {
 			case EventType.MouseMoved:
 				float distanceToMiddle = getMiddleDistance(x, y);
-				if (Math.abs(distanceToMiddle - component.radius) < RavTechDK.editorCamera.zoom * 3)
+				if (Math.abs(distanceToMiddle - component.radius) < handler.sceneView.camera.zoom * 3)
 					return distanceToMiddle;
 				else
 					return -1;

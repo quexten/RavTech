@@ -3,6 +3,7 @@ package com.quexten.ravtech.dk.packaging;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.ui.packaging.BuildReporterDialog;
 
@@ -21,22 +22,22 @@ public class ApkPreparationStep extends PackageStep {
 			.setNextStep(new CreateFileStep(buildReporterDialog,
 				Gdx.files.absolute(System.getProperty("user.dir") + "/builder/android/build.gradle"),
 				Gdx.files.absolute(System.getProperty("user.dir") + "/build-templates/android/build.gradle").readString()
-					.replaceAll("APP_ID", "\"" + RavTechDK.project.appId + "\"").getBytes()))
+					.replaceAll("APP_ID", "\"" + RavTech.project.appId + "\"").getBytes()))
 			.setNextStep(new CreateFileStep(buildReporterDialog,
 				Gdx.files.absolute(System.getProperty("user.dir") + "/builder/android/AndroidManifest.xml"),
 				Gdx.files.absolute(System.getProperty("user.dir") + "/build-templates/android/AndroidManifest.xml").readString()
-					.replaceAll("APP_ID", RavTechDK.project.appId)
-					.replaceAll("VERSION_CODE", String.valueOf(RavTechDK.project.buildVersion)).getBytes()))
+					.replaceAll("APP_ID", RavTech.project.appId)
+					.replaceAll("VERSION_CODE", String.valueOf(RavTech.project.buildVersion)).getBytes()))
 			.setNextStep(new CreateFileStep(buildReporterDialog,
 				Gdx.files.absolute(System.getProperty("user.dir") + "/builder/android/res/values/strings.xml"),
 				Gdx.files.absolute(System.getProperty("user.dir") + "/build-templates/android/strings.xml").readString()
-					.replaceAll("APP_NAME", RavTechDK.project.appName).getBytes()));
+					.replaceAll("APP_NAME", RavTech.project.appName).getBytes()));
 		firstStep.run();
 		executeNext();
 	}
 
 	FileHandle getIcon (String name) {
-		return RavTechDK.projectHandle.child("icons").child("android").child(name + ".png");
+		return RavTech.files.getAssetHandle("").parent().child("icons").child("android").child(name + ".png");
 	}
 
 	FileHandle getIconDst (String name) {

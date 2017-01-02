@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.ObjectMap.Keys;
+import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.packaging.platforms.BuildOptions;
 import com.quexten.ravtech.dk.packaging.platforms.Platform;
@@ -92,7 +93,7 @@ public class Packager {
 	private static PackageStep addCopyAssetsStep (BuildReporterDialog dialog, PackageStep currentStep) {
 		return currentStep
 			.setNextStep(getWriteProjectStep(dialog)).setNextStep(new CopyDirectoryStep(dialog,
-				RavTechDK.projectHandle.child("assets"), RavTechDK.getLocalFile("/builder/android/assets/")))
+				RavTech.files.getAssetHandle("").parent().child("assets"), RavTechDK.getLocalFile("/builder/android/assets/")))
 			.setNextStep(getDeleteProjectStep(dialog));
 	}
 
@@ -100,13 +101,13 @@ public class Packager {
 		BuildOptions options) {
 		return currentStep.setNextStep(getWriteProjectStep(dialog)).setNextStep(new PackBundleStep(dialog))
 			.setNextStep(new CopyStep(dialog, Gdx.files.absolute(System.getProperty("user.dir") + "/temp/build.ravpack"),
-				RavTechDK.projectHandle.child("builds").child(options.targetPlatform).child("assets.ravpack")))
+				RavTech.files.getAssetHandle("").parent().child("builds").child(options.targetPlatform).child("assets.ravpack")))
 			.setNextStep(getDeleteProjectStep(dialog));
 	}
 
 	private static CreateFileStep getWriteConfigStep (BuildReporterDialog dialog, boolean external) {
 		return new CreateFileStep(dialog, RavTechDK.getLocalFile("builder/android/assets/config.json"),
-			("{ \"title\": \"" + RavTechDK.project.appName + "\",\n\"useAssetBundle\": " + String.valueOf(external) + "\n}")
+			("{ \"title\": \"" + RavTech.project.appName + "\",\n\"useAssetBundle\": " + String.valueOf(external) + "\n}")
 				.getBytes());
 	}
 
@@ -115,7 +116,7 @@ public class Packager {
 			@Override
 			public void run () {
 				buildReporterDialog.log("Saving Project.");
-				RavTechDK.project.save(RavTechDK.projectHandle.child("assets"));
+				RavTech.project.save(RavTech.files.getAssetHandle("").parent().child("assets"));
 				executeNext();
 			}
 		};
@@ -126,7 +127,7 @@ public class Packager {
 			@Override
 			public void run () {
 				buildReporterDialog.log("Deleting Project.");
-				RavTechDK.projectHandle.child("assets").child("project.json").delete();
+				RavTech.files.getAssetHandle("").parent().child("assets").child("project.json").delete();
 				executeNext();
 			}
 		};

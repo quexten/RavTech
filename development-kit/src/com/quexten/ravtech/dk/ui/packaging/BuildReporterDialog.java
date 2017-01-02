@@ -50,7 +50,6 @@ public class BuildReporterDialog extends VisTable {
 				
 				for(int i = 0; i < array.length; i++) {
 					lengthsArray[i] = array[i].length() + (i > 0 ? lengthsArray[i-1] : 0) + 1;
-					System.out.println("lengthsArray["+i+"]="+lengthsArray[i]);
 				}
 				
 				for(int i = 0; i < array.length; i++) {
@@ -64,7 +63,7 @@ public class BuildReporterDialog extends VisTable {
 			}			
 		});
 		
-		textArea.setHighlighter(highlighter);
+		//textArea.setHighlighter(highlighter);
 		this.add(textArea).grow();
 	}
 

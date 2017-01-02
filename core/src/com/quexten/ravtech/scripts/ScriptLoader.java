@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.ComponentType;
 import com.quexten.ravtech.components.GameObject;
+import com.quexten.ravtech.components.Rigidbody;
 import com.quexten.ravtech.util.Debug;
 
 public abstract class ScriptLoader {

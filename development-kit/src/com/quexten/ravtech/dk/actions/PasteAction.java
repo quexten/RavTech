@@ -9,6 +9,10 @@ import com.quexten.ravtech.util.PrefabManager;
 
 public class PasteAction implements Runnable {
 
+	public PasteAction() {
+		
+	}
+	
 	@Override
 	public void run () {
 		try {

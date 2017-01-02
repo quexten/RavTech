@@ -13,8 +13,8 @@ import com.quexten.ravtech.dk.RavTechDK;
 
 public class FontPreviewPanel extends AssetPreviewPanel {
 
-	public FontPreviewPanel (String assetPath) {
-		super(assetPath);
+	public FontPreviewPanel (AssetViewer viewer, String assetPath) {
+		super(viewer, assetPath);
 		RavTech.files.loadAsset(assetPath, BitmapFont.class);
 		RavTech.files.finishLoading();
 
@@ -36,7 +36,7 @@ public class FontPreviewPanel extends AssetPreviewPanel {
 
 	@Override
 	public void addToScene () {
-		Vector2 worldPosition = RavTechDK.mainSceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		Vector2 worldPosition = viewer.inspector.view.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		GameObject object = RavTech.currentScene.addGameObject(worldPosition.x, worldPosition.y);
 		FontRenderer renderer = new FontRenderer();
 		renderer.setFont(assetPath);

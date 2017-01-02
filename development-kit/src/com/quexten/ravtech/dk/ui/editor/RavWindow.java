@@ -104,8 +104,8 @@ public class RavWindow extends VisWindow {
 				Gdx.graphics.setWindowedMode(width, height);
 			}
 		});
-		window.setPosition((int)getX() + mainWindow.getPositionX(),
-			(int)((mainWindow.getPositionY() + RavTechDK.windowHeight) - getY() - getHeight()));
+		window.setPosition(mainWindow.getPositionX(),
+			(int)(mainWindow.getPositionY()));
 		((RavWindowAppListener)window.getListener()).externalize();
 	}
 
@@ -120,7 +120,7 @@ public class RavWindow extends VisWindow {
 		setHeight(height);
 
 		setPosition(window.getPositionX() - mainWindow.getPositionX(),
-			(mainWindow.getPositionY() + RavTechDK.windowHeight) - (window.getPositionY() + height));
+			(mainWindow.getPositionY()) - (window.getPositionY() + height));
 		add(rootTable).grow();
 	}
 

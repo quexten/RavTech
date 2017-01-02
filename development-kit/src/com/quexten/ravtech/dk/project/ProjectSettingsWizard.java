@@ -16,6 +16,7 @@ import com.kotcrab.vis.ui.widget.file.FileChooser;
 import com.kotcrab.vis.ui.widget.file.FileChooser.Mode;
 import com.kotcrab.vis.ui.widget.file.FileChooser.SelectionMode;
 import com.kotcrab.vis.ui.widget.file.FileChooserAdapter;
+import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.ui.editor.LabelTextPair;
 import com.quexten.ravtech.dk.ui.editor.RavWindow;
@@ -85,7 +86,7 @@ public class ProjectSettingsWizard extends RavWindow {
 					RavTechDK.setProject(creationPath);
 					RavTechDK.loadScene(project.startScene);
 				} else
-					project.save(RavTechDK.projectHandle);
+					project.save(RavTech.files.getAssetHandle("").parent());
 
 			}
 		});

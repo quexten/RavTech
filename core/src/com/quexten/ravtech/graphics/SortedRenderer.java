@@ -166,15 +166,13 @@ public class SortedRenderer {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			spriteBatch.setProjectionMatrix(camera.combined);
 			renderRunnables(renderables);
-			for (int i = 0; i < HookApi.onRenderHooks.size; i++)
-				HookApi.onRenderHooks.get(i).run();
+			HookApi.runHooks("onRender");
 			if (camera.renderToFramebuffer)
 				camera.cameraBuffer.end();
 		} else {
 			renderRunnables(renderables);
 
-			for (int i = 0; i < HookApi.onRenderHooks.size; i++)
-				HookApi.onRenderHooks.get(i).run();
+			HookApi.runHooks("onRender");
 		}
 	}
 

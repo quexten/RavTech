@@ -10,8 +10,8 @@ public class LuaPreviewPanel extends AssetPreviewPanel {
 
 	final static String iconPath = "ui/icons/lua-file.png";
 
-	public LuaPreviewPanel (String fileName) {
-		super(fileName);
+	public LuaPreviewPanel (AssetViewer viewer, String fileName) {
+		super(viewer, fileName);
 		RavTechDK.editorAssetManager.load(iconPath, Texture.class);
 		RavTechDK.editorAssetManager.finishLoading();
 		Image image = new Image((Texture)RavTechDK.editorAssetManager.get(iconPath));

@@ -7,9 +7,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.PolygonRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.Transform;
 import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.ui.editor.SceneViewWidget;
+import com.quexten.ravtech.dk.ui.editor.SceneViewWidget.EditingMode;
 import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 import com.quexten.ravtech.util.EventType;
 import com.quexten.ravtech.util.GeometryUtils;
@@ -37,8 +38,10 @@ public class TransformGizmo extends Gizmo<Transform> {
 		new float[] {0, 0, 0.75f, -0.25f, 0.75f, 0.25f, 1, 0}, new short[] {0, 1, 3, 0, 2, 3});
 	PolygonRegion circleRegion = GizmoHandler.createCircleRegion(20);
 
-	public TransformGizmo (Transform transform) {
-		super(transform);
+	private EditingMode editingMode = EditingMode.Move;
+
+	public TransformGizmo (GizmoHandler handler, Transform transform) {
+		super(handler, transform);
 	}
 
 	@SuppressWarnings("incomplete-switch")
@@ -47,7 +50,7 @@ public class TransformGizmo extends Gizmo<Transform> {
 		float positionX = component.getPosition().x;
 		float positionY = component.getPosition().y;
 
-		switch (RavTechDK.getEditingMode()) {
+		switch (editingMode) {
 			case Move:
 				// Draw X Axis
 				batch.setColor((selectedAxis & AXIS_X) == 0 || !selected ? Color.RED : Color.YELLOW);
@@ -84,9 +87,9 @@ public class TransformGizmo extends Gizmo<Transform> {
 				float deltaScaleY = 0;
 				if (Gdx.input.isTouched() && selected) {
 					if ((selectedAxis & AXIS_X) > 0)
-						deltaScaleX = RavTechDK.editorCamera.getMousePosition().x - (positionX + grabOffset.x);
+						deltaScaleX = handler.sceneView.camera.getMousePosition().x - (positionX + grabOffset.x);
 					if ((selectedAxis & AXIS_Y) > 0)
-						deltaScaleY = RavTechDK.editorCamera.getMousePosition().y - (positionY + grabOffset.y);
+						deltaScaleY = handler.sceneView.camera.getMousePosition().y - (positionY + grabOffset.y);
 				}
 				// Draw X Axis
 				batch.setColor((selectedAxis & AXIS_X) == 0 || !selected ? Color.RED : Color.YELLOW);
@@ -117,7 +120,7 @@ public class TransformGizmo extends Gizmo<Transform> {
 		float positionX = component.getPosition().x;
 		float positionY = component.getPosition().y;
 
-		switch (RavTechDK.getEditingMode()) {
+		switch (editingMode) {
 			case Move:
 				switch (eventType) {
 					case EventType.MouseDrag:
@@ -260,5 +263,9 @@ public class TransformGizmo extends Gizmo<Transform> {
 
 	public void setGrabOffset (float x, float y) {
 		grabOffset.set(x - component.getPosition().x, y - component.getPosition().y).scl(-1f);
+	}
+	
+	public void setEditingMode(SceneViewWidget.EditingMode mode) {
+		this.editingMode = mode;
 	}
 }

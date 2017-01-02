@@ -11,12 +11,14 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3FileHandle;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Preferences;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3WindowListener;
-import com.kotcrab.vis.ui.VisUI;
 import com.quexten.ravtech.EngineConfiguration;
 import com.quexten.ravtech.Hook;
 import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.adb.AdbManager;
+import com.quexten.ravtech.dk.packaging.Packager;
+import com.quexten.ravtech.dk.packaging.platforms.AndroidPlatform;
+import com.quexten.ravtech.dk.packaging.platforms.DesktopPlatform;
 import com.quexten.ravtech.net.kryonet.KryonetTransportLayer;
 import com.quexten.ravtech.remoteedit.RemoteEdit;
 import com.quexten.ravtech.scripts.lua.LuaJScriptLoader;
@@ -70,17 +72,23 @@ public class Launcher {
 	
 		
 		
-		HookApi.onBootHooks.add(new Hook() {
+		HookApi.addHook("onBoot", new Hook() {
 			@Override
 			public void run () {
 				RavTech.sceneHandler.paused = true;
 				
 				//TODO Have network run on new thread
-				RavTech.net.transportLayers.add(new KryonetTransportLayer(RavTech.net));
-				RemoteEdit.host();
+				new Thread() {
+					@Override
+					public void run() {
+						RavTech.net.transportLayers.add(new KryonetTransportLayer(RavTech.net));
+						RemoteEdit.host();
+					}
+				}.start();
 				
-				/*if (RavTech.settings.getString("RavTechDK.project.path").isEmpty()
-					|| !new Lwjgl3FileHandle(RavTech.settings.getString("RavTechDK.project.path"), FileType.Absolute).child("project.json")
+				
+				/*if (RavTech.settings.getString("RavTech.project.path").isEmpty()
+					|| !new Lwjgl3FileHandle(RavTech.settings.getString("RavTech.project.path"), FileType.Absolute).child("project.json")
 						.exists()) {
 					final Project project = new Project();
 					final ProjectSettingsWizard wizard = new ProjectSettingsWizard(project, true);
@@ -89,13 +97,13 @@ public class Launcher {
 				} else {
 					final Preferences preferences = new Lwjgl3Preferences(
 						new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
-					RavTechDK.setProject(preferences.getString("RavTechDK.project.path"));
+					RavTechDK.setProject(preferences.getString("RavTech.project.path"));
 				}*/
 				
 			}
 		});
 		
-		HookApi.onPreBootHooks.add(new Hook() {
+		HookApi.addHook("onBoot", new Hook() {
 			@Override
 			public void run() {
 				//VisUI.dispose();
@@ -103,7 +111,7 @@ public class Launcher {
 			}
 		});
 		
-		HookApi.onBootHooks.add(new Hook() {
+		HookApi.addHook("onBoot", new Hook() {
 			@Override
 			public void run() {
 				RavTech.settings = new RavSettings("RavTechDK");
@@ -111,9 +119,26 @@ public class Launcher {
 				RavTechDK.initialize();
 				final Preferences preferences = new Lwjgl3Preferences(
 					new Lwjgl3FileHandle(new File(".prefs/", "RavTech"), FileType.External));
+				Debug.log("pref", preferences.getString("RavTech.project.path"));
 				RavTechDK.setProject(preferences.getString("RavTechDK.project.path"));
 			}
 		});
+		
+		HookApi.addHook("onBoot", new Hook() {
+			@Override
+			public void run () {
+				AdbManager.initializeAdb();
+			}
+		});
+		
+		HookApi.addHook("onBoot", new Hook() {
+			@Override
+			public void run () {
+				Packager.registerPlatform("Android", new AndroidPlatform());
+				Packager.registerPlatform("Desktop", new DesktopPlatform());
+			}
+		});
+		
 		new Lwjgl3Application(ravtech, config);
 
 		Gdx.app.postRunnable(new Runnable() {

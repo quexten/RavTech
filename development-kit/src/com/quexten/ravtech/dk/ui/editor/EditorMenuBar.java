@@ -31,8 +31,8 @@ import com.quexten.ravtech.history.CreateChangeable;
 import com.quexten.ravtech.util.Debug;
 
 public class EditorMenuBar extends MenuBar {
-
-	public EditorMenuBar () {
+	
+	public EditorMenuBar (final SceneViewWidget view) {
 		Menu menu;
 		MenuItem entry;
 		{ // File Menu
@@ -80,7 +80,7 @@ public class EditorMenuBar extends MenuBar {
 									"[" + RavTech.files.getAssetManager().getAssetFileName(RavTech.currentScene) + "]");
 							}
 						});
-						fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
+						fileChooser.setDirectory(RavTech.files.getAssetHandle("").parent().child("assets"));
 						actor.getStage().addActor(fileChooser);
 					}
 				});
@@ -99,12 +99,12 @@ public class EditorMenuBar extends MenuBar {
 						fileChooser.setListener(new FileChooserAdapter() {
 							@Override
 							public void selected (Array<FileHandle> file) {
-								String localScenePath = file.first().path().replaceAll(RavTechDK.projectHandle.child("assets").path(), "")
+								String localScenePath = file.first().path().replaceAll(RavTech.files.getAssetHandle("").parent().child("assets").path(), "")
 									.substring(1);
 								RavTechDK.loadScene(localScenePath);
 							}
 						});
-						fileChooser.setDirectory(RavTechDK.projectHandle.child("assets"));
+						fileChooser.setDirectory(RavTech.files.getAssetHandle("").parent().child("assets"));
 						actor.getStage().addActor(fileChooser);
 					}
 				});
@@ -118,9 +118,9 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						if (AdbManager.initialized)
+						if (AdbManager.initialized) {
 							actor.getStage().addActor(new BuildDialog());
-						else {
+						} else {
 							PreferencesWindow window = new PreferencesWindow();
 							window.setSize(400, 300);
 						}
@@ -146,10 +146,10 @@ public class EditorMenuBar extends MenuBar {
 					public void changed (ChangeEvent event, Actor actor) {
 						CreateChangeable changeable = new CreateChangeable(null, "Added GameObject",
 							"{\"componentType\":\"GameObject\",\"name\":\"DEFAULT\",\"components\":[{\"componentType\":\"Transform\",\"x\":"
-								+ RavTechDK.editorCamera.position.x + ",\"y\":" + RavTechDK.editorCamera.position.y
+								+ 0 + ",\"y\":" + 0
 								+ ",\"rotation\":0,\"scale\":1}]}");
 						ChangeManager.addChangeable(changeable); //
-						RavTechDK.setSelectedObjects(RavTech.currentScene.gameObjects.peek());
+						view.setSelectedObjects(RavTech.currentScene.gameObjects.peek());
 					}
 				});
 				menu.addItem(entry);
@@ -164,7 +164,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						actor.getStage().addActor(new ProjectSettingsWizard(RavTechDK.project, false));
+						actor.getStage().addActor(new ProjectSettingsWizard(RavTech.project, false));
 					}
 				});
 				menu.addItem(entry);
@@ -302,7 +302,7 @@ public class EditorMenuBar extends MenuBar {
 
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						RavWindow window = RavTechDK.updateWidget;
+						RavWindow window = new UpdaterWidget();
 						window.setVisible(!window.isVisible());
 					}
 				});

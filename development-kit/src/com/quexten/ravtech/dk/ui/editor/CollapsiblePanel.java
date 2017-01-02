@@ -12,13 +12,17 @@ import com.kotcrab.vis.ui.widget.VisImageButton;
 import com.kotcrab.vis.ui.widget.VisImageButton.VisImageButtonStyle;
 import com.kotcrab.vis.ui.widget.VisLabel;
 import com.kotcrab.vis.ui.widget.VisTable;
+import com.quexten.ravtech.components.GameComponent;
 
 public class CollapsiblePanel extends VisTable {
 
 	private static final Drawable treePlus = VisUI.getSkin().getDrawable("tree-plus");
 	private static final Drawable treeMinus = VisUI.getSkin().getDrawable("tree-minus");
 
-	public CollapsiblePanel (String title, VisTable contentTable) {
+	public CollapsiblePanel (final Inspector inspector, final GameComponent component) {
+		String title = component.getName();
+		VisTable contentTable = ComponentPanels.createTable(component);
+		
 		VisTable titleTable = new VisTable(true);
 		titleTable.setBackground(VisUI.getSkin().getDrawable("tree-over"));
 
@@ -30,6 +34,13 @@ public class CollapsiblePanel extends VisTable {
 		titleTable.add(nameLabel).spaceRight(0).width(220);
 		titleTable.add().space(0).expandX().fillX();
 		VisImageButton button = new VisImageButton("close");
+		button.addListener(new ClickListener() {
+			@Override
+			public void clicked (InputEvent event, float x, float y) {
+				component.getParent().removeComponent(component);
+				inspector.rebuild();
+			}
+		});
 		VisImageButtonStyle style = button.getStyle();
 		Drawable up = style.up;
 		style.up = style.over;

@@ -69,9 +69,9 @@ public class DesktopLauncher {
 
 		final RavTech ravtech = new RavTech(engineConfiguration);
 		
-		engineConfiguration.remoteEdit = true;
+		engineConfiguration.remoteEdit = false;
 		if(!engineConfiguration.remoteEdit)
-			HookApi.onBootHooks.add(new Hook() {
+			HookApi.addHook("onBoot", new Hook() {
 				@Override
 				public void run() {
 					RavTech.files.loadAsset("project.json", Project.class);
@@ -81,11 +81,12 @@ public class DesktopLauncher {
 					RavTech.files.loadAsset(RavTech.project.startScene, Scene.class);
 					RavTech.files.finishLoading();
 					RavTech.currentScene = RavTech.files.getAsset(RavTech.project.startScene);
+					RavTech.settings = new RavSettings(RavTech.project.appId);
 					Debug.log("RavTech", "BootUp");
 				}
 			});
 		else
-			HookApi.onBootHooks.add(new Hook() {
+			HookApi.addHook("onBoot", new Hook() {
 				@Override
 				public void run() {
 					Project project = new Project();

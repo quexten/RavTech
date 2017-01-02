@@ -7,13 +7,15 @@ import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.graphics.PolygonShapeRenderer;
 
 public abstract class Gizmo<T extends GameComponent> {
-
+	
+	public GizmoHandler handler;
 	public T component;
-
+	
 	/** Describes whether the Gizmo needs Exclusive rights to be edited, or will be editable in general selection mode */
 	public boolean isExclusive = false;
-
-	public Gizmo (T component) {
+	
+	public Gizmo (GizmoHandler handler, T component) {
+		this.handler = handler;
 		this.component = component;
 	}
 
@@ -36,7 +38,7 @@ public abstract class Gizmo<T extends GameComponent> {
 	public abstract boolean isInBoundingBox (Vector2 coord);
 
 	protected float getZoom () {
-		return RavTechDK.editorCamera.zoom;
+		return handler.sceneView.camera.zoom;
 	}
 
 }

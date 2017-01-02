@@ -4,6 +4,7 @@ package com.quexten.ravtech.dk.zerobrane;
 import java.io.File;
 import java.io.IOException;
 
+import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.dk.ui.utils.GitHubUpdater;
 import com.quexten.ravtech.dk.ui.utils.UpdateManager;
@@ -28,8 +29,8 @@ public class ZeroBraneUtil {
 
 	public static void openFile (File file) {
 		ProcessBuilder b = new ProcessBuilder(
-			RavTechDK.getPluginsFile("ZeroBraneStudio/zbstudio." + RavTechDK.getSystemExecutableEnding()).path(),
-			RavTechDK.projectHandle.child("assets").path(), file.getPath());
+			RavTechDK.getPluginsFile("ZeroBraneStudio/zbstudio." + (System.getProperty("os.name").toLowerCase().contains("windows") ? "exe" : "sh")).path(),
+			RavTech.files.getAssetHandle("").parent().child("assets").path(), file.getPath());
 		try {
 			b.start();
 		} catch (IOException ex) {

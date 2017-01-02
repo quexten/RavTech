@@ -26,7 +26,8 @@ import com.quexten.ravtech.dk.RavTechDK;
 public class ComponentPanels {
 
 	static ObjectMap<Class<? extends GameComponent>, ComponentPanel> panels = new ObjectMap<Class<? extends GameComponent>, ComponentPanel>();
-
+		
+	
 	static <T extends GameComponent> void registerComponent (Class<T> component, ComponentPanel panel) {
 		panels.put(component, panel);
 	}
@@ -137,7 +138,7 @@ public class ComponentPanels {
 				addButton(table, "Edit Collider", "Edit", new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						RavTechDK.gizmoHandler.setExclusiveGizmo(component);
+						//RavTechDK.gizmoHandler.setExclusiveGizmo(component);
 					}
 				});
 				addButton(table, "AutoFit", "Fit", new ChangeListener() {
@@ -166,7 +167,7 @@ public class ComponentPanels {
 				addButton(table, "Edit Collider", "Edit", new ChangeListener() {
 					@Override
 					public void changed (ChangeEvent event, Actor actor) {
-						RavTechDK.gizmoHandler.setExclusiveGizmo(component);
+						//RavTechDK.gizmoHandler.setExclusiveGizmo(component);
 					}
 				});
 				addButton(table, "AutoFit", "Fit", new ChangeListener() {

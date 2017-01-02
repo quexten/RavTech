@@ -45,7 +45,7 @@ public class RavTech extends Game {
 
 	@Override
 	public void create () {
-		HookApi.runHooks(HookApi.onPreBootHooks);
+		HookApi.runHooks("onPreBoot");
 
 		Gdx.app.setLogLevel(3);
 
@@ -58,7 +58,7 @@ public class RavTech extends Game {
 		sceneHandler = new SceneHandler();
 		setScreen(new PlayScreen());
 
-		HookApi.runHooks(HookApi.onBootHooks);
+		HookApi.runHooks("onBoot");		
 	}
 
 	@Override
@@ -66,15 +66,13 @@ public class RavTech extends Game {
 		//Update
 		input.update();
 		
-		for (int i = 0; i < HookApi.onUpdateHooks.size; i++)
-			HookApi.onUpdateHooks.get(i).run();
+		HookApi.runHooks("onUpdate");
 		
 		//Render
 		super.render();
 		
 		if (!RavTech.isHeadless()) {			
-			for (int i = 0; i < HookApi.onRenderHooks.size; i++)
-				HookApi.onRenderHooks.get(i).run();
+			HookApi.runHooks("onRender");
 			
 			ui.render();
 		}

@@ -186,7 +186,6 @@ public class RemoteEdit {
 					Gdx.app.postRunnable(new Runnable() {
 						@Override
 						public void run() {
-							RavTech.ui.loadLml();
 						}
 					});					
 				}

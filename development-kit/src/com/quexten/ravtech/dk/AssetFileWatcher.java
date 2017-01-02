@@ -72,7 +72,7 @@ public class AssetFileWatcher {
 										System.out.println("assetPath" + assetPath);
 										if(assetPath.endsWith(".lml")) {
 											System.out.println("changed");
-											RavTech.ui.loadLml();
+											//RavTech.ui.loadLml();
 										}
 										if (!assetPath.endsWith(".scene"))
 											if (RavTech.files.isLoaded(assetPath))

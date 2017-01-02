@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.animation.Animation;
 import com.quexten.ravtech.components.Light.LightType;
+import com.quexten.ravtech.util.Debug;
 import com.quexten.ravtech.util.PrefabManager;
 
 public class GameObject extends GameComponent implements Json.Serializable {
@@ -198,13 +199,14 @@ public class GameObject extends GameComponent implements Json.Serializable {
 		return tempComponents;
 	}
 
-	public GameComponent getComponentByType (ComponentType rigidbody) {
+	public GameComponent getComponentByType (ComponentType componentType) {
 		GameComponent tempcomp = null;
-		for (GameComponent component : components)
-			if (component.getType().equals(rigidbody)) {
+		for (GameComponent component : components) {
+			if (component.getType().equals(componentType)) {
 				tempcomp = component;
 				break;
 			}
+		}
 		return tempcomp;
 	}
 

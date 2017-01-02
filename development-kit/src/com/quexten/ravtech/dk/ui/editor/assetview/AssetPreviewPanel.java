@@ -11,8 +11,10 @@ public abstract class AssetPreviewPanel extends VisTable {
 	String assetPath;
 	boolean isSelected;
 	Color selectionColor = Color.CORAL;
-
-	public AssetPreviewPanel (String assetPath) {
+	AssetViewer viewer;
+	
+	public AssetPreviewPanel (AssetViewer viewer, String assetPath) {
+		this.viewer = viewer;
 		this.assetPath = assetPath;
 	}
 

@@ -1,14 +1,19 @@
 
 package com.quexten.ravtech.dk.actions;
 
-import com.quexten.ravtech.dk.RavTechDK;
+import com.badlogic.gdx.utils.Array;
+import com.quexten.ravtech.components.GameObject;
 
 public class DeleteAction implements Runnable {
-
+		
+	public DeleteAction(Array<GameObject> selectedObjects) {
+		for(GameObject object : selectedObjects) {
+			object.destroy();
+		}
+	}
+	
 	@Override
 	public void run () {
-		for (int i = 0; i < RavTechDK.selectedObjects.size; i++)
-			RavTechDK.selectedObjects.get(i).destroy();
 	}
 
 }
