@@ -17,6 +17,7 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.kotcrab.vis.ui.widget.VisTextField.TextFieldListener;
+import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.dk.RavTechDK;
 import com.quexten.ravtech.history.ChangeManager;
@@ -124,7 +125,7 @@ public abstract class ComponentPanel {
 
 			@Override
 			public void drop (Source source, Payload payload, float x, float y, int pointer) {
-				field.setText(String.valueOf(payload.getObject()).replace(RavTechDK.projectHandle.path() + "/assets/", ""));
+				field.setText(String.valueOf(payload.getObject()).replace(RavTech.files.getAssetHandle("").parent().path() + "/assets/", ""));
 				listener.changed(new ChangeEvent(), field);
 			}
 		});

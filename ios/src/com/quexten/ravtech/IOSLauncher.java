@@ -13,7 +13,11 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new RavTech(new InternalFileHandleResolver(), new IOSEngineConfiguration()), config);
+        
+        InternalFileHandleResolver resolver = new InternalFileHandleResolver();
+        IOSEngineConfiguration engineConfig = new IOSEngineConfiguration();
+        engineConfig.assetResolver = resolver;
+        return new IOSApplication(new RavTech(engineConfig), config);
     }
 
     public static void main(String[] argv) {

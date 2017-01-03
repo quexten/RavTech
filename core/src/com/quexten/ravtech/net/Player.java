@@ -4,6 +4,7 @@ package com.quexten.ravtech.net;
 import java.io.InputStream;
 
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.util.Debug;
 
 public class Player {
 
@@ -28,6 +29,7 @@ public class Player {
 	}
 
 	public void sendLargePacket (Packet packet, String type, Object additionalInformation) {
+		Debug.log("sendLargePacket", type);
 		lobby.network.sendLargePacketTo(connectionInformation, packet, type, additionalInformation);
 	}
 

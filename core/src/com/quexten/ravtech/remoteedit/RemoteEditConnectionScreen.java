@@ -27,6 +27,7 @@ public class RemoteEditConnectionScreen implements Screen {
 
 	Stage screenStage;
 	VisList<String> connectionList = new VisList<String>();
+	public VisTextButton qrButton;
 
 	public RemoteEditConnectionScreen () {
 	}
@@ -56,7 +57,7 @@ public class RemoteEditConnectionScreen implements Screen {
 				RemoteEdit.connect(connectionList.getSelected());
 				RavTech.sceneHandler.cameraManager.createCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()).zoom = 0.05f;
 				final TouchDebugController controller = new TouchDebugController();
-				HookApi.onUpdateHooks.add(new Hook() {
+				HookApi.addHook("onUpdate", new Hook() {
 					@Override
 					public void run () {
 						controller.update();
@@ -72,6 +73,7 @@ public class RemoteEditConnectionScreen implements Screen {
 				RavTech.net.discoverHosts();
 			}
 		});
+		qrButton = new VisTextButton("Qr");
 
 		try {
 			Field cacheField = ClassReflection.getDeclaredField(Label.class, "cache");
@@ -86,6 +88,7 @@ public class RemoteEditConnectionScreen implements Screen {
 		backgroundTable.add(bottomTable).growX().height(200);
 		bottomTable.add(connectButton).grow();
 		bottomTable.add(refreshButton).grow();
+		bottomTable.add(qrButton).grow();
 
 		screenStage.addActor(backgroundTable);
 	}

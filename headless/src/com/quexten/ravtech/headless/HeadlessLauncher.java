@@ -30,19 +30,20 @@ public class HeadlessLauncher {
 
 		final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
-		final RavTech ravtech = new RavTech(new FileHandleResolver() {
+		engineConfig.assetResolver = new FileHandleResolver() {
 			@Override
 			public FileHandle resolve (String path) {
 				return Gdx.files.local("temp").child(path);
 			}
-		}, engineConfig);
+		};
+
+		final RavTech ravtech = new RavTech(engineConfig);
 
 		HookApi.onUpdateHooks.add(new Hook() {
 			@Override
 			public void run () {
 				try {
-					if (bufferedReader.ready())
-						Debug.runScript(bufferedReader.readLine());
+					if (bufferedReader.ready()) Debug.runScript(bufferedReader.readLine());
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}

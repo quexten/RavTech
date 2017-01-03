@@ -19,14 +19,14 @@ public class PolygonColliderGizmo extends Gizmo<PolygonCollider> {
 	int selectedLine;
 	float closestDst;
 
-	public PolygonColliderGizmo (PolygonCollider component) {
-		super(component);
+	public PolygonColliderGizmo (GizmoHandler handler, PolygonCollider component) {
+		super(handler, component);
 	}
 
 	@Override
 	public void draw (PolygonShapeRenderer renderer, boolean selected) {
 		renderer.setColor(Color.LIGHT_GRAY);
-		Vector2 mousePosition = RavTechDK.editorCamera.getMousePosition();
+		Vector2 mousePosition = handler.sceneView.camera.getMousePosition();
 		/*
 		 * for (int i = 0; i < component.vertecies.size; i++) renderCircle(renderer, component.vertecies.get(i), mousePosition,
 		 * true);

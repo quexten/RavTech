@@ -24,8 +24,8 @@ public class BoxColliderGizmo extends Gizmo<BoxCollider> {
 	float closestDst;
 	int selectedPoint;
 
-	public BoxColliderGizmo (BoxCollider component) {
-		super(component);
+	public BoxColliderGizmo (GizmoHandler handler, BoxCollider component) {
+		super(handler, component);
 		isExclusive = true;
 	}
 
@@ -114,7 +114,7 @@ public class BoxColliderGizmo extends Gizmo<BoxCollider> {
 				positions.add(tr);
 				positions.add(br);
 				positions.add(bl);
-				float camFactor = RavTechDK.editorCamera.zoom * 20f;
+				float camFactor = handler.sceneView.camera.zoom * 20f;
 				float lDst = GeometryUtils.isInBoundingBox(tl, tr, mousePosition, camFactor)
 					? GeometryUtils.dstFromLine(tl, tr, mousePosition) : Float.MAX_VALUE;
 				float tDst = GeometryUtils.isInBoundingBox(tr, br, mousePosition, camFactor)

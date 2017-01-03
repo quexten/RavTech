@@ -21,11 +21,15 @@ import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.components.Camera;
 import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.components.SpriterAnimator;
+import com.quexten.ravtech.components.Transform;
+import com.quexten.ravtech.components.gizmos.Gizmo;
+import com.quexten.ravtech.components.gizmos.GizmoHandler;
+import com.quexten.ravtech.components.gizmos.TransformGizmo;
 import com.quexten.ravtech.dk.RavTechDK;
-import com.quexten.ravtech.dk.RavTechDK.EditingMode;
 import com.quexten.ravtech.dk.actions.CopyAction;
 import com.quexten.ravtech.dk.actions.DeleteAction;
 import com.quexten.ravtech.dk.actions.PasteAction;
+import com.quexten.ravtech.dk.ui.editor.SceneViewWidget.EditingMode;
 import com.quexten.ravtech.graphics.RavCamera;
 import com.quexten.ravtech.remoteedit.FileHasher;
 import com.quexten.ravtech.util.Debug;
@@ -35,6 +39,10 @@ import com.quexten.ravtech.util.ZipUtil;
 
 public class SceneViewWidget extends Widget {
 
+	//Editor Cameras have their own id's that are negative and keep decreasing
+	//as more cameras get added
+	int camId = -1;
+	
 	public RavCamera camera;
 	Vector2 dragAnchorPosition;
 	boolean hasToLerpZoom;
@@ -50,29 +58,38 @@ public class SceneViewWidget extends Widget {
 
 	int oldWidth, oldHeight;
 
+	public enum EditingMode {
+		Move, Rotate, Scale, Other
+	};
+
+	private EditingMode currentEditingMode = EditingMode.Move;
+	GizmoHandler gizmoHandler;
+	public Inspector inspector = new Inspector();
+	
+	public Array<GameObject> selectedObjects = new Array<GameObject>();
+	
 	public SceneViewWidget (boolean main) {
 		if (!main) {
-			camera = RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
+			camera = RavTech.sceneHandler.cameraManager.createCamera(camId--, 1280, 720);
 			camera.zoom = 0.05f;
 		} else {
-			camera = new RavCamera(1280, 720) {
+			camera = new RavCamera(camId--, 1280, 720) {
 				@Override
 				public void render (SpriteBatch spriteBatch) {
 					super.render(spriteBatch);
 					this.getCameraBuffer().begin();
-					RavTechDK.gizmoHandler.render();
+					gizmoHandler.render();
 					this.getCameraBuffer().end();
 				}
 			};
 			camera.zoom = 0.05f;
 			RavTech.sceneHandler.cameraManager.cameras.add(camera);
-			RavTechDK.editorCamera = camera;
 		}
 
 		addListener(new InputListener() {
 			public boolean mouseMoved (InputEvent event, float x, float y) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseMoved);
+				gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseMoved);
 				return false;
 			}
 		});
@@ -81,7 +98,7 @@ public class SceneViewWidget extends Widget {
 			@Override
 			public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseDown);
+				gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseDown);
 				if (button == Buttons.RIGHT)
 					dragAnchorPosition = new Vector2(unprojectedPosition.x, unprojectedPosition.y);
 				else if (button == Buttons.LEFT) {
@@ -96,8 +113,8 @@ public class SceneViewWidget extends Widget {
 			public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
 				isDragging = false;
-				if (!RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp))
-					RavTechDK.inspector.changed();
+				if (!gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, button, EventType.MouseUp))
+					inspector.changed();
 			}
 		});
 
@@ -106,10 +123,10 @@ public class SceneViewWidget extends Widget {
 			@Override
 			public void drag (InputEvent event, float x, float y, int pointer) {
 				Vector2 unprojectedPosition = camera.unproject(new Vector2(x, getHeight() - y));
-				if (RavTechDK.gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseDrag))
+				if (gizmoHandler.input(unprojectedPosition.x, unprojectedPosition.y, 0, EventType.MouseDrag))
 					return;
 				selectionEnd.set(camera.unproject(new Vector2(x, getHeight() - y)));
-				RavTechDK.setSelectedObjects(
+				setSelectedObjects(
 					RavTech.currentScene.getGameObjectsIn(selectionStart.x, selectionStart.y, selectionEnd.x, selectionEnd.y));
 			}
 
@@ -167,12 +184,12 @@ public class SceneViewWidget extends Widget {
 		addListener(new InputListener() {
 			public boolean keyDown (InputEvent event, int keycode) {
 				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.C)
-					new CopyAction().run();
+					new CopyAction(SceneViewWidget.this).run();
 				if (RavTech.input.isKeyPressed(Keys.CONTROL_LEFT) && keycode == Keys.V)
 					new PasteAction().run();
 
 				if (keycode == Keys.FORWARD_DEL)
-					new DeleteAction().run();
+					new DeleteAction(selectedObjects).run();
 
 				if (keycode == Keys.F5) {
 					Array<String> assetNames = RavTech.files.getAssetManager().getAssetNames();
@@ -180,20 +197,20 @@ public class SceneViewWidget extends Widget {
 						RavTech.files.reloadAsset(assetNames.get(i));
 				}
 				if (keycode == Keys.Q) {
-					RavTechDK.setEditingMode(EditingMode.Other);
+					setEditingMode(EditingMode.Other);
 				}
 				if (keycode == Keys.W) {
-					RavTechDK.setEditingMode(EditingMode.Move);
+					setEditingMode(EditingMode.Move);
 				}
 				if (keycode == Keys.E) {
-					RavTechDK.setEditingMode(EditingMode.Rotate);
+					setEditingMode(EditingMode.Rotate);
 				}
 				if (keycode == Keys.R) {
-					RavTechDK.setEditingMode(EditingMode.Scale);
+					setEditingMode(EditingMode.Scale);
 				}
 				
 				if (keycode == Keys.F2) {
-					System.out.println(PrefabManager.makePrefab(RavTechDK.selectedObjects.first()));
+					System.out.println(PrefabManager.makePrefab(selectedObjects.first()));
 				}
 				return true;
 			}
@@ -208,6 +225,17 @@ public class SceneViewWidget extends Widget {
 			}
 
 		});
+		
+		gizmoHandler = new GizmoHandler(this);	
+	}
+
+	public void setEditingMode (EditingMode editingMode) {
+		this.currentEditingMode = editingMode;
+		Array<Gizmo<Transform>> gizmos = this.gizmoHandler.getGizmosOfType(Transform.class);
+		for(Gizmo<Transform> gizmo : gizmos) {
+			TransformGizmo transformGizmo = ((TransformGizmo) gizmo);
+			transformGizmo.setEditingMode(editingMode);
+		}
 	}
 
 	public void resize () {
@@ -250,7 +278,7 @@ public class SceneViewWidget extends Widget {
 				getHeight());
 			selectionEndProjection.sub(selectionStartProjection);
 			batch.setColor(new Color(1, 1, 1, 0.5f));
-			batch.draw(VisUI.getSkin().getRegion("t-dot"), selectionStartProjection.x, selectionStartProjection.y,
+			batch.draw(VisUI.getSkin().getRegion("white"), selectionStartProjection.x, selectionStartProjection.y,
 				selectionEndProjection.x, selectionEndProjection.y);
 		}
 	}
@@ -258,4 +286,19 @@ public class SceneViewWidget extends Widget {
 	public void setResolution (int width, int height) {
 		camera.setResolution(width, height);
 	}
+
+	public EditingMode getEditingMode () {
+		return this.currentEditingMode;
+	}
+	
+	public void setSelectedObjects(Array<GameObject> objects) {
+		selectedObjects.clear();
+		selectedObjects.addAll(objects);
+	}
+
+	public void setSelectedObjects (GameObject object) {
+		selectedObjects.clear();
+		selectedObjects.add(object);
+	}
+	
 }

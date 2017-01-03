@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.util.Debug;
 
 import box2dLight.DynamicLightMap;
@@ -33,16 +32,14 @@ public class RavCamera extends OrthographicCamera {
 	FrameBuffer cameraBuffer;
 	FrameBuffer cameraPingPongBuffer;
 	DynamicLightMap lightMap;
-	public static int camId;
 	public boolean drawGrid;
 
-	public RavCamera (int width, int height) {
+	public RavCamera (int id, int width, int height) {
 		super(width, height);
 		renderer = new ShapeRenderer();
 		renderer.setAutoShapeType(true);
-		camId++;
-		cameraBufferName = cameraBufferName + camId;
-		cameraPingPongBufferName = cameraPingPongBufferName + camId;
+		cameraBufferName = cameraBufferName + id;
+		cameraPingPongBufferName = cameraPingPongBufferName + id;
 		lightMap = RavTech.sceneHandler.lightHandler.createLightMap(width, height);
 
 		layers.addAll(RavTech.currentScene.renderProperties.sortingLayers);

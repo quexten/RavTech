@@ -196,6 +196,7 @@ public class KryonetTransportLayer extends TransportLayer {
 		if (packet instanceof Packet.StreamChunk) {
 			Packet.StreamChunk streamChunk = ((Packet.StreamChunk)packet);
 			Debug.log("StreamChunk", streamChunk.streamId);
+			Debug.log("contains", this.largePacketBuffers.containsKey(streamChunk.streamId));
 			if (this.largePacketBuffers.containsKey(streamChunk.streamId)) {
 				this.largePacketBuffers.get(streamChunk.streamId).addChunk(streamChunk.chunkBytes);
 				if(this.largePacketBuffers.get(streamChunk.streamId).isComplete()) {
@@ -334,11 +335,13 @@ public class KryonetTransportLayer extends TransportLayer {
 		public Packet getPacket () {
 			input.setInputStream(new ByteArrayInputStream(buffer));
 			Packet packet = ((Packet) streamKryo.readClassAndObject(input));
-			Debug.log("Packet", packet);
+			Debug.log("AssembledPacket", packet);
 			return packet;
 		}
 
 		public boolean isComplete () {
+			Debug.log("Reciveed", recievedByteCount);
+			Debug.log("bufferLength", buffer.length);
 			return recievedByteCount == buffer.length;
 		}
 

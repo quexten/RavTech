@@ -23,7 +23,6 @@ import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
 import com.kotcrab.vis.ui.widget.VisTextField;
 import com.quexten.ravtech.components.GameComponent;
-import com.quexten.ravtech.dk.RavTechDK;
 
 public class Inspector extends RavWindow {
 
@@ -33,6 +32,8 @@ public class Inspector extends RavWindow {
 	public Array<Actor> dragActors = new Array<Actor>();
 	Array<ComponentPanel> componentPanels = new Array<ComponentPanel>();
 
+	public SceneViewWidget view;
+	
 	boolean inspectorChanged;
 
 	public Inspector () {
@@ -59,12 +60,12 @@ public class Inspector extends RavWindow {
 		VisTable nameTable = new VisTable();
 		nameTable.add(new VisLabel("Name:")).align(Align.bottomLeft).padRight(5);
 		final VisTextField nameField = new VisTextField();
-		nameField.setText(RavTechDK.selectedObjects.size > 0 ? RavTechDK.selectedObjects.first().getName() : "");
+		nameField.setText(view.selectedObjects.size > 0 ? view.selectedObjects.first().getName() : "");
 		nameField.addListener(new InputListener() {
 			@Override
 			public boolean keyTyped (InputEvent event, char c) {
 				if (c == '\r' || c == '\n') {
-					RavTechDK.selectedObjects.first().setName(nameField.getText());
+					view.selectedObjects.first().setName(nameField.getText());
 					return true;
 				} else
 					return false;
@@ -80,9 +81,9 @@ public class Inspector extends RavWindow {
 		scrollPane.setScrollingDisabled(true, false);
 		contentTable.clear();
 		setVisible(true);
-		if (RavTechDK.selectedObjects.size > 0) {
-			for (int i = 0; i < RavTechDK.selectedObjects.first().getComponents().size; i++)
-				addCollapsiblePanel(RavTechDK.selectedObjects.first().getComponents().get(i));
+		if (view.selectedObjects.size > 0) {
+			for (int i = 0; i < view.selectedObjects.first().getComponents().size; i++)
+				addCollapsiblePanel(view.selectedObjects.first().getComponents().get(i));
 			final VisTextButton textButton = new VisTextButton("Add Component");
 			textButton.addListener(new ChangeListener() {
 				@Override
@@ -112,7 +113,7 @@ public class Inspector extends RavWindow {
 	}
 
 	void addCollapsiblePanel (GameComponent component) {
-		CollapsiblePanel title = new CollapsiblePanel(component.getName(), ComponentPanels.createTable(component));
+		CollapsiblePanel title = new CollapsiblePanel(this, component);
 		contentTable.add(title).growX().padRight(20).padLeft(20);
 		contentTable.row();
 	}
@@ -131,10 +132,10 @@ public class Inspector extends RavWindow {
 					GameComponent component;
 					try {
 						component = (GameComponent)ClassReflection.newInstance(ClassReflection.forName(className));
-						RavTechDK.selectedObjects.get(0).addComponent(component);
+						view.selectedObjects.get(0).addComponent(component);
 						component.finishedLoading();
 						Inspector.this.rebuild();
-						RavTechDK.gizmoHandler.setupGizmos();
+						view.gizmoHandler.setupGizmos();
 					} catch (ReflectionException e) {
 						e.printStackTrace();
 					}

@@ -25,16 +25,22 @@ import com.kotcrab.vis.ui.widget.PopupMenu;
 import com.kotcrab.vis.ui.widget.VisScrollPane;
 import com.kotcrab.vis.ui.widget.VisTable;
 import com.kotcrab.vis.ui.widget.VisTextButton;
+import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.dk.RavTechDK;
+import com.quexten.ravtech.dk.ui.editor.Inspector;
 import com.quexten.ravtech.dk.zerobrane.ZeroBraneUtil;
 
 public class AssetViewer extends VisTable {
 
+	public Inspector inspector;
+	
 	public AssetView assetView;
 	VisTextButton upButton;
 	public DragAndDrop dragAndDrop;
 
-	public AssetViewer () {
+	public AssetViewer (Inspector inspector) {
+		this.inspector = inspector;
+		
 		VisTable headerTable = new VisTable();
 		upButton = new VisTextButton("Up");
 		headerTable.left();
@@ -74,7 +80,7 @@ public class AssetViewer extends VisTable {
 		}
 
 		public void setDirectory (String path) {
-			RavTechDK.inspector.changed();
+			inspector.changed();
 			currentPath = path;
 			clear();
 			group = new HorizontalFlowGroup();
@@ -84,7 +90,7 @@ public class AssetViewer extends VisTable {
 			left();
 			add(pane);
 
-			folderHandle = RavTechDK.projectHandle.child("assets").child(path);
+			folderHandle = RavTech.files.getAssetHandle("").parent().child("assets").child(path);
 			Array<FileHandle> files = new Array<FileHandle>();
 			files.addAll(folderHandle.list());
 			files.sort(new Comparator<FileHandle>() {
@@ -99,7 +105,7 @@ public class AssetViewer extends VisTable {
 
 			dragAndDrop = new DragAndDrop();
 			dragAndDrop.setDragActorPosition(0, 0);
-			dragAndDrop.addTarget(new Target(RavTechDK.mainSceneView) {
+			dragAndDrop.addTarget(new Target(inspector.view) {
 				@Override
 				public boolean drag (Source source, Payload payload, float x, float y, int pointer) {
 					return true;
@@ -111,7 +117,7 @@ public class AssetViewer extends VisTable {
 				}
 			});
 
-			Array<Actor> inspectorActors = RavTechDK.inspector.dragActors;
+			Array<Actor> inspectorActors = inspector.dragActors;
 			for (int i = 0; i < inspectorActors.size; i++)
 				dragAndDrop.addTarget(new Target(inspectorActors.get(i)) {
 
@@ -138,7 +144,7 @@ public class AssetViewer extends VisTable {
 							if (getTapCount() > 1)
 								if (fileHandle.isDirectory())
 									AssetView.this
-										.setDirectory(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+										.setDirectory(fileHandle.path().substring((RavTech.files.getAssetHandle("").parent().path() + "/assets/").length()));
 								else {
 
 								}
@@ -178,7 +184,7 @@ public class AssetViewer extends VisTable {
 				}
 			}
 
-			upButton.setDisabled(folderHandle.path().equals(RavTechDK.projectHandle.child("assets").path()));
+			upButton.setDisabled(folderHandle.path().equals(RavTech.files.getAssetHandle("").parent().child("assets").path()));
 			this.addListener(new ClickListener(Buttons.RIGHT) {
 				public void clicked (InputEvent event, float x, float y) {
 					PopupMenu menu = new PopupMenu();
@@ -198,7 +204,7 @@ public class AssetViewer extends VisTable {
 		}
 
 		public void moveUp () {
-			setDirectory((folderHandle.parent().path() + "/").substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+			setDirectory((folderHandle.parent().path() + "/").substring((RavTech.files.getAssetHandle("").parent().path() + "/assets/").length()));
 		}
 
 		public void refresh () {
@@ -218,11 +224,11 @@ public class AssetViewer extends VisTable {
 			final String filePath = fileHandle.path();
 			String extension = fileHandle.extension();
 			if (fileHandle.isDirectory())
-				panel = new FolderPreviewPanel(fileHandle.name());
+				panel = new FolderPreviewPanel(AssetViewer.this, fileHandle.name());
 			else if (extension.equals("png") || extension.equals("jpg"))
-				panel = new SpritePreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+				panel = new SpritePreviewPanel(AssetViewer.this, fileHandle.path().substring((RavTech.files.getAssetHandle("").parent().path() + "/assets/").length()));
 			else if (extension.equals("lua")) {
-				panel = new LuaPreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+				panel = new LuaPreviewPanel(AssetViewer.this, fileHandle.path().substring((RavTech.files.getAssetHandle("").parent().path() + "/assets/").length()));
 				panel.addListener(new ClickListener() {
 					@Override
 					public void clicked (InputEvent event, float x, float y) {
@@ -231,7 +237,7 @@ public class AssetViewer extends VisTable {
 					}
 				});
 			} else if (extension.equals("fnt"))
-				panel = new FontPreviewPanel(fileHandle.path().substring((RavTechDK.projectHandle.path() + "/assets/").length()));
+				panel = new FontPreviewPanel(AssetViewer.this, fileHandle.path().substring((RavTech.files.getAssetHandle("").parent().path() + "/assets/").length()));
 			return panel;
 		}
 

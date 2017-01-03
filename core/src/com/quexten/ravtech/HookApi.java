@@ -3,15 +3,20 @@ package com.quexten.ravtech;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
 public class HookApi {
 
-	public static Array<Hook> onBootHooks = new Array<Hook>();
-	public static Array<Hook> onUpdateHooks = new Array<Hook>();
-	public static Array<Hook> onRenderHooks = new Array<Hook>();
-	public static Array<Hook> onShutdownHooks = new Array<Hook>();
-	public static Array<Hook> onResizeHooks = new Array<Hook>();
-
+	private static ObjectMap<String, Array<Hook>> hooks = new ObjectMap<String, Array<Hook>>();
+	
+	public static void addHook(String id, Hook hook) {
+		if(!hooks.containsKey(id)) {
+			hooks.put(id, new Array<Hook>());
+		}
+		
+		hooks.get(id).add(hook);
+	}
+	
 	public static void runHooks (Array<Hook> hooks) {
 		for (int i = 0; i < hooks.size; i++)
 			hooks.get(i).run();
@@ -20,6 +25,16 @@ public class HookApi {
 	public static void runHooks (Array<Hook> hooks, Object arg) {
 		for (int i = 0; i < hooks.size; i++)
 			hooks.get(i).run(arg);
+	}
+	
+	public static void runHooks(String id) {
+		if(hooks.containsKey(id))
+			runHooks(hooks.get(id));
+	}
+	
+	public static void runHooks (String id, Object arg) {
+		if(hooks.containsKey(id))
+			runHooks(hooks.get(id), arg);
 	}
 
 	/** Posts hooks to run in the main thread
@@ -45,6 +60,16 @@ public class HookApi {
 				runHooks(hooks, arg);
 			}
 		});
+	}
+	
+	public static void postHooks(String id) {
+		if(hooks.containsKey(id))
+			postHooks(hooks.get(id));
+	}
+	
+	public static void postHooks(String id, Object arg) {
+		if(hooks.containsKey(id))
+			postHooks(hooks.get(id), arg);
 	}
 
 }

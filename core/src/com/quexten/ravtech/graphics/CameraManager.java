@@ -6,6 +6,8 @@ import com.badlogic.gdx.utils.Array;
 
 public class CameraManager {
 
+	int camId = 0;
+	
 	public Array<RavCamera> cameras = new Array<RavCamera>();
 	SpriteBatch batch = new SpriteBatch();
 
@@ -16,13 +18,18 @@ public class CameraManager {
 			cameras.get(i).render(batch);
 		}
 	}
-
-	public RavCamera createCamera (int width, int height) {
-		RavCamera camera = new RavCamera(width, height);
+	
+	public RavCamera createCamera (int id, int width, int height) {
+		RavCamera camera = new RavCamera(id, width, height);
 		cameras.add(camera);
 		return camera;
 	}
 
+	public RavCamera createCamera (int width, int height) {
+		camId++;
+		return createCamera(camId, width, height);
+	}
+	
 	public void destroyCamera (RavCamera camera) {
 		camera.dispose();
 		cameras.removeValue(camera, true);

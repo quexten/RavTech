@@ -15,14 +15,15 @@ public class RavSettings {
 	private ObjectMap<String, SettingsValueListener> valueListeners = new ObjectMap<String, SettingsValueListener>();
 	Preferences preferences;
 
-	public RavSettings () {
-		preferences = Gdx.app.getPreferences(RavTech.isEditor ? "RavTech" : RavTech.project.appName);
+	public RavSettings (String preferenceName) {
+		preferences = Gdx.app.getPreferences(preferenceName);
 		if (preferences.get().size() > 0)
 			load();
 		else {
 			setValue("renderDebug", false);
 			setValue("useLights", true);
 			setValue("targetFramerate", 60f);
+			save();
 		}
 	}
 

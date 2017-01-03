@@ -37,9 +37,6 @@ public class SceneHandler {
 	public CameraManager cameraManager;
 
 	public SceneHandler () {
-	}
-
-	public void load () {
 		box2DWorld = new World(new Vector2(0, -9.81f), false);
 		box2DWorld.setContactListener(new ContactListener() {
 			@Override
@@ -82,8 +79,8 @@ public class SceneHandler {
 
 		if (!RavTech.isHeadless()) {
 			shaderManager = new ShaderManager("", RavTech.files.getAssetManager());
-			shaderManager.add("default", RavTech.files.getAssetHandle("shaders/default.vert"),
-				RavTech.files.getAssetHandle("shaders/default.frag"));
+			shaderManager.add("default", Gdx.files.internal("shaders/default.vert"),
+				Gdx.files.internal("shaders/default.frag"));
 
 			renderer = new SortedRenderer(shaderManager);
 
@@ -96,8 +93,13 @@ public class SceneHandler {
 			lightHandler.setLightMapRendering(false);
 			lightHandler.setCulling(true);
 		}
+		
+		//Fix bodies not colliding when spawned
+		paused = true;
+		update(0);
+		paused = false;
 	}
-
+	
 	public void update (float delta) {
 		// Clean Up Debug Rendering
 		Debug.debugFilledShapes.clear();
@@ -135,7 +137,7 @@ public class SceneHandler {
 	}
 
 	public void render () {
-		int targetFramerate = RavTech.settings.getInt("targetFramerate");
+		int targetFramerate = RavTech.settings != null ? RavTech.settings.getInt("targetFramerate") : 60;
 
 		if (RavTech.isEditor && Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / targetFramerate) > 2) {
 			accumulator += Gdx.graphics.getDeltaTime();
@@ -156,8 +158,7 @@ public class SceneHandler {
 	}
 
 	public void resize (int width, int height) {
-		for (int i = 0; i < HookApi.onResizeHooks.size; i++)
-			HookApi.onResizeHooks.get(i).run();
+		HookApi.runHooks("onResize");
 	}
 
 	public void dispose () {

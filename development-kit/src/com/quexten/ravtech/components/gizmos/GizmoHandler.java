@@ -24,9 +24,10 @@ import com.quexten.ravtech.components.PolygonCollider;
 import com.quexten.ravtech.components.SpriteRenderer;
 import com.quexten.ravtech.components.Transform;
 import com.quexten.ravtech.dk.RavTechDK;
-import com.quexten.ravtech.dk.RavTechDK.EditingMode;
+import com.quexten.ravtech.dk.ui.editor.SceneViewWidget;
 import com.quexten.ravtech.graphics.RavCamera;
 import com.quexten.ravtech.graphics.PolygonShapeRenderer;
+import com.quexten.ravtech.util.Debug;
 import com.quexten.ravtech.util.EventType;
 
 public class GizmoHandler {
@@ -36,13 +37,13 @@ public class GizmoHandler {
 	Gizmo<? extends GameComponent> closestGizmo;
 	Gizmo<? extends GameComponent> exclusiveGizmo;
 
-	RavCamera camera;
+	SceneViewWidget sceneView;
 	PolygonShapeRenderer renderer;
 	public static final Texture whiteTexture = new Texture(RavTechDK.getLocalFile("resources/ui/icons/white.png"));
 
-	public GizmoHandler (RavCamera camera) {
-		this.camera = camera;
-		this.renderer = new PolygonShapeRenderer(camera);
+	public GizmoHandler (SceneViewWidget sceneView) {
+		this.sceneView = sceneView;
+		this.renderer = new PolygonShapeRenderer(sceneView.camera);
 	}
 
 	/** Renders the currently active gizmos
@@ -50,9 +51,9 @@ public class GizmoHandler {
 	public void render () {
 		renderer.begin();
 		if (exclusiveGizmo == null) {
-			Array<GameObject> objects = RavTechDK.selectedObjects;
-			for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
-				// objects.addAll(RavTechDK.selectedObjects.get(i));
+			Array<GameObject> objects = sceneView.selectedObjects;
+			for (int i = 0; i < sceneView.selectedObjects.size; i++) {
+				// objects.addAll(sceneView.selectedObjects.get(i));
 			}
 
 			for (int i = 0; i < objects.size; i++) {
@@ -85,7 +86,7 @@ public class GizmoHandler {
 					while (values.hasNext) {
 						Gizmo<? extends GameComponent> giz = values.next();
 						float gizDst = giz.input(x, y, 0, EventType.MouseMoved);
-						if (!((RavTechDK.getEditingMode() == EditingMode.Other) ? true : giz instanceof TransformGizmo))
+						if (!((sceneView.getEditingMode() == SceneViewWidget.EditingMode.Other) ? true : giz instanceof TransformGizmo))
 							continue;
 						if (gizDst > 0 && gizDst < closestDst && Math.abs(gizDst - closestDst) > 0.1f * 1 / 0.05f // TODO WorldCamera
 																																				// zoom
@@ -102,7 +103,7 @@ public class GizmoHandler {
 				draggedGizmo = closestGizmo;
 				if (draggedGizmo != null) {
 					draggedGizmo.input(x, y, 0, EventType.MouseDown);
-					if (draggedGizmo instanceof TransformGizmo && RavTechDK.getEditingMode() == EditingMode.Move)
+					if (draggedGizmo instanceof TransformGizmo && sceneView.getEditingMode() == SceneViewWidget.EditingMode.Move)
 						beginMoveTransformGroup((TransformGizmo)draggedGizmo, x, y);
 				} else {
 					Transform transform = getTransformAtPoint(RavTech.currentScene.gameObjects);
@@ -111,20 +112,20 @@ public class GizmoHandler {
 						if (transform != null) {
 							if (getGizmoFor(transform) == null) {
 								if (!Gdx.input.isKeyPressed(Keys.SHIFT_LEFT))
-									RavTechDK.setSelectedObjects(transform.getParent());
+									sceneView.setSelectedObjects(transform.getParent());
 								else
-									RavTechDK.selectedObjects.add(transform.getParent());
+									sceneView.selectedObjects.add(transform.getParent());
 								setupGizmos();
 							}
 							draggedGizmo = getGizmoFor(transform);
 							((TransformGizmo)draggedGizmo).selectedAxis = TransformGizmo.AXIS_XY;
 
-							RavTechDK.setEditingMode(EditingMode.Move);
+							sceneView.setEditingMode(SceneViewWidget.EditingMode.Move);
 							draggedGizmo.input(x, y, 0, EventType.MouseDown);
 							beginMoveTransformGroup((TransformGizmo)getGizmoFor(transform), x, y);
 						} else {
 							selectedObjectGizmoMap.clear();
-							RavTechDK.selectedObjects.clear();
+							sceneView.selectedObjects.clear();
 							setExclusiveGizmo(null);
 						}
 					}
@@ -140,12 +141,15 @@ public class GizmoHandler {
 				}
 				return false;
 			case EventType.MouseDrag:
-				if (draggedGizmo != null && (RavTechDK.getEditingMode() == EditingMode.Other) ? true
+				if (draggedGizmo != null && (sceneView.getEditingMode() == SceneViewWidget.EditingMode.Other) ? true
 					: draggedGizmo instanceof TransformGizmo) {
 					draggedGizmo.input(x, y, button, EventType.MouseDrag);
-					if (RavTechDK.getEditingMode() == EditingMode.Move)
+					if (sceneView.getEditingMode() == SceneViewWidget.EditingMode.Move)
 						dragTransformGroup(x, y);
 				}
+				
+				setupGizmos();
+				
 				return draggedGizmo != null;
 		}
 		return false;
@@ -165,9 +169,9 @@ public class GizmoHandler {
 	/** Sets up gizmos for the currently selected list of objects */
 	public void setupGizmos () {
 		selectedObjectGizmoMap.clear();
-		Array<GameObject> objects = RavTechDK.selectedObjects;
-		for (int i = 0; i < RavTechDK.selectedObjects.size; i++)
-			objects.addAll(RavTechDK.selectedObjects.get(i).getGameObjectsInChildren());
+		Array<GameObject> objects = sceneView.selectedObjects;
+		for (int i = 0; i < sceneView.selectedObjects.size; i++)
+			objects.addAll(sceneView.selectedObjects.get(i).getGameObjectsInChildren());
 
 		for (int i = 0; i < objects.size; i++) {
 			GameObject selectedObject = objects.get(i);
@@ -189,19 +193,19 @@ public class GizmoHandler {
 		Class<? extends GameComponent> iteratedComponentClass = component.getClass();
 		Gizmo<? extends GameComponent> gizmo = null;
 		if (iteratedComponentClass.equals(Transform.class))
-			gizmo = new TransformGizmo((Transform)component);
+			gizmo = new TransformGizmo(this, (Transform)component);
 		else if (iteratedComponentClass.equals(BoxCollider.class))
-			gizmo = new BoxColliderGizmo((BoxCollider)component);
+			gizmo = new BoxColliderGizmo(this, (BoxCollider)component);
 		else if (iteratedComponentClass.equals(CircleCollider.class))
-			gizmo = new CircleColliderGizmo((CircleCollider)component);
+			gizmo = new CircleColliderGizmo(this, (CircleCollider)component);
 		else if (iteratedComponentClass.equals(Light.class))
-			gizmo = new LightGizmo((Light)component);
+			gizmo = new LightGizmo(this, (Light)component);
 		else if (iteratedComponentClass.equals(PolygonCollider.class))
-			gizmo = new PolygonColliderGizmo((PolygonCollider)component);
+			gizmo = new PolygonColliderGizmo(this, (PolygonCollider)component);
 		else if (iteratedComponentClass.equals(SpriteRenderer.class))
-			gizmo = new SpriteRendererGizmo((SpriteRenderer)component);
+			gizmo = new SpriteRendererGizmo(this, (SpriteRenderer)component);
 		else if (iteratedComponentClass.equals(Camera.class))
-			gizmo = new CameraGizmo((Camera)component);
+			gizmo = new CameraGizmo(this, (Camera)component);
 		return gizmo;
 	}
 
@@ -214,7 +218,7 @@ public class GizmoHandler {
 			exclusiveGizmo = null;
 	}
 
-	public static Transform getTransformAtPoint (Array<? extends GameComponent> objects) {
+	public Transform getTransformAtPoint (Array<? extends GameComponent> objects) {
 		Transform transform = null;
 		for (int i = 0; i < objects.size; i++)
 			if (objects.get(i) instanceof GameObject) {
@@ -224,10 +228,10 @@ public class GizmoHandler {
 					break;
 				}
 			} else {
-				Gizmo<? extends GameComponent> gizmo = RavTechDK.gizmoHandler.createGizmoFor(objects.get(i));
+				Gizmo<? extends GameComponent> gizmo = createGizmoFor(objects.get(i));
 				if (gizmo != null) {
 					boolean isIn = gizmo.isInBoundingBox(
-						RavTechDK.mainSceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY() - 24)));
+						sceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY() - 24)));
 					if (isIn) {
 						transform = objects.get(i).getParent().transform;
 						break;
@@ -265,19 +269,29 @@ public class GizmoHandler {
 	}
 
 	void beginMoveTransformGroup (TransformGizmo originGizmo, float x, float y) {
-		for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
-			TransformGizmo gizmo = ((TransformGizmo)this.getGizmoFor(RavTechDK.selectedObjects.get(i).transform));
-			if (RavTechDK.getEditingMode() == EditingMode.Move)
+		for (int i = 0; i < sceneView.selectedObjects.size; i++) {
+			TransformGizmo gizmo = ((TransformGizmo)this.getGizmoFor(sceneView.selectedObjects.get(i).transform));
+			if (sceneView.getEditingMode() == SceneViewWidget.EditingMode.Move)
 				gizmo.selectedAxis = originGizmo.selectedAxis;
 			gizmo.setGrabOffset(x, y);
 		}
 	}
 
 	void dragTransformGroup (float x, float y) {
-		for (int i = 0; i < RavTechDK.selectedObjects.size; i++) {
-			TransformGizmo gizmo = ((TransformGizmo)this.getGizmoFor(RavTechDK.selectedObjects.get(i).transform));
+		for (int i = 0; i < sceneView.selectedObjects.size; i++) {
+			TransformGizmo gizmo = ((TransformGizmo)this.getGizmoFor(sceneView.selectedObjects.get(i).transform));
 			gizmo.input(x, y, Buttons.LEFT, EventType.MouseDrag);
 		}
+	}
+	
+	public <T extends GameComponent> Array<Gizmo<T>> getGizmosOfType(Class<T> type) {
+		Array<Gizmo<T>> gizmoArray = new Array<Gizmo<T>>();		
+		for(Entry<GameComponent, Gizmo<? extends GameComponent>> gizmo : selectedObjectGizmoMap.iterator()) {
+			if(gizmo.key.getClass().equals(type)) {
+				gizmoArray.add((Gizmo<T>)gizmo.value);
+			}
+		}		
+		return gizmoArray;
 	}
 
 }

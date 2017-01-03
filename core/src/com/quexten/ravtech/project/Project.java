@@ -4,6 +4,7 @@ package com.quexten.ravtech.project;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
+import com.quexten.ravtech.util.Debug;
 
 public class Project {
 
@@ -18,6 +19,7 @@ public class Project {
 	public int majorVersion;
 	public int microVersion;
 	public int minorVersion;
+	
 	// Game Settings
 	public String startScene = "scenes/map.scene";
 	// TODO Plugins

@@ -6,7 +6,7 @@ buildscript {
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.6'
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.2.0'
         classpath 'org.robovm:robovm-gradle-plugin:1.12.0'
     }
 }
@@ -157,9 +157,9 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
-        compile "com.kotcrab.vis:vis-ui:1.1.5"
         compile "org.luaj:luaj-jse:3.0"
         compile "com.github.anubiann00b:kryonet:b6b71d4"
+        compile "com.kotcrab.vis:vis-ui:1.2.4"
     }
 }
 

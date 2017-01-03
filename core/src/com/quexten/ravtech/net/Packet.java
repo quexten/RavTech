@@ -119,5 +119,20 @@ public class Packet {
 			this.path = path;
 		}
 	}
+	
+	public static class AssetData extends Packet {
+		
+		public String path;
+		public byte[] data;
+		
+		public AssetData() {
+		}
+		
+		public AssetData(String path, byte[] data) {
+			this.path = path;
+			this.data = data;
+		}
+				
+	}
 
 }

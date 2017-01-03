@@ -13,8 +13,8 @@ import com.quexten.ravtech.dk.RavTechDK;
 
 public class SpritePreviewPanel extends AssetPreviewPanel {
 
-	public SpritePreviewPanel (String assetPath) {
-		super(assetPath);
+	public SpritePreviewPanel (AssetViewer viewer, String assetPath) {
+		super(viewer, assetPath);
 		RavTech.files.loadAsset(assetPath, Texture.class);
 		RavTech.files.finishLoading();
 		Image image = new Image((Texture)RavTech.files.getAsset(assetPath));
@@ -29,7 +29,7 @@ public class SpritePreviewPanel extends AssetPreviewPanel {
 
 	@Override
 	public void addToScene () {
-		Vector2 worldPosition = RavTechDK.mainSceneView.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
+		Vector2 worldPosition = viewer.inspector.view.camera.unproject(new Vector2(Gdx.input.getX(), Gdx.input.getY()));
 		GameObject object = RavTech.currentScene.addGameObject(worldPosition.x, worldPosition.y);
 		SpriteRenderer renderer = new SpriteRenderer();
 		renderer.setTexture(assetPath);

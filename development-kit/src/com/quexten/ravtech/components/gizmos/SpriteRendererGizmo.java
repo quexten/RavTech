@@ -31,8 +31,8 @@ public class SpriteRendererGizmo extends Gizmo<SpriteRenderer> {
 	private float closestDst;
 	private int selectedPoint;
 
-	public SpriteRendererGizmo (SpriteRenderer spriteRenderer) {
-		super(spriteRenderer);
+	public SpriteRendererGizmo (GizmoHandler handler, SpriteRenderer spriteRenderer) {
+		super(handler, spriteRenderer);
 		this.spriteRenderer = spriteRenderer;
 	}
 
@@ -132,7 +132,7 @@ public class SpriteRendererGizmo extends Gizmo<SpriteRenderer> {
 				positions.add(tr);
 				positions.add(br);
 				positions.add(bl);
-				float camFactor = RavTechDK.editorCamera.zoom * 20f;
+				float camFactor = handler.sceneView.camera.zoom * 20f;
 				float lDst = GeometryUtils.isInBoundingBox(tl, tr, mousePosition, camFactor)
 					? GeometryUtils.dstFromLine(tl, tr, mousePosition) : Float.MAX_VALUE;
 				float tDst = GeometryUtils.isInBoundingBox(tr, br, mousePosition, camFactor)
