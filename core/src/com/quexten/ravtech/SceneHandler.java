@@ -77,22 +77,20 @@ public class SceneHandler {
 			}
 		});
 
-		if (!RavTech.isHeadless()) {
-			shaderManager = new ShaderManager("", RavTech.files.getAssetManager());
-			shaderManager.add("default", Gdx.files.internal("shaders/default.vert"),
-				Gdx.files.internal("shaders/default.frag"));
+		shaderManager = new ShaderManager("", RavTech.files.getAssetManager());
+		shaderManager.add("default", Gdx.files.internal("shaders/default.vert"),
+			Gdx.files.internal("shaders/default.frag"));
 
-			renderer = new SortedRenderer(shaderManager);
+		renderer = new SortedRenderer(shaderManager);
 
-			cameraManager = new CameraManager();
+		cameraManager = new CameraManager();
 
-			lightHandler = new DynamicRayHandler(box2DWorld);
-			lightHandler.resizeFBO(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
-			lightHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.5f);
-			lightHandler.setBlurNum(2);
-			lightHandler.setLightMapRendering(false);
-			lightHandler.setCulling(true);
-		}
+		lightHandler = new DynamicRayHandler(box2DWorld);
+		lightHandler.resizeFBO(Gdx.graphics.getWidth() / 4, Gdx.graphics.getHeight() / 4);
+		lightHandler.setAmbientLight(0.1f, 0.1f, 0.1f, 0.5f);
+		lightHandler.setBlurNum(2);
+		lightHandler.setLightMapRendering(false);
+		lightHandler.setCulling(true);
 		
 		//Fix bodies not colliding when spawned
 		paused = true;
@@ -147,9 +145,6 @@ public class SceneHandler {
 			}
 		} else
 			update(step);
-
-		if (RavTech.isHeadless())
-			return;
 
 		Color clearColor = RavTech.currentScene.renderProperties.backgroundColor;
 		Gdx.gl.glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);

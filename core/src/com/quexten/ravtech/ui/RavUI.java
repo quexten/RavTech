@@ -18,26 +18,24 @@ public class RavUI {
 	/**
 	 * @param path - the path to the skin
 	 */
-	public RavUI (String path) {
-		if (!RavTech.isHeadless()) {
-			if (!VisUI.isLoaded() && !RavTech.isHeadless())
-				if(path.length() > 0)
-					VisUI.load(path);
-				else
-					VisUI.load();
-			screenStage = new Stage(new ScreenViewport());
-			debugConsole = new DebugConsole();
-			RavTech.input.addInputProcessor(screenStage);
-			screenStage.addListener(new InputListener() {
-				@Override
-				public boolean keyDown (InputEvent event, int key) {
-					if (key == Keys.F1)
-						debugConsole.toggleVisible();
-					return true;
-				}
-			});
-			screenStage.addActor(debugConsole);
-		}
+	public RavUI (String path) {		
+		if (!VisUI.isLoaded())
+			if(path.length() > 0)
+				VisUI.load(path);
+			else
+				VisUI.load();
+		screenStage = new Stage(new ScreenViewport());
+		debugConsole = new DebugConsole();
+		RavTech.input.addInputProcessor(screenStage);
+		screenStage.addListener(new InputListener() {
+			@Override
+			public boolean keyDown (InputEvent event, int key) {
+				if (key == Keys.F1)
+					debugConsole.toggleVisible();
+				return true;
+			}
+		});
+		screenStage.addActor(debugConsole);
 	}
 	
 	public RavUI() {

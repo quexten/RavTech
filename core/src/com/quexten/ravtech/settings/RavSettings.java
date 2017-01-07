@@ -58,6 +58,8 @@ public class RavSettings {
 	}
 
 	public int getInt (String key) {
+		if(!values.containsKey(key))
+			return 0;		
 		String value = String.valueOf(values.get(key));
 		if (value.endsWith(".0"))
 			value = value.substring(0, value.length() - 2);
