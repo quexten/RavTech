@@ -15,8 +15,8 @@
         android:theme="@style/GdxTheme" >
         <activity
             android:name="com.quexten.ravtech.AndroidLauncher"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
+            android:label="@string/app_name" 
+            android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

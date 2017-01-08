@@ -1,9 +1,9 @@
 
 package com.quexten.ravtech;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL30;
 import com.quexten.ravtech.files.RavFiles;
 import com.quexten.ravtech.input.RavInput;
 import com.quexten.ravtech.project.Project;
@@ -46,40 +46,34 @@ public class RavTech extends Game {
 	@Override
 	public void create () {
 		HookApi.runHooks("onPreBoot");
-
 		Gdx.app.setLogLevel(3);
 
 		// Initialize Core Components
-		files = new RavFiles(engineConfiguration.assetResolver);
+		files = new RavFiles(engineConfiguration.assetResolver);		
 		input = new RavInput();
 		net = new RavNetwork();
 		ui = new RavUI();
-
+		/*
 		sceneHandler = new SceneHandler();
 		setScreen(new PlayScreen());
 
-		HookApi.runHooks("onBoot");		
+		HookApi.runHooks("onBoot");	*/	
 	}
 
 	@Override
 	public void render () {
-		//Update
+		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
+		/*//Update
 		input.update();
 		
 		HookApi.runHooks("onUpdate");
 		
 		//Render
 		super.render();
-		
-		if (!RavTech.isHeadless()) {			
-			HookApi.runHooks("onRender");
 			
-			ui.render();
-		}
-	}
-
-	public static boolean isHeadless () {
-		return Gdx.app.getType() == ApplicationType.HeadlessDesktop;
+		HookApi.runHooks("onRender");			
+		ui.render();	*/	
 	}
 
 }

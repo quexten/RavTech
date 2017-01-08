@@ -19,7 +19,5 @@
 	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.graphics.RenderProperties" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.graphics.SortingLayer" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.scripts.Script" />
-	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.scripts.luajs.MoonshineJSScript" />	
 	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.project.Project" />
-	
 </module>
