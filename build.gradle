@@ -82,6 +82,17 @@ project(":html") {
 
 
     dependencies {
+    	configurations.compile.exclude module: 'luaj-jse'
+     	configurations.compile.exclude module: 'kryonet'
+		sourceSets {
+		  main {
+		    java {
+		      exclude 'com/quexten/ravtech/scripts/lua/**'
+		      exclude 'com/quexten/ravtech/remoteedit/**'
+		    }
+		  }
+		}
+		
         compile project(":core")
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
@@ -108,6 +119,8 @@ project(":core") {
         compile "com.badlogicgames.gdx:gdx-ai:$aiVersion"
         compile "com.kotcrab.vis:vis-ui:$visVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
+        compile "org.luaj:luaj-jse:3.0"        
+        compile "com.github.anubiann00b:kryonet:b6b71d4"        
     }
 }
 
