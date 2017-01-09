@@ -23,9 +23,6 @@ public class RavTech extends Game {
 	public static final int minorVersion = 2;
 	public static final int microVersion = 1;
 
-	// TODO Make this variable obsolete and remove it
-	public static boolean isEditor = false;
-
 	// Configurations
 	public static EngineConfiguration engineConfiguration;
 	public static Project project;
@@ -72,7 +69,7 @@ public class RavTech extends Game {
 		settings = new RavSettings(project.appId);
 		input = new RavInput();
 		net = new RavNetwork();
-		//ui = new RavUI();
+		ui = new RavUI();
 		sceneHandler = new SceneHandler();
 		setScreen(new PlayScreen());
 
@@ -90,7 +87,7 @@ public class RavTech extends Game {
 		super.render();
 			
 		HookApi.runHooks("onRender");			
-		/*ui.render();	*/	
+		ui.render();
 	}
 
 }

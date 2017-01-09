@@ -29,13 +29,13 @@ public class Debug {
 			Gdx.app.log(tag, String.valueOf(message));
 		else
 			System.out.println(tag + ": " + message);
-		if (RavTech.isEditor)
+		if (RavTech.ui.debugConsole != null)
 		 RavTech.ui.debugConsole.log(tag, String.valueOf(message));
 	}
 
 	public static void logError (String tag, Object message) {
 		Gdx.app.error(tag, message.toString());
-		if (RavTech.isEditor)
+		if (RavTech.ui.debugConsole != null)
 			RavTech.ui.debugConsole.logError(tag, String.valueOf(message));
 	}
 
@@ -45,7 +45,7 @@ public class Debug {
 				Gdx.app.debug(tag, message.toString());
 			else
 				System.out.println("Debug:" + tag + ": " + message);
-			if (RavTech.isEditor)
+			if (RavTech.ui.debugConsole != null)
 				RavTech.ui.debugConsole.logDebug(tag, String.valueOf(message));
 		}
 	}

@@ -83,7 +83,7 @@ public class RavSettings {
 	}
 
 	public void load () {
-		Preferences preferences = Gdx.app.getPreferences(RavTech.isEditor ? "RavTech" : RavTech.project.appName);
+		Preferences preferences = Gdx.app.getPreferences(RavTech.project.appName);
 		if (preferences == null)
 			return;
 		this.preferences = preferences;

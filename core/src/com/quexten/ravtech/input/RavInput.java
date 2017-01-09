@@ -84,10 +84,7 @@ public class RavInput {
 		for (int i = 0; i < Controllers.getControllers().size; i++)
 			inputDevices.add(new GamePadDevice(Controllers.getControllers().get(i)));
 
-		if (!RavTech.isEditor) {
-			reload();
-		}
-
+		reload();
 	}
 
 	public void update () {
@@ -100,7 +97,7 @@ public class RavInput {
 		RavTech.files.loadAsset("keybindings.json", String.class);
 		RavTech.files.finishLoading();
 		
-		if ((!RavTech.settings.has("keybindings")) || RavTech.isEditor)
+		if ((!RavTech.settings.has("keybindings")))
 			RavTech.settings.setValue("keybindings", RavTech.files.getAsset("keybindings.json", String.class));
 		this.actionMaps.clear();
 		Json json = new Json();

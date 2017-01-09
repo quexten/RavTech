@@ -16,7 +16,6 @@ public class DesktopLauncher {
 		config.setDecorated(true);
 		config.useVsync(true);		
 		config.setTitle("Test");
-
 		DesktopEngineConfiguration engineConfiguration = new DesktopEngineConfiguration();
 		
 		final RavTech ravtech = new RavTech(engineConfiguration);
