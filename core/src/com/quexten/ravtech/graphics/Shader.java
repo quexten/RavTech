@@ -42,7 +42,7 @@ public class Shader implements Serializable {
 		manager.setUniformTexture(valueName,
 			texture.endsWith(".framebuffer")
 				? RavTech.sceneHandler.shaderManager.getFBTexture(texture.substring(0, texture.length() - ".framebuffer".length()))
-				: (Texture)RavTech.files.getAsset(texture));
+				: (Texture)RavTech.files.getAsset(texture, Texture.class));
 		textures.put(name, texture);
 	}
 
@@ -87,7 +87,7 @@ public class Shader implements Serializable {
 					Entry<String, String> entry = entries.next();
 					if (!entry.value.endsWith(".framebuffer") && !RavTech.files.isLoaded(entry.value)) {
 						RavTech.files.loadAsset(entry.value, Texture.class, true);
-						((Texture)RavTech.files.getAsset(entry.value)).setFilter(TextureFilter.Linear, TextureFilter.Linear);
+						((Texture)RavTech.files.getAsset(entry.value, Texture.class)).setFilter(TextureFilter.Linear, TextureFilter.Linear);
 					}
 					Shader.this.textures.put(entry.key, entry.value);
 				}
@@ -107,7 +107,7 @@ public class Shader implements Serializable {
 				if (!RavTech.files.isLoaded(entry.value))
 					continue;
 
-				((Texture)RavTech.files.getAsset(entry.value)).bind(textureId);
+				((Texture)RavTech.files.getAsset(entry.value, Texture.class)).bind(textureId);
 			} else {
 				String trimmedName = entry.value.substring(0, entry.value.length() - ".framebuffer".length());
 

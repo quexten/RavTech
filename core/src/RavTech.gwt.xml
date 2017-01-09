@@ -12,6 +12,7 @@
 	<source path="com/thesecretpie/shader"/>
 	<source path="com/brashmonkey/spriter"/>
 	
+	<extend-configuration-property name="gdx.reflect.include" value="com.badlogic.gdx.utils.ObjectMap" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.Scene" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.components" />
 	<extend-configuration-property name="gdx.reflect.include" value="com.quexten.ravtech.animation" />

@@ -60,7 +60,7 @@ public class FontRenderer extends Renderer {
 
 	@Override
 	public void finishedLoading () {
-		font = RavTech.files.getAsset(path);
+		font = RavTech.files.getAsset(path, BitmapFont.class);
 		font.getCache().addText(text, 0, 0);
 		font.getData().setScale(0.05f);
 		font.setUseIntegerPositions(false);

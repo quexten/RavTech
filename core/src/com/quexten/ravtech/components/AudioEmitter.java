@@ -58,7 +58,7 @@ public class AudioEmitter extends GameComponent implements Json.Serializable {
 	@Override
 	public void dispose () {
 		if (RavTech.files.isLoaded(filePath)) {
-			Sound sound = (Sound)RavTech.files.getAsset(filePath);
+			Sound sound = (Sound)RavTech.files.getAsset(filePath, Sound.class);
 			sound.stop(id);
 		}
 	}
@@ -71,11 +71,11 @@ public class AudioEmitter extends GameComponent implements Json.Serializable {
 	}
 
 	public void setPitch (float pitch) {
-		((Sound)RavTech.files.getAsset(filePath)).setPitch(id, pitch);
+		((Sound)RavTech.files.getAsset(filePath, Sound.class)).setPitch(id, pitch);
 	}
 
 	public void play () {
-		id = ((Sound)RavTech.files.getAsset(filePath)).play();
+		id = ((Sound)RavTech.files.getAsset(filePath, Sound.class)).play();
 	}
 
 	@Override

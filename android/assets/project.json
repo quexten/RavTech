@@ -1,0 +1,11 @@
+{
+	"developerName" : "Quexten",
+	"appName" : "RavTech",
+	"buildVersion" : 1,
+	"majorVersion" : 1,
+	"microVersion" : 0,
+	"minorVersion" : 0,
+	"startScene" : "scenes/map.scene",
+	"versionName" : "1.0.0",
+	"appId" : "com.quexten.ravtech"
+}

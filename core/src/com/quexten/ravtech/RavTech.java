@@ -3,8 +3,11 @@ package com.quexten.ravtech;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.utils.Json;
 import com.quexten.ravtech.files.RavFiles;
+import com.quexten.ravtech.files.StringLoader;
 import com.quexten.ravtech.input.RavInput;
 import com.quexten.ravtech.project.Project;
 import com.quexten.ravtech.screens.PlayScreen;
@@ -38,9 +41,25 @@ public class RavTech extends Game {
 	public static RavNetwork net;
 	public static RavSettings settings;
 	public static RavUI ui;
-
-	public RavTech (EngineConfiguration applicationConfig) {
-		engineConfiguration = applicationConfig;
+		
+	public RavTech (EngineConfiguration engineConfiguration, Project project) {
+		RavTech.engineConfiguration = engineConfiguration;
+		RavTech.project = project;
+	}
+	
+	public RavTech (EngineConfiguration engineConfiguration) {
+		this(engineConfiguration, null);	
+		HookApi.addHook("onPreBoot", new Hook() {
+			@Override
+			public void run() {
+				InternalFileHandleResolver internalFileHandleResolver = new InternalFileHandleResolver();
+				AssetManager assetManager = new AssetManager(internalFileHandleResolver);
+				assetManager.setLoader(String.class, new StringLoader(internalFileHandleResolver));
+				assetManager.load("project.json", String.class);
+				assetManager.finishLoading();
+				RavTech.project = new Json().fromJson(Project.class, String.valueOf(assetManager.get("project.json", String.class)));
+			}
+		});		
 	}
 
 	@Override
@@ -49,22 +68,20 @@ public class RavTech extends Game {
 		Gdx.app.setLogLevel(3);
 
 		// Initialize Core Components
-		files = new RavFiles(engineConfiguration.assetResolver);		
+		files = new RavFiles(engineConfiguration.assetResolver);
+		settings = new RavSettings(project.appId);
 		input = new RavInput();
 		net = new RavNetwork();
-		ui = new RavUI();
-		/*
+		//ui = new RavUI();
 		sceneHandler = new SceneHandler();
 		setScreen(new PlayScreen());
 
-		HookApi.runHooks("onBoot");	*/	
+		HookApi.runHooks("onBoot");
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
-		/*//Update
+		//Update
 		input.update();
 		
 		HookApi.runHooks("onUpdate");
@@ -73,7 +90,7 @@ public class RavTech extends Game {
 		super.render();
 			
 		HookApi.runHooks("onRender");			
-		ui.render();	*/	
+		/*ui.render();	*/	
 	}
 
 }

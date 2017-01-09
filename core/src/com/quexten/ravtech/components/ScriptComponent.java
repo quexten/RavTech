@@ -46,7 +46,7 @@ public class ScriptComponent extends GameComponent implements Json.Serializable 
 	@Override
 	public void finishedLoading () {		
 		if (RavTech.files.getAssetManager().isLoaded(path))
-			scriptSource = RavTech.files.getAsset(path);
+			scriptSource = RavTech.files.getAsset(path, String.class);
 		if(script == null)
 			script = RavTech.scriptLoader.createScript(scriptSource, getName(), getParent());
 		else

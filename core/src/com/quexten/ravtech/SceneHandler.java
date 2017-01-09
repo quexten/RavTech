@@ -137,7 +137,7 @@ public class SceneHandler {
 	public void render () {
 		int targetFramerate = RavTech.settings != null ? RavTech.settings.getInt("targetFramerate") : 60;
 
-		if (RavTech.isEditor && Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / targetFramerate) > 2) {
+		if (Math.abs(Gdx.graphics.getFramesPerSecond() - 1f / targetFramerate) > 2) {
 			accumulator += Gdx.graphics.getDeltaTime();
 			while (accumulator > step) {
 				accumulator -= step;

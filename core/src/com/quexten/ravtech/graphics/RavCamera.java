@@ -21,7 +21,7 @@ public class RavCamera extends OrthographicCamera {
 	int resolutionX;
 	int resolutionY;
 	boolean renderAmbient = true;
-	boolean renderToFramebuffer = RavTech.isEditor;
+	boolean renderToFramebuffer = false;
 	String cameraBufferName = "TestRavCameraBuffer";
 	String cameraPingPongBufferName = "TestRavCameraPingPongBufferName";
 	Color clearColor = new Color(0, 0, 0, 0);

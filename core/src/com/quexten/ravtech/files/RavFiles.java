@@ -101,7 +101,7 @@ public class RavFiles {
 	 * 
 	 * @param path - the path to the asset
 	 * @return The asset */
-	public <T> T getAsset (String path) {
+	public <T> T getAsset (String path, Class<T> assetType) {
 		return assetManager.get(path);
 	}
 
@@ -145,7 +145,7 @@ public class RavFiles {
 		}));
 		loadAsset(scenePath, Scene.class);
 		finishLoading();
-		RavTech.currentScene = getAsset(scenePath);
+		RavTech.currentScene = getAsset(scenePath, Scene.class);
 		getAssetManager().setLoader(Scene.class, new SceneLoader(getResolver()));
 	}
 
