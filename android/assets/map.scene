@@ -1,0 +1,10658 @@
+{
+	gameObjects: [{
+		name: Camera,
+		components: [{
+			componentType: Transform,
+			x: 0,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Camera,
+			layers: [{
+				class: java.lang.String,
+				value: Default
+			},
+			{
+				class: java.lang.String,
+				value: Foreground
+			}],
+			renderAmbient: false,
+			renderToFramebuffer: false,
+			clearColor: {
+				a: 1
+			},
+			resolutionX: 1280,
+			resolutionY: 720,
+			zoom: 0.015,
+			viewportWidth: 1280,
+			viewportHeight: 720
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	},
+	{
+		name: "TEST",
+		components: [{
+			componentType: Transform,
+			x: 7,
+			y: 0,
+			rotation: 0,
+			scaleX: 1,
+			scaleY: 1
+		},
+		{
+			componentType: Rigidbody,
+			angularDamping: 0,
+			bullet: false,
+			fixedRotation: false,
+			gravityScale: 1,
+			linearDamping: 0,
+			bodyType: StaticBody
+		},
+		{
+			componentType: SpriteRenderer,
+			sortingLayerName: Default,
+			sortingOrder: 0,
+			enabled: true,
+			shader: {
+				name: default,
+				textures: {
+					
+				}
+			},
+			width: 0.19958049,
+			height: 4,
+			texture: textures/error.png,
+			srcX: 0,
+			srcY: 0,
+			srcWidth: 1,
+			srcHeight: 1,
+			originX: -0.0021024935,
+			originY: 0,
+			minFilter: Linear,
+			magFilter: Linear,
+			tint: {
+				r: 0,
+				g: 0.48235294,
+				b: 1,
+				a: 1
+			},
+			uWrap: ClampToEdge,
+			vWrap: ClampToEdge
+		},
+		{
+			componentType: BoxCollider,
+			density: 1,
+			filter: {
+				categoryBits: 1,
+				maskBits: -1,
+				groupIndex: 0
+			},
+			friction: 1,
+			isSensor: false,
+			restitution: 0,
+			x: 0,
+			y: 0,
+			width: 0.20000002,
+			height: 4,
+			angle: 0
+		}]
+	}],
+	renderProperties: {
+		sortingLayers: [Default,
+		Foreground],
+		backgroundColor: {
+			r: 0,
+			g: 0,
+			b: 0,
+			a: 1
+		},
+		ambientLightColor: {
+			r: 0,
+			g: 0,
+			b: 0,
+			a: 0.4509804
+		}
+	}
+}

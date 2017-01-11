@@ -9,6 +9,7 @@ import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.Scene;
 import com.quexten.ravtech.components.Camera;
+import com.quexten.ravtech.components.GameObject;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -21,17 +22,22 @@ public class HtmlLauncher extends GwtApplication {
         public ApplicationListener createApplicationListener () {
       	  RavTech ravtech = new RavTech(new HtmlEngineConfiguration());
       	  HookApi.addHook("onBoot", new Hook() {
-      		  @Override
-      		  public void run() {
-      			  Scene scene = new Scene();
-      			  Camera camera = new Camera();
-      			  camera.finishedLoading();
-      			  camera.camera.setRenderToFramebuffer(false);
-      			  scene.addGameObject(0, 0)
-      			  	.addComponent(camera);
-      			  camera.camera.setClearColor(Color.GREEN);
-      		  }
-      	  });
+       		  @Override
+       		  public void run() {
+       			  RavTech.files.loadAsset("map.scene", Scene.class);
+       			  RavTech.files.finishLoading();
+       			  RavTech.currentScene = RavTech.files.getAsset("map.scene", Scene.class);
+       		  }
+       	  });
+      	  HookApi.addHook("onUpdate", new Hook() {
+     			int i = 0;
+     			@Override
+     			public void run() {
+     				i++;
+     				GameObject.find("Camera").transform.setLocalPosition(0, (float)(Math.sin(i * 0.01) * 5));
+     			}
+     		});
+     		
            return ravtech;
         }
 }
