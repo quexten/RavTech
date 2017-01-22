@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -22,6 +23,7 @@ import com.quexten.ravtech.components.GameComponent;
 import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.components.Light;
 import com.quexten.ravtech.components.Renderer;
+import com.quexten.ravtech.util.Debug;
 import com.thesecretpie.shader.ShaderManager;
 
 public class SortedRenderer {
@@ -31,7 +33,10 @@ public class SortedRenderer {
 	ShapeRenderer shapeRenderer = new ShapeRenderer();
 	public Texture ambientTexture;
 	public Color lineColor = Color.ORANGE;
-
+	FPSLogger logger = new FPSLogger();
+	
+	Array<Renderer> renderers = new Array<Renderer>();
+	
 	public SortedRenderer (ShaderManager shaderManager) {
 		this.shaderManager = shaderManager;
 		Pixmap pixmap = new Pixmap(1, 1, Format.RGB565);
@@ -42,138 +47,48 @@ public class SortedRenderer {
 	}
 
 	public void render (final SpriteBatch spriteBatch, final RavCamera camera) {
+		logger.log();
 		final ObjectMap<String, Array<Renderer>> renderingLayers = new ObjectMap<String, Array<Renderer>>();
 		final Array<String> sortingLayers = RavTech.currentScene.renderProperties.sortingLayers;
-		for (String str : sortingLayers)
+		for (String str : sortingLayers) {
 			if (camera.layers.contains(str, false)) {
 				renderingLayers.put(str, new Array<Renderer>());
 			}
-		for (int n = 0; n < RavTech.currentScene.gameObjects.size; n++) {
-			GameObject object = RavTech.currentScene.gameObjects.get(n);
-			Array<GameComponent> components = object.getComponentsInChildren(ComponentType.SpriteRenderer, ComponentType.Light,
-				ComponentType.FontRenderer, ComponentType.Animator, ComponentType.Camera);
-			components.reverse();
-			for (int i = 0; i < components.size; i++) {
-				Renderer renderer = (Renderer)components.get(i);
-				if (renderer instanceof Light)
-					((Light)renderer).getLight().setActive(renderer.enabled);
-				if (renderingLayers.get(renderer.sortingLayerName) != null && renderer.enabled)
-					renderingLayers.get(renderer.sortingLayerName).add(renderer);
+		}
+		
+		for(int n = 0; n < renderers.size; n++) {
+			Renderer renderer = renderers.get(n);
+			if(renderer.enabled) {
+				renderingLayers.get(renderer.sortingLayerName).add(renderer);
+				if(renderer instanceof Light)
+					((Light) renderer).getLight().setActive(renderer.enabled);
 			}
 		}
-		Array<Renderable> renderables = new Array<Renderable>();
+		
+		
 		for (int i = 0; i < RavTech.currentScene.renderProperties.sortingLayers.size; i++) {
-			if (!renderingLayers.containsKey(sortingLayers.get(i)))
-				continue;
-			renderingLayers.get(sortingLayers.get(i)).sort(comparator);
-			Array<Renderable> currentRenderables = new Array<Renderable>();
-			if (camera.drawGrid)
-				if (sortingLayers.get(i).equals("Default"))
-					currentRenderables.add(new Renderable("default") {
-						@Override
-						public void render () {
-							spriteBatch.begin();
-							spriteBatch.end();
-							float camWidth = camera.viewportWidth / (1.0f / camera.zoom);
-							float camHeight = camera.viewportHeight / (1.0f / camera.zoom);
-							float times = camera.zoom < 0.01f ? 0.1f : camera.zoom > 0.2 ? 10 : 1;
-							shapeRenderer.setProjectionMatrix(camera.combined);
-							shapeRenderer.setColor(Color.LIGHT_GRAY);
-							shapeRenderer.end();
-							shapeRenderer.begin(ShapeType.Line);
-							Color redColor = lineColor;
-							Color greenColor = new Color(0.6f, 0.6f, 0.6f, 1.0f);
-							Color blueColor = new Color(0.8f, 0.8f, 0.8f, 1.0f);
-							if (times < 0.5f) {
-								for (float w = (int)(camera.position.x - camWidth / 2) - 1; w < camera.position.x
-									+ camWidth / 2; w += 0.1f) {
-									shapeRenderer.setColor(greenColor);
-									shapeRenderer.line(w, camera.position.y + camHeight / 2, w, camera.position.y - camHeight / 2);
-								}
-								for (float h = (int)(camera.position.y - camHeight / 2) - 1; h < camera.position.y
-									+ camHeight / 2; h += 0.1f) {
-									shapeRenderer.setColor(greenColor);
-									shapeRenderer.line(camera.position.x + camWidth / 2, h, camera.position.x - camWidth / 2, h);
-								}
-							}
-							for (float w = (int)(camera.position.x - camWidth / 2) - 1; w < camera.position.x + camWidth / 2; w++) {
-								shapeRenderer.setColor(Math.abs(w) % 10 < 0.01f ? redColor : blueColor);
-								shapeRenderer.line(w, camera.position.y + camHeight / 2, w, camera.position.y - camHeight / 2);
-							}
-							for (float h = (int)(camera.position.y - camHeight / 2) - 1; h < camera.position.y + camHeight / 2; h++) {
-								shapeRenderer.setColor(Math.abs(h) % 10 < 0.01f ? redColor : blueColor);
-								shapeRenderer.line(camera.position.x + camWidth / 2, h, camera.position.x - camWidth / 2, h);
-							}
-							shapeRenderer.setColor(Color.RED);
-							shapeRenderer.line(camera.position.x + camWidth / 2, 0, camera.position.x - camWidth / 2, 0);
-							shapeRenderer.setColor(Color.GREEN);
-							shapeRenderer.line(0, camera.position.y + camWidth / 2, 0, camera.position.y - camWidth / 2);
-							shapeRenderer.end();
-						}
-					});
-			for (final Renderer renderer : renderingLayers.get(sortingLayers.get(i)))
-				currentRenderables.add(new Renderable(
-					RavTech.sceneHandler.shaderManager.contains(renderer.shader.name) ? renderer.shader.name : "default") {
-					@Override
-					public void render () {
-						spriteBatch.begin();
-						RavTech.sceneHandler.shaderManager.end();
-
-						RavTech.sceneHandler.shaderManager.begin(this.shaderName);
-						renderer.shader.apply();
-						spriteBatch.setShader(RavTech.sceneHandler.shaderManager.get(this.shaderName));
-						renderer.draw(spriteBatch);
-						spriteBatch.setShader(null);
-						RavTech.sceneHandler.shaderManager.end();
-						RavTech.sceneHandler.shaderManager.begin("default");
-						spriteBatch.end();
-					}
-				});
-			if (sortingLayers.get(i).equals("Default"))
-				if (RavTech.settings.getBoolean("useLights"))
-					currentRenderables.add(new Renderable("default") {
-
-						@Override
-						public void render () {
-							spriteBatch.begin();
-							Matrix4 matrix = new Matrix4();
-							matrix.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-							spriteBatch.setProjectionMatrix(matrix);
-							spriteBatch.setColor(new Color(RavTech.currentScene.renderProperties.ambientLightColor));
-							spriteBatch.setBlendFunction(GL20.GL_ONE, GL20.GL_ONE_MINUS_SRC_ALPHA);
-							if (camera.renderAmbient)
-								spriteBatch.draw(ambientTexture, 0, Gdx.graphics.getHeight(), Gdx.graphics.getWidth(),
-									-Gdx.graphics.getHeight());
-							spriteBatch.setColor(Color.WHITE);
-							spriteBatch.end();
-							int srcfn = spriteBatch.getBlendSrcFunc();
-							int dstfn = spriteBatch.getBlendDstFunc();
-							spriteBatch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
-							spriteBatch.begin();
-							spriteBatch.draw(RavTech.sceneHandler.lightHandler.getLightMapTexture(), 0, Gdx.graphics.getHeight(),
-								Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
-							spriteBatch.end();
-							spriteBatch.setBlendFunction(srcfn, dstfn);
-							spriteBatch.setProjectionMatrix(camera.combined);
-						}
-					});
-			renderables.addAll(currentRenderables);
+			if(RavTech.currentScene.renderProperties.sortingLayers.get(i).equals(RenderProperties.LAYER_LIGHTS)) {
+				break;
+			}				
 		}
-		if (camera.cameraBuffer != null) {
-			if (camera.renderToFramebuffer)
-				camera.cameraBuffer.begin();
-			Gdx.gl.glClearColor(camera.clearColor.r, camera.clearColor.g, camera.clearColor.b, camera.clearColor.a);
-			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			spriteBatch.setProjectionMatrix(camera.combined);
-			renderRunnables(renderables);
-			HookApi.runHooks("onRender");
-			if (camera.renderToFramebuffer)
-				camera.cameraBuffer.end();
-		} else {
-			renderRunnables(renderables);
-
-			HookApi.runHooks("onRender");
+		
+		String activeShader = null;
+		
+		spriteBatch.begin();		
+		for (int i = 0; i < RavTech.currentScene.renderProperties.sortingLayers.size; i++) {
+			//String sortingLayer = sortingLayers.get(i);
+			
+			for (final Renderer renderer : renderers) {
+				if(activeShader == null || !activeShader.equals(renderer.shader.name)) {
+					activeShader = renderer.shader.name;
+					renderer.shader.apply();
+				}
+				if(spriteBatch.getBlendSrcFunc() != renderer.srcBlendFunction || spriteBatch.getBlendDstFunc() != renderer.dstBlendFunction)
+					spriteBatch.setBlendFunction(renderer.srcBlendFunction, renderer.dstBlendFunction);
+				renderer.draw(spriteBatch);
+			}
 		}
+		spriteBatch.end();		
 	}
 
 	public void renderRunnables (Array<Renderable> renderables) {
@@ -197,5 +112,13 @@ public class SortedRenderer {
 		public int compare (Renderer renderer1, Renderer renderer2) {
 			return renderer1.sortingOrder - renderer2.sortingOrder > 0 ? 1 : -1;
 		}
+	}
+
+	public void register (Renderer renderer) {
+		this.renderers.add(renderer);
+	}
+
+	public void unregister (Renderer renderer) {
+		this.renderers.removeValue(renderer, true);
 	}
 }

@@ -27,6 +27,7 @@ public class Camera extends Renderer {
 	}
 
 	public Camera () {
+		super(RavTech.sceneHandler.renderer);
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -58,6 +59,7 @@ public class Camera extends Renderer {
 
 	@Override
 	public void dispose () {
+		super.dispose();
 	}
 
 	@Override
