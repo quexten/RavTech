@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectMap;
+import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.animation.Animation;
 import com.quexten.ravtech.animation.TweenAnimation;
 
@@ -29,7 +30,7 @@ public class Animator extends Renderer implements Json.Serializable {
 	public float speed = 1;
 
 	public Animator () {
-		super();
+		super(RavTech.sceneHandler.renderer);
 		animations = new ObjectMap<String, Animation>();
 	}
 
@@ -137,5 +138,6 @@ public class Animator extends Renderer implements Json.Serializable {
 
 	@Override
 	public void dispose () {
+		super.dispose();
 	}
 }

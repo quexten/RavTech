@@ -2,26 +2,35 @@
 package com.quexten.ravtech.components;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.graphics.Shader;
+import com.quexten.ravtech.graphics.SortedRenderer;
 
 public abstract class Renderer extends GameComponent implements Json.Serializable {
 
+	SortedRenderer renderer;
+	
 	@Override
 	public ComponentType getType () {
 		return ComponentType.Renderer;
 	}
 
-	public Renderer () {
+	public Renderer (SortedRenderer renderer) {
+		this.renderer = renderer;
+		renderer.register(this);
 	}
 
 	public int sortingOrder = 0;
 	public String sortingLayerName = "Default";
 	public boolean enabled = true;
 	public Shader shader = new Shader("default");
+	public int srcBlendFunction = GL20.GL_ONE;
+	public int dstBlendFunction = GL20.GL_ONE_MINUS_SRC_ALPHA;
+
 
 	@Override
 	public abstract void load (@SuppressWarnings("rawtypes") Array<AssetDescriptor> dependencies);
@@ -36,7 +45,9 @@ public abstract class Renderer extends GameComponent implements Json.Serializabl
 	public abstract void draw (SpriteBatch batch);
 
 	@Override
-	public abstract void dispose ();
+	public void dispose () {
+		renderer.unregister(this);
+	}
 
 	@Override
 	public void write (Json json) {
@@ -44,6 +55,8 @@ public abstract class Renderer extends GameComponent implements Json.Serializabl
 		json.writeValue("sortingOrder", sortingOrder);
 		json.writeValue("enabled", enabled);
 		json.writeValue("shader", shader);
+		json.writeValue("srcBlendFunction", srcBlendFunction);
+		json.writeValue("dstBlendFunction", dstBlendFunction);
 	}
 
 	@Override
@@ -59,6 +72,10 @@ public abstract class Renderer extends GameComponent implements Json.Serializabl
 			shader.read(json, jsonData.get("shader"));
 			this.shader = shader;
 		}
+		if(jsonData.has("srcBlendFunction"))
+			srcBlendFunction = jsonData.getInt("srcBlendFunction");
+		if(jsonData.has("dstBlendFunction"))
+			srcBlendFunction = jsonData.getInt("dstBlendFunction");
 	}
 
 	@Override

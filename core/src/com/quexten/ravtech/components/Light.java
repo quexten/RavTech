@@ -43,6 +43,7 @@ public class Light extends Renderer implements Json.Serializable {
 	}
 
 	public Light (LightType type) {
+		super(RavTech.sceneHandler.renderer);
 		setLightType(type);
 	}
 
@@ -68,6 +69,7 @@ public class Light extends Renderer implements Json.Serializable {
 
 	@Override
 	public void dispose () {
+		super.dispose();
 		light.setActive(false);
 	}
 

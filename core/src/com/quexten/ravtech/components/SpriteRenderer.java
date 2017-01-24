@@ -51,7 +51,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 	}
 
 	public SpriteRenderer (String texturePath, float width, float height) {
-		super();
+		super(RavTech.sceneHandler.renderer);
 		this.width = width;
 		this.height = height;
 		this.texturePath = texturePath;
@@ -96,6 +96,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 
 	@Override
 	public void dispose () {
+		super.dispose();
 		RavTech.files.removeDependency(texturePath, this);
 	}
 

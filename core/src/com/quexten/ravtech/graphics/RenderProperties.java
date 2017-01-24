@@ -10,14 +10,17 @@ import com.quexten.ravtech.util.JsonUtil;
 
 public class RenderProperties implements Serializable {
 
+	public static final String LAYER_DEFAULT = "Default";
+	public static final String LAYER_LIGHTS = "Lights";
+	
 	public Color backgroundColor = new Color(0.5f, 0.5f, 0.5f, 1);
 	public Color ambientLightColor = new Color(0.1f, 0.1f, 0.1f, 0.5f);
 	public Array<String> sortingLayers = new Array<String>();
 
 	public RenderProperties () {
 		backgroundColor = Color.WHITE;
-		sortingLayers.add("Default");
-		sortingLayers.add("Foreground");
+		sortingLayers.add(LAYER_DEFAULT);
+		sortingLayers.add(LAYER_LIGHTS);
 	}
 
 	@Override

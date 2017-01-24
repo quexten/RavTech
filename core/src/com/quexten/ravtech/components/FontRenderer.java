@@ -48,6 +48,7 @@ public class FontRenderer extends Renderer {
 	private final static Matrix4 resetMatrix = new Matrix4();
 
 	public FontRenderer () {
+		super(RavTech.sceneHandler.renderer);
 	}
 
 	@Override
@@ -91,6 +92,7 @@ public class FontRenderer extends Renderer {
 
 	@Override
 	public void dispose () {
+		super.dispose();
 	}
 
 	/** Sets the text
