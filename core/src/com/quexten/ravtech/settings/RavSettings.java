@@ -58,6 +58,8 @@ public class RavSettings {
 	}
 
 	public int getInt (String key) {
+		if(!values.containsKey(key))
+			return 0;		
 		String value = String.valueOf(values.get(key));
 		if (value.endsWith(".0"))
 			value = value.substring(0, value.length() - 2);
@@ -81,7 +83,7 @@ public class RavSettings {
 	}
 
 	public void load () {
-		Preferences preferences = Gdx.app.getPreferences(RavTech.isEditor ? "RavTech" : RavTech.project.appName);
+		Preferences preferences = Gdx.app.getPreferences(RavTech.project.appName);
 		if (preferences == null)
 			return;
 		this.preferences = preferences;

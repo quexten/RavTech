@@ -5,11 +5,12 @@
 	<inherits name='com.badlogic.gdx.physics.box2d.box2d-gwt' />
 	<inherits name='com.badlogic.gdx.controllers.controllers-gwt' />
 	<inherits name='com.badlogic.gdx.ai' />
-	<inherits name='Box2DLights' />
 	<inherits name='com.kotcrab.vis.vis-ui' />
-	
+	<inherits name='Box2DLights' />
+
 	<inherits name='RavTech' />
-	<entry-point class='com.quexten.ravtech.client.HtmlLauncher' />
 	
+	<entry-point class='com.quexten.ravtech.client.HtmlLauncher' />
+	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />
 </module>

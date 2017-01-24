@@ -1,10 +1,13 @@
 
 package com.quexten.ravtech;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.utils.Json;
 import com.quexten.ravtech.files.RavFiles;
+import com.quexten.ravtech.files.StringLoader;
 import com.quexten.ravtech.input.RavInput;
 import com.quexten.ravtech.project.Project;
 import com.quexten.ravtech.screens.PlayScreen;
@@ -19,9 +22,6 @@ public class RavTech extends Game {
 	public static final int majorVersion = 0;
 	public static final int minorVersion = 2;
 	public static final int microVersion = 1;
-
-	// TODO Make this variable obsolete and remove it
-	public static boolean isEditor = false;
 
 	// Configurations
 	public static EngineConfiguration engineConfiguration;
@@ -38,27 +38,42 @@ public class RavTech extends Game {
 	public static RavNetwork net;
 	public static RavSettings settings;
 	public static RavUI ui;
-
-	public RavTech (EngineConfiguration applicationConfig) {
-		engineConfiguration = applicationConfig;
+		
+	public RavTech (EngineConfiguration engineConfiguration, Project project) {
+		RavTech.engineConfiguration = engineConfiguration;
+		RavTech.project = project;
+	}
+	
+	public RavTech (EngineConfiguration engineConfiguration) {
+		this(engineConfiguration, null);	
+		HookApi.addHook("onPreBoot", new Hook() {
+			@Override
+			public void run() {
+				InternalFileHandleResolver internalFileHandleResolver = new InternalFileHandleResolver();
+				AssetManager assetManager = new AssetManager(internalFileHandleResolver);
+				assetManager.setLoader(String.class, new StringLoader(internalFileHandleResolver));
+				assetManager.load("project.json", String.class);
+				assetManager.finishLoading();
+				RavTech.project = new Json().fromJson(Project.class, String.valueOf(assetManager.get("project.json", String.class)));
+			}
+		});		
 	}
 
 	@Override
 	public void create () {
 		HookApi.runHooks("onPreBoot");
-
 		Gdx.app.setLogLevel(3);
 
 		// Initialize Core Components
 		files = new RavFiles(engineConfiguration.assetResolver);
+		settings = new RavSettings(project.appId);
 		input = new RavInput();
 		net = new RavNetwork();
 		ui = new RavUI();
-
 		sceneHandler = new SceneHandler();
 		setScreen(new PlayScreen());
 
-		HookApi.runHooks("onBoot");		
+		HookApi.runHooks("onBoot");
 	}
 
 	@Override
@@ -70,16 +85,9 @@ public class RavTech extends Game {
 		
 		//Render
 		super.render();
-		
-		if (!RavTech.isHeadless()) {			
-			HookApi.runHooks("onRender");
 			
-			ui.render();
-		}
-	}
-
-	public static boolean isHeadless () {
-		return Gdx.app.getType() == ApplicationType.HeadlessDesktop;
+		HookApi.runHooks("onRender");			
+		ui.render();
 	}
 
 }

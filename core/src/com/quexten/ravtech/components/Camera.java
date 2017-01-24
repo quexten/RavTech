@@ -38,7 +38,6 @@ public class Camera extends Renderer {
 	@Override
 	public void finishedLoading () {
 		camera = RavTech.sceneHandler.cameraManager.createCamera(1280, 720);
-		camera.setRenderToFramebuffer(true);
 		camera.setResolution(512, 512);
 		camera.zoom = 0.01f;
 		camera.setRenderAmbientLightColor(false);

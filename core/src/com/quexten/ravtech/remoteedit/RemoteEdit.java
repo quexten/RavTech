@@ -133,7 +133,7 @@ public class RemoteEdit {
 
 							RavTech.files.loadAsset("project.json", Project.class);
 							RavTech.files.finishLoading();
-							RavTech.project = RavTech.files.getAsset("project.json");
+							RavTech.project = RavTech.files.getAsset("project.json", Project.class);
 							player.send(new Packet.GameStateRequest(), true);
 						}
 						return false;
@@ -162,7 +162,7 @@ public class RemoteEdit {
 							RavTech.files.loadAsset(((Packet.GameState)packet).path, Scene.class);
 							RavTech.files.finishLoading();
 							RavTech.files.getAssetManager().setLoader(Scene.class, new SceneLoader(RavTech.files.getResolver()));
-							RavTech.currentScene = RavTech.files.getAsset(((Packet.GameState)packet).path);
+							RavTech.currentScene = RavTech.files.getAsset(((Packet.GameState)packet).path, Scene.class);
 
 							((RavTech)Gdx.app.getApplicationListener()).setScreen(new PlayScreen());
 							RavTech.sceneHandler.paused = true;

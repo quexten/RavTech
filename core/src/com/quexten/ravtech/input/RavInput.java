@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.ObjectIntMap;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.quexten.ravtech.RavTech;
+import com.quexten.ravtech.util.Debug;
 
 public class RavInput {
 
@@ -83,10 +84,7 @@ public class RavInput {
 		for (int i = 0; i < Controllers.getControllers().size; i++)
 			inputDevices.add(new GamePadDevice(Controllers.getControllers().get(i)));
 
-		if (!RavTech.isEditor) {
-			reload();
-		}
-
+		reload();
 	}
 
 	public void update () {
@@ -96,13 +94,16 @@ public class RavInput {
 
 	@SuppressWarnings("unchecked")
 	public void reload () {
-		if ((!Gdx.files.local("keybindings.json").exists()) || RavTech.isEditor)
-			Gdx.files.local("keybindings.json").writeString(RavTech.files.getAssetHandle("keybindings.json").readString(), false);
+		RavTech.files.loadAsset("keybindings.json", String.class);
+		RavTech.files.finishLoading();
+		
+		if ((!RavTech.settings.has("keybindings")))
+			RavTech.settings.setValue("keybindings", RavTech.files.getAsset("keybindings.json", String.class));
 		this.actionMaps.clear();
 		Json json = new Json();
 
 		ObjectMap<String, JsonValue> serializedActionMaps = json.fromJson(ObjectMap.class,
-			Gdx.files.local("keybindings.json").readString());
+			RavTech.settings.getString("keybindings"));
 		for (ObjectMap.Entry<String, JsonValue> entry : serializedActionMaps.entries()) {
 			ActionMap actionMap = new ActionMap();
 			actionMap.read(json, entry.value);

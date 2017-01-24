@@ -67,7 +67,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 
 	@Override
 	public void finishedLoading () {
-		texture = RavTech.files.getAsset(texturePath);
+		texture = RavTech.files.getAsset(texturePath, Texture.class);
 		srcX = 0;
 		srcY = 0;
 		srcWidth = texture.getWidth();
@@ -105,7 +105,7 @@ public class SpriteRenderer extends Renderer implements Json.Serializable, Varia
 		if (!RavTech.files.isLoaded(SpriteRenderer.this.texturePath))
 			RavTech.files.loadAsset(SpriteRenderer.this.texturePath, Texture.class, false);
 		RavTech.files.finishLoading();
-		texture = RavTech.files.getAsset(SpriteRenderer.this.texturePath);
+		texture = RavTech.files.getAsset(SpriteRenderer.this.texturePath, Texture.class);
 		srcWidth = texture.getWidth();
 		srcHeight = texture.getHeight();
 	}
