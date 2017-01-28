@@ -3,27 +3,18 @@ package com.quexten.ravtech.graphics;
 
 import java.util.Comparator;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
-import com.quexten.ravtech.HookApi;
 import com.quexten.ravtech.RavTech;
-import com.quexten.ravtech.components.ComponentType;
-import com.quexten.ravtech.components.GameComponent;
-import com.quexten.ravtech.components.GameObject;
 import com.quexten.ravtech.components.Light;
 import com.quexten.ravtech.components.Renderer;
-import com.quexten.ravtech.util.Debug;
 import com.thesecretpie.shader.ShaderManager;
 
 public class SortedRenderer {
