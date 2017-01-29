@@ -83,10 +83,12 @@ public class RavTech extends Game {
 		
 		HookApi.runHooks("onUpdate");
 		
-		//Render
+		//Render scene
 		super.render();
 			
-		HookApi.runHooks("onRender");			
+		HookApi.runHooks("onRender");		
+		
+		//Render ui
 		ui.render();
 	}
 
