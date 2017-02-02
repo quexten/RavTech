@@ -13,7 +13,7 @@ public class DesktopLauncher {
 		config.setWindowedMode(1280, 720);
 		config.setDecorated(true);
 		config.useVsync(true);		
-		config.setTitle("Test");
+		config.setTitle("RavTech");
 		DesktopEngineConfiguration engineConfiguration = new DesktopEngineConfiguration();
 		
 		final RavTech ravtech = new RavTech(engineConfiguration);
