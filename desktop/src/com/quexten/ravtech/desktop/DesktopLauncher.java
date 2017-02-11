@@ -14,12 +14,11 @@ public class DesktopLauncher {
 		config.setDecorated(true);
 		config.useVsync(true);		
 		config.setTitle("RavTech");
-		DesktopEngineConfiguration engineConfiguration = new DesktopEngineConfiguration();
 		
-		final RavTech ravtech = new RavTech(engineConfiguration);
-		
+		DesktopEngineConfiguration engineConfiguration = new DesktopEngineConfiguration();			
 		engineConfiguration.remoteEdit = false;
 		
+		final RavTech ravtech = new RavTech(engineConfiguration);			
 		HookApi.addHook("onBoot", new Hook() {
  		  @Override
  		  public void run() {
