@@ -12,7 +12,6 @@ import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.animation.Animation;
 import com.quexten.ravtech.components.Light.LightType;
-import com.quexten.ravtech.util.Debug;
 import com.quexten.ravtech.util.PrefabManager;
 
 public class GameObject extends GameComponent implements Json.Serializable {
