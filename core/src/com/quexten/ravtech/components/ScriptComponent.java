@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
 import com.quexten.ravtech.RavTech;
 import com.quexten.ravtech.scripts.Script;
-import com.quexten.ravtech.util.Debug;
 
 public class ScriptComponent extends GameComponent implements Json.Serializable {
 
