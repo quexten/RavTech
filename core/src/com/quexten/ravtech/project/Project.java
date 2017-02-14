@@ -4,7 +4,6 @@ package com.quexten.ravtech.project;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonWriter.OutputType;
-import com.quexten.ravtech.util.Debug;
 
 public class Project {
 
